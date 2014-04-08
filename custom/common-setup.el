@@ -11,8 +11,9 @@
 ;; Ignore all warnings
 (setq ring-bell-function 'ignore)
 
-;; Enable line numbers
-(global-linum-mode t)
+;; Line numbers
+(add-hook 'linum-mode-hook
+	  (lambda () (linum-mode 1)))
 
 ;; Font
 (set-default-font "-apple-Menlo-medium-normal-normal-*-14-*-*-*-m-0-iso10646-")
