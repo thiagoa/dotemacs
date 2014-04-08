@@ -14,6 +14,7 @@
 (depends-on "inf-ruby")
 (depends-on "js2-mode")
 (depends-on "magit")
+(depends-on "markdown-mode")
 (depends-on "molokai-theme")
 (depends-on "pallet")
 (depends-on "php-mode")
