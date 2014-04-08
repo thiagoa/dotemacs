@@ -56,8 +56,8 @@
 (require 'rhtml-mode)
 (require 'haml-mode)
 
-(add-hook 'ehn-ruby-mode-hook 'projectile-rails-on)
-(add-hook 'ehn-ruby-mode-hook 'robe-mode)
+(add-hook 'enh-ruby-mode-hook 'projectile-rails-on)
+(add-hook 'enh-ruby-mode-hook 'robe-mode)
 
 (defadvice inf-ruby-console-auto (before activate-rvm-for-robe activate)
   (rvm-activate-corresponding-ruby))
