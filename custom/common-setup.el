@@ -15,6 +15,10 @@
 (add-hook 'linum-mode-hook
 	  (lambda () (linum-mode 1)))
 
+;; Column number mode
+(custom-set-variables
+ '(column-number-mode t))
+
 ;; Font
 (set-default-font "-apple-Menlo-medium-normal-normal-*-14-*-*-*-m-0-iso10646-")
 
