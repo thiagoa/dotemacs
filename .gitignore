@@ -1,2 +1,9 @@
 projectile-bookmarks.eld
 .cask
+*.elc
+projectile.cache
+recentf
+ido.last
+bookmarks
+tramp
+*~
