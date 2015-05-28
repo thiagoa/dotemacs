@@ -1,4 +1,4 @@
-(require 'cask "~/.emacs.d/.cask/24.3.1/elpa/cask-20140324.15/cask.el")
+(require 'cask "~/.emacs.d/.cask/24.4.1/elpa/cask-20150503.846/cask.el")
 (cask-initialize)
 (require 'pallet)
 
