@@ -7,3 +7,5 @@ ido.last
 bookmarks
 tramp
 *~
+aliases
+.mc-lists.el
