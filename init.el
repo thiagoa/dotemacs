@@ -6,4 +6,4 @@
 
 (load "common-setup.el")
 (load "ruby.el")
-(load "rcodetools.el")
+(load "php.el")
