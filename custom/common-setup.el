@@ -29,7 +29,7 @@
  '(column-number-mode t))
 
 ;; Font
-(set-default-font "-apple-Menlo-medium-normal-normal-*-16-*-*-*-m-0-iso10646-")
+(set-default-font "-*-Menlo-medium-normal-normal-*-16-*-*-*-m-0-iso10646-1")
 
 ;; Theme
 (load-theme 'molokai t)
