@@ -34,6 +34,9 @@
 ;; Theme
 (load-theme 'molokai t)
 
+;; Set window dimensions (MacBook 15)
+(setq initial-frame-alist '((top . 0) (left . 0) (width . 164) (height . 80)))
+
 ;;;;;;;;;;;;;
 ;; PLUGINS ;;
 ;;;;;;;;;;;;;
@@ -46,10 +49,6 @@
 
 ;; Enable cache in projectile. "C-u C-c p f" to force reload.
 (setq projectile-enable-caching t)
-
-;; Guide key
-(guide-key-mode 1)
-(setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "C-c p" "C-c ;"))
 
 ;; Make Emacs use the same PATH as the shell
 (when (memq window-system '(mac ns))
