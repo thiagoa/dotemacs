@@ -9,22 +9,19 @@
 (add-hook 'enh-ruby-mode-hook 'projectile-rails-on)
 (add-hook 'enh-ruby-mode-hook 'ruby-end-mode)
 (add-hook 'enh-ruby-mode-hook 'robe-mode)
-(add-hook 'enh-ruby-mode-hook
-	  (lambda () (rvm-activate-corresponding-ruby)))
-(add-hook 'enh-ruby-mode-hook
-	  (lambda () (ignore-errors(linum-mode 1))))
+(add-hook 'enh-ruby-mode-hook (lambda () (rvm-activate-corresponding-ruby)))
+(add-hook 'enh-ruby-mode-hook (lambda () (ignore-errors(linum-mode 1))))
 
 (setq enh-ruby-bounce-deep-indent t)
 (setq enh-ruby-hanging-brace-indent-level 2)
 (setq ruby-deep-indent-paren nil)
-
 (setq rspec-use-rake-when-possible nil)
+
 (defadvice rspec-compile (around rspec-compile-around)
   (let ((shell-file-name "/bin/bash"))
     ad-do-it))
-(ad-activate 'rspec-compile)
 
-(require 'rcodetools)
+(ad-activate 'rspec-compile)
 
 (defadvice inf-ruby-console-auto (before activate-rvm-for-robe activate)
   (rvm-activate-corresponding-ruby))

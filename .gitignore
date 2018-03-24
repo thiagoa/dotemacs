@@ -9,3 +9,8 @@ tramp
 *~
 aliases
 .mc-lists.el
+.recentf
+.smex-items
+elpa
+eshell
+network-security.data
