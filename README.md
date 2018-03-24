@@ -1,5 +1,7 @@
 # My Emacs config files
 
+Test :)
+
 ## Installation
 
 Link or clone this folder to ~/.emacs.d
