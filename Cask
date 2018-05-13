@@ -19,3 +19,6 @@
 (depends-on "undo-tree")
 (depends-on "web-mode")
 (depends-on "yaml-mode")
+(depends-on "magit")
+(depends-on "aggressive-indent")
+(depends-on "rainbow-delimiters")
