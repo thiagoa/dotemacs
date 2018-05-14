@@ -21,7 +21,12 @@
 	      kill-buffer-query-functions)))
 
 (defun set-default-shell (path)
-  (setq explicit-shell-file-name (shell-command-to-string (concat "which " path))))
+  (setq
+   explicit-shell-file-name
+   (replace-regexp-in-string
+    "\n"
+    ""
+    (shell-command-to-string (concat "which " path)))))
 
 (defun emacs-use-same-path-as-shell ()
   (when (memq window-system '(mac ns))

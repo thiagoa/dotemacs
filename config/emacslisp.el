@@ -1,2 +1,3 @@
-(add-hook 'emacs-lisp-mode-hook 'paredit-mode)
-(add-hook 'emacs-lisp-mode-hook (lambda () (linum-mode 1)))
+(add-hook 'emacs-lisp-mode-hook #'enable-paredit-mode)
+(add-hook 'emacs-lisp-mode-hook #'linum-mode)
+(add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
