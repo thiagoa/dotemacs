@@ -20,6 +20,8 @@
 (load "keybindings.el")
 (load "clojure.el")
 (load "ruby.el")
+(load "emacslisp.el")
+(load "json.el")
 
 (let ((filename "~/.emacs.custom.el"))
   (if (file-exists-p filename)
