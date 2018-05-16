@@ -6,8 +6,6 @@
    ""
    (shell-command-to-string "find ~/.emacs.d -name cask.el")))
 
-(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")))
-
 (require 'cask cask-path)
 (cask-initialize)
 (require 'pallet)

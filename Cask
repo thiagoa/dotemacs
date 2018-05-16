@@ -32,3 +32,5 @@
 (depends-on "rspec-mode")
 (depends-on "ruby-end")
 (depends-on "inf-ruby")
+(depends-on "robe")
+(depends-on "hippie-expand")

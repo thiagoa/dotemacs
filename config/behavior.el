@@ -20,6 +20,11 @@
 (setq eshell-where-to-jump 'begin)
 (setq eshell-review-quick-commands nil)
 (setq eshell-smart-space-goes-to-end t)
+(setq hippie-expand-try-functions-list
+      '(try-expand-line
+	try-expand-line-all-buffers
+	try-complete-file-name
+	try-complete-lisp-symbol))
 
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)

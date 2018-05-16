@@ -29,3 +29,4 @@
 (global-set-key (kbd "C-c =")          'er/expand-region)
 (global-set-key (kbd "M-i")            'ido-goto-symbol)
 (global-set-key (kbd "s-t")            'helm-projectile-find-file-dwim)
+(global-set-key (kbd "M-\\")           'hippie-expand)

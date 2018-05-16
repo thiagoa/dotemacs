@@ -1,3 +1,17 @@
+;; Interactive
+
+(defun reload-config ()
+  (interactive)
+  (load "~/.emacs.d/init.el"))
+
+(defun install-cask ()
+  (interactive)
+  (let ((default-directory "~/.emacs.d"))
+    (shell-command "cask install"))
+  (reload-config))
+
+;; Non-interactive
+
 (defun repl() (interactive) (ielm))
 
 (defun disable-startup-screen ()

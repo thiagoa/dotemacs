@@ -12,6 +12,7 @@
 (add-hook 'enh-ruby-mode-hook 'projectile-rails-on)
 (add-hook 'enh-ruby-mode-hook 'ruby-end-mode)
 (add-hook 'enh-ruby-mode-hook 'rspec-mode)
+(add-hook 'enh-ruby-mode-hook 'robe-mode)
 (add-hook 'enh-ruby-mode-hook (lambda () (ignore-errors(linum-mode 1))))
 
 (setq enh-ruby-bounce-deep-indent t)
@@ -25,8 +26,4 @@
 
 (ad-activate 'rspec-compile)
 
-(defadvice inf-ruby-console-auto (before activate-rvm-for-robe activate)
-  (rvm-activate-corresponding-ruby))
-
 (global-set-key (kbd "C-c r r") 'inf-ruby)
-(global-set-key (kbd "C-c C-c") 'xmp)
