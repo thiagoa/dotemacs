@@ -13,6 +13,11 @@
 (ido-vertical-mode)
 (counsel-projectile-mode)
 
+(define-globalized-minor-mode global-missile-mode missile-mode
+  (lambda () (missile-mode 1)))
+
+(global-missile-mode 1)
+
 (defvar newline-and-indent t)
 (setq projectile-enable-caching t)
 (setq backup-directory-alist `((".*" . ,temporary-file-directory)))

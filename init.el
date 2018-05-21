@@ -13,6 +13,7 @@
 (add-to-list 'load-path "~/.emacs.d/config")
 
 (load "functions.el")
+(load "missile.el")
 (load "looknfeel.el")
 (load "behavior.el")
 (load "keybindings.el")
@@ -20,7 +21,6 @@
 (load "ruby.el")
 (load "emacslisp.el")
 (load "json.el")
-(load "missile.el")
 
 (let ((filename "~/.emacs.custom.el"))
   (if (file-exists-p filename)
