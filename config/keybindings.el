@@ -26,3 +26,4 @@
 (global-set-key (kbd "M-\\")           'hippie-expand)
 (global-set-key (kbd "C-c p w")        'projectile-rails-console)
 (global-set-key (kbd "C-M-y")          'reverse-transpose-sexps)
+(global-set-key (kbd "C-x g")          'magit-status)
