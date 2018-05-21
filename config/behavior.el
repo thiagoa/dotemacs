@@ -11,6 +11,7 @@
 (global-undo-tree-mode 1)
 (winner-mode 1)
 (ido-vertical-mode)
+(counsel-projectile-mode)
 
 (defvar newline-and-indent t)
 (setq projectile-enable-caching t)
