@@ -166,3 +166,9 @@ directory to make multiple eshell windows easier."
   (interactive)
   (end-of-line)
   (set-mark (line-beginning-position)))
+
+(defun show-full-filename-in-window-title ()
+  (setq-default
+   frame-title-format
+   '((:eval (if (buffer-file-name)
+		(abbreviate-file-name (buffer-file-name)) "%f")))))
