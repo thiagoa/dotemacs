@@ -58,8 +58,6 @@
   (interactive)
   (delete-file missile-db-path))
 
-(setq debug-on-error t)
-
 (defun missile--read-db ()
   (if (file-exists-p missile-db-path)
       (read (f-read-text missile-db-path 'utf-8))
