@@ -20,6 +20,7 @@
 (load "ruby.el")
 (load "emacslisp.el")
 (load "json.el")
+(load "missile.el")
 
 (let ((filename "~/.emacs.custom.el"))
   (if (file-exists-p filename)
