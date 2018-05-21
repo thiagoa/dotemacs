@@ -1,5 +1,21 @@
 ;; Interactive
 
+(defun quit-window ()
+  "Warning! Redefining quit window (q) to kill the buffer"
+  (interactive)
+  (kill-buffer-and-window))
+
+(defun reverse-transpose-sexps (arg)
+  (interactive "*p")
+  (transpose-sexps (- arg))
+  (backward-sexp (1+ arg))
+  (forward-sexp 1))
+
+(defun open-pr ()
+  (interactive)
+  (let ((default-directory (projectile-project-root)))
+    (shell-command "git pr")))
+
 (defun reload-config ()
   (interactive)
   (load "~/.emacs.d/init.el"))
