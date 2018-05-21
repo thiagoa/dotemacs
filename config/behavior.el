@@ -1,4 +1,3 @@
-(require 'helm-files)
 (require 'ido-vertical-mode)
 
 (emacs-use-same-path-as-shell)
