@@ -4,6 +4,7 @@
 (config-terminal-encoding)
 (set-default-shell "zsh")
 
+(ivy-mode)
 (electric-indent-mode +1)
 (projectile-global-mode)
 (global-discover-mode 1)
@@ -30,6 +31,10 @@
       ido-create-new-buffer 'always
       ido-use-faces t)
 (setq dired-dwim-target t)
+(setq ivy-use-virtual-buffers t)
+(setq ivy-re-builders-alist
+      '((swiper . regexp-quote)
+	(t      . ivy--regex-fuzzy)))
 
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)

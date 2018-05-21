@@ -37,3 +37,6 @@
 (depends-on "smartscan")
 (depends-on "evil")
 (depends-on "clj-refactor")
+(depends-on "swiper")
+(depends-on "counsel")
+(depends-on "counsel-projectile")
