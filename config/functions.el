@@ -28,7 +28,9 @@
 
 ;; Non-interactive
 
-(defun repl() (interactive) (ielm))
+(defun repl()
+  (interactive)
+  (ielm))
 
 (defun disable-startup-screen ()
   (setq inhibit-startup-screen t)
