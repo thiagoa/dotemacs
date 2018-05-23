@@ -4,7 +4,7 @@
 (disable-annoyances)
 (disable-startup-screen)
 
-(add-to-list 'default-frame-alist '(font . "-*-Menlo-medium-normal-normal-*-16-*-*-*-m-0-iso10646-1"))
+(add-to-list 'default-frame-alist '(font . "Fira Code 16"))
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 (load-theme 'dracula t)
