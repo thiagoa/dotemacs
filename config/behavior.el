@@ -4,19 +4,18 @@
 (config-terminal-encoding)
 (set-default-shell "zsh")
 
-(ivy-mode)
-(electric-indent-mode +1)
-(projectile-global-mode)
-(global-discover-mode 1)
-(global-undo-tree-mode 1)
-(winner-mode 1)
-(ido-vertical-mode)
-(counsel-projectile-mode)
-
 (define-globalized-minor-mode global-missile-mode missile-mode
   (lambda () (missile-mode 1)))
 
-(global-missile-mode 1)
+(electric-indent-mode +1)
+(projectile-global-mode)
+(global-discover-mode)
+(global-undo-tree-mode)
+(winner-mode)
+(ido-vertical-mode)
+(counsel-projectile-mode)
+(savehist-mode)
+(global-missile-mode)
 
 (defvar newline-and-indent t)
 (setq projectile-enable-caching t)
@@ -38,13 +37,16 @@
       ido-use-faces t)
 (setq dired-dwim-target t)
 (setq ivy-use-virtual-buffers t)
+(setq savehist-file "~/.emacs.d/tmp/savehist")
 (setq ivy-re-builders-alist
       '((swiper . regexp-quote)
+	(counsel-M-x . ivy--regex-plus)
 	(t      . ivy--regex-fuzzy)))
 
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 
+(add-hook 'after-init-hook 'inf-ruby-switch-setup)
 (add-hook 'before-save-hook 'whitespace-cleanup)
 (add-hook 'ido-setup-hook
 	  '(lambda ()

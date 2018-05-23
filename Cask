@@ -41,3 +41,4 @@
 (depends-on "counsel-projectile")
 (depends-on "crux")
 (depends-on "coffee-mode")
+(depends-on "ivy-hydra")

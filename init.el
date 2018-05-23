@@ -21,6 +21,7 @@
 (load "ruby.el")
 (load "emacslisp.el")
 (load "json.el")
+(load "terminal.el")
 
 (let ((filename "~/.emacs.custom.el"))
   (if (file-exists-p filename)
