@@ -10,10 +10,10 @@
 
 (add-hook 'ehn-ruby-mode-hook 'seeing-is-believing)
 (add-hook 'enh-ruby-mode-hook 'projectile-rails-on)
-(add-hook 'enh-ruby-mode-hook 'ruby-end-mode)
 (add-hook 'enh-ruby-mode-hook 'rspec-mode)
 (add-hook 'enh-ruby-mode-hook 'robe-mode)
 (add-hook 'enh-ruby-mode-hook (lambda () (ignore-errors(linum-mode 1))))
+(add-hook 'enh-ruby-mode-hook 'smartscan-mode)
 
 (setq enh-ruby-bounce-deep-indent t)
 (setq enh-ruby-hanging-brace-indent-level 2)
@@ -26,4 +26,7 @@
 
 (ad-activate 'rspec-compile)
 
-(global-set-key (kbd "C-c r r") 'inf-ruby)
+(add-hook 'enh-ruby-mode-hook
+	  (lambda ()
+	    (set (make-local-variable imenu-generic-expression)
+		 '(("Methods"  "^\\( *\\(def\\) +.+\\)" 1) ))))
