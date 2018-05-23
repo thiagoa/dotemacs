@@ -27,7 +27,6 @@
 (depends-on "discover")
 (depends-on "enh-ruby-mode")
 (depends-on "rspec-mode")
-(depends-on "ruby-end")
 (depends-on "inf-ruby")
 (depends-on "robe")
 (depends-on "hippie-exp")
@@ -40,3 +39,5 @@
 (depends-on "swiper")
 (depends-on "counsel")
 (depends-on "counsel-projectile")
+(depends-on "crux")
+(depends-on "coffee-mode")
