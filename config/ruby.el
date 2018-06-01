@@ -8,25 +8,19 @@
 (add-to-list 'auto-mode-alist '("Gemfile$" . enh-ruby-mode))
 (add-to-list 'interpreter-mode-alist '("ruby" . enh-ruby-mode))
 
-(add-hook 'ehn-ruby-mode-hook 'seeing-is-believing)
+(add-hook 'enh-ruby-mode-hook 'seeing-is-believing)
 (add-hook 'enh-ruby-mode-hook 'projectile-rails-on)
-(add-hook 'enh-ruby-mode-hook 'rspec-mode)
 (add-hook 'enh-ruby-mode-hook 'robe-mode)
-(add-hook 'enh-ruby-mode-hook (lambda () (ignore-errors(linum-mode 1))))
+(add-hook 'enh-ruby-mode-hook 'safe-linum-mode)
 (add-hook 'enh-ruby-mode-hook 'smartscan-mode)
+(add-hook 'enh-ruby-mode-hook 'rspec-enable-appropriate-mode)
 
-(setq enh-ruby-bounce-deep-indent t)
+(setq enh-ruby-bounce-deep-indent nil)
 (setq enh-ruby-hanging-brace-indent-level 2)
 (setq ruby-deep-indent-paren nil)
+(setq enh-ruby-hanging-paren-indent-level 2)
 (setq rspec-use-rake-when-possible nil)
+(setq enh-ruby-add-encoding-comment-on-save nil)
 
-(defadvice rspec-compile (around rspec-compile-around)
-  (let ((shell-file-name "/bin/bash"))
-    ad-do-it))
-
-(ad-activate 'rspec-compile)
-
-(add-hook 'enh-ruby-mode-hook
-	  (lambda ()
-	    (set (make-local-variable imenu-generic-expression)
-		 '(("Methods"  "^\\( *\\(def\\) +.+\\)" 1) ))))
+(remove-hook 'ruby-mode-hook 'ruby-end-mode)
+(remove-hook 'enh-ruby-mode-hook 'ruby-end-mode)

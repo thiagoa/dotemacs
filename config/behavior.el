@@ -1,4 +1,5 @@
 (require 'ido-vertical-mode)
+(require 'yasnippet)
 
 (emacs-use-same-path-as-shell)
 (config-terminal-encoding)
@@ -7,6 +8,9 @@
 (define-globalized-minor-mode global-missile-mode missile-mode
   (lambda () (missile-mode 1)))
 
+(add-to-list 'load-path "~/.emacs.d/plugins/yasnippet")
+
+(yas-global-mode 1)
 (electric-indent-mode +1)
 (projectile-global-mode)
 (global-discover-mode)
@@ -16,12 +20,13 @@
 (counsel-projectile-mode)
 (savehist-mode)
 (global-missile-mode)
+(delete-selection-mode)
 
 (defvar newline-and-indent t)
+(setq recentf-max-saved-items 1000)
 (setq projectile-enable-caching t)
 (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
-(setq ns-right-alternate-modifier nil)
 (setq system-uses-terminfo nil)
 (setq eshell-where-to-jump 'begin)
 (setq eshell-review-quick-commands nil)
@@ -36,6 +41,9 @@
       ido-create-new-buffer 'always
       ido-use-faces t)
 (setq dired-dwim-target t)
+(setq find-ls-option '("-print0 | xargs -0 ls -alhd" . ""))
+(setq dired-recursive-copies (quote always))
+(setq dired-recursive-deletes (quote top))
 (setq ivy-use-virtual-buffers t)
 (setq savehist-file "~/.emacs.d/tmp/savehist")
 (setq ivy-re-builders-alist

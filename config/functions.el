@@ -1,4 +1,16 @@
-;; Interactive
+(defun safe-linum-mode ()
+  (ignore-errors(linum-mode 1)))
+
+;; Author: Thiago Araújo Silva
+(defun kill-variable-assignment ()
+  (interactive)
+  (let
+      ((start (progn (back-to-indentation) (point)))
+       (end (save-excursion
+	      (while (not (string= (string (char-after)) "="))
+		(forward-char))
+	      (point))))
+    (delete-region start (+ 2 end))))
 
 (defun reverse-transpose-sexps (arg)
   (interactive "*p")
@@ -34,10 +46,10 @@
   (setq ring-bell-function 'ignore))
 
 (defun config-terminal-encoding ()
-    (add-hook 'term-exec-hook
-	      (function
-	       (lambda ()
-		 (set-buffer-process-coding-system 'utf-8-unix 'utf-8-unix)))))
+  (add-hook 'term-exec-hook
+	    (function
+	     (lambda ()
+	       (set-buffer-process-coding-system 'utf-8-unix 'utf-8-unix)))))
 
 (defun disable-annoyances ()
   (fset 'yes-or-no-p 'y-or-n-p)
@@ -66,6 +78,11 @@
   (next-line 1)
   (when newline-and-indent
     (indent-according-to-mode)))
+
+(defun open-next-and-previous-line (arg)
+  (interactive "p")
+  (open-next-line arg)
+  (open-previous-line arg))
 
 (defun open-previous-line (arg)
   (interactive "p")
@@ -169,3 +186,22 @@ directory to make multiple eshell windows easier."
    frame-title-format
    '((:eval (if (buffer-file-name)
 		(abbreviate-file-name (buffer-file-name)) "%f")))))
+
+(defun kill-other-buffer-and-close-window ()
+  "Kill the current buffer."
+  (interactive)
+  (other-window 1)
+  (kill-buffer (current-buffer))
+  (delete-window))
+
+(defun delete-file-and-buffer ()
+  "Kill the current buffer and deletes the file it is visiting."
+  (interactive)
+  (let ((filename (buffer-file-name)))
+    (when filename
+      (if (vc-backend filename)
+	  (vc-delete-file filename)
+	(progn
+	  (delete-file filename)
+	  (message "Deleted file %s" filename)
+	  (kill-buffer))))))
