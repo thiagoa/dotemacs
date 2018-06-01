@@ -12,7 +12,6 @@
 (load "missile.el")
 (load "looknfeel.el")
 (load "behavior.el")
-(load "keybindings.el")
 (load "clojure.el")
 (load "ruby.el")
 (load "elixir.el")
@@ -20,6 +19,7 @@
 (load "markdown.el")
 (load "json.el")
 (load "terminal.el")
+(load "keybindings.el")
 
 (let ((filename "~/.emacs.custom.el"))
   (if (file-exists-p filename)

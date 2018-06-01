@@ -49,3 +49,15 @@
 (global-set-key (kbd "C-'")            'change-inner)
 (global-set-key (kbd "C-;")            'change-outer)
 (global-set-key (kbd "s-l")            'iy-go-to-char)
+(global-set-key (kbd "s-b")            'iy-go-to-char-backward)
+
+;; Elixir
+
+;; (eval-after-load 'elixir-mode
+;; '(define-key elixir-mode-map (kbd "C-x C-/") 'company-complete))
+
+;; (eval-after-load 'elixir-mode
+;; '(define-key elixir-mode-map (kbd "C-x C-e") 'alchemist-run-line-and-compile))
+
+;; (eval-after-load 'alchemist-iex-mode
+;; '(define-key alchemist-iex-mode-map (kbd "C-x C-/") 'company-complete))
