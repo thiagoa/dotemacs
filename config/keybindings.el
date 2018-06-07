@@ -50,6 +50,8 @@
 (global-set-key (kbd "C-M-;")          'iy-go-to-char)
 (global-set-key (kbd "C-M-'")          'iy-go-to-char-backward)
 (global-set-key (kbd "C-c g")          'toggle-option-key)
+(global-set-key (kbd "C-.")            'next-non-read-only-buffer)
+(global-set-key (kbd "C-,")            'prev-non-read-only-buffer)
 
 ;; Minibuffer
 

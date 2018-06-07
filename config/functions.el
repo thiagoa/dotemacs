@@ -226,6 +226,21 @@ directory to make multiple eshell windows easier."
             (set-frame-parameter frame 'font my-default-font) ;; Cinema Display
           (set-frame-parameter frame 'font my-default-font)))))
 
+(defun next-non-read-only-buffer ()
+  (interactive)
+  (with-non-read-only-buffers 'next-buffer))
+
+(defun prev-non-read-only-buffer ()
+  (interactive)
+  (with-non-read-only-buffers 'previous-buffer))
+
+(defun with-non-read-only-buffers (func)
+  (let (found)
+    (while (not found)
+      (funcall func)
+      (if (and (not buffer-read-only) (not (string-prefix-p "*" (string-trim (buffer-name (current-buffer))))))
+          (setq found t)))))
+
 ;; Elixir
 
 (defun alchemist-run-line-and-compile ()
