@@ -6,6 +6,11 @@
 (cask-initialize)
 (require 'pallet)
 
+(setenv "LESS_OPEN" nil)
+(setenv "VISUAL" "emacsclient -n")
+(setenv "EDITOR" (getenv "VISUAL"))
+(setenv "PAGER" "cat")
+
 (add-to-list 'load-path "~/.emacs.d/config")
 (add-to-list 'load-path "~/.emacs.d/plugins/yasnippet")
 
