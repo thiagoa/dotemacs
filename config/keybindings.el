@@ -44,20 +44,24 @@
 (global-set-key (kbd "C-c r k")        'kill-rectangle)
 (global-set-key (kbd "C-S-SPC")        'rectangle-mark-mode)
 (global-set-key (kbd "C-c u d")        'ruby-duplicate-block-below)
-(global-set-key (kbd "C-c u e")        'elixir-duplicate-block-below)
 (global-set-key (kbd "C-c D")          'delete-file-and-buffer)
 (global-set-key (kbd "C-'")            'change-inner)
 (global-set-key (kbd "C-;")            'change-outer)
-(global-set-key (kbd "s-l")            'iy-go-to-char)
-(global-set-key (kbd "s-b")            'iy-go-to-char-backward)
+(global-set-key (kbd "C-M-;")          'iy-go-to-char)
+(global-set-key (kbd "C-M-'")          'iy-go-to-char-backward)
+(global-set-key (kbd "C-c g")          'toggle-option-key)
+
+;; Minibuffer
+
+(define-key minibuffer-local-map (kbd "C-c f") 'name-of-the-file)
 
 ;; Elixir
 
-;; (eval-after-load 'elixir-mode
-;; '(define-key elixir-mode-map (kbd "C-x C-/") 'company-complete))
+(eval-after-load 'elixir-mode
+  '(define-key elixir-mode-map (kbd "C-x C-/") 'company-complete))
 
-;; (eval-after-load 'elixir-mode
-;; '(define-key elixir-mode-map (kbd "C-x C-e") 'alchemist-run-line-and-compile))
+(eval-after-load 'elixir-mode
+  '(define-key elixir-mode-map (kbd "C-x C-e") 'alchemist-run-line-and-compile))
 
-;; (eval-after-load 'alchemist-iex-mode
-;; '(define-key alchemist-iex-mode-map (kbd "C-x C-/") 'company-complete))
+(eval-after-load 'alchemist-iex-mode
+  '(define-key alchemist-iex-mode-map (kbd "C-x C-/") 'company-complete))

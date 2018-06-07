@@ -1,8 +1,8 @@
 (defadvice term-sentinel (around my-advice-term-sentinel (proc msg))
   (if (memq (process-status proc) '(signal exit))
       (let ((buffer (process-buffer proc)))
-	ad-do-it
-	(kill-buffer buffer))
+        ad-do-it
+        (kill-buffer buffer))
     ad-do-it))
 (ad-activate 'term-sentinel)
 
@@ -14,8 +14,8 @@
 (defadvice term-sentinel (around my-advice-term-sentinel (proc msg))
   (if (memq (process-status proc) '(signal exit))
       (let ((buffer (process-buffer proc)))
-	ad-do-it
-	(kill-buffer buffer))
+        ad-do-it
+        (kill-buffer buffer))
     ad-do-it))
 (ad-activate 'term-sentinel)
 
@@ -28,3 +28,16 @@
   (goto-address-mode))
 
 (add-hook 'term-mode-hook 'my-term-hook)
+
+(defun turn-on-comint-history (history-file)
+  (setq comint-input-ring-file-name history-file)
+  (comint-read-input-ring 'silent))
+
+(exec-path-from-shell-initialize)
+(exec-path-from-shell-copy-env "HISTFILE")
+
+(add-hook 'shell-mode-hook
+          (lambda ()
+            (turn-on-comint-history (getenv "HISTFILE"))))
+
+(setq comint-input-ring-separator "\n: \\([0-9]+\\):\\([0-9]+\\);")
