@@ -4,44 +4,66 @@
 
 (package-initialize)
 
-(defconst package-selected-packages
-  '(magit
-    discover
-    exec-path-from-shell
-    json-mode
-    hippie-exp
-    ido-vertical-mode
-    dracula-theme
-    smartscan
-    evil
-    clj-refactor
-    swiper
-    counsel
-    counsel-projectile
-    crux
-    coffee-mode
-    ivy-hydra
-    elixir-mode
-    company
-    alchemist
-    ruby-end
-    zenburn-theme
-    ruby-electric
-    yasnippet
-    smartparens
-    bundler
-    change-inner
-    ibuffer-vc
-    iy-go-to-char
-    parinfer
-    string-inflection
-    rubocop
-    multiple-cursors
-    seeing-is-believing
-    rainbow-delimiters
-    aggressive-indent)
-  "My custom packages")
-
 ;; If this package is not present, then no package is present.
 ;; If so, trigger an automatic installation of all packages.
 (defvar pivot-package 'discover)
+
+(defconst package-selected-packages
+  '(discover
+    exec-path-from-shell
+    ibuffer-vc
+    crux
+    string-inflection
+
+    ;; Useful all-around modes
+    aggressive-indent
+
+    ;; Find/auto-complete stuff
+    ag
+    swiper
+    ivy-hydra
+    counsel
+    ido-vertical-mode
+
+    ;; Text editing helpers
+    hippie-exp
+    yasnippet
+    change-inner
+    iy-go-to-char
+    smartscan
+    multiple-cursors
+
+    ;; Themes
+    dracula-theme
+    zenburn-theme
+
+    ;; Project management
+    projectile
+    counsel-projectile
+
+    ;; General programming
+    magit
+    company
+
+    ;; Ruby
+    enh-ruby-mode
+    bundler
+    ruby-end
+    rubocop
+    seeing-is-believing
+
+    ;; Elixir
+    elixir-mode
+    alchemist
+
+    ;; Clojure
+    cider
+    clj-refactor
+
+    ;; Lisps
+    rainbow-delimiters
+
+    ;; Other modes
+    json-mode
+    coffee-mode)
+  "My custom packages")

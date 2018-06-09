@@ -21,6 +21,11 @@
     (package-menu-mark-upgrades)
     (package-menu-execute t)))
 
+(defun pac-autoremove ()
+  (interactive)
+  (load "packages.el")
+  (package-autoremove))
+
 ;;;;;;;;;;;;;;;
 ;; Functions ;;
 ;;;;;;;;;;;;;;;
