@@ -56,3 +56,5 @@
 (depends-on "parinfer")
 (depends-on "string-inflection")
 (depends-on "rubocop")
+(depends-on "orchard")
+(depends-on "multiple-cursors")

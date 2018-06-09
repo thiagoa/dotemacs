@@ -1,4 +1,5 @@
 (require 'yasnippet)
+(require 'multiple-cursors)
 
 (run-server)
 
@@ -62,3 +63,6 @@
  '(comint-scroll-to-bottom-on-input t)
  '(comint-scroll-to-bottom-on-output nil)
  '(comint-scroll-show-maximum-output t))
+
+(defvar counsel-projectile-switch-project-action
+  (append counsel-projectile-switch-project-action '(("xx" execute-extend-command-under-dir))))

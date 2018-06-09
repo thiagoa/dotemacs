@@ -27,6 +27,7 @@
 (load "my-ibuffer.el")
 (load "terminal.el")
 (load "keybindings.el")
+(load "dired-x.el")
 
 (let ((filename "~/.emacs.custom.el"))
   (if (file-exists-p filename)

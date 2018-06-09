@@ -15,6 +15,10 @@
   (backward-sexp (1+ arg))
   (forward-sexp 1))
 
+(defun execute-extended-command-under-dir (project)
+  (let ((default-directory project))
+    (execute-extended-command nil)))
+
 (defun open-pr ()
   (interactive)
   (let ((default-directory (projectile-project-root)))
@@ -181,8 +185,9 @@ directory to make multiple eshell windows easier."
 (defun select-current-line ()
   "Select the current line"
   (interactive)
-  (end-of-line)
-  (set-mark (line-beginning-position)))
+  (beginning-of-line)
+  (next-line)
+  (set-mark (save-excursion (previous-line) (point))))
 
 (defun show-full-filename-in-window-title ()
   (setq-default
@@ -238,7 +243,10 @@ directory to make multiple eshell windows easier."
   (let (found)
     (while (not found)
       (funcall func)
-      (if (and (not buffer-read-only) (not (string-prefix-p "*" (string-trim (buffer-name (current-buffer))))))
+      (if (and
+           (not buffer-read-only)
+           (not (string= (buffer-name) "TAGS"))
+           (not (string-prefix-p "*" (string-trim (buffer-name (current-buffer))))))
           (setq found t)))))
 
 ;; Elixir
@@ -293,3 +301,7 @@ directory to make multiple eshell windows easier."
   (back-to-indentation)
   (open-previous-line 1)
   (next-line))
+
+(defun bundle ()
+  (interactive)
+  (bundle-install))
