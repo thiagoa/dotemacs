@@ -43,6 +43,5 @@
   "My custom packages")
 
 ;; If this package is not present, then no package is present.
-;; Trigger an automatic installation of all packages.
-(unless (package-installed-p 'discover)
-  (pac-install))
+;; If so, trigger an automatic installation of all packages.
+(defvar pivot-package 'discover)

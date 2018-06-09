@@ -9,7 +9,6 @@
 (defun pac-install ()
   (interactive)
   (load "packages.el")
-  (package-refresh-contents)
   (dolist (package package-selected-packages)
     (unless (package-installed-p package)
       (package-install package))))

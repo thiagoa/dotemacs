@@ -10,19 +10,20 @@
 
 (load "functions.el")
 (load "packages.el")
+
+(unless (package-installed-p pivot-package)
+  (pac-install))
+
 (load "missile.el")
 (load "looknfeel.el")
 (load "behavior.el")
-(load "clojure.el")
-(load "ruby.el")
-(load "elixir.el")
-(load "emacslisp.el")
-(load "markdown.el")
-(load "my-json.el")
-(load "my-ibuffer.el")
+(load "buffers.el")
 (load "terminal.el")
 (load "keybindings.el")
 (load "dired-x.el")
+
+(mapc 'load
+      (file-expand-wildcards (expand-file-name "config/langs/*.el" emacs-d)))
 
 (load-if-exists "~/.emacs.custom.el")
 
