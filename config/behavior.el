@@ -60,6 +60,7 @@
 (add-hook 'before-save-hook 'whitespace-cleanup)
 
 (custom-set-variables
+ '(comint-move-point-for-output nil)
  '(comint-scroll-to-bottom-on-input t)
  '(comint-scroll-to-bottom-on-output nil)
  '(comint-scroll-show-maximum-output t))

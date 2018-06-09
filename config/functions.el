@@ -1,3 +1,31 @@
+(defun load-if-exists (f)
+  (if (file-exists-p f)
+      (load f)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; Package management ;;
+;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun pac-install ()
+  (interactive)
+  (load "packages.el")
+  (package-refresh-contents)
+  (dolist (package package-selected-packages)
+    (unless (package-installed-p package)
+      (package-install package))))
+
+(defun pac-update ()
+  (interactive)
+  (package-refresh-contents)
+  (save-window-excursion
+    (package-list-packages t)
+    (package-menu-mark-upgrades)
+    (package-menu-execute t)))
+
+;;;;;;;;;;;;;;;
+;; Functions ;;
+;;;;;;;;;;;;;;;
+
 ;; Author: Thiago Araújo Silva
 (defun kill-variable-assignment ()
   (interactive)
