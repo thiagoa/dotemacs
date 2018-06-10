@@ -1,18 +1,9 @@
-# My Emacs config files
+# Thiago's Emacs config files
 
 ## Installation
 
-Link or clone this folder to ~/.emacs.d
+Link or clone this folder to `~/.emacs.d`. Packages will be installed automatically on the first run.
 
-Install Cask. You can use Homebrew in OS X:
-
-    $ brew install cask
-
-Take a look at the project URL for further instructions: [https://github.com/cask/cask](https://github.com/cask/cask)
-
-Then do a cask install.
-
-    $ cd ~/.emacs.d
-    $ cask install
-
-Done.
+- Add or remove packages in `config/packages.el`.
+- `pac-install` to install packages.
+- `pac-update` to update installed packages.
