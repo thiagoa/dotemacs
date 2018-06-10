@@ -21,6 +21,7 @@
 (setq-list-append counsel-projectile-switch-project-action
                   ("xx" execute-extended-command-under-dir "execute extended command"))
 
+(setq vc-follow-symlinks t)
 (setq recentf-max-saved-items 2000)
 (setq projectile-enable-caching t)
 (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
