@@ -1,5 +1,4 @@
-(require 'yasnippet)
-(require 'multiple-cursors)
+(load "dired-x.el")
 
 (run-server)
 
@@ -7,23 +6,20 @@
 (config-terminal-encoding)
 (set-default-shell "zsh")
 
-(define-globalized-minor-mode global-missile-mode missile-mode
-  (lambda () (missile-mode 1)))
-
-(yas-global-mode 1)
-(electric-indent-mode +1)
-(projectile-global-mode)
 (global-discover-mode)
 (global-undo-tree-mode)
-(winner-mode)
+(yas-global-mode)
+(projectile-global-mode)
 (counsel-projectile-mode)
+(winner-mode)
 (savehist-mode)
 (global-missile-mode)
 (delete-selection-mode)
 
-(defvar newline-and-indent t)
-
 (setq-default indent-tabs-mode nil)
+
+(setq-list-append counsel-projectile-switch-project-action
+                  ("xx" execute-extended-command-under-dir "execute extended command"))
 
 (setq recentf-max-saved-items 2000)
 (setq projectile-enable-caching t)
@@ -40,12 +36,15 @@
         try-complete-file-name
         try-complete-lisp-symbol))
 (setq dired-dwim-target t)
-(setq find-ls-option '("-print0 | xargs -0 ls -alhd" . ""))
 (setq dired-recursive-copies (quote always))
 (setq dired-recursive-deletes (quote top))
-(setq ivy-use-virtual-buffers t)
-(setq savehist-file "~/.emacs.d/tmp/savehist")
+(setq comint-move-point-for-output nil)
+(setq comint-scroll-to-bottom-on-input t)
+(setq comint-scroll-to-bottom-on-output nil)
+(setq comint-scroll-show-maximum-output t)
+(setq savehist-file (expand-file-name "tmp/savehist" emacs-d))
 (setq history-length 1000)
+(setq ivy-use-virtual-buffers t)
 (setq ivy-re-builders-alist
       '((swiper . regexp-quote)
         (counsel-M-x . ivy--regex-plus)
@@ -58,12 +57,3 @@
 (put 'downcase-region 'disabled nil)
 
 (add-hook 'before-save-hook 'whitespace-cleanup)
-
-(custom-set-variables
- '(comint-move-point-for-output nil)
- '(comint-scroll-to-bottom-on-input t)
- '(comint-scroll-to-bottom-on-output nil)
- '(comint-scroll-show-maximum-output t))
-
-(defvar counsel-projectile-switch-project-action
-  (append counsel-projectile-switch-project-action '(("xx" execute-extend-command-under-dir))))

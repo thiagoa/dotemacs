@@ -20,7 +20,6 @@
 (load "buffers.el")
 (load "terminal.el")
 (load "keybindings.el")
-(load "dired-x.el")
 
 (mapc 'load
       (file-expand-wildcards (expand-file-name "config/langs/*.el" emacs-d)))

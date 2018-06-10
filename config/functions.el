@@ -1,10 +1,26 @@
+(require 'ido-goto-symbol)
+
+;;;;;;;;;;;;;;;;;;;
+;; Elisp helpers ;;
+;;;;;;;;;;;;;;;;;;;
+
+;; Author: Thiago Araújo Silva
 (defun load-if-exists (f)
   (if (file-exists-p f)
       (load f)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;
-;; Package management ;;
-;;;;;;;;;;;;;;;;;;;;;;;;
+;; Author: Thiago Araújo Silva
+(defmacro setq-list-append (var value)
+  (list 'setq var (list 'append var `'(,value))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Config && Package management ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Author: Thiago Araújo Silva
+(defun reload-config ()
+  (interactive)
+  (load (expand-file-name "init.el" emacs-d)))
 
 (defun pac-install ()
   (interactive)
@@ -21,14 +37,15 @@
     (package-menu-mark-upgrades)
     (package-menu-execute t)))
 
+;; Author: Thiago Araújo Silva
 (defun pac-autoremove ()
   (interactive)
   (load "packages.el")
   (package-autoremove))
 
-;;;;;;;;;;;;;;;
-;; Functions ;;
-;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;
+;; Text editing ;;
+;;;;;;;;;;;;;;;;;;
 
 ;; Author: Thiago Araújo Silva
 (defun kill-variable-assignment ()
@@ -47,36 +64,118 @@
   (backward-sexp (1+ arg))
   (forward-sexp 1))
 
-(defun execute-extended-command-under-dir (project)
-  (let ((default-directory project))
-    (execute-extended-command nil)))
+;; Author: Thiago Araújo Silva
+(defun smart-open-line-below-and-above (arg)
+  (interactive "p")
+  (crux-smart-open-line-above)
+  (crux-smart-open-line nil))
 
+(defun move-line-up ()
+  (interactive)
+  (transpose-lines 1)
+  (previous-line 2))
+
+(defun move-line-down ()
+  (interactive)
+  (next-line 1)
+  (transpose-lines 1)
+  (previous-line 1))
+
+;; Author: Thiago Araújo Silva
+(defun mark-current-line ()
+  "Marks the current line"
+  (interactive)
+  (move-beginning-of-line 1)
+  (set-mark
+   (save-excursion
+     (next-line)
+     (move-beginning-of-line 1)
+     (point))))
+
+;;;;;;;;;;;;;;;;;;;;;;;
+;; Buffer navigation ;;
+;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Author: Thiago Araújo Silva
+(defun next-non-read-only-buffer ()
+  "Navigates to next *file* buffer"
+  (interactive)
+  (with-non-read-only-buffers 'next-buffer))
+
+;; Author: Thiago Araújo Silva
+(defun prev-non-read-only-buffer ()
+  "Navigates to previous *file* buffer"
+  (interactive)
+  (with-non-read-only-buffers 'previous-buffer))
+
+;; Author: Thiago Araújo Silva
+(defun with-non-read-only-buffers (func)
+  (let (found (start-buffer (current-buffer)))
+    (while (not found)
+      (funcall func)
+      (if (or
+           (eq (current-buffer) start-buffer)
+           (and
+            (not buffer-read-only)
+            (not (string= (buffer-name) "TAGS"))
+            (not (string-prefix-p "*" (string-trim (buffer-name (current-buffer)))))))
+          (setq found t)))))
+
+;;;;;;;;;;;;;;;;;;;;;;;
+;; Window management ;;
+;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Author: Thiago Araújo Silva
+(defun kill-other-buffer-and-close-window ()
+  "Kill the current buffer."
+  (interactive)
+  (other-window 1)
+  (kill-buffer (current-buffer))
+  (delete-window))
+
+;;;;;;;;;
+;; Git ;;
+;;;;;;;;;
+
+;; Author: Thiago Araújo Silva
 (defun open-pr ()
+  "Opens a PR for the current project. Depends on the 'git pr' command."
   (interactive)
   (let ((default-directory (projectile-project-root)))
     (shell-command "git pr")))
 
-(defun reload-config ()
-  (interactive)
-  (load "~/.emacs.d/init.el"))
+;;;;;;;;;;;;;;;;;;;;;
+;; General helpers ;;
+;;;;;;;;;;;;;;;;;;;;;
 
-(defun install-cask ()
-  (interactive)
-  (let ((default-directory "~/.emacs.d"))
-    (shell-command "cask install"))
-  (reload-config))
+;; Author: Thiago Araújo Silva
+(defun execute-extended-command-under-dir (project)
+  (let ((default-directory project))
+    (execute-extended-command nil)))
 
-(defun repl()
-  (interactive)
-  (ielm))
-
+;; Author: Thiago Araújo Silva
 (defun safe-linum-mode ()
-  (ignore-errors(linum-mode 1)))
+  "Run linum-mode safely"
+  (interactive)
+  (ignore-errors (linum-mode 1)))
 
 (defun run-server ()
+  "Runs the Emacs server if it is not running"
   (require 'server)
   (unless (server-running-p)
     (server-start)))
+
+;; Author: Thiago Araújo Silva
+(defun toggle-option-key ()
+  "Toggles meta between meta and option"
+  (interactive)
+  (if (eq ns-option-modifier 'meta)
+      (progn (setq ns-option-modifier 'none) (message "Changed to none"))
+    (progn (setq ns-option-modifier 'meta) (message "Changed to meta"))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Make config readable ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun disable-startup-screen ()
   (setq inhibit-startup-screen t)
@@ -110,84 +209,31 @@
   (when (memq window-system '(mac ns))
     (exec-path-from-shell-initialize)))
 
-(defun open-next-line (arg)
-  (interactive "p")
-  (end-of-line)
-  (open-line arg)
-  (next-line 1)
-  (when newline-and-indent
-    (indent-according-to-mode)))
+(defun show-full-filename-in-window-title ()
+  (setq-default
+   frame-title-format
+   '((:eval (if (buffer-file-name)
+                (abbreviate-file-name (buffer-file-name)) "%f")))))
 
-(defun open-next-and-previous-line (arg)
-  (interactive "p")
-  (open-next-line arg)
-  (open-previous-line arg))
+;;;;;;;;;;;;;;;;;;;
+;; Look and feel ;;
+;;;;;;;;;;;;;;;;;;;
 
-(defun open-previous-line (arg)
-  (interactive "p")
-  (beginning-of-line)
-  (open-line arg)
-  (when newline-and-indent
-    (indent-according-to-mode)))
-
-(defun move-line-up ()
+(defun fontify-frame (frame)
   (interactive)
-  (transpose-lines 1)
-  (previous-line 2))
+  (if window-system
+      (progn
+        (if (> (x-display-pixel-width) 2000)
+            (set-frame-parameter frame 'font my-default-font) ;; Cinema Display
+          (set-frame-parameter frame 'font my-default-font)))))
 
-(defun move-line-down ()
-  (interactive)
-  (next-line 1)
-  (transpose-lines 1)
-  (previous-line 1))
+;;;;;;;;;;;;;;;;;;;;;
+;; Shell shortcuts ;;
+;;;;;;;;;;;;;;;;;;;;;
 
-(defun ido-goto-symbol (&optional symbol-list)
-  "Refresh imenu and jump to a place in the buffer using Ido."
+(defun repl()
   (interactive)
-  (unless (featurep 'imenu)
-    (require 'imenu nil t))
-  (cond
-   ((not symbol-list)
-    (let ((ido-mode ido-mode)
-          (ido-enable-flex-matching
-           (if (boundp 'ido-enable-flex-matching)
-               ido-enable-flex-matching t))
-          name-and-pos symbol-names position)
-      (unless ido-mode
-        (ido-mode 1)
-        (setq ido-enable-flex-matching t))
-      (while (progn
-               (imenu--cleanup)
-               (setq imenu--index-alist nil)
-               (ido-goto-symbol (imenu--make-index-alist))
-               (setq selected-symbol
-                     (ido-completing-read "Symbol? " symbol-names))
-               (string= (car imenu--rescan-item) selected-symbol)))
-      (unless (and (boundp 'mark-active) mark-active)
-        (push-mark nil t nil))
-      (setq position (cdr (assoc selected-symbol name-and-pos)))
-      (cond
-       ((overlayp position)
-        (goto-char (overlay-start position)))
-       (t
-        (goto-char position)))))
-   ((listp symbol-list)
-    (dolist (symbol symbol-list)
-      (let (name position)
-        (cond
-         ((and (listp symbol) (imenu--subalist-p symbol))
-          (ido-goto-symbol symbol))
-         ((listp symbol)
-          (setq name (car symbol))
-          (setq position (cdr symbol)))
-         ((stringp symbol)
-          (setq name symbol)
-          (setq position
-                (get-text-property 1 'org-imenu-marker symbol))))
-        (unless (or (null position) (null name)
-                    (string= (car imenu--rescan-item) name))
-          (add-to-list 'symbol-names name)
-          (add-to-list 'name-and-pos (cons name position))))))))
+  (ielm))
 
 (defun eshell-here ()
   "Opens up a new shell in the directory associated with the
@@ -207,6 +253,10 @@ directory to make multiple eshell windows easier."
     (insert (concat "ls"))
     (eshell-send-input)))
 
+;;;;;;;;;;;;;;;;;
+;; Programming ;;
+;;;;;;;;;;;;;;;;;
+
 (defun comment-or-uncomment-line-or-region ()
   "Comments or uncomments the current line or region."
   (interactive)
@@ -214,81 +264,28 @@ directory to make multiple eshell windows easier."
       (comment-or-uncomment-region (region-beginning) (region-end))
     (comment-or-uncomment-region (line-beginning-position) (line-end-position))))
 
-(defun select-current-line ()
-  "Select the current line"
-  (interactive)
-  (beginning-of-line)
-  (next-line)
-  (set-mark (save-excursion (previous-line) (point))))
-
-(defun show-full-filename-in-window-title ()
-  (setq-default
-   frame-title-format
-   '((:eval (if (buffer-file-name)
-                (abbreviate-file-name (buffer-file-name)) "%f")))))
-
-(defun toggle-option-key ()
-  (interactive)
-  (if (eq ns-option-modifier 'meta)
-      (progn (setq ns-option-modifier 'none) (message "Changed to none"))
-    (progn (setq ns-option-modifier 'meta) (message "Changed to meta"))))
-
-(defun kill-other-buffer-and-close-window ()
-  "Kill the current buffer."
-  (interactive)
-  (other-window 1)
-  (kill-buffer (current-buffer))
-  (delete-window))
-
-(defun delete-file-and-buffer ()
-  "Kill the current buffer and deletes the file it is visiting."
-  (interactive)
-  (let ((filename (buffer-file-name)))
-    (when filename
-      (progn
-        (delete-file filename)
-        (message "Deleted file %s" filename)
-        (kill-buffer)))))
+;;;;;;;;;;;;;;;;
+;; Minibuffer ;;
+;;;;;;;;;;;;;;;;
 
 (defun name-of-the-file ()
   "From the minibuffer, gets the name of the file the current buffer is based on."
   (interactive)
   (insert (buffer-file-name (window-buffer (minibuffer-selected-window)))))
 
-(defun fontify-frame (frame)
-  (interactive)
-  (if window-system
-      (progn
-        (if (> (x-display-pixel-width) 2000)
-            (set-frame-parameter frame 'font my-default-font) ;; Cinema Display
-          (set-frame-parameter frame 'font my-default-font)))))
+;;;;;;;;;;;;
+;; Elixir ;;
+;;;;;;;;;;;;
 
-(defun next-non-read-only-buffer ()
-  (interactive)
-  (with-non-read-only-buffers 'next-buffer))
-
-(defun prev-non-read-only-buffer ()
-  (interactive)
-  (with-non-read-only-buffers 'previous-buffer))
-
-(defun with-non-read-only-buffers (func)
-  (let (found)
-    (while (not found)
-      (funcall func)
-      (if (and
-           (not buffer-read-only)
-           (not (string= (buffer-name) "TAGS"))
-           (not (string-prefix-p "*" (string-trim (buffer-name (current-buffer))))))
-          (setq found t)))))
-
-;; Elixir
-
+;; Author: Thiago Araújo Silva
 (defun alchemist-run-line-and-compile ()
   (interactive)
   (alchemist-compile-this-buffer)
   (alchemist-eval-print-current-line))
 
+;; Author: Thiago Araújo Silva
 (defun elixir-set-source-dir ()
+  "Sets Elixir source dir. Depends on asdf."
   (interactive)
   (let* ((path
           (replace-regexp-in-string
@@ -306,10 +303,11 @@ directory to make multiple eshell windows easier."
   (set (make-variable-buffer-local 'ruby-end-check-statement-modifiers) nil)
   (ruby-end-mode +1))
 
-;; Ruby
+;;;;;;;;;;
+;; Ruby ;;
+;;;;;;;;;;
 
 ;; Author: Thiago Araújo Silva
-;; This can still improve :)
 (defun ruby-mark-block ()
   (interactive)
   (ruby-beginning-of-block)
@@ -320,7 +318,6 @@ directory to make multiple eshell windows easier."
   (next-line 1))
 
 ;; Author: Thiago Araújo Silva
-;; This can still improve :)
 (defun ruby-duplicate-block-below ()
   (interactive)
   (ruby-mark-block)
@@ -334,6 +331,7 @@ directory to make multiple eshell windows easier."
   (open-previous-line 1)
   (next-line))
 
+;; Author: Thiago Araújo Silva
 (defun bundle ()
   (interactive)
   (bundle-install))

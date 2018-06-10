@@ -4,66 +4,45 @@
 
 (package-initialize)
 
-;; If this package is not present, then no package is present.
-;; If so, trigger an automatic installation of all packages.
 (defvar pivot-package 'discover)
 
-(defconst package-selected-packages
-  '(discover
-    exec-path-from-shell
-    ibuffer-vc
-    crux
-    string-inflection
-
-    ;; Useful all-around modes
-    aggressive-indent
-
-    ;; Find/auto-complete stuff
-    ag
-    swiper
-    ivy-hydra
-    counsel
-    ido-vertical-mode
-
-    ;; Text editing helpers
-    hippie-exp
-    yasnippet
-    change-inner
-    iy-go-to-char
-    smartscan
-    multiple-cursors
-
-    ;; Themes
-    dracula-theme
-    zenburn-theme
-
-    ;; Project management
-    projectile
-    counsel-projectile
-
-    ;; General programming
-    magit
-    company
-
-    ;; Ruby
-    enh-ruby-mode
-    bundler
-    ruby-end
-    rubocop
-    seeing-is-believing
-
-    ;; Elixir
-    elixir-mode
-    alchemist
-
-    ;; Clojure
-    cider
-    clj-refactor
-
-    ;; Lisps
-    rainbow-delimiters
-
-    ;; Other modes
-    json-mode
-    coffee-mode)
-  "My custom packages")
+(setq package-selected-packages
+      '(discover
+        undo-tree
+        exec-path-from-shell
+        ibuffer-vc
+        crux
+        string-inflection
+        aggressive-indent
+        ag
+        swiper
+        ivy-hydra
+        counsel
+        ido-vertical-mode
+        hippie-exp
+        yasnippet
+        change-inner
+        iy-go-to-char
+        smartscan
+        multiple-cursors
+        dracula-theme
+        zenburn-theme
+        projectile
+        counsel-projectile
+        magit
+        company
+        enh-ruby-mode
+        bundler
+        projectile-rails
+        ruby-end
+        rubocop
+        rspec-mode
+        seeing-is-believing
+        elixir-mode
+        alchemist
+        cider
+        clj-refactor
+        rainbow-delimiters
+        json-mode
+        coffee-mode
+        markdown-mode))

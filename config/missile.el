@@ -65,16 +65,16 @@
 
 (defun missile-find-alt-buffer (&optional rebind)
   (let* ((current-filename (or
-			    (buffer-file-name (current-buffer))
-			    (error "No file associated with this buffer")))
-	 (db (missile--read-db))
-	 (db-entry (gethash (intern current-filename) (missile--explode-db db))))
+                            (buffer-file-name (current-buffer))
+                            (error "No file associated with this buffer")))
+         (db (missile--read-db))
+         (db-entry (gethash (intern current-filename) (missile--explode-db db))))
     (if (and (not rebind) db-entry)
-	(get-buffer (find-file-noselect (symbol-name db-entry)))
+        (get-buffer (find-file-noselect (symbol-name db-entry)))
       (let* ((alt-buffer (get-buffer (missile-prompt-for-alt-buffer)))
-	     (alt-filename (buffer-file-name alt-buffer)))
-	(missile--write-db db current-filename alt-filename)
-	alt-buffer))))
+             (alt-filename (buffer-file-name alt-buffer)))
+        (missile--write-db db current-filename alt-filename)
+        alt-buffer))))
 
 (defun missile-get-possible-alt-buffers ()
   (seq-filter
@@ -88,11 +88,14 @@
   "Enables keybindings for switching between custom alt buffers"
   :lighter " Missile"
   :keymap (let ((map (make-sparse-keymap)))
-	    (define-key map (kbd "C-c m s") 'missile-switch-to-custom-alt-file)
-	    (define-key map (kbd "C-c m r") 'missile-rebind-custom-alt-file)
-	    (define-key map (kbd "C-c m d") 'missile-delete-db)
-	    map))
+            (define-key map (kbd "C-c m s") 'missile-switch-to-custom-alt-file)
+            (define-key map (kbd "C-c m r") 'missile-rebind-custom-alt-file)
+            (define-key map (kbd "C-c m d") 'missile-delete-db)
+            map))
 
 (defun missile--write-db (db current-filename alt-filename)
   (puthash (intern current-filename) alt-filename db)
   (f-write-text (format "%s" db) 'utf-8 missile-db-path))
+
+(define-globalized-minor-mode global-missile-mode missile-mode
+  (lambda () (missile-mode 1)))
