@@ -7,6 +7,7 @@
 (if (functionp 'toggle-scroll-bar)(toggle-scroll-bar -1))
 (menu-bar-mode -1)
 (if (functionp 'tool-bar-mode) (tool-bar-mode -1))
+(force-split-window-sensibly-to-vertical-when-big-font)
 
 (setq mac-right-command-modifier 'meta)
 (setq my-default-font "Monaco 16")

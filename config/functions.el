@@ -197,6 +197,10 @@
 ;; Make config readable ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defun force-split-window-sensibly-to-vertical-when-big-font ()
+  (setq split-height-threshold nil)
+  (setq split-width-threshold 147))
+
 (defun disable-startup-screen ()
   (setq inhibit-startup-screen t)
   (setq inhibit-startup-message t
