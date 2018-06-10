@@ -46,7 +46,7 @@
 (global-set-key (kbd "C-c g")          'toggle-option-key)
 (global-set-key (kbd "C-.")            'next-non-read-only-buffer)
 (global-set-key (kbd "C-,")            'prev-non-read-only-buffer)
-(global-set-key (kbd "C-c F")          'find-file-at-point)
+(global-set-key (kbd "C-c F")          'find-file-at-point-dwim)
 (global-set-key (kbd "C-S-c C-S-c")    'mc/edit-lines)
 (global-set-key (kbd "C->")            'mc/mark-next-like-this)
 (global-set-key (kbd "C-<")            'mc/mark-previous-like-this)
