@@ -126,10 +126,20 @@
 ;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Author: Thiago Araújo Silva
+(defun kill-this-buffer-and-close-window ()
+  "Kill the current buffer."
+  (interactive)
+  (do-kill-this-buffer-and-close-window))
+
+;; Author: Thiago Araújo Silva
 (defun kill-other-buffer-and-close-window ()
   "Kill the current buffer."
   (interactive)
   (other-window 1)
+  (do-kill-this-buffer-and-close-window))
+
+;; Author: Thiago Araújo Silva
+(defun do-kill-this-buffer-and-close-window ()
   (kill-buffer (current-buffer))
   (delete-window))
 
