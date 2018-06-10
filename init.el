@@ -14,6 +14,7 @@
 (unless (package-installed-p pivot-package)
   (pac-install))
 
+(load "environment.el")
 (load "missile.el")
 (load "looknfeel.el")
 (load "behavior.el")
@@ -22,12 +23,7 @@
 (load "keybindings.el")
 
 (mapc 'load
-      (file-expand-wildcards (expand-file-name "config/langs/*.el" emacs-d)))
+      (file-expand-wildcards
+       (expand-file-name "config/langs/*.el" emacs-d)))
 
 (load-if-exists "~/.emacs.custom.el")
-
-(setenv "LESS_OPEN" nil)
-(setenv "VISUAL" "emacsclient -n")
-(setenv "EDITOR" (getenv "VISUAL"))
-(setenv "PAGER" "cat")
-(setenv "TERM" "xterm-256-color")
