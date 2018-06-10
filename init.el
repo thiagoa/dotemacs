@@ -30,3 +30,4 @@
 (setenv "VISUAL" "emacsclient -n")
 (setenv "EDITOR" (getenv "VISUAL"))
 (setenv "PAGER" "cat")
+(setenv "TERM" "xterm-256-color")
