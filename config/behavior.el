@@ -18,6 +18,10 @@
 
 (setq-default indent-tabs-mode nil)
 
+;; Sets default action to magit (this is the index of the action)
+;; This is fragile and should be improved later
+(setcar counsel-projectile-switch-project-action 12)
+
 (setq-list-append counsel-projectile-switch-project-action
                   ("xx" execute-extended-command-under-dir "execute extended command"))
 
