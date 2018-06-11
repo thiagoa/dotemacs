@@ -33,6 +33,7 @@
 
 (defun pac-install ()
   (interactive)
+  (package-refresh-contents)
   (load "packages.el")
   (dolist (package package-selected-packages)
     (unless (package-installed-p package)
