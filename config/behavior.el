@@ -55,8 +55,7 @@
         (counsel-M-x . ivy--regex-plus)
         (t      . regexp-quote)))
 
-;; Why is history not being loaded? :thinking:
-(load-file savehist-file)
+(load-history savehist-file)
 
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)

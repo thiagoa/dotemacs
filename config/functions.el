@@ -13,6 +13,15 @@
 (defmacro setq-list-append (var value)
   (list 'setq var (list 'append var `'(,value))))
 
+;; Why is history not being loaded? :thinking:
+;; Author: Thiago Araújo Silva
+(defun load-history (savehist-file)
+  (unless (file-exists-p savehist-file)
+    (progn
+      (shell-command (concat "mkdir -p " (file-name-directory savehist-file)))
+      (shell-command (concat "touch " savehist-file))))
+  (load savehist-file))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Config && Package management ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
