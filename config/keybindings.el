@@ -59,6 +59,7 @@
 (global-set-key [right]                'cycle-magit-buffers)
 (global-set-key (kbd "M-*")            'xah-search-current-word)
 (global-set-key (kbd "C-`")            'fzf-projectile)
+(global-set-key (kbd "s-t")            'fzf-projectile)
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Fast movement ;;
