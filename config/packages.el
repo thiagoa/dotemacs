@@ -8,6 +8,7 @@
 
 (setq package-selected-packages
       '(discover
+        fzf
         undo-tree
         exec-path-from-shell
         ibuffer-vc

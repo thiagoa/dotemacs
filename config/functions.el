@@ -422,3 +422,26 @@ directory to make multiple eshell windows easier."
 (defun bundle ()
   (interactive)
   (bundle-install))
+
+;;;;;;;;;
+;; FZF ;;
+;;;;;;;;;
+
+(defun fzf/pipe-into-fzf (entries)
+  "`entries' is a list of strings that is piped into `fzf' as a source."
+  (interactive)
+  (let ((process-environment
+         (cons (concat "FZF_DEFAULT_COMMAND=echo " "\""
+                       (mapconcat
+                        (lambda (entry)
+                          entry)
+                        entries
+                        "\n")
+                       "\"")
+               process-environment)))
+    (fzf)))
+
+(defun fzf-recentf ()
+  "Starts a fzf session with recent files as a source."
+  (interactive)
+  (fzf/pipe-into-fzf recentf-list))

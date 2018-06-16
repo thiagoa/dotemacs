@@ -21,6 +21,7 @@
 (load "behavior.el")
 (load "buffers.el")
 (load "terminal.el")
+(load "fzf.el")
 (load "keybindings.el")
 
 (mapc 'load
