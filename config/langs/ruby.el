@@ -11,20 +11,11 @@
 
 (add-hook 'after-init-hook 'inf-ruby-switch-setup)
 
-(defvar rspec-is-loaded nil)
-
-(defun load-rspec-mode ()
-  (unless rspec-is-loaded
-    (load "rspec-mode.el")
-    (setq rspec-is-loaded t))
-  (rspec-enable-appropriate-mode))
-
 (add-hook 'enh-ruby-mode-hook 'seeing-is-believing)
 (add-hook 'enh-ruby-mode-hook 'projectile-rails-on)
 (add-hook 'enh-ruby-mode-hook 'safe-linum-mode)
 (add-hook 'enh-ruby-mode-hook 'smartscan-mode)
 (add-hook 'enh-ruby-mode-hook 'rubocop-mode)
-(add-hook 'enh-ruby-mode-hook 'load-rspec-mode)
 
 (add-hook 'web-mode-hook 'projectile-rails-on)
 (add-hook 'web-mode 'rspec-enable-appropriate-mode)
@@ -45,5 +36,3 @@
 (setq enh-ruby-hanging-paren-indent-level 2)
 (setq rspec-use-rake-when-possible nil)
 (setq enh-ruby-add-encoding-comment-on-save nil)
-
-(load "rspec-mode.el")
