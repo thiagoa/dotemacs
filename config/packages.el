@@ -14,6 +14,7 @@
         crux
         string-inflection
         aggressive-indent
+        ace-jump-mode
         ag
         swiper
         ivy-hydra
@@ -22,6 +23,7 @@
         hippie-exp
         yasnippet
         change-inner
+        dot-mode
         iy-go-to-char
         smartscan
         multiple-cursors
@@ -33,6 +35,7 @@
         company
         enh-ruby-mode
         bundler
+        goto-gem
         projectile-rails
         ruby-end
         rubocop
@@ -43,6 +46,8 @@
         cider
         clj-refactor
         rainbow-delimiters
+        web-mode
         json-mode
         coffee-mode
-        markdown-mode))
+        markdown-mode
+        redshank))
