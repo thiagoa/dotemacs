@@ -444,4 +444,5 @@ directory to make multiple eshell windows easier."
 (defun fzf-recentf ()
   "Starts a fzf session with recent files as a source."
   (interactive)
+  (recentf-mode)
   (fzf/pipe-into-fzf recentf-list))
