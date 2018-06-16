@@ -192,8 +192,7 @@ Version 2015-04-09"
 (defun open-pr ()
   "Opens a PR for the current project. Depends on the 'git pr' command."
   (interactive)
-  (let ((default-directory (projectile-project-root)))
-    (shell-command "git pr")))
+  (run-under-project-root (lambda () (shell-command "git pr"))))
 
 ;; Author: Thiago Araújo Silva
 (defun cycle-magit-buffers ()
@@ -216,6 +215,12 @@ Version 2015-04-09"
 ;;;;;;;;;;;;;;;;;;;;;
 ;; General helpers ;;
 ;;;;;;;;;;;;;;;;;;;;;
+
+(defun run-under-project-root (command)
+  "Runs a command under the current project root"
+  (let ((default-directory (projectile-project-root)))
+    (funcall command)))
+
 
 ;; Author: Thiago Araújo Silva
 (defun execute-extended-command-under-dir (project)
