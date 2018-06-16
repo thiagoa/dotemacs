@@ -34,6 +34,7 @@
 (setq-list-append counsel-projectile-switch-project-action
                   ("xx" execute-extended-command-under-dir "execute extended command"))
 
+(setq tags-add-tables nil)
 (setq magit-no-confirm '(unstage-all-changes))
 (setq vc-follow-symlinks t)
 (setq recentf-max-saved-items 2000)
