@@ -21,12 +21,6 @@
 (add-hook 'web-mode 'rspec-enable-appropriate-mode)
 (add-hook 'inf-ruby-mode-hook (lambda () (turn-on-comint-history ".pry_history")))
 
-(eval-after-load 'inf-ruby
-  '(define-key inf-ruby-minor-mode-map (kbd "C-c C-l") nil))
-
-(eval-after-load 'inf-ruby
-  '(define-key inf-ruby-minor-mode-map (kbd "C-x l") 'ruby-load-file))
-
 (remove-hook 'ruby-mode-hook 'ruby-end-mode)
 (remove-hook 'enh-ruby-mode-hook 'ruby-end-mode)
 
