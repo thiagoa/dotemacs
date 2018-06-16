@@ -446,3 +446,23 @@ directory to make multiple eshell windows easier."
   (interactive)
   (recentf-mode)
   (fzf/pipe-into-fzf recentf-list))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Rake extensions and overrides ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defvar
+  rake--env-vars
+  ""
+  "Environment variables to run rake with. Dynamic variable!")
+
+(defun rake--compile-with-env-var (orig-fun root task mode)
+  (let ((task (concat rake--env-vars task)))
+    (apply orig-fun `(,root ,task ,mode))))
+
+(advice-add 'rake--compile :around #'rake--compile-with-env-var)
+
+(defun rake-test (arg)
+  (interactive "P")
+  (let ((rake--env-vars "RAILS_ENV=test "))
+    (rake arg)))
