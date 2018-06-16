@@ -122,6 +122,19 @@
             (not (string-prefix-p "*" (string-trim (buffer-name (current-buffer)))))))
           (setq found t)))))
 
+;; Author: Thiago Araújo Silva
+(defun cycle-magit-buffers ()
+  (interactive)
+  (let (found (start-buffer (current-buffer)))
+    (while (not found)
+      (next-buffer)
+      (let ((cur-buffer (current-buffer)))
+        (if (or
+             (string-prefix-p "magit:" (buffer-name cur-buffer))
+             (eq cur-buffer start-buffer))
+            (setq found t))))))
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; Window management ;;
 ;;;;;;;;;;;;;;;;;;;;;;;
