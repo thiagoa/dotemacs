@@ -26,7 +26,7 @@
 (setq uniquify-buffer-name-style 'post-forward)
 (setq uniquify-separator " : ")
 
-(setq my-default-font "Fira Code Retina 18")
+(setq my-default-font "Fira Code Retina 16")
 (add-to-list 'default-frame-alist `(font . ,my-default-font))
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 (fontify-frame nil)
