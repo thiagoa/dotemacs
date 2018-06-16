@@ -100,10 +100,10 @@
 ;; Ruby ;;
 ;;;;;;;;;;
 
-(eval-after-load 'inf-ruby
-  (progn
-    '(define-key inf-ruby-minor-mode-map (kbd "C-c C-l") nil)
-    '(define-key inf-ruby-minor-mode-map (kbd "C-x l") 'ruby-load-file)))
+(add-hook 'enh-ruby-mode-hook
+          (lambda ()
+            (define-key inf-ruby-minor-mode-map (kbd "C-c C-l") 'mark-current-line)
+            (define-key inf-ruby-minor-mode-map (kbd "C-x l") 'ruby-load-file)))
 
 (eval-after-load 'rspec-mode
   (progn
