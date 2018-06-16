@@ -6,8 +6,8 @@
 
 ;; Author: Thiago Araújo Silva
 (defun load-if-exists (f)
-  (if (file-exists-p f)
-      (load f)))
+  (when (file-exists-p f)
+    (load f)))
 
 ;; Author: Thiago Araújo Silva
 (defmacro setq-list-append (var value)
@@ -97,6 +97,7 @@
 ;; Moving around ;;
 ;;;;;;;;;;;;;;;;;;;
 
+;; Modified by Thiago to jump straight to the next occurrence
 (defun xah-search-current-word ()
   "Call `isearch' on current word or text selection.
 “word” here is A to Z, a to z, and hyphen 「-」 and underline 「_」, independent of syntax table.
@@ -122,6 +123,11 @@ Version 2015-04-09"
     (isearch-repeat-forward)))
 
 ;; Author: Thiago Araújo Silva
+(defun go-to-alternate-buffer ()
+  (interactive)
+  (switch-to-buffer nil))
+
+;; Author: Thiago Araújo Silva
 (defun next-non-read-only-buffer ()
   "Navigates to next *file* buffer"
   (interactive)
@@ -145,19 +151,6 @@ Version 2015-04-09"
             (not (string= (buffer-name) "TAGS"))
             (not (string-prefix-p "*" (string-trim (buffer-name (current-buffer)))))))
           (setq found t)))))
-
-;; Author: Thiago Araújo Silva
-(defun cycle-magit-buffers ()
-  (interactive)
-  (let (found (start-buffer (current-buffer)))
-    (while (not found)
-      (next-buffer)
-      (let ((cur-buffer (current-buffer)))
-        (if (or
-             (string-prefix-p "magit:" (buffer-name cur-buffer))
-             (eq cur-buffer start-buffer))
-            (setq found t))))))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; Window management ;;
@@ -201,6 +194,24 @@ Version 2015-04-09"
   (interactive)
   (let ((default-directory (projectile-project-root)))
     (shell-command "git pr")))
+
+;; Author: Thiago Araújo Silva
+(defun cycle-magit-buffers ()
+  (interactive)
+  (let (found (start-buffer (current-buffer)))
+    (while (not found)
+      (next-buffer)
+      (let ((cur-buffer (current-buffer)))
+        (if (or
+             (string-prefix-p "magit:" (buffer-name cur-buffer))
+             (eq cur-buffer start-buffer))
+            (setq found t))))))
+
+(defun magit-commit-this-buffer ()
+  (interactive)
+  (magit-unstage-all)
+  (magit-stage)
+  (magit-commit))
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; General helpers ;;
