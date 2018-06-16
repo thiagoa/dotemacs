@@ -45,14 +45,16 @@
 (global-set-key (kbd "C-M-;")          'iy-go-to-char)
 (global-set-key (kbd "C-M-'")          'iy-go-to-char-backward)
 (global-set-key (kbd "C-c g")          'toggle-option-key)
-(global-set-key (kbd "C-.")            'next-non-read-only-buffer)
-(global-set-key (kbd "C-,")            'prev-non-read-only-buffer)
+(global-set-key (kbd "M-=")            'next-non-read-only-buffer)
+(global-set-key (kbd "M--")            'prev-non-read-only-buffer)
 (global-set-key (kbd "C-c F")          'find-file-at-point-dwim)
 (global-set-key (kbd "C-S-c C-S-c")    'mc/edit-lines)
 (global-set-key (kbd "C->")            'mc/mark-next-like-this)
 (global-set-key (kbd "C-<")            'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<")        'mc/mark-all-like-this)
 (global-set-key (kbd "C-c , r")        'tests-rerun)
+(global-set-key [left]                 'cycle-magit-buffers)
+(global-set-key [right]                'cycle-magit-buffers)
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Fast movement ;;
@@ -93,6 +95,15 @@
 
 (define-key minibuffer-local-map (kbd "C-c f") 'name-of-the-file)
 
+;;;;;;;;;;
+;; Ruby ;;
+;;;;;;;;;;
+
+(eval-after-load 'inf-ruby
+  (progn
+    '(define-key inf-ruby-minor-mode-map (kbd "C-c C-l") nil)
+    '(define-key inf-ruby-minor-mode-map (kbd "C-x l") 'ruby-load-file)))
+
 ;;;;;;;;;;;;
 ;; Elixir ;;
 ;;;;;;;;;;;;
@@ -112,4 +123,10 @@
 (eval-after-load 'paredit
   '(progn
      (define-key paredit-mode-map (kbd "M-r") 'move-to-window-line-top-bottom)
-     (define-key paredit-mode-map (kbd "M-R") 'paredit-raise-sexp)))
+     (define-key paredit-mode-map (kbd "M-k") 'paredit-raise-sexp)))
+
+
+(eval-after-load 'magit-mode
+  '(progn
+     (define-key magit-mode-map [left] 'cycle-magit-buffers)
+     (define-key magit-mode-map [right] 'cycle-magit-buffers)))
