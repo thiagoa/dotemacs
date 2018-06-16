@@ -17,6 +17,7 @@
 (load "environment.el")
 (load "missile.el")
 (load "looknfeel.el")
+(load "tests-anywhere.el")
 (load "behavior.el")
 (load "buffers.el")
 (load "terminal.el")

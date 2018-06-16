@@ -52,7 +52,8 @@
 (global-set-key (kbd "C->")            'mc/mark-next-like-this)
 (global-set-key (kbd "C-<")            'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<")        'mc/mark-all-like-this)
-(global-set-key (kbd "C-c , r")        'tests-rerun)
+(global-set-key (kbd "C-c , r")        'tests-anywhere-rerun)
+(global-set-key (kbd "C-c , a")        'tests-anywhere-verify-all)
 (global-set-key [left]                 'cycle-magit-buffers)
 (global-set-key [right]                'cycle-magit-buffers)
 
@@ -103,6 +104,20 @@
   (progn
     '(define-key inf-ruby-minor-mode-map (kbd "C-c C-l") nil)
     '(define-key inf-ruby-minor-mode-map (kbd "C-x l") 'ruby-load-file)))
+
+(eval-after-load 'rspec-mode
+  (progn
+    '(define-key rspec-mode-map (kbd "C-c , r") 'tests-anywhere-rerun)
+    '(define-key rspec-mode-map (kbd "C-c , a") 'tests-anywhere-verify-all)))
+
+;;;;;;;;;;;;;
+;; Clojure ;;
+;;;;;;;;;;;;;
+
+(eval-after-load 'cider-mode
+  (progn
+    '(define-key cider-mode-map (kbd "C-c , a") 'tests-anywhere-verify-all)
+    '(define-key cider-mode-map (kbd "C-c , r") 'tests-anywhere-rerun)))
 
 ;;;;;;;;;;;;
 ;; Elixir ;;

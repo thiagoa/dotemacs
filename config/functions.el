@@ -311,14 +311,6 @@ directory to make multiple eshell windows easier."
       (comment-or-uncomment-region (region-beginning) (region-end))
     (comment-or-uncomment-region (line-beginning-position) (line-end-position))))
 
-(defun tests-rerun ()
-  (interactive)
-  (pcase (projectile-project-type)
-    ('rails-rspec (rspec-rerun))
-    ('elixir (alchemist-mix-rerun-last-test))
-    ('lein-test (cider-test-run-loaded-tests nil))
-    (_ (message "Can't figure out project type. Tweak tests-rerun."))))
-
 ;;;;;;;;;;;;;;;;
 ;; Minibuffer ;;
 ;;;;;;;;;;;;;;;;
