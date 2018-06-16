@@ -200,7 +200,7 @@
 
 (defun force-split-window-sensibly-to-vertical-when-big-font ()
   (setq split-height-threshold nil)
-  (setq split-width-threshold 147))
+  (setq split-width-threshold 140))
 
 (defun disable-startup-screen ()
   (setq inhibit-startup-screen t)
