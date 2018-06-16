@@ -1,5 +1,5 @@
 (setenv "LESS_OPEN" nil)
-(setenv "VISUAL" "emacsclient -n")
+(setenv "VISUAL" "emacsclient")
 (setenv "EDITOR" (getenv "VISUAL"))
 (setenv "PAGER" "cat")
 (setenv "TERM" "xterm-256-color")
