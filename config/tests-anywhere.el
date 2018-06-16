@@ -1,3 +1,5 @@
+(require 'cl-macs)
+
 (cl-defstruct tests-anywhere-command directory function)
 
 (defvar tests-anywhere-state
