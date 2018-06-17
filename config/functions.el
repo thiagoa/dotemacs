@@ -206,11 +206,23 @@ Version 2015-04-09"
              (eq cur-buffer start-buffer))
             (setq found t))))))
 
+;; Author: Thiago Araújo Silva
 (defun magit-commit-this-buffer ()
   (interactive)
   (magit-unstage-all)
   (magit-stage)
   (magit-commit))
+
+;; Author: Thiago Araújo Silva
+(defun git-link-branch ()
+  (interactive)
+  (let* ((remote (git-link--select-remote))
+         (branch (magit-completing-read "Branch" (magit-list-local-branch-names)))
+         (git-link-default-branch branch)
+         (region (when buffer-file-name (git-link--get-region)))
+         (start (car region))
+         (end (cadr region)))
+    (git-link remote start end))))
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; General helpers ;;
@@ -456,12 +468,14 @@ directory to make multiple eshell windows easier."
   ""
   "Environment variables to run rake with. Dynamic variable!")
 
+;; Author: Thiago Araújo Silva
 (defun rake--compile-with-env-var (orig-fun root task mode)
   (let ((task (concat rake--env-vars task)))
     (apply orig-fun `(,root ,task ,mode))))
 
 (advice-add 'rake--compile :around #'rake--compile-with-env-var)
 
+;; Author: Thiago Araújo Silva
 (defun rake-test (arg)
   (interactive "P")
   (let ((rake--env-vars "RAILS_ENV=test "))

@@ -34,6 +34,7 @@
         counsel-projectile
         magit
         magithub
+        git-link
         company
         enh-ruby-mode
         bundler
