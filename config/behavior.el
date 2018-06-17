@@ -72,3 +72,5 @@
 (put 'downcase-region 'disabled nil)
 
 (add-hook 'before-save-hook 'whitespace-cleanup)
+
+(magithub-feature-autoinject t)

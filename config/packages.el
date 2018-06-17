@@ -33,6 +33,7 @@
         projectile
         counsel-projectile
         magit
+        magithub
         company
         enh-ruby-mode
         bundler
