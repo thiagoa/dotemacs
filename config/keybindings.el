@@ -63,6 +63,7 @@
 (global-set-key (kbd "M-#")            'xah-seek-previous-word)
 (global-set-key (kbd "C-`")            'fzf-projectile)
 (global-set-key (kbd "s-t")            'fzf-projectile)
+(global-set-key (kbd "M-RET")          'replace-region)
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Fast movement ;;

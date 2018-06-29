@@ -73,6 +73,11 @@
   (crux-smart-open-line-above)
   (crux-smart-open-line nil))
 
+(defun replace-region ()
+  (interactive)
+  (call-interactively 'kill-region)
+  (call-interactively 'crux-smart-open-line-above))
+
 (defun move-line-up ()
   (interactive)
   (transpose-lines 1)
