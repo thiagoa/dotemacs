@@ -24,6 +24,7 @@
 
 (defun pac-install ()
   (interactive)
+  (save-buffer)
   (package-refresh-contents)
   (load "packages.el")
   (dolist (package package-selected-packages)
@@ -32,6 +33,7 @@
 
 (defun pac-update ()
   (interactive)
+  (save-buffer)
   (package-refresh-contents)
   (save-window-excursion
     (package-list-packages t)
