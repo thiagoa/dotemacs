@@ -207,22 +207,29 @@ Version 2015-04-09"
 (defun kill-extraneous-buffers ()
   (interactive)
   (dolist (buf (buffer-list) nil)
-    (if (or (cl-some
-             (lambda (pattern) (string-match pattern (buffer-name buf)))
-             killable-buffer-patterns)
-            (cl-some
-             (lambda (cur-mode) (eq cur-mode (with-current-buffer buf major-mode)))
-             killable-buffer-major-modes))
-        (kill-buffer buf)))
+    (let ((bufname (buffer-name buf)))
+      (unless (cl-some
+               (lambda (bufname) (string= bufname bufname))
+               killable-buffer-exceptions)
+        (if (or (cl-some
+                 (lambda (pattern) (string-match pattern bufname))
+                 killable-buffer-patterns)
+                (cl-some
+                 (lambda (cur-mode) (eq cur-mode (with-current-buffer buf major-mode)))
+                 killable-buffer-major-modes))
+            (kill-buffer buf)))))
   (message "Done."))
 
 (defvar killable-buffer-major-modes
   '(dired-mode))
 
+(defvar killable-buffer-exceptions
+  '("*scratch*"))
+
 (defvar killable-buffer-patterns
   '("^TAGS$"
     "^magit-"
-    "^*.+*$"
+    "^*[^scratch]*$"
     ".gz$"
     "^HEAD$"))
 
