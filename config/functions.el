@@ -1,4 +1,5 @@
 (require 'ido-goto-symbol)
+(require 'cl-extra)
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Elisp helpers ;;
@@ -201,6 +202,29 @@ Version 2015-04-09"
     (if (and name fname (file-exists-p fname))
         (find-file fname)
       (find-file-at-point filename))))
+
+;; Author: Thiago Araújo Silva
+(defun kill-extraneous-buffers ()
+  (interactive)
+  (dolist (buf (buffer-list) nil)
+    (if (or (cl-some
+             (lambda (pattern) (string-match pattern (buffer-name buf)))
+             killable-buffer-patterns)
+            (cl-some
+             (lambda (cur-mode) (eq cur-mode (with-current-buffer buf major-mode)))
+             killable-buffer-major-modes))
+        (kill-buffer buf)))
+  (message "Done."))
+
+(defvar killable-buffer-major-modes
+  '(dired-mode))
+
+(defvar killable-buffer-patterns
+  '("^TAGS$"
+    "^magit-"
+    "^*.+*$"
+    ".gz$"
+    "^HEAD$"))
 
 ;;;;;;;;;
 ;; Git ;;
