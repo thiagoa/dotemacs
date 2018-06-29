@@ -53,6 +53,8 @@
 (global-set-key (kbd "C->")            'mc/mark-next-like-this)
 (global-set-key (kbd "C-<")            'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<")        'mc/mark-all-like-this)
+(global-set-key (kbd "s-SPC")          'mc/mark-pop)
+(global-set-key (kbd "C-c C->")        'mc/reverse-regions)
 (global-set-key (kbd "C-c , r")        'tests-anywhere-rerun)
 (global-set-key (kbd "C-c , a")        'tests-anywhere-verify-all)
 (global-set-key [left]                 'cycle-magit-buffers)
