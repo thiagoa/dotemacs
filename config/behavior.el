@@ -65,6 +65,7 @@
       '((swiper . regexp-quote)
         (counsel-M-x . ivy--regex-plus)
         (t      . regexp-quote)))
+(magithub-feature-autoinject t)
 
 (load-history savehist-file)
 
