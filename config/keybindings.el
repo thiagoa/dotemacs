@@ -59,7 +59,6 @@
 (global-set-key (kbd "C-c , a")        'tests-anywhere-verify-all)
 (global-set-key [left]                 'cycle-magit-buffers)
 (global-set-key [right]                'cycle-magit-buffers)
-(global-set-key (kbd "M-*")            'xah-search-current-word)
 (global-set-key (kbd "M-*")            'xah-seek-next-word)
 (global-set-key (kbd "M-#")            'xah-seek-previous-word)
 (global-set-key (kbd "C-`")            'fzf-projectile)
