@@ -276,7 +276,7 @@ Version 2015-04-09"
          (region (when buffer-file-name (git-link--get-region)))
          (start (car region))
          (end (cadr region)))
-    (git-link remote start end))))
+    (git-link remote start end)))
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; General helpers ;;
