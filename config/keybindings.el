@@ -57,8 +57,8 @@
 (global-set-key (kbd "C-c C->")        'mc/reverse-regions)
 (global-set-key (kbd "C-c , r")        'tests-anywhere-rerun)
 (global-set-key (kbd "C-c , a")        'tests-anywhere-verify-all)
-(global-set-key [left]                 'cycle-magit-buffers)
-(global-set-key [right]                'cycle-magit-buffers)
+(global-set-key [left]                 'cycle-magit-buffers-backward)
+(global-set-key [right]                'cycle-magit-buffers-forward)
 (global-set-key (kbd "M-*")            'xah-seek-next-word)
 (global-set-key (kbd "M-#")            'xah-seek-previous-word)
 (global-set-key (kbd "C-`")            'fzf-projectile)
@@ -154,8 +154,7 @@
      (define-key paredit-mode-map (kbd "M-r") 'move-to-window-line-top-bottom)
      (define-key paredit-mode-map (kbd "M-k") 'paredit-raise-sexp)))
 
-
 (eval-after-load 'magit-mode
   '(progn
-     (define-key magit-mode-map [left] 'cycle-magit-buffers)
-     (define-key magit-mode-map [right] 'cycle-magit-buffers)))
+     (define-key magit-mode-map [left] 'cycle-magit-buffers-backward)
+     (define-key magit-mode-map [right] 'cycle-magit-buffers-forward)))
