@@ -17,6 +17,7 @@
 (global-missile-mode)
 (delete-selection-mode)
 (save-place-mode)
+(ido-mode)
 
 (put 'paredit-forward-delete 'delete-selection 'supersede)
 (put 'paredit-backward-delete 'delete-selection 'supersede)
@@ -65,6 +66,9 @@
       '((swiper . regexp-quote)
         (counsel-M-x . ivy--regex-plus)
         (t      . regexp-quote)))
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+
 (magithub-feature-autoinject t)
 
 (load-history savehist-file)
@@ -73,5 +77,3 @@
 (put 'downcase-region 'disabled nil)
 
 (add-hook 'before-save-hook 'whitespace-cleanup)
-
-(magithub-feature-autoinject t)
