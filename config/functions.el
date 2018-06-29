@@ -237,36 +237,30 @@ Version 2015-04-09"
   (run-under-project-root (lambda () (shell-command "git pr"))))
 
 ;; Author: Thiago Araújo Silva
-(defun cycle-magit-buffers-forward ()
-  (interactive)
+(defun cycle-magit-buffers (callback)
   (switch-to-magit-window)
   (let (found (start-buffer (current-buffer)))
     (while (not found)
-      (next-buffer)
+      (funcall callback)
       (let ((cur-buffer (current-buffer)))
         (if (or
              (string-prefix-p "magit:" (buffer-name cur-buffer))
              (eq cur-buffer start-buffer))
             (setq found t))))))
+
+(defun cycle-magit-buffers-forward ()
+  (interactive)
+  (cycle-magit-buffers 'next-buffer))
+
+(defun cycle-magit-buffers-backward ()
+  (interactive)
+  (cycle-magit-buffers 'previous-buffer))
 
 ;; Author: Thiago Araújo Silva
 (defun switch-to-magit-window ()
   (dolist (win (window-list) nil)
     (if (string-match "^magit:" (buffer-name (window-buffer win)))
         (select-window win))))
-
-;; Author: Thiago Araújo Silva
-(defun cycle-magit-buffers-backward ()
-  (interactive)
-  (switch-to-magit-window)
-  (let (found (start-buffer (current-buffer)))
-    (while (not found)
-      (previous-buffer)
-      (let ((cur-buffer (current-buffer)))
-        (if (or
-             (string-prefix-p "magit:" (buffer-name cur-buffer))
-             (eq cur-buffer start-buffer))
-            (setq found t))))))
 
 ;; Author: Thiago Araújo Silva
 (defun magit-commit-this-buffer ()
