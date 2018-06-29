@@ -239,6 +239,7 @@ Version 2015-04-09"
 ;; Author: Thiago Araújo Silva
 (defun cycle-magit-buffers-forward ()
   (interactive)
+  (switch-to-magit-window)
   (let (found (start-buffer (current-buffer)))
     (while (not found)
       (next-buffer)
@@ -249,8 +250,15 @@ Version 2015-04-09"
             (setq found t))))))
 
 ;; Author: Thiago Araújo Silva
+(defun switch-to-magit-window ()
+  (dolist (win (window-list) nil)
+    (if (string-match "^magit:" (buffer-name (window-buffer win)))
+        (select-window win))))
+
+;; Author: Thiago Araújo Silva
 (defun cycle-magit-buffers-backward ()
   (interactive)
+  (switch-to-magit-window)
   (let (found (start-buffer (current-buffer)))
     (while (not found)
       (previous-buffer)
