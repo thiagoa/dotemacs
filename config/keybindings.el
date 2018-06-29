@@ -120,6 +120,7 @@
 (add-hook 'enh-ruby-mode-hook
           (lambda ()
             (define-key inf-ruby-minor-mode-map (kbd "C-c C-l") 'mark-current-line)
+            (define-key inf-ruby-minor-mode-map (kbd "C-M-g") 'ruby-mark-block)
             (define-key inf-ruby-minor-mode-map (kbd "C-x l") 'ruby-load-file)))
 
 (eval-after-load 'rspec-mode
