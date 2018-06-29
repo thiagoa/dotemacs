@@ -58,6 +58,8 @@
 (global-set-key [left]                 'cycle-magit-buffers)
 (global-set-key [right]                'cycle-magit-buffers)
 (global-set-key (kbd "M-*")            'xah-search-current-word)
+(global-set-key (kbd "M-*")            'xah-seek-next-word)
+(global-set-key (kbd "M-#")            'xah-seek-previous-word)
 (global-set-key (kbd "C-`")            'fzf-projectile)
 (global-set-key (kbd "s-t")            'fzf-projectile)
 
@@ -84,6 +86,13 @@
                 (lambda ()
                   (interactive)
                   (ignore-errors (backward-char 5))))
+
+;;;;;;;;;;;;;
+;; isearch ;;
+;;;;;;;;;;;;;
+
+(define-key isearch-mode-map (kbd "M-*") 'xah-seek-next-word)
+(define-key isearch-mode-map (kbd "M-#") 'xah-seek-previous-word)
 
 ;;;;;;;;;;
 ;; Help ;;
