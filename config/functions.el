@@ -209,7 +209,7 @@ Version 2015-04-09"
   (dolist (buf (buffer-list) nil)
     (let ((bufname (buffer-name buf)))
       (unless (cl-some
-               (lambda (bufname) (string= bufname bufname))
+               (lambda (b) (string= bufname b))
                killable-buffer-exceptions)
         (if (or (cl-some
                  (lambda (pattern) (string-match pattern bufname))
@@ -227,9 +227,9 @@ Version 2015-04-09"
   '("*scratch*"))
 
 (defvar killable-buffer-patterns
-  '("^TAGS$"
+  '("^TAGS"
     "^magit-"
-    "^*[^scratch]*$"
+    "^*.+*$"
     ".gz$"
     "^HEAD$"))
 
