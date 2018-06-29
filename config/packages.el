@@ -30,6 +30,7 @@
         multiple-cursors
         dracula-theme
         zenburn-theme
+        color-theme-sanityinc-tomorrow
         projectile
         counsel-projectile
         magit

@@ -1,6 +1,6 @@
 (require 'uniquify)
 
-(load-theme 'dracula t)
+(load-theme 'sanityinc-tomorrow-night t)
 (setq ansi-color-names-vector
       ["black"
        "PaleVioletRed3"
@@ -26,7 +26,7 @@
 (setq uniquify-buffer-name-style 'post-forward)
 (setq uniquify-separator " : ")
 
-(setq my-default-font "Fira Code Retina 16")
+(setq my-default-font "Monaco 16")
 (add-to-list 'default-frame-alist `(font . ,my-default-font))
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 (fontify-frame nil)
