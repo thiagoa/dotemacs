@@ -17,8 +17,13 @@
 (add-hook 'enh-ruby-mode-hook 'smartscan-mode)
 (add-hook 'enh-ruby-mode-hook 'rubocop-mode)
 
+(require 'rspec-mode)
+
+(add-to-list 'rspec-before-verification-hook 'inf-ruby-switch-from-compilation)
+
 (add-hook 'web-mode-hook 'projectile-rails-on)
 (add-hook 'web-mode 'rspec-enable-appropriate-mode)
+
 (add-hook 'inf-ruby-mode-hook (lambda () (turn-on-comint-history ".pry_history")))
 
 (remove-hook 'ruby-mode-hook 'ruby-end-mode)
