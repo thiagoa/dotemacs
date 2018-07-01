@@ -24,6 +24,7 @@
         hippie-exp
         yasnippet
         change-inner
+        move-text
         dot-mode
         iy-go-to-char
         smartscan
