@@ -41,6 +41,7 @@
 (global-set-key (kbd "C-S-SPC")        'rectangle-mark-mode)
 (global-set-key (kbd "C-c u d")        'ruby-duplicate-block-below)
 (global-set-key (kbd "C-c D")          'crux-delete-file-and-buffer)
+(global-set-key (kbd "C-c R")          'crux-rename-buffer-and-file)
 (global-set-key (kbd "C-'")            'change-inner)
 (global-set-key (kbd "C-;")            'change-outer)
 (global-set-key (kbd "C-M-;")          'iy-go-to-char)
