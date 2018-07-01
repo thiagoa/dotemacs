@@ -1,6 +1,9 @@
 (require 'ido-goto-symbol)
 (require 'cl-extra)
 
+(defalias 'ff 'find-file)
+(defalias 'keb 'kill-extraneous-buffers)
+
 ;;;;;;;;;;;;;;;;;;;
 ;; Elisp helpers ;;
 ;;;;;;;;;;;;;;;;;;;
@@ -78,17 +81,6 @@
   (interactive)
   (call-interactively 'kill-region)
   (call-interactively 'crux-smart-open-line-above))
-
-(defun move-line-up ()
-  (interactive)
-  (transpose-lines 1)
-  (previous-line 2))
-
-(defun move-line-down ()
-  (interactive)
-  (next-line 1)
-  (transpose-lines 1)
-  (previous-line 1))
 
 ;; Author: Thiago Araújo Silva
 (defun mark-current-line ()
