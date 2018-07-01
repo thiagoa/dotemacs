@@ -44,7 +44,7 @@
 (global-set-key (kbd "C-c R")          'crux-rename-buffer-and-file)
 (global-set-key (kbd "C-'")            'change-inner)
 (global-set-key (kbd "C-;")            'change-outer)
-(global-set-key (kbd "C-M-;")          'iy-go-to-char)
+(global-set-key (kbd "C-M-;")          'iy-go-up-to-char)
 (global-set-key (kbd "C-M-'")          'iy-go-to-char-backward)
 (global-set-key (kbd "C-c g p")        'magit-push-popup)
 (global-set-key (kbd "C-c g c")        'magit-commit-popup)
