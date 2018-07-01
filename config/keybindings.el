@@ -69,6 +69,8 @@
 (global-set-key (kbd "C-`")            'fzf-projectile)
 (global-set-key (kbd "s-t")            'fzf-projectile)
 (global-set-key (kbd "M-RET")          'replace-region)
+(global-set-key (kbd "M-z")            'zap-up-to-char)
+(global-set-key (kbd "M-Z")            'zap-to-char)
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Fast movement ;;
