@@ -31,6 +31,7 @@
         multiple-cursors
         dracula-theme
         zenburn-theme
+        doom-themes
         color-theme-sanityinc-tomorrow
         projectile
         counsel-projectile

@@ -1,6 +1,6 @@
 (require 'uniquify)
 
-(load-theme 'sanityinc-tomorrow-night t)
+(load-theme 'doom-one t)
 (setq ansi-color-names-vector
       ["black"
        "PaleVioletRed3"
@@ -12,7 +12,8 @@
        "gray90"])
 
 (ignore-errors (menu-bar-mode -1))
-(ignore-errors (toggle-scroll-bar -1))
+(ignore-errors (scroll-bar-mode -1))
+(ignore-errors (tooltip-mode -1))
 (ignore-errors (tool-bar-mode -1))
 
 (disable-annoyances)
@@ -29,6 +30,10 @@
 (setq my-default-font "Monaco 16")
 (add-to-list 'default-frame-alist `(font . ,my-default-font))
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
+(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+(add-to-list 'default-frame-alist '(ns-appearance . dark))
+(setq ns-use-proxy-icon nil)
+(setq frame-title-format nil)
 (fontify-frame nil)
 (push 'fontify-frame after-make-frame-functions)
 
