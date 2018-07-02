@@ -1,5 +1,3 @@
-(require 'seeing-is-believing)
-
 (add-to-list 'auto-mode-alist '("\\.rake$" . enh-ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.rb$" . enh-ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.erb$" . web-mode))
@@ -11,7 +9,6 @@
 
 (add-hook 'after-init-hook 'inf-ruby-switch-setup)
 
-(add-hook 'enh-ruby-mode-hook 'seeing-is-believing)
 (add-hook 'enh-ruby-mode-hook 'projectile-rails-on)
 (add-hook 'enh-ruby-mode-hook 'safe-linum-mode)
 (add-hook 'enh-ruby-mode-hook 'smartscan-mode)
