@@ -71,6 +71,7 @@
 (global-set-key (kbd "M-RET")          'replace-region)
 (global-set-key (kbd "M-z")            'zap-up-to-char)
 (global-set-key (kbd "M-Z")            'zap-to-char)
+(global-set-key (kbd "s-e")            'counsel-projectile-switch-project)
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Fast movement ;;
