@@ -1,7 +1,8 @@
 (require 'ido-goto-symbol)
 (require 'cl-extra)
 
-(defalias 'ff 'find-file)
+(defalias 'ff  'find-file)
+(defalias 'e   'eval-buffer)
 (defalias 'keb 'kill-extraneous-buffers)
 
 ;;;;;;;;;;;;;;;;;;;
