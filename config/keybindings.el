@@ -75,12 +75,6 @@
 (global-set-key (kbd "M-`")            'jump-to-mark)
 (global-set-key (kbd "C-x b")          'ivy-switch-buffer)
 
-;;;;;;;;;;;;;;;;
-;; Key redefs ;;
-;;;;;;;;;;;;;;;;
-
-(define-key global-map [remap exchange-point-and-mark] 'exchange-point-and-mark-no-activate)
-
 ;;;;;;;;;;;;;;;;;;;
 ;; Fast movement ;;
 ;;;;;;;;;;;;;;;;;;;
