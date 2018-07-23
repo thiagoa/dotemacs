@@ -66,14 +66,20 @@
 (global-set-key [right]                'cycle-magit-buffers-forward)
 (global-set-key (kbd "M-*")            'xah-seek-next-word)
 (global-set-key (kbd "M-#")            'xah-seek-previous-word)
-(global-set-key (kbd "C-`")            'fzf-projectile)
 (global-set-key (kbd "s-t")            'fzf-projectile)
 (global-set-key (kbd "M-RET")          'replace-region)
 (global-set-key (kbd "M-z")            'zap-up-to-char)
 (global-set-key (kbd "M-Z")            'zap-to-char)
 (global-set-key (kbd "s-e")            'counsel-projectile-switch-project)
+(global-set-key (kbd "C-`")            'push-mark-no-activate)
+(global-set-key (kbd "M-`")            'jump-to-mark)
 (global-set-key (kbd "C-x b")          'ivy-switch-buffer)
 
+;;;;;;;;;;;;;;;;
+;; Key redefs ;;
+;;;;;;;;;;;;;;;;
+
+(define-key global-map [remap exchange-point-and-mark] 'exchange-point-and-mark-no-activate)
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Fast movement ;;
