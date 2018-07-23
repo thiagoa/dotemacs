@@ -26,7 +26,7 @@
 (global-set-key (kbd "C-c p w")        'projectile-rails-console)
 (global-set-key (kbd "C-M-y")          'reverse-transpose-sexps)
 (global-set-key (kbd "C-x g")          'magit-status)
-(global-set-key (kbd "C-x t")          'fzf-recentf)
+(global-set-key (kbd "C-x t")          'counsel-recentf)
 (global-set-key (kbd "C-c d")          'crux-duplicate-current-line-or-region)
 (global-set-key (kbd "C-c t")          'ansi-term)
 (global-set-key (kbd "C-x C-j")        'dired-jump)
@@ -72,6 +72,8 @@
 (global-set-key (kbd "M-z")            'zap-up-to-char)
 (global-set-key (kbd "M-Z")            'zap-to-char)
 (global-set-key (kbd "s-e")            'counsel-projectile-switch-project)
+(global-set-key (kbd "C-x b")          'ivy-switch-buffer)
+
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Fast movement ;;
