@@ -30,7 +30,9 @@
         smartscan
         multiple-cursors
         dracula-theme
+        nimbus-theme
         zenburn-theme
+        leuven-theme
         doom-themes
         color-theme-sanityinc-tomorrow
         projectile
