@@ -1,3 +1,6 @@
+(require 'rubocop)
+(require 'projectile-rails)
+
 (add-to-list 'auto-mode-alist '("\\.rake$" . enh-ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.rb$" . enh-ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.erb$" . web-mode))
@@ -33,3 +36,5 @@
 (setq enh-ruby-hanging-paren-indent-level 2)
 (setq rspec-use-rake-when-possible nil)
 (setq enh-ruby-add-encoding-comment-on-save nil)
+
+(setq rubocop-check-command "rubocop --format emacs -D")
