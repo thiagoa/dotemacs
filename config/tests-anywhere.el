@@ -14,7 +14,7 @@
   (tests-anywhere-run-registered key))
 
 (defun tests-anywhere-run-registered (key)
-  (let* ((state (gethash key tests-anywhere-state))
+  (let* ((state (or (gethash key tests-anywhere-state) (error "No prior test run")))
          (default-directory (tests-anywhere-command-directory state)))
     (if state
         (funcall (tests-anywhere-command-function state))

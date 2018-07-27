@@ -125,16 +125,16 @@
 ;; Ruby ;;
 ;;;;;;;;;;
 
+(require 'rspec-mode)
+
 (add-hook 'enh-ruby-mode-hook
           (lambda ()
             (define-key inf-ruby-minor-mode-map (kbd "C-c C-l") 'mark-current-line)
             (define-key inf-ruby-minor-mode-map (kbd "C-M-g") 'ruby-mark-block)
             (define-key inf-ruby-minor-mode-map (kbd "C-x l") 'ruby-load-file)))
 
-(eval-after-load 'rspec-mode
-  (progn
-    '(define-key rspec-mode-map (kbd "C-c , r") 'tests-anywhere-rerun)
-    '(define-key rspec-mode-map (kbd "C-c , a") 'tests-anywhere-verify-all)))
+(define-key rspec-verifiable-mode-map (kbd "C-c , r") 'tests-anywhere-rerun)
+(define-key rspec-verifiable-mode-map (kbd "C-c , a") 'tests-anywhere-verify-all)
 
 ;;;;;;;;;;;;;
 ;; Clojure ;;
