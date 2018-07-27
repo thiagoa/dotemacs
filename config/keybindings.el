@@ -74,6 +74,7 @@
 (global-set-key (kbd "C-`")            'push-mark-no-activate)
 (global-set-key (kbd "M-`")            'jump-to-mark)
 (global-set-key (kbd "C-x b")          'ivy-switch-buffer)
+(global-set-key (kbd "C-c n")          'tmp-buffer)
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Fast movement ;;

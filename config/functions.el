@@ -419,10 +419,6 @@ directory to make multiple eshell windows easier."
       (comment-or-uncomment-region (region-beginning) (region-end))
     (comment-or-uncomment-region (line-beginning-position) (line-end-position))))
 
-;;;;;;;;;;;;;;;;;
-;; Programming ;;
-;;;;;;;;;;;;;;;;;
-
 (defun xah-run-current-file ()
   "Execute the current file.
 For example, if the current buffer is x.py, then it'll call 「python x.py」 in a shell.
@@ -632,3 +628,28 @@ Version 2018-07-01"
   This is the same as using \\[set-mark-command] with the prefix argument."
   (interactive)
   (set-mark-command 1))
+
+;; https://www.reddit.com/r/emacs/comments/90xkzt/what_do_you_use_the_scratch_buffer_for/
+(defcustom tmp-buffer-mode-alist
+  '((?o . org-mode)
+    (?t . text-mode)
+    (?m . markdown-mode)
+    (?r . enh-ruby-mode)
+    (?e . emacs-lisp-mode)
+    (?l . lisp-interaction-mode))
+  "List of major modes for temporary buffers and their hotkeys."
+  :type '(alist :key-type character :value-type symbol))
+
+;; https://www.reddit.com/r/emacs/comments/90xkzt/what_do_you_use_the_scratch_buffer_for/
+(defun tmp-buffer (mode)
+  "Open temporary buffer in specified major mode."
+  (interactive "c")
+  (if (eq mode ?\C-h)
+      (with-output-to-temp-buffer "*Help*"
+        (princ "Temporary buffers:\n\nKey\tMode\n")
+        (dolist (km tmp-buffer-mode-alist)
+          (princ (format " %c\t%s\n" (car km) (cdr km)))))
+    (let ((buf (generate-new-buffer "*tmp*")))
+      (with-current-buffer buf
+        (funcall (cdr (assoc mode tmp-buffer-mode-alist))))
+      (pop-to-buffer buf))))
