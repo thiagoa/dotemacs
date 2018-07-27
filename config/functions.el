@@ -84,13 +84,13 @@
   (call-interactively 'crux-smart-open-line-above))
 
 ;; Author: Thiago Araújo Silva
-(defun mark-current-line ()
+(defun mark-current-line (arg)
   "Marks the current line"
-  (interactive)
+  (interactive "p")
   (move-beginning-of-line 1)
   (set-mark
    (save-excursion
-     (next-line)
+     (dotimes (_ arg) (next-line))
      (move-beginning-of-line 1)
      (point))))
 
