@@ -32,8 +32,17 @@
 ;; This is fragile and should be improved later
 (setcar counsel-projectile-switch-project-action 12)
 
+(defun execute-extended-command-under-dir (dir)
+  (execute-command-under-dir dir 'execute-extended-command))
+
 (setq-list-append counsel-projectile-switch-project-action
                   ("xx" execute-extended-command-under-dir "execute extended command"))
+
+(defun execute-projectile-rails-console-under-dir (dir)
+  (execute-command-under-dir dir 'projectile-rails-console))
+
+(setq-list-append counsel-projectile-switch-project-action
+                  ("pr" execute-projectile-rails-console-under-dir "projectile rails"))
 
 (setq tags-add-tables nil)
 (setq magit-no-confirm '(unstage-all-changes))

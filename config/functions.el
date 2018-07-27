@@ -285,15 +285,12 @@ Version 2015-04-09"
 ;;;;;;;;;;;;;;;;;;;;;
 
 (defun run-under-project-root (command)
-  "Runs a command under the current project root"
-  (let ((default-directory (projectile-project-root)))
-    (funcall command)))
-
+  (execute-command-under-dir (projectile-project-root) command))
 
 ;; Author: Thiago Araújo Silva
-(defun execute-extended-command-under-dir (project)
-  (let ((default-directory project))
-    (execute-extended-command nil)))
+(defun execute-command-under-dir (dir &rest args)
+  (let ((default-directory dir))
+    (funcall (car args) (cdr args))))
 
 ;; Author: Thiago Araújo Silva
 (defun safe-linum-mode ()
@@ -563,6 +560,26 @@ Version 2018-07-01"
 (defun bundle ()
   (interactive)
   (bundle-install))
+
+(defvar last-ruby-project nil)
+
+;; Author: Thiago Araújo Silva
+(defun within-last-ruby-project (&rest args)
+  "A function decorator (around advice) which registers and
+   remembers the last Ruby project a command has been run on.
+   When triggered in a non-Ruby project, it will run the command of
+   the last Ruby project. This can be generalized further to work with
+   other project types, thus uncoupling from Ruby."
+  (if (file-exists-p (concat (projectile-rails-root) "Gemfile"))
+      (progn
+        (setq last-ruby-project default-directory)
+        (apply (car args) (cdr args)))
+    (if last-ruby-project
+        (let ((default-directory last-ruby-project))
+          (apply (car args) (cdr args)))
+      (message "No previous Ruby project"))))
+
+(advice-add 'projectile-rails-console :around #'within-last-ruby-project)
 
 ;;;;;;;;;
 ;; FZF ;;
