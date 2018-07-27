@@ -274,9 +274,13 @@ Version 2015-04-09"
 
 ;; Author: Thiago Araújo Silva
 (defun switch-to-magit-window ()
-  (dolist (win (window-list) nil)
-    (if (string-match "^magit:" (buffer-name (window-buffer win)))
-        (select-window win))))
+  (unless (magit-buffer? (buffer-name))
+    (dolist (win (window-list) nil)
+      (if (magit-buffer? (buffer-name (window-buffer win)))
+          (select-window win)))))
+
+(defun magit-buffer? (buffer)
+  (string-match "^magit:" buffer))
 
 ;; Author: Thiago Araújo Silva
 (defun magit-commit-this-buffer ()
