@@ -1,4 +1,5 @@
 (require 'uniquify)
+(require 'ivy-rich)
 
 (load-theme 'doom-one t)
 (setq ansi-color-names-vector
@@ -10,6 +11,8 @@
        "orchid1"
        "cyan3"
        "gray90"])
+
+(ivy-rich-mode)
 
 (ignore-errors (menu-bar-mode -1))
 (ignore-errors (scroll-bar-mode -1))
