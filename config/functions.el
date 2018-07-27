@@ -226,6 +226,22 @@ Version 2015-04-09"
     ".gz$"
     "^HEAD$"))
 
+;;;;;;;;;;;;;;;;;;;;;
+;; Flie management ;;
+;;;;;;;;;;;;;;;;;;;;;
+
+;; Copied from the crux package. Modified to skip annoying
+;; vc-delete-file and do what I mean (dwim) please!
+(defun delete-file-and-buffer ()
+  "Kill the current buffer and deletes the file it is visiting."
+  (interactive)
+  (let ((filename (buffer-file-name)))
+    (when filename
+      (when (y-or-n-p (format "Are you sure you want to delete %s? " filename))
+        (delete-file filename delete-by-moving-to-trash)
+        (message "Deleted file %s" filename)
+        (kill-buffer)))))
+
 ;;;;;;;;;
 ;; Git ;;
 ;;;;;;;;;
