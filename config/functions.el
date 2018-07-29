@@ -309,8 +309,10 @@ Version 2015-04-09"
 
 ;; Author: Thiago Araújo Silva
 (defun execute-command-under-dir (dir &rest args)
-  (let ((default-directory dir))
-    (funcall (car args) (cdr args))))
+  (let ((default-directory dir)
+        (func (car args))
+        (params (cdr args)))
+    (if params (funcall func params) (funcall func))))
 
 ;; Author: Thiago Araújo Silva
 (defun safe-linum-mode ()
