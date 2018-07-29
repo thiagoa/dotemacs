@@ -74,7 +74,7 @@
 (setq ivy-re-builders-alist
       '((swiper . regexp-quote)
         (counsel-M-x . ivy--regex-plus)
-        (t      . regexp-quote)))
+        (t      . ivy--regex-fuzzy)))
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 

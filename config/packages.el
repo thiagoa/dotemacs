@@ -19,6 +19,8 @@
         ag
         swiper
         ivy-hydra
+        ivy-rich
+        flx
         counsel
         ido-vertical-mode
         hippie-exp
@@ -36,7 +38,6 @@
         doom-themes
         color-theme-sanityinc-tomorrow
         projectile
-        ivy-rich
         counsel-projectile
         magit
         magithub
