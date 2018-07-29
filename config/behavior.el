@@ -39,7 +39,7 @@
                   ("xx" execute-extended-command-under-dir "execute extended command"))
 
 (defun execute-projectile-rails-console-under-dir (dir)
-  (execute-command-under-dir dir 'projectile-rails-console))
+  (execute-command-under-dir dir 'projectile-rails-console nil))
 
 (setq-list-append counsel-projectile-switch-project-action
                   ("pr" execute-projectile-rails-console-under-dir "projectile rails"))
