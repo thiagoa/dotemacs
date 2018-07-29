@@ -122,6 +122,13 @@
 
 (define-key minibuffer-local-map (kbd "C-c f") 'name-of-the-file)
 
+;;;;;;;;;;;;
+;; Comint ;;
+;;;;;;;;;;;;
+
+
+(define-key comint-mode-map (kbd "<C-return>") 'comint-send-input-stay-on-line)
+
 ;;;;;;;;;;
 ;; Ruby ;;
 ;;;;;;;;;;

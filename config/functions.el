@@ -427,6 +427,17 @@ directory to make multiple eshell windows easier."
     (insert (concat "ls"))
     (eshell-send-input)))
 
+;;;;;;;;;;;;
+;; Comint ;;
+;;;;;;;;;;;;
+
+(defun comint-send-input-stay-on-line ()
+  (interactive)
+  (call-interactively 'comint-send-input)
+  (run-with-timer 0.05
+                  nil
+                  (lambda ()  (call-interactively 'comint-show-output))))
+
 ;;;;;;;;;;;;;;;;;
 ;; Programming ;;
 ;;;;;;;;;;;;;;;;;
