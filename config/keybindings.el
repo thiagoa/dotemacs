@@ -76,6 +76,7 @@
 (global-set-key (kbd "M-`")            'jump-to-mark)
 (global-set-key (kbd "C-x b")          'ivy-switch-buffer)
 (global-set-key (kbd "C-c n")          'tmp-buffer)
+(global-set-key (kbd "C-c r")          'xah-run-current-file)
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Fast movement ;;
