@@ -449,6 +449,7 @@ directory to make multiple eshell windows easier."
       (comment-or-uncomment-region (region-beginning) (region-end))
     (comment-or-uncomment-region (line-beginning-position) (line-end-position))))
 
+;; Modified to add support for other languages
 (defun xah-run-current-file ()
   "Execute the current file.
 For example, if the current buffer is x.py, then it'll call 「python x.py」 in a shell.
@@ -487,6 +488,7 @@ Version 2018-07-01"
            ("tex" . "pdflatex")
            ("latex" . "pdflatex")
            ("java" . "javac")
+           ("c" . "gcc")
            ;; ("pov" . "/usr/local/bin/povray +R2 +A0.1 +J1.2 +Am2 +Q9 +H480 +W640")
            ))
         $fname
@@ -496,6 +498,7 @@ Version 2018-07-01"
     (when (not (buffer-file-name)) (save-buffer))
     (when (buffer-modified-p) (save-buffer))
     (setq $fname (buffer-file-name))
+    (setq $fname-sans-extension (file-name-sans-extension (file-name-nondirectory $fname)))
     (setq $fSuffix (file-name-extension $fname))
     (setq $prog-name (cdr (assoc $fSuffix $suffix-map)))
     (setq $cmd-str (concat $prog-name " \""   $fname "\""))
@@ -515,7 +518,16 @@ Version 2018-07-01"
       (shell-command $cmd-str $outputb ))
      ((string-equal $fSuffix "java")
       (progn
-        (shell-command (format "java %s" (file-name-sans-extension (file-name-nondirectory $fname))) $outputb )))
+        (shell-command (format "java %s" $fname-sans-extension) $outputb )))
+     ((string-equal $fSuffix "c")
+      (progn
+        (shell-command
+         (format
+          "gcc -o %s %s && ./%s"
+          $fname-sans-extension
+          $fname
+          $fname-sans-extension)
+         $outputb)))
      (t (if $prog-name
             (progn
               (message "Running")
