@@ -638,6 +638,28 @@ Version 2018-07-01"
 
 (advice-add 'projectile-rails-console :around #'within-last-ruby-project)
 
+;; Author: Thiago Araújo Silva
+(defun rspec-toggle-compilation-mode ()
+  "Toggles compilation mode for future rspec executions.
+With compilation mode disabled, you will be able to interact with
+a debugger such as Pry or hit C-c C-c to force RSpec to terminate
+a test run. With it enabled, you will be able to navigate through
+error stack traces and have all compile functionality at your
+disposal.
+
+Also, this command looks for an rspec buffer and toggles
+compilation mode in it immediately."
+  (interactive)
+  (toggle-list-element
+   rspec-before-verification-hook
+   'inf-ruby-switch-from-compilation
+   (lambda (on) (message (concat "Compilation mode is " (if on "OFF" "ON")))))
+  (when (setq next-error-last-buffer (next-error-find-buffer))
+    (with-current-buffer next-error-last-buffer
+      (if (equal major-mode 'inf-ruby-mode)
+          (inf-ruby-maybe-switch-to-compilation)
+        (inf-ruby-switch-from-compilation)))))
+
 ;;;;;;;;;
 ;; FZF ;;
 ;;;;;;;;;

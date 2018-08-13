@@ -137,6 +137,8 @@
 
 (require 'rspec-mode)
 
+(global-set-key (kbd "C-c , p") 'rspec-toggle-compilation-mode)
+
 (add-hook 'enh-ruby-mode-hook
           (lambda ()
             (define-key inf-ruby-minor-mode-map (kbd "C-c C-l") 'mark-current-line)
