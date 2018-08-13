@@ -16,7 +16,6 @@
 (add-hook 'enh-ruby-mode-hook 'safe-linum-mode)
 (add-hook 'enh-ruby-mode-hook 'smartscan-mode)
 (add-hook 'enh-ruby-mode-hook 'rubocop-mode)
-(add-hook 'enh-ruby-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 
 (require 'rspec-mode)
 
