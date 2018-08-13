@@ -102,6 +102,13 @@
                   (interactive)
                   (ignore-errors (backward-char 5))))
 
+;;;;;;;;;;;;;;;
+;; undo-tree ;;
+;;;;;;;;;;;;;;;
+
+;; Stop undo-tree from eating rectangle and bookmark bindings
+(define-key undo-tree-map (kbd "C-x r") nil)
+
 ;;;;;;;;;;;;;
 ;; isearch ;;
 ;;;;;;;;;;;;;
