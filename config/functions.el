@@ -125,14 +125,22 @@ Version 2015-04-09"
 (defun xah-seek-next-word ()
   (interactive)
   (xah-search-current-word)
-  (isearch-repeat-forward))
+  (isearch-repeat-forward)
+  (unless (= (point) isearch-other-end) (goto-char isearch-other-end)))
 
 (defun xah-seek-previous-word ()
   (interactive)
   (let ((was-bound (bound-and-true-p isearch-mode)))
     (xah-search-current-word)
     (unless was-bound (isearch-repeat-backward))
-    (isearch-repeat-backward)))
+    (isearch-repeat-backward))
+  (unless (= (point) isearch-other-end) (goto-char isearch-other-end)))
+
+(defun isearch-exit-other-end ()
+  "Exit isearch, at the opposite end of the string."
+  (interactive)
+  (isearch-exit)
+  (goto-char isearch-other-end))
 
 ;; Author: Thiago Araújo Silva
 (defun go-to-alternate-buffer ()
