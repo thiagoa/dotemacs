@@ -1,3 +1,5 @@
+(setq gc-cons-threshold 20000000)
+
 (defconst emacs-d
   (file-name-directory
    (file-chase-links load-file-name))
