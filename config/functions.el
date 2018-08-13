@@ -18,6 +18,14 @@
 (defmacro setq-list-append (var value)
   (list 'setq var (list 'append var `'(,value))))
 
+;; Author: Thiago Araújo Silva
+(defmacro toggle-list-element (list element callback)
+  `(let ((present? (member ,element ,list)))
+     (if present?
+         (setq ,list (delete ,element ,list))
+       (add-to-list ',list ,element))
+     (,callback (not present?))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Config && Package management ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
