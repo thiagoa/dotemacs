@@ -19,7 +19,11 @@
 
 (require 'rspec-mode)
 
+(defun finish-test ()
+  (shell-command "bash -c -l \"echo Tests finished | terminal-notifier -sound Hero\""))
+
 (add-to-list 'rspec-before-verification-hook 'inf-ruby-switch-from-compilation)
+(add-hook 'rspec-after-verification-hook 'finish-test)
 
 (add-hook 'web-mode-hook 'projectile-rails-on)
 (add-hook 'web-mode 'rspec-enable-appropriate-mode)

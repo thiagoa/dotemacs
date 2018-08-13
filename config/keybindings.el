@@ -136,8 +136,11 @@
 ;; Comint ;;
 ;;;;;;;;;;;;
 
+(require 'inf-ruby)
 
 (define-key comint-mode-map (kbd "<C-return>") 'comint-send-input-stay-on-line)
+(define-key inf-ruby-mode-map (kbd "C-M-f") 'comint-next-prompt)
+(define-key inf-ruby-mode-map (kbd "C-M-b") 'comint-previous-prompt)
 
 ;;;;;;;;;;
 ;; Ruby ;;
