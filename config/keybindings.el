@@ -30,6 +30,7 @@
 (global-set-key (kbd "C-c d")          'crux-duplicate-current-line-or-region)
 (global-set-key (kbd "C-c t")          'ansi-term)
 (global-set-key (kbd "C-x C-j")        'dired-jump)
+(global-set-key (kbd "C-c g d")        'dired-file-at-point-dwim)
 (global-set-key (kbd "C-c k a")        'kill-variable-assignment)
 (global-set-key (kbd "M-o")            'other-window)
 (global-set-key (kbd "C-o")            'go-to-alternate-buffer)
