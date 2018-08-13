@@ -25,6 +25,7 @@
         ido-vertical-mode
         hippie-exp
         yasnippet
+        flycheck
         change-inner
         move-text
         dot-mode

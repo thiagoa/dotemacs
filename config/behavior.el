@@ -7,6 +7,7 @@
 (set-default-shell "zsh")
 
 (global-dot-mode)
+(global-flycheck-mode)
 (global-discover-mode)
 (global-undo-tree-mode)
 (yas-global-mode)
