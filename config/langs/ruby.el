@@ -29,6 +29,7 @@
 (remove-hook 'ruby-mode-hook 'ruby-end-mode)
 (remove-hook 'enh-ruby-mode-hook 'ruby-end-mode)
 
+(setq projectile-rails-expand-snippet nil)
 (setq enh-ruby-bounce-deep-indent nil)
 (setq enh-ruby-hanging-brace-indent-level 2)
 (setq ruby-deep-indent-paren nil)
