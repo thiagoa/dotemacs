@@ -194,6 +194,10 @@ Version 2015-04-09"
   (kill-buffer (current-buffer))
   (delete-window))
 
+(defun dired-file-at-point-dwim ()
+  (interactive)
+  (dired-jump nil (ffap-string-at-point 'file)))
+
 ;; Taken from https://www.reddit.com/r/emacs/comments/676r5b/how_to_stop_findfileatprompting_when_there_is_a/
 ;; Adapted to expand shell variables
 (defun find-file-at-point-dwim (&optional filename)
