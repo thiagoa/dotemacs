@@ -34,7 +34,7 @@
 (setcar counsel-projectile-switch-project-action 12)
 
 (defun execute-extended-command-under-dir (dir)
-  (execute-command-under-dir dir 'execute-extended-command))
+  (execute-command-under-dir dir 'execute-extended-command nil))
 
 (setq-list-append counsel-projectile-switch-project-action
                   ("xx" execute-extended-command-under-dir "execute extended command"))
