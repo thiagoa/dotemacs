@@ -76,6 +76,7 @@
       '((swiper . regexp-quote)
         (counsel-M-x . ivy--regex-plus)
         (t      . ivy--regex-fuzzy)))
+(setq ivy-height 20)
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 
