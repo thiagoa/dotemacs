@@ -108,6 +108,7 @@
 
 (define-key isearch-mode-map (kbd "M-*") 'xah-seek-next-word)
 (define-key isearch-mode-map (kbd "M-#") 'xah-seek-previous-word)
+(define-key isearch-mode-map [(control return)] #'isearch-exit-other-end)
 
 ;;;;;;;;;;
 ;; Help ;;
