@@ -30,7 +30,7 @@
 (setq uniquify-buffer-name-style 'post-forward)
 (setq uniquify-separator " : ")
 
-(setq my-default-font "Monaco 16")
+(setq my-default-font "Menlo 15")
 (add-to-list 'default-frame-alist `(font . ,my-default-font))
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
