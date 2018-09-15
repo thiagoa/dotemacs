@@ -20,6 +20,8 @@
 (save-place-mode)
 (ido-mode)
 
+(when window-system (global-unset-key "\C-z")) ; ugh
+
 (put 'paredit-forward-delete 'delete-selection 'supersede)
 (put 'paredit-backward-delete 'delete-selection 'supersede)
 (put 'paredit-open-round 'delete-selection t)
