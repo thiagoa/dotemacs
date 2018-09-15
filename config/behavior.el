@@ -60,8 +60,16 @@
 (setq hippie-expand-try-functions-list
       '(try-expand-line
         try-expand-line-all-buffers
-        try-complete-file-name
-        try-complete-lisp-symbol))
+        try-expand-all-abbrevs
+        try-expand-list
+        try-expand-dabbrev-visible
+        try-expand-dabbrev
+        try-expand-dabbrev-all-buffers
+        try-expand-dabbrev-from-kill
+        try-complete-lisp-symbol-partially
+        try-complete-lisp-symbol
+        try-complete-file-name-partially
+        try-complete-file-name))
 (setq dired-dwim-target t)
 (setq dired-recursive-copies (quote always))
 (setq dired-recursive-deletes (quote top))
