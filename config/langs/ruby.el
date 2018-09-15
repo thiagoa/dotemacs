@@ -1,4 +1,5 @@
 (require 'rubocop)
+(require 'rspec-mode)
 (require 'projectile-rails)
 
 (add-to-list 'auto-mode-alist '("\\.rake$" . enh-ruby-mode))
@@ -17,17 +18,11 @@
 (add-hook 'enh-ruby-mode-hook 'smartscan-mode)
 (add-hook 'enh-ruby-mode-hook 'rubocop-mode)
 
-(require 'rspec-mode)
-
-(defun finish-test ()
-  (shell-command "bash -c -l \"echo Tests finished | terminal-notifier -sound Hero\""))
-
 (add-to-list 'rspec-before-verification-hook 'inf-ruby-switch-from-compilation)
-(add-hook 'rspec-after-verification-hook 'finish-test)
 
+(add-hook 'rspec-after-verification-hook 'finish-test-compilation)
 (add-hook 'web-mode-hook 'projectile-rails-on)
 (add-hook 'web-mode 'rspec-enable-appropriate-mode)
-
 (add-hook 'inf-ruby-mode-hook (lambda () (turn-on-comint-history ".pry_history")))
 
 (remove-hook 'ruby-mode-hook 'ruby-end-mode)
@@ -40,5 +35,4 @@
 (setq enh-ruby-hanging-paren-indent-level 2)
 (setq rspec-use-rake-when-possible nil)
 (setq enh-ruby-add-encoding-comment-on-save nil)
-
 (setq rubocop-check-command "rubocop --format emacs -D")

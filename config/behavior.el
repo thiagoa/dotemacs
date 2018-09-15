@@ -28,25 +28,15 @@
 (put 'paredit-open-square 'delete-selection t)
 (put 'paredit-doublequote 'delete-selection t)
 (put 'paredit-newline 'delete-selection t)
+(put 'set-goal-column 'disabled nil)
 
 (setq-default indent-tabs-mode nil)
 
-;; Sets default action to magit (this is the index of the action)
-;; This is fragile and should be improved later
-(setcar counsel-projectile-switch-project-action 12)
+(set-counsel-projectile-default-action "v")
+(add-counsel-projectile-action ("xx" 'execute-extended-command-under-dir "execute extended command"))
+(add-counsel-projectile-action ("pr" 'execute-projectile-rails-console-under-dir "projectile rails"))
 
-(defun execute-extended-command-under-dir (dir)
-  (execute-command-under-dir dir 'execute-extended-command nil))
-
-(setq-list-append counsel-projectile-switch-project-action
-                  ("xx" execute-extended-command-under-dir "execute extended command"))
-
-(defun execute-projectile-rails-console-under-dir (dir)
-  (execute-command-under-dir dir 'projectile-rails-console nil))
-
-(setq-list-append counsel-projectile-switch-project-action
-                  ("pr" execute-projectile-rails-console-under-dir "projectile rails"))
-
+(setq save-interprogram-paste-before-kill t)
 (setq tags-add-tables nil)
 (setq magit-no-confirm '(unstage-all-changes))
 (setq vc-follow-symlinks t)

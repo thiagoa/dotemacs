@@ -1,9 +1,14 @@
-(defvar scroll-viewport-up    (kbd "C-u 3 C-v"))
-(defvar scroll-viewport-down  (kbd "C-u 3 M-v"))
+(defvar scroll-viewport-up       (kbd "C-u 3 C-v"))
+(defvar scroll-viewport-down     (kbd "C-u 3 M-v"))
+(defvar kill-whole-line-backward (kbd "C-e <C-backspace>"))
 
 (windmove-default-keybindings) ; Shift + arrow keys to move between windows
 
+(global-set-key (kbd "C-x 4 t")        'crux-transpose-windows)
 (global-set-key (kbd "C-c C-h")        'crux-kill-whole-line)
+(global-set-key (kbd "C-k")            'crux-smart-kill-line)
+(global-set-key (kbd "<C-backspace>")  'crux-kill-line-backwards)
+(global-set-key (kbd "<C-M-backspace>") kill-whole-line-backward)
 (global-set-key (kbd "M-h")            'mark-paragraph)
 (global-set-key (kbd "C-c C-l")        'mark-current-line)
 (global-set-key (kbd "<C-return>")     'crux-smart-open-line)
@@ -11,10 +16,10 @@
 (global-set-key (kbd "<C-M-return>")   'smart-open-line-below-and-above)
 (global-set-key (kbd "C-x ;")          'comment-or-uncomment-line-or-region)
 (global-set-key (kbd "C-M-j")          'crux-top-join-line)
-(global-set-key [(control shift up)]   'move-text-up)
-(global-set-key [(control shift down)] 'move-text-down)
-(global-set-key (kbd "C-c l")          'next-buffer)
-(global-set-key (kbd "C-c h")          'previous-buffer)
+(global-set-key [(control shift up)]   'move-text-up-and-indent)
+(global-set-key [(control shift down)] 'move-text-down-and-indent)
+(global-set-key (kbd "C-c l")          'winner-redo)
+(global-set-key (kbd "C-c h")          'winner-undo)
 (global-set-key (kbd "C-x C-b")        'ibuffer)
 (global-set-key (kbd "s-n")             scroll-viewport-up)
 (global-set-key (kbd "s-p")             scroll-viewport-down)
@@ -28,6 +33,7 @@
 (global-set-key (kbd "C-x g")          'magit-status)
 (global-set-key (kbd "C-x t")          'counsel-recentf)
 (global-set-key (kbd "C-c d")          'crux-duplicate-current-line-or-region)
+(global-set-key (kbd "C-c M-d")        'crux-duplicate-and-comment-current-line-or-region)
 (global-set-key (kbd "C-c t")          'ansi-term)
 (global-set-key (kbd "C-x C-j")        'dired-jump)
 (global-set-key (kbd "C-c g d")        'dired-file-at-point-dwim)
@@ -77,6 +83,9 @@
 (global-set-key (kbd "C-x b")          'ivy-switch-buffer)
 (global-set-key (kbd "C-c n")          'tmp-buffer)
 (global-set-key (kbd "C-c r")          'xah-run-current-file)
+(global-set-key (kbd "C-x C-\\")       'goto-last-change)
+(global-set-key (kbd "C-c a :")        'align-to-colon)
+(global-set-key (kbd "s-i")            'go-to-rspec-compilation-buffer)
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Fast movement ;;

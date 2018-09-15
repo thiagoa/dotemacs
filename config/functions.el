@@ -1,5 +1,7 @@
 (require 'ido-goto-symbol)
+(require 'cl)
 (require 'cl-extra)
+(require 'move-text)
 
 (defalias 'ff  'find-file)
 (defalias 'e   'eval-buffer)
@@ -62,6 +64,20 @@
 ;;;;;;;;;;;;;;;;;;
 ;; Text editing ;;
 ;;;;;;;;;;;;;;;;;;
+
+;; Author: Thiago Araújo Silva
+(defun move-text-up-and-indent (&optional start end n)
+  (interactive (move-text-get-region-and-prefix))
+  "Move the line or region (START END) up by N lines and indent."
+  (move-text-up start end n)
+  (unless (use-region-p) (indent-according-to-mode)))
+
+;; Author: Thiago Araújo Silva
+(defun move-text-down-and-indent (&optional start end n)
+  (interactive (move-text-get-region-and-prefix))
+  "Move the line or region (START END) up by N lines and indent."
+  (move-text-down start end n)
+  (unless (use-region-p) (indent-according-to-mode)))
 
 ;; Author: Thiago Araújo Silva
 (defun kill-variable-assignment ()
@@ -149,6 +165,11 @@ Version 2015-04-09"
   (interactive)
   (isearch-exit)
   (goto-char isearch-other-end))
+
+;; Author: Thiago Araújo Silva
+(defun go-to-rspec-compilation-buffer ()
+  (interactive)
+  (switch-to-buffer (get-buffer "*rspec-compilation*")))
 
 ;; Author: Thiago Araújo Silva
 (defun go-to-alternate-buffer ()
@@ -335,20 +356,28 @@ Version 2015-04-09"
     (if params (funcall func params) (funcall func))))
 
 ;; Author: Thiago Araújo Silva
+(defun execute-extended-command-under-dir (dir)
+  (execute-command-under-dir dir 'execute-extended-command nil))
+
+;; Author: Thiago Araújo Silva
+(defun execute-projectile-rails-console-under-dir (dir)
+  (execute-command-under-dir dir 'projectile-rails-console nil))
+
+;; Author: Thiago Araújo Silva
 (defun safe-linum-mode ()
-  "Run linum-mode safely"
+  "Run linum-mode safely."
   (interactive)
   (ignore-errors (linum-mode 1)))
 
 (defun run-server ()
-  "Runs the Emacs server if it is not running"
+  "Run the Emacs server if it is not running."
   (require 'server)
   (unless (server-running-p)
     (server-start)))
 
 ;; Author: Thiago Araújo Silva
 (defun toggle-option-key ()
-  "Toggles meta between meta and option"
+  "Toggle meta between meta and option."
   (interactive)
   (if (eq ns-option-modifier 'meta)
       (progn (setq ns-option-modifier 'none) (message "Changed to none"))
@@ -430,9 +459,8 @@ Version 2015-04-09"
   (ielm))
 
 (defun eshell-here ()
-  "Opens up a new shell in the directory associated with the
-current buffer's file. The eshell is renamed to match that
-directory to make multiple eshell windows easier."
+  "Open up a new shell in the current buffer's directory.
+The eshell buffer name is named accordingly."
   (interactive)
   (let* ((parent (if (buffer-file-name)
                      (file-name-directory (buffer-file-name))
@@ -593,6 +621,32 @@ Version 2018-07-01"
   (set (make-variable-buffer-local 'ruby-end-check-statement-modifiers) nil)
   (ruby-end-mode +1))
 
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; Counsel projectile ;;
+;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun set-counsel-projectile-default-action (key-str)
+  "Set the default action for counsel-projectile-switch-project.
+KEY-STR is the keybinding of the target action and it must already
+be declared in the list."
+  (setcar
+   counsel-projectile-switch-project-action
+   (get-counsel-projectile-action-index key-str)))
+
+(defun get-counsel-projectile-action-index (key-str)
+  "Get the index of the action represented by the KEY-STR keybinding."
+  (let ((i 0))
+    (dolist (action counsel-projectile-switch-project-action)
+      (if (and (not (numberp action)) (string= (car action) key-str))
+          (return i))
+      (setq i (+ i 1)))))
+
+(defmacro add-counsel-projectile-action (action-def)
+  "Add a new action to counsel-projectile-switch-project.
+ACTION-DEF is a list with three variables: the keybinding (e.g. \"v\"),
+the elisp function name (a symbol), and the description (a string)"
+  (list 'setq-list-append 'counsel-projectile-switch-project-action `,action-def))
+
 ;;;;;;;;;;
 ;; Ruby ;;
 ;;;;;;;;;;
@@ -648,10 +702,10 @@ Version 2018-07-01"
 
 ;; Author: Thiago Araújo Silva
 (defun rspec-toggle-compilation-mode ()
-  "Toggles compilation mode for future rspec executions.
+  "Toggle compilation mode for future rspec executions.
 With compilation mode disabled, you will be able to interact with
-a debugger such as Pry or hit C-c C-c to force RSpec to terminate
-a test run. With it enabled, you will be able to navigate through
+a debugger such as Pry or hit control c twice to force RSpec to terminate
+a test run.  With it enabled, you will be able to navigate through
 error stack traces and have all compile functionality at your
 disposal.
 
@@ -757,3 +811,21 @@ compilation mode in it immediately."
       (with-current-buffer buf
         (funcall (cdr (assoc mode tmp-buffer-mode-alist))))
       (pop-to-buffer buf))))
+
+;; Author: Thiago Araújo Silva
+(defun notify-os (message sound)
+  "Send a notification to macOS.
+Requires terminal-notifier (install it via homebrew).
+MESSAGE is the notification message; SOUND is the sound that will be played."
+  (shell-command
+   (concat
+    "bash -c -l 'echo " message " | terminal-notifier -sound "
+    sound
+    "'")))
+
+(defun finish-test-compilation ()
+  "Calback to be run after rspec finishes.
+The exit code verification method can still be improved."
+  (if (= compilation-num-errors-found 0)
+      (notify-os "Tests passed 👍" "Hero")
+    (notify-os "Tests failed 👎" "Basso")))

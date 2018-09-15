@@ -17,6 +17,7 @@
         aggressive-indent
         ace-jump-mode
         ag
+        goto-last-change
         swiper
         ivy-hydra
         ivy-rich
