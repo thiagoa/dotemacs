@@ -6,7 +6,7 @@
 
 (global-set-key (kbd "C-x 4 t")        'crux-transpose-windows)
 (global-set-key (kbd "C-c C-h")        'crux-kill-whole-line)
-(global-set-key (kbd "C-k")            'crux-smart-kill-line)
+(global-set-key (kbd "C-k")            'kill-line)
 (global-set-key (kbd "<C-backspace>")  'crux-kill-line-backwards)
 (global-set-key (kbd "<C-M-backspace>") kill-whole-line-backward)
 (global-set-key (kbd "M-h")            'mark-paragraph)
