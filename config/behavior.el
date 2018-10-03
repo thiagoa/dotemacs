@@ -32,6 +32,10 @@
 
 (setq-default indent-tabs-mode nil)
 
+(define-key projectile-mode-map (kbd "C-c C-p") 'projectile-command-map)
+
+(setq projectile-indexing-method 'turbo-alien)
+
 (set-counsel-projectile-default-action "v")
 (add-counsel-projectile-action ("xx" 'execute-extended-command-under-dir "execute extended command"))
 (add-counsel-projectile-action ("pr" 'execute-projectile-rails-console-under-dir "projectile rails"))
