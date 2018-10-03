@@ -15,8 +15,8 @@
         crux
         string-inflection
         aggressive-indent
-        ace-jump-mode
         ag
+        avy
         goto-last-change
         swiper
         ivy-hydra
