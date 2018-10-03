@@ -37,8 +37,8 @@
 (setq projectile-indexing-method 'turbo-alien)
 
 (set-counsel-projectile-default-action "v")
-(add-counsel-projectile-action ("xx" 'execute-extended-command-under-dir "execute extended command"))
-(add-counsel-projectile-action ("pr" 'execute-projectile-rails-console-under-dir "projectile rails"))
+(add-counsel-projectile-action ("xx" execute-extended-command-under-dir "execute extended command"))
+(add-counsel-projectile-action ("pr" execute-projectile-rails-console-under-dir "projectile rails"))
 
 (setq save-interprogram-paste-before-kill t)
 (setq tags-add-tables nil)
