@@ -482,7 +482,7 @@ The eshell buffer name is named accordingly."
 (defun comint-send-input-stay-on-line ()
   (interactive)
   (call-interactively 'comint-send-input)
-  (run-with-timer 0.05
+  (run-with-timer 0.1
                   nil
                   (lambda ()  (call-interactively 'comint-show-output))))
 
