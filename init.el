@@ -10,8 +10,8 @@
 (add-to-list 'load-path (expand-file-name "config" emacs-d))
 (add-to-list 'load-path (expand-file-name "yasnippet" emacs-d))
 
-(load "functions.el")
 (load "packages.el")
+(load "functions.el")
 
 (unless (package-installed-p pivot-package)
   (pac-install))
