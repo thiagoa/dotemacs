@@ -174,6 +174,8 @@ Version 2015-04-09"
 ;; Author: Thiago Araújo Silva
 (defun go-to-alternate-buffer ()
   (interactive)
+  (let ((buf (get-buffer "*Ibuffer*")))
+    (bury-buffer buf))
   (switch-to-buffer nil))
 
 ;; Author: Thiago Araújo Silva
