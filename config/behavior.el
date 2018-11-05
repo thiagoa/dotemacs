@@ -20,6 +20,10 @@
 (save-place-mode)
 (ido-mode)
 
+;; Avoids ido-find-file jumping to directories automatically after
+;; some time
+(setq ido-auto-merge-work-directories-length -1)
+
 (when window-system (global-unset-key "\C-z")) ; ugh
 
 (put 'paredit-forward-delete 'delete-selection 'supersede)
