@@ -62,4 +62,5 @@
         json-mode
         coffee-mode
         markdown-mode
-        redshank))
+        redshank
+        racket-mode))
