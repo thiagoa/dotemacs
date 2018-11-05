@@ -541,6 +541,7 @@ Version 2018-07-01"
            ("vbs" . "cscript")
            ("tex" . "pdflatex")
            ("latex" . "pdflatex")
+           ("ex" . "elixir")
            ("java" . "javac")
            ("c" . "gcc")
            ;; ("pov" . "/usr/local/bin/povray +R2 +A0.1 +J1.2 +Am2 +Q9 +H480 +W640")
