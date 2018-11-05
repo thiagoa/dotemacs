@@ -597,6 +597,19 @@ Version 2018-07-01"
   (interactive)
   (insert (buffer-file-name (window-buffer (minibuffer-selected-window)))))
 
+;;;;;;;;;;;;;
+;; ibuffer ;;
+;;;;;;;;;;;;;
+
+(require 'ibuf-ext)
+
+(define-ibuffer-filter marked-buffers
+    "Limit current view to marked buffers"
+  (:description "marked buffers"
+                :reader nil)
+  (let ((bufs (ibuffer-get-marked-buffers)))
+    (member buf bufs)))
+
 ;;;;;;;;;;;;
 ;; Elixir ;;
 ;;;;;;;;;;;;
