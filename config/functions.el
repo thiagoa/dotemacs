@@ -256,6 +256,10 @@ Version 2015-04-09"
             (kill-buffer buf)))))
   (message "Done."))
 
+(defun close-all-buffers ()
+  (interactive)
+  (mapc 'kill-buffer (buffer-list)))
+
 (defvar killable-buffer-major-modes
   '(dired-mode))
 
