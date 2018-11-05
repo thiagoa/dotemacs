@@ -44,6 +44,8 @@
 (add-counsel-projectile-action ("xx" execute-extended-command-under-dir "execute extended command"))
 (add-counsel-projectile-action ("pr" execute-projectile-rails-console-under-dir "projectile rails"))
 
+(setq ivy-flx-limit 50)
+
 (setq save-interprogram-paste-before-kill t)
 (setq tags-add-tables nil)
 (setq magit-no-confirm '(unstage-all-changes))
