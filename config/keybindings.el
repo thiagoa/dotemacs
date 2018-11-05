@@ -141,6 +141,12 @@
 
 (define-key minibuffer-local-map (kbd "C-c f") 'name-of-the-file)
 
+;;;;;;;;;;;;;
+;; ibuffer ;;
+;;;;;;;;;;;;;
+
+(define-key ibuffer-mode-map "/q" 'ibuffer-filter-by-marked-buffers)
+
 ;;;;;;;;;;;;
 ;; Comint ;;
 ;;;;;;;;;;;;
