@@ -174,8 +174,8 @@ Version 2015-04-09"
 ;; Author: Thiago Araújo Silva
 (defun go-to-alternate-buffer ()
   (interactive)
-  (let ((buf (get-buffer "*Ibuffer*")))
-    (bury-buffer buf))
+  ;; (let ((buf (get-buffer "*Ibuffer*")))
+  ;; (bury-buffer buf))
   (switch-to-buffer nil))
 
 ;; Author: Thiago Araújo Silva
@@ -641,32 +641,6 @@ Version 2018-07-01"
   (set (make-variable-buffer-local 'ruby-end-check-statement-modifiers) nil)
   (ruby-end-mode +1))
 
-;;;;;;;;;;;;;;;;;;;;;;;;
-;; Counsel projectile ;;
-;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defun set-counsel-projectile-default-action (key-str)
-  "Set the default action for counsel-projectile-switch-project.
-KEY-STR is the keybinding of the target action and it must already
-be declared in the list."
-  (setcar
-   counsel-projectile-switch-project-action
-   (get-counsel-projectile-action-index key-str)))
-
-(defun get-counsel-projectile-action-index (key-str)
-  "Get the index of the action represented by the KEY-STR keybinding."
-  (let ((i 0))
-    (dolist (action counsel-projectile-switch-project-action)
-      (if (and (not (numberp action)) (string= (car action) key-str))
-          (return i))
-      (setq i (+ i 1)))))
-
-(defmacro add-counsel-projectile-action (action-def)
-  "Add a new action to counsel-projectile-switch-project.
-ACTION-DEF is a list with three variables: the keybinding (e.g. \"v\"),
-the elisp function name (a symbol), and the description (a string)"
-  (list 'setq-list-append 'counsel-projectile-switch-project-action `,action-def))
-
 ;;;;;;;;;;
 ;; Ruby ;;
 ;;;;;;;;;;
@@ -741,30 +715,6 @@ compilation mode in it immediately."
       (if (equal major-mode 'inf-ruby-mode)
           (inf-ruby-maybe-switch-to-compilation)
         (inf-ruby-switch-from-compilation)))))
-
-;;;;;;;;;
-;; FZF ;;
-;;;;;;;;;
-
-(defun fzf/pipe-into-fzf (entries)
-  "`entries' is a list of strings that is piped into `fzf' as a source."
-  (interactive)
-  (let ((process-environment
-         (cons (concat "FZF_DEFAULT_COMMAND=echo " "\""
-                       (mapconcat
-                        (lambda (entry)
-                          entry)
-                        entries
-                        "\n")
-                       "\"")
-               process-environment)))
-    (fzf)))
-
-(defun fzf-recentf ()
-  "Starts a fzf session with recent files as a source."
-  (interactive)
-  (recentf-mode)
-  (fzf/pipe-into-fzf recentf-list))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Rake extensions and overrides ;;

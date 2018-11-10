@@ -12,7 +12,7 @@
 (global-undo-tree-mode)
 (yas-global-mode)
 (projectile-global-mode)
-(counsel-projectile-mode)
+(helm-projectile-on)
 (winner-mode)
 (savehist-mode)
 (global-missile-mode)
@@ -39,19 +39,13 @@
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
 (setq projectile-indexing-method 'turbo-alien)
-
-(set-counsel-projectile-default-action "v")
-(add-counsel-projectile-action ("xx" execute-extended-command-under-dir "execute extended command"))
-(add-counsel-projectile-action ("pr" execute-projectile-rails-console-under-dir "projectile rails"))
-
-(setq ivy-flx-limit 50)
-
+(setq projectile-switch-project-action 'magit)
+(setq projectile-enable-caching t)
 (setq save-interprogram-paste-before-kill t)
 (setq tags-add-tables nil)
 (setq magit-no-confirm '(unstage-all-changes))
 (setq vc-follow-symlinks t)
 (setq recentf-max-saved-items 2000)
-(setq projectile-enable-caching t)
 (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
 (setq system-uses-terminfo nil)
@@ -81,12 +75,6 @@
 (setq comint-scroll-show-maximum-output t)
 (setq savehist-file (expand-file-name "tmp/savehist" emacs-d))
 (setq history-length 1000)
-(setq ivy-use-virtual-buffers t)
-(setq ivy-re-builders-alist
-      '((swiper . regexp-quote)
-        (counsel-M-x . ivy--regex-plus)
-        (t      . ivy--regex-fuzzy)))
-(setq ivy-height 20)
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 

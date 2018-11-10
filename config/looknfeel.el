@@ -1,5 +1,4 @@
 (require 'uniquify)
-(require 'ivy-rich)
 
 (ignore-errors (menu-bar-mode -1))
 (ignore-errors (scroll-bar-mode -1))
@@ -7,7 +6,6 @@
 (ignore-errors (tool-bar-mode -1))
 
 (load-theme 'doom-one t)
-(ivy-rich-mode)
 (disable-annoyances)
 (disable-startup-screen)
 (show-full-filename-in-window-title)

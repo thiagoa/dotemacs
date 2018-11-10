@@ -8,7 +8,6 @@
 
 (setq package-selected-packages
       '(discover
-        fzf
         undo-tree
         exec-path-from-shell
         ibuffer-vc
@@ -19,10 +18,8 @@
         avy
         goto-last-change
         swiper
-        ivy-hydra
-        ivy-rich
-        flx
-        counsel
+        helm
+        helm-projectile
         ido-vertical-mode
         hippie-exp
         yasnippet
@@ -34,13 +31,9 @@
         smartscan
         multiple-cursors
         dracula-theme
-        nimbus-theme
         zenburn-theme
-        leuven-theme
         doom-themes
-        color-theme-sanityinc-tomorrow
         projectile
-        counsel-projectile
         magit
         magithub
         git-link
