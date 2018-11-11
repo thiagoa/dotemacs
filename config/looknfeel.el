@@ -5,7 +5,7 @@
 (ignore-errors (tooltip-mode -1))
 (ignore-errors (tool-bar-mode -1))
 
-(load-theme 'doom-one t)
+(load-theme 'doom-spacegrey t)
 (disable-annoyances)
 (disable-startup-screen)
 (show-full-filename-in-window-title)
