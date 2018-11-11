@@ -20,6 +20,7 @@
         swiper
         helm
         helm-projectile
+        helm-rg
         ido-vertical-mode
         hippie-exp
         yasnippet
