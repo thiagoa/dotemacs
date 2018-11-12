@@ -352,16 +352,18 @@ Version 2015-04-09"
 ;; Author: Thiago Araújo Silva
 (defun add-helm-projectile-projects-action (actions)
   (with-eval-after-load 'helm-projectile
-    (mapcar
-     (lambda (action)
-       (let ((desc (nth 0 action))
-             (keybinding (nth 1 action))
-             (func (nth 2 action)))
-         (add-to-list
-          'helm-source-projectile-projects-actions
-          `(,(concat desc " `" keybinding  "'") . ,func))
-         (helm-projectile-define-key helm-projectile-projects-map (kbd keybinding) func)))
-     actions)))
+    (dolist (a actions)
+      (let ((desc (nth 0 a))
+            (keybinding (nth 1 a))
+            (func (nth 2 a)))
+        (add-to-list
+         'helm-source-projectile-projects-actions
+         `(,(concat desc " `" keybinding  "'") . ,func)
+         t)
+        (helm-projectile-define-key
+          helm-projectile-projects-map
+          (kbd keybinding)
+          func)))))
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; General helpers ;;
