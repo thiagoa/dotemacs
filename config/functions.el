@@ -615,7 +615,10 @@ Version 2018-07-01"
 (defun name-of-the-file ()
   "From the minibuffer, gets the name of the file the current buffer is based on."
   (interactive)
-  (insert (buffer-file-name (window-buffer (minibuffer-selected-window)))))
+  (insert (concat
+           "\""
+           (buffer-file-name (window-buffer (minibuffer-selected-window)))
+           "\"")))
 
 ;;;;;;;;;;;;;
 ;; ibuffer ;;
