@@ -42,6 +42,9 @@
  '(("Rails console"        "M-r" execute-projectile-rails-console-under-dir)
    ("Find file in project" "C-f" execute-helm-projectile-find-file-under-dir)))
 
+(setq helm-buffers-fuzzy-matching t)
+(setq helm-recentf-fuzzy-match t)
+
 ;; I hope I don't regret this
 (setq eval-expression-print-level nil)
 (setq eval-expression-print-length nil)
