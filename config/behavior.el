@@ -38,6 +38,12 @@
 
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
+(add-helm-projectile-projects-action
+ '(("Rails console"        "M-r" execute-projectile-rails-console-under-dir)
+   ("Find file in project" "C-f" execute-helm-projectile-find-file-under-dir)))
+
+
+(setq auto-mode-alist (cons '("[^/]\\.dired$" . dired-virtual-mode) auto-mode-alist))
 (setq projectile-indexing-method 'turbo-alien)
 (setq projectile-switch-project-action 'magit)
 (setq projectile-enable-caching t)

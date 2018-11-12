@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t -*-
+
 (require 'ido-goto-symbol)
 (require 'cl)
 (require 'cl-extra)
@@ -347,6 +349,20 @@ Version 2015-04-09"
          (end (cadr region)))
     (git-link remote start end)))
 
+;; Author: Thiago Araújo Silva
+(defun add-helm-projectile-projects-action (actions)
+  (with-eval-after-load 'helm-projectile
+    (mapcar
+     (lambda (action)
+       (let ((desc (nth 0 action))
+             (keybinding (nth 1 action))
+             (func (nth 2 action)))
+         (add-to-list
+          'helm-source-projectile-projects-actions
+          `(,(concat desc " `" keybinding  "'") . ,func))
+         (helm-projectile-define-key helm-projectile-projects-map (kbd keybinding) func)))
+     actions)))
+
 ;;;;;;;;;;;;;;;;;;;;;
 ;; General helpers ;;
 ;;;;;;;;;;;;;;;;;;;;;
@@ -368,6 +384,9 @@ Version 2015-04-09"
 ;; Author: Thiago Araújo Silva
 (defun execute-projectile-rails-console-under-dir (dir)
   (execute-command-under-dir dir 'projectile-rails-console nil))
+
+(defun execute-helm-projectile-find-file-under-dir (dir)
+  (execute-command-under-dir dir 'helm-projectile-find-file))
 
 ;; Author: Thiago Araújo Silva
 (defun safe-linum-mode ()

@@ -79,11 +79,13 @@
 (global-set-key (kbd "M-`")            'jump-to-mark)
 (global-set-key (kbd "C-c n")          'tmp-buffer)
 (global-set-key (kbd "C-x t")          'helm-recentf)
+(global-set-key (kbd "C-x b")          'helm-buffers-list)
 (global-set-key (kbd "C-c r")          'xah-run-current-file)
 (global-set-key (kbd "C-x C-\\")       'goto-last-change)
 (global-set-key (kbd "C-c a :")        'align-to-colon)
 (global-set-key (kbd "s-i")            'go-to-rspec-compilation-buffer)
 (global-set-key (kbd "C-x M-g")        'magit-dispatch-popup)
+(global-set-key (kbd "C-x C-f")        'helm-projectile-find-file)
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Fast movement ;;
