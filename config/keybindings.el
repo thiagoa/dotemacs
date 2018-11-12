@@ -85,7 +85,7 @@
 (global-set-key (kbd "C-c a :")        'align-to-colon)
 (global-set-key (kbd "s-i")            'go-to-rspec-compilation-buffer)
 (global-set-key (kbd "C-x M-g")        'magit-dispatch-popup)
-(global-set-key (kbd "C-x C-f")        'helm-projectile-find-file)
+(global-set-key (kbd "C-x C-f")        'helm-find-files)
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Fast movement ;;
