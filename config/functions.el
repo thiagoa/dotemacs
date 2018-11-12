@@ -394,7 +394,7 @@ Version 2015-04-09"
 (defun safe-linum-mode ()
   "Run linum-mode safely."
   (interactive)
-  (ignore-errors (linum-mode 1)))
+  (ignore-errors (nlinum-mode 1)))
 
 (defun run-server ()
   "Run the Emacs server if it is not running."

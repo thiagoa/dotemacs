@@ -25,6 +25,7 @@
         hippie-exp
         yasnippet
         flycheck
+        nlinum
         change-inner
         move-text
         dot-mode
