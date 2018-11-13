@@ -803,7 +803,10 @@ compilation mode in it immediately."
           (princ (format " %c\t%s\n" (car km) (cdr km)))))
     (let ((buf (generate-new-buffer "*tmp*")))
       (with-current-buffer buf
-        (funcall (cdr (assoc mode tmp-buffer-mode-alist))))
+        (let ((mode-func (cdr (assoc mode tmp-buffer-mode-alist))))
+          (if mode-func
+              (funcall mode-func)
+            (error "No such mode"))))
       (pop-to-buffer buf))))
 
 ;; Author: Thiago Araújo Silva
