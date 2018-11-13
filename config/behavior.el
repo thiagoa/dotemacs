@@ -44,6 +44,7 @@
 
 (setq helm-buffers-fuzzy-matching t)
 (setq helm-recentf-fuzzy-match t)
+(setq helm-split-window-default-side 'same)
 
 ;; I hope I don't regret this
 (setq eval-expression-print-level nil)
