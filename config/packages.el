@@ -45,7 +45,9 @@
         goto-gem
         projectile-rails
         ruby-end
+        sql-indent
         rubocop
+        slime
         rspec-mode
         seeing-is-believing
         elixir-mode
@@ -58,4 +60,5 @@
         coffee-mode
         markdown-mode
         redshank
-        racket-mode))
+        racket-mode
+        geiser))

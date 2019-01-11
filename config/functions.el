@@ -258,7 +258,7 @@ Version 2015-04-09"
             (kill-buffer buf)))))
   (message "Done."))
 
-(defun close-all-buffers ()
+(defun kill-all-buffers ()
   (interactive)
   (mapc 'kill-buffer (buffer-list)))
 
@@ -437,6 +437,12 @@ Version 2015-04-09"
   (setq kill-buffer-query-functions
         (remq 'process-kill-buffer-query-function
               kill-buffer-query-functions)))
+
+(defun shell-command-output (command)
+  (replace-regexp-in-string
+   "\n$"
+   ""
+   (shell-command-to-string command)))
 
 (defun set-default-shell (path)
   (setq
@@ -788,7 +794,8 @@ compilation mode in it immediately."
     (?m . markdown-mode)
     (?r . enh-ruby-mode)
     (?e . emacs-lisp-mode)
-    (?l . lisp-interaction-mode))
+    (?l . lisp-interaction-mode)
+    (?s . sql-mode))
   "List of major modes for temporary buffers and their hotkeys."
   :type '(alist :key-type character :value-type symbol))
 

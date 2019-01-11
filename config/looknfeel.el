@@ -15,7 +15,7 @@
 (setq linum-format "%d ")
 (setq uniquify-buffer-name-style 'post-forward)
 (setq uniquify-separator " : ")
-(setq my-default-font "Menlo 15")
+(setq my-default-font "Menlo 16")
 (setq ns-use-proxy-icon nil)
 (setq frame-title-format nil)
 (setq ansi-color-names-vector
