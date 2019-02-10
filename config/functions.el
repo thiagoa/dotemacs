@@ -285,11 +285,12 @@ Version 2015-04-09"
   "Kill the current buffer and deletes the file it is visiting."
   (interactive)
   (let ((filename (buffer-file-name)))
-    (when filename
-      (when (y-or-n-p (format "Are you sure you want to delete %s? " filename))
-        (delete-file filename delete-by-moving-to-trash)
-        (message "Deleted file %s" filename)
-        (kill-buffer)))))
+    (if filename
+        (when (y-or-n-p (format "Are you sure you want to delete %s? " filename))
+          (delete-file filename delete-by-moving-to-trash)
+          (message "Deleted file %s" filename)
+          (kill-buffer))
+      (error "ERROR: No filename for this buffer"))))
 
 ;;;;;;;;;
 ;; Git ;;
@@ -795,7 +796,8 @@ compilation mode in it immediately."
     (?r . enh-ruby-mode)
     (?e . emacs-lisp-mode)
     (?l . lisp-interaction-mode)
-    (?s . sql-mode))
+    (?s . sql-mode)
+    (?c . clojure-mode))
   "List of major modes for temporary buffers and their hotkeys."
   :type '(alist :key-type character :value-type symbol))
 
