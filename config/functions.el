@@ -276,7 +276,7 @@ Version 2015-04-09"
     "^HEAD$"))
 
 ;;;;;;;;;;;;;;;;;;;;;
-;; Flie management ;;
+;; File management ;;
 ;;;;;;;;;;;;;;;;;;;;;
 
 ;; Copied from the crux package. Modified to skip annoying
@@ -340,10 +340,15 @@ Version 2015-04-09"
   (magit-commit))
 
 ;; Author: Thiago Araújo Silva
-(defun git-link-branch ()
+(defun git-link-default-branch ()
   (interactive)
+  (git-link-branch "develop"))
+
+;; Author: Thiago Araújo Silva
+(defun git-link-branch (branch)
+  (interactive (list (magit-completing-read "Branch" (magit-list-local-branch-names))))
   (let* ((remote (git-link--select-remote))
-         (branch (magit-completing-read "Branch" (magit-list-local-branch-names)))
+
          (git-link-default-branch branch)
          (region (when buffer-file-name (git-link--get-region)))
          (start (car region))
