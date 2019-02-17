@@ -24,8 +24,8 @@
 ;; I'm not satisfied with buffer navigation in Emacs.
 ;;
 ;; - `next-buffer` and `previous-buffer` walk across all the buffers,
-;; including junk buffers and unimportant buffers.  An I never know if
-;; I should go back or forth to find a certain buffer.
+;; including junk buffers and unimportant buffers.  And I'm never sure
+;; if I should go back or forth to find a certain buffer.
 ;;
 ;; - In order to be efficient, `switch-to-buffer` and its cousins
 ;; require knowing the name of the buffer prior to switching to it.
@@ -118,17 +118,20 @@ REFERENCE-BUFFER is the buffer to stand out visually."
                      (concat " " (buffer-name buffer) " ")))
                  (reverse (buffer-trail--get-trail)))))
 
+(defun buffer-trail--walk-and-show-breadcrumbs (func)
+  "Walk the buffer trail with FUNC and display the breadcrumbs."
+  (let ((buffer (buffer-trail--walk func)))
+    (buffer-trail-show-breadcrumbs buffer)))
+
 (defun buffer-trail-backward ()
   "Walk the buffer trail backward."
   (interactive)
-  (let ((buffer (buffer-trail--walk (lambda (pos) (+ pos 1)))))
-    (buffer-trail-show-breadcrumbs buffer)))
+  (buffer-trail--walk-and-show-breadcrumbs (lambda (pos) (+ pos 1))))
 
 (defun buffer-trail-forward ()
   "Walk the buffer trail forward."
   (interactive)
-  (let ((buffer (buffer-trail--walk (lambda (pos) (- pos 1)))))
-    (buffer-trail-show-breadcrumbs buffer)))
+  (buffer-trail--walk-and-show-breadcrumbs (lambda (pos) (- pos 1))))
 
 (defun buffer-trail-show-breadcrumbs (reference-buffer)
   "Displays a message with the formatted buffer trail.
