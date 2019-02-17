@@ -17,7 +17,10 @@
 (setq uniquify-separator " : ")
 (setq my-default-font "Menlo 16")
 (setq ns-use-proxy-icon nil)
-(setq frame-title-format nil)
+(setq frame-title-format
+      '((:eval (if (buffer-file-name)
+                   (abbreviate-file-name (buffer-file-name))
+                 "%b"))))
 (setq ansi-color-names-vector
       ["black"
        "PaleVioletRed3"
