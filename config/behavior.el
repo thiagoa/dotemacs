@@ -20,6 +20,8 @@
 (save-place-mode)
 (ido-mode)
 
+(setq flycheck-check-syntax-automatically '(save mode-enable))
+
 ;; Avoids ido-find-file jumping to directories automatically after
 ;; some time
 (setq ido-auto-merge-work-directories-length -1)
