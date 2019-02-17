@@ -34,6 +34,10 @@
 (put 'paredit-newline 'delete-selection t)
 (put 'set-goal-column 'disabled nil)
 
+(buffer-trail-advise '(helm-buffers-list
+                       helm-recentf
+                       helm-projectile-find-file))
+
 (setq-default indent-tabs-mode nil)
 
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
