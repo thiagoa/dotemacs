@@ -186,6 +186,15 @@ default value is the current buffer."
   (buffer-trail--add buffer)
   (call-interactively 'buffer-trail-show-breadcrumbs))
 
+(defun buffer-trail-drop (buffer)
+  "Drop BUFFER from buffer trail (does not kill it)."
+  (interactive (list (current-buffer)))
+  (setq buffer-trail--trail (cl-remove-if
+                             (lambda (b) (equal b buffer))
+                             buffer-trail--trail))
+  (switch-to-buffer (car buffer-trail--trail))
+  (call-interactively 'buffer-trail-show-breadcrumbs))
+
 (defun buffer-trail-move-breadcrumb-backward ()
   "Move the current buffer backward."
   (interactive)

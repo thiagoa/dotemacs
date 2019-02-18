@@ -60,6 +60,7 @@
 (global-set-key (kbd "s-a")            'buffer-trail-add)
 (global-set-key (kbd "s-=")            'buffer-trail-move-breadcrumb-forward)
 (global-set-key (kbd "s--")            'buffer-trail-move-breadcrumb-backward)
+(global-set-key (kbd "s-0")            'buffer-trail-drop)
 (global-set-key (kbd "C-c F")          'find-file-at-point-dwim)
 (global-set-key (kbd "C-S-c C-S-c")    'mc/edit-lines)
 (global-set-key (kbd "C->")            'mc/mark-next-like-this)
