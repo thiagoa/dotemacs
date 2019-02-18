@@ -187,7 +187,7 @@ default value is the current buffer."
   (call-interactively 'buffer-trail-show-breadcrumbs))
 
 (defun buffer-trail-drop (buffer)
-  "Drop BUFFER from buffer trail (does not kill it)."
+  "Drop BUFFER off the buffer trail (does not kill the buffer)."
   (interactive (list (current-buffer)))
   (setq buffer-trail--trail (cl-remove-if
                              (lambda (b) (equal b buffer))
