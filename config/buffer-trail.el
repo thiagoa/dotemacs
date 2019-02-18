@@ -41,6 +41,7 @@
 ;; for example:
 ;;
 ;;     (buffer-trail-advise '(helm-buffers-list
+;;                            helm-find-files
 ;;                            helm-recentf
 ;;                            helm-projectile-find-file))
 ;;
@@ -54,6 +55,9 @@
 ;;    (global-set-key (kbd "s-.") 'buffer-trail-forward)
 ;;    (global-set-key (kbd "s-,") 'buffer-trail-backward)
 ;;    (global-set-key (kbd "s-/") 'buffer-trail-show-breadcrumbs)
+;;    (global-set-key (kbd "s-a") 'buffer-trail-add)
+;;    (global-set-key (kbd "s-=") 'buffer-trail-move-breadcrumb-forward)
+;;    (global-set-key (kbd "s--") 'buffer-trail-move-breadcrumb-backward)
 ;;
 ;; Note that when walking to the next or previous buffers, the current
 ;; buffer is included in the trail if it isn't already.
@@ -81,7 +85,9 @@ your way back inside and across the buffers."
   (apply function-args))
 
 (defun buffer-trail-advise (functions)
-  "The list of FUNCTIONS to advise with buffer-trail."
+  "Advise FUNCTIONS with buffer-trail.
+
+FUNCTIONS must be a list of function function symbols or references."
   (dolist (f functions)
     (advice-add f :around #'buffer-trail--function-hook)))
 
@@ -95,55 +101,102 @@ your way back inside and across the buffers."
   (setq buffer-trail--trail
         (seq-filter 'buffer-live-p buffer-trail--trail)))
 
-(defun buffer-trail--walk (get-position)
+(defun buffer-trail--walk (step-func)
   "Walk the buffer trail.
 
-The GET-POSITION callable takes the position of the current
-buffer and returns the destination position.  That position is
-then checked against the buffer trail.  If valid, switches
-to the buffer in that position."
-  (let* ((buffer (buffer-trail--add (current-buffer)))
-         (trail (buffer-trail--get-trail))
-         (buffer-position (cl-position buffer trail))
-         (next-buffer-position (apply (list get-position buffer-position)))
-         (next-buffer (nth next-buffer-position trail)))
-    (if (and (>= next-buffer-position 0) next-buffer)
-        (switch-to-buffer next-buffer)
-      buffer)))
+STEP-FUNC should be a function like `#'+` or `#'-`, depending
+on the walk direction."
+  (let ((buffer (current-buffer)))
+    (cl-flet ((switch-to-adj (_buffer-pos _adj-buffer-pos adj-buffer _trail)
+                             (switch-to-buffer adj-buffer)))
+      (buffer-trail--find-adjacent-buffer buffer step-func #'switch-to-adj))))
 
-(defun buffer-trail--breadcrumbs (reference-buffer)
+(defun buffer-trail--find-adjacent-buffer (ref-buffer step-func action)
+  "Find an adjacent buffer and call the ACTION callback with the found data.
+
+REF-BUFFER is the buffer used as a reference to find the adjacent
+buffer.  STEP-FUNC is a function that will take the REF-BUFFER
+position and the number 1 as arguments.  Usually it will be `#'+`
+or `#'-`.  The ACTION callable takes the position of the adjacent
+buffer and other related data."
+  (buffer-trail--add ref-buffer)
+  (let* ((trail (buffer-trail--get-trail))
+         (ref-buffer-pos (cl-position ref-buffer trail))
+         (adj-buffer-pos (funcall step-func ref-buffer-pos 1))
+         (adj-buffer (nth adj-buffer-pos trail)))
+    (if (and adj-buffer (>= ref-buffer-pos 0) (>= adj-buffer-pos 0))
+        (progn
+          (funcall action ref-buffer-pos adj-buffer-pos adj-buffer trail)
+          adj-buffer)
+      ref-buffer)))
+
+(defun buffer-trail--move-breadcrumb (step-func)
+  "Move a breadcrumb along the trail.
+
+STEP-FUNC will be `#'+` or `#'-` depending on the move
+direction."
+  (let ((buffer (current-buffer)))
+    (cl-flet ((switch-out-buffers
+               (buffer-pos adj-buffer-pos adj-buffer trail)
+               (setcar (nthcdr buffer-pos trail) adj-buffer)
+               (setcar (nthcdr adj-buffer-pos trail) buffer)))
+      (buffer-trail--find-adjacent-buffer buffer step-func #'switch-out-buffers))))
+
+(defun buffer-trail--breadcrumbs (ref-buffer)
   "Return a formatted string with the buffer trail.
 
-The REFERENCE-BUFFER stands out visually."
-  (apply #'concat
-         (mapcar (lambda (buffer)
-                   (if (equal reference-buffer buffer)
-                       (concat " [" (buffer-name buffer) "] ")
-                     (concat " " (buffer-name buffer) " ")))
-                 (reverse (buffer-trail--get-trail)))))
+REF-BUFFER is the buffer to stand out visually."
+  (let ((trail (reverse (buffer-trail--get-trail))))
+    (cl-flet ((trail-to-str (buffer)
+                            (let ((buffer-name (buffer-name buffer)))
+                              (if (equal ref-buffer buffer)
+                                  (concat "[" buffer-name "]")
+                                buffer-name))))
+      (mapconcat #'trail-to-str trail "  "))))
 
-(defun buffer-trail--walk-and-show-breadcrumbs (func)
-  "Walk the buffer trail with FUNC and display the breadcrumbs."
-  (let ((buffer (buffer-trail--walk func)))
+(defun buffer-trail--walk-and-show-breadcrumbs (step-func)
+  "Walk the buffer trail with STEP-FUNC and display the breadcrumbs."
+  (let ((buffer (buffer-trail--walk step-func)))
     (buffer-trail-show-breadcrumbs buffer)))
+
+;;; Interactive functions:
 
 (defun buffer-trail-backward ()
   "Walk the buffer trail backward."
   (interactive)
-  (buffer-trail--walk-and-show-breadcrumbs (lambda (pos) (+ pos 1))))
+  (buffer-trail--walk-and-show-breadcrumbs #'+))
 
 (defun buffer-trail-forward ()
   "Walk the buffer trail forward."
   (interactive)
-  (buffer-trail--walk-and-show-breadcrumbs (lambda (pos) (- pos 1))))
+  (buffer-trail--walk-and-show-breadcrumbs #'-))
 
-(defun buffer-trail-show-breadcrumbs (reference-buffer)
+(defun buffer-trail-show-breadcrumbs (ref-buffer)
   "Displays a message with the formatted buffer trail.
 
-REFERENCE-BUFFER is the buffer to stand out visually.  Its
+REF-BUFFER is the buffer to stand out visually.  Its
 default value is the current buffer."
   (interactive (list (current-buffer)))
-  (message (buffer-trail--breadcrumbs reference-buffer)))
+  (buffer-trail--add ref-buffer)
+  (message (buffer-trail--breadcrumbs ref-buffer)))
+
+(defun buffer-trail-add (buffer)
+  "Add BUFFER to the trail, by default the current buffer."
+  (interactive (list (current-buffer)))
+  (buffer-trail--add buffer)
+  (call-interactively 'buffer-trail-show-breadcrumbs))
+
+(defun buffer-trail-move-breadcrumb-backward ()
+  "Move the current buffer backward."
+  (interactive)
+  (buffer-trail--move-breadcrumb #'+)
+  (call-interactively 'buffer-trail-show-breadcrumbs))
+
+(defun buffer-trail-move-breadcrumb-forward ()
+  "Move the current buffer forward."
+  (interactive)
+  (buffer-trail--move-breadcrumb #'-)
+  (call-interactively 'buffer-trail-show-breadcrumbs))
 
 (provide 'buffer-trail)
 ;;; buffer-trail.el ends here

@@ -37,6 +37,7 @@
 (put 'set-goal-column 'disabled nil)
 
 (buffer-trail-advise '(helm-buffers-list
+                       helm-find-files
                        helm-recentf
                        helm-projectile-find-file))
 
