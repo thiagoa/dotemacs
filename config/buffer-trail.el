@@ -161,15 +161,43 @@ and returns a new position."
 
 REF-BUFFER is the buffer to stand out visually."
   (let ((trail (reverse (buffer-trail--get-trail))))
-    (cl-flet ((trail-to-str (buffer)
-                            (let ((buffer-name (buffer-name buffer)))
-                              (if (equal ref-buffer buffer)
-                                  (propertize
-                                   (concat "[" buffer-name "]")
-                                   'face
-                                   'font-lock-warning-face)
-                                (concat "[" buffer-name "]")))))
-      (mapconcat #'trail-to-str trail "  "))))
+    (cl-flet ((trail-to-str
+               (buffer)
+               (let ((buffer-name (buffer-name buffer)))
+                 (if (equal ref-buffer buffer)
+                     (propertize
+                      (concat "[" buffer-name "]")
+                      'face
+                      'font-lock-warning-face)
+                   (concat "[" buffer-name "]")))))
+      (let ((sublists (buffer-trail--split-breadcrumbs-to-frame-width
+                       (mapcar #'trail-to-str trail))))
+        (propertize (string-join (reverse sublists) " \n ")
+                    'line-spacing 3)))))
+
+(defun buffer-trail--split-breadcrumbs-to-frame-width (trail)
+  "Splits the trail into sublists, each with at most the length of the screen.
+
+This function will also space out the elements.  TRAIL is the list
+of buffer strings."
+  (let ((total-length 0)
+        (frame-width (frame-width))
+        (sublists (list))
+        (cur-sublist (list))
+        (sep "  "))
+    (cl-flet ((finished-cur-sublist
+               ()
+               (string-join (reverse cur-sublist) sep)))
+      (while trail
+        (setq total-length (+ (length (car trail)) (length sep) total-length))
+        (if (< total-length frame-width)
+            (setq cur-sublist (cons (pop trail) cur-sublist))
+          (progn
+            (setq total-length 0)
+            (setq sublists (cons (finished-cur-sublist) sublists))
+            (setq cur-sublist (list)))))
+      (setq sublists (cons (finished-cur-sublist) sublists)))
+    sublists))
 
 (defun buffer-trail--walk-and-show-breadcrumbs (step-func)
   "Walk the buffer trail with STEP-FUNC and display the breadcrumbs."
