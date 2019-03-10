@@ -105,8 +105,8 @@ FUNCTIONS must be a list of function references."
 (defun buffer-trail--walk (step-func)
   "Walk the buffer trail.
 
-STEP-FUNC should be a function like `#'+` or `#'-`, depending
-on the walk direction."
+STEP-FUNC should be a callable that takes the current buffer
+position and returns a new position."
   (let ((buffer (current-buffer)))
     (cl-flet ((switch-to-adj (_buffer-pos _adj-buffer-pos adj-buffer _trail)
                              (switch-to-buffer adj-buffer)))
@@ -195,7 +195,17 @@ default value is the current buffer."
   (switch-to-buffer (car buffer-trail--trail))
   (call-interactively 'buffer-trail-show-breadcrumbs))
 
-(defun buffer-trail-move-breadcrumb-backward ()
+(defun buffer-trail-first ()
+  "Walk to the first buffer."
+  (interactive)
+  (buffer-trail--walk-and-show-breadcrumbs
+   (lambda (_pos) (1- (length (buffer-trail--get-trail))))))
+
+(defun buffer-trail-last ()
+  "Walk to the last buffer."
+  (interactive)
+  (buffer-trail--walk-and-show-breadcrumbs (lambda (_pos) 0)))
+
 (defun buffer-trail-backward ()
   "Move the current buffer backward."
   (interactive)
