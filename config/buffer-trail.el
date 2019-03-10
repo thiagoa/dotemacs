@@ -160,35 +160,16 @@ and returns a new position."
   "Return a formatted string with the buffer trail.
 
 REF-BUFFER is the buffer to stand out visually."
-  (let ((trail (buffer-trail--get-trail)))
+  (let ((trail (reverse (buffer-trail--get-trail))))
     (cl-flet ((trail-to-str (buffer)
                             (let ((buffer-name (buffer-name buffer)))
                               (if (equal ref-buffer buffer)
-                                  (propertize (concat " [" buffer-name "] ") 'face 'font-lock-warning-face)
-                                (concat " [" buffer-name "] ")))))
-      (mapconcat (lambda (l) (apply #'concat l))
-                 (extract-list (mapcar #'trail-to-str trail)
-                               150
-                               0
-                               (list)
-                               (list))
-                 " \n "))))
-
-(defun extract-list (list length total-length sublist ret)
-  (if list
-      (let* ((buffer-name (car list))
-             (total-length (+ total-length (length buffer-name)))
-             (rest (rest list)))
-        (if (> total-length length)
-            (progn
-              (add-to-list 'ret sublist)
-              (extract-list list length 0 (list) ret))
-          (progn
-            (add-to-list 'sublist buffer-name)
-            (when (not rest)
-              (add-to-list 'ret sublist))
-            (extract-list rest length total-length sublist ret))))
-    ret))
+                                  (propertize
+                                   (concat "[" buffer-name "]")
+                                   'face
+                                   'font-lock-warning-face)
+                                (concat "[" buffer-name "]")))))
+      (mapconcat #'trail-to-str trail "  "))))
 
 (defun buffer-trail--walk-and-show-breadcrumbs (step-func)
   "Walk the buffer trail with STEP-FUNC and display the breadcrumbs."
