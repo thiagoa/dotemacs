@@ -56,8 +56,8 @@
 ;;    (global-set-key (kbd "s-,") 'buffer-trail-backward)
 ;;    (global-set-key (kbd "s-/") 'buffer-trail-show-breadcrumbs)
 ;;    (global-set-key (kbd "s-a") 'buffer-trail-add)
-;;    (global-set-key (kbd "s-=") 'buffer-trail-move-breadcrumb-forward)
-;;    (global-set-key (kbd "s--") 'buffer-trail-move-breadcrumb-backward)
+;;    (global-set-key (kbd "s-=") 'buffer-trail-forward)
+;;    (global-set-key (kbd "s--") 'buffer-trail-backward)
 ;;
 ;; Note that when walking to the next or previous buffers, the current
 ;; buffer is included in the trail if it isn't already.
@@ -82,12 +82,13 @@ the mark ring, so that you can call `pop-global-mark` to make
 your way back inside and across the buffers."
   (push-mark)
   (buffer-trail--add (current-buffer))
-  (apply function-args))
+  (apply function-args)
+  (buffer-trail--add (current-buffer)))
 
 (defun buffer-trail-advise (functions)
   "Advise FUNCTIONS with buffer-trail.
 
-FUNCTIONS must be a list of function function symbols or references."
+FUNCTIONS must be a list of function references."
   (dolist (f functions)
     (advice-add f :around #'buffer-trail--function-hook)))
 
@@ -115,14 +116,13 @@ on the walk direction."
   "Find an adjacent buffer and call the ACTION callback with the found data.
 
 REF-BUFFER is the buffer used as a reference to find the adjacent
-buffer.  STEP-FUNC is a function that will take the REF-BUFFER
-position and the number 1 as arguments.  Usually it will be `#'+`
-or `#'-`.  The ACTION callable takes the position of the adjacent
-buffer and other related data."
+buffer.  STEP-FUNC is a callable that will take the position of
+REF-BUFFER and return a new position.  The ACTION callable takes
+the position of the adjacent buffer and other related data."
   (buffer-trail--add ref-buffer)
   (let* ((trail (buffer-trail--get-trail))
          (ref-buffer-pos (cl-position ref-buffer trail))
-         (adj-buffer-pos (funcall step-func ref-buffer-pos 1))
+         (adj-buffer-pos (funcall step-func ref-buffer-pos))
          (adj-buffer (nth adj-buffer-pos trail)))
     (if (and adj-buffer (>= ref-buffer-pos 0) (>= adj-buffer-pos 0))
         (progn
@@ -133,8 +133,8 @@ buffer and other related data."
 (defun buffer-trail--move-breadcrumb (step-func)
   "Move a breadcrumb along the trail.
 
-STEP-FUNC will be `#'+` or `#'-` depending on the move
-direction."
+STEP-FUNC is a callable that takes the current buffer position
+and returns a new position."
   (let ((buffer (current-buffer)))
     (cl-flet ((switch-out-buffers
                (buffer-pos adj-buffer-pos adj-buffer trail)
@@ -164,12 +164,12 @@ REF-BUFFER is the buffer to stand out visually."
 (defun buffer-trail-backward ()
   "Walk the buffer trail backward."
   (interactive)
-  (buffer-trail--walk-and-show-breadcrumbs #'+))
+  (buffer-trail--walk-and-show-breadcrumbs (lambda (pos) (+ pos 1))))
 
 (defun buffer-trail-forward ()
   "Walk the buffer trail forward."
   (interactive)
-  (buffer-trail--walk-and-show-breadcrumbs #'-))
+  (buffer-trail--walk-and-show-breadcrumbs (lambda (pos) (- pos 1))))
 
 (defun buffer-trail-show-breadcrumbs (ref-buffer)
   "Displays a message with the formatted buffer trail.
@@ -196,12 +196,13 @@ default value is the current buffer."
   (call-interactively 'buffer-trail-show-breadcrumbs))
 
 (defun buffer-trail-move-breadcrumb-backward ()
+(defun buffer-trail-backward ()
   "Move the current buffer backward."
   (interactive)
   (buffer-trail--move-breadcrumb #'+)
   (call-interactively 'buffer-trail-show-breadcrumbs))
 
-(defun buffer-trail-move-breadcrumb-forward ()
+(defun buffer-trail-forward ()
   "Move the current buffer forward."
   (interactive)
   (buffer-trail--move-breadcrumb #'-)
