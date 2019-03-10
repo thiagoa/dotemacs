@@ -23,44 +23,58 @@
 ;;
 ;; I'm not satisfied with buffer navigation in Emacs.
 ;;
-;; - The `next-buffer` and `previous-buffer` functions walk across all
-;; the buffers, including private junk buffers and unimportant
-;; buffers.  And I'm never sure if I should go back or forth to find
-;; the buffer I want.
+;; `switch-to-buffer` is great and I use it a lot, but when I'm
+;; working with a small group of files and need to switch back and
+;; forth every few seconds, it can be a pain the ass.  Even the more
+;; powerful versions like `helm-buffers-list` require knowing the name
+;; of the target buffer in order to switch over efficiently.  Often
+;; times I pause and think, and if I don't know where I want to go,
+;; I'm forced to find the buffer I want somewhere among the cruft
+;; buffers automatically created by Emacs.
 ;;
-;; - In order to be efficient, `switch-to-buffer` and cousins require
-;; knowing the name of the target buffer prior to switching to it.
-;; Sometimes I have to pause and think...  and if I don't know where I
-;; want to go, I'm forced to visually seek among a bunch of
-;; unimportant buffers.  The same goes to similar functions such as
-;; recentf functions, etc.
+;; Another option is `next-buffer` and `previous-buffer`, but
+;; unfortunately, these functions walk across all the cruft buffers.
+;; Moreover, they're not intuitive functions, and I'm never sure which
+;; one will take me to the buffer I want because Emacs manipulates the
+;; buffer list behind the curtains.
 ;;
-;; The buffer-trail solution is to maintain a list of buffers to be
-;; updated when you explicitly switch to other buffers.  But there's a
-;; catch: you have to manually tell what functions update the trail,
-;; for example:
+;; buffer-trail is designed to be a "private" list of buffers, updated
+;; when you explicitly switch buffers.  It works as you'd expect: you
+;; won't have surprises like walking the buffer trail backward and not
+;; reaching the buffer you were in.  Also, you'll never get lost
+;; because you'll see the list of buffers within the mini-buffer every
+;; time you switch.  You can drag the buffers along the trail like you
+;; do with browser tabs, but much more smoothly -- this way you can
+;; easily organize a group of buffers for fast switching.
+;;
+;; To use buffer-trail, you need to manually tell what functions
+;; update the trail, for example:
 ;;
 ;;     (buffer-trail-advise '(helm-buffers-list
 ;;                            helm-find-files
 ;;                            helm-recentf
 ;;                            helm-projectile-find-file))
 ;;
-;; This selectivity comes in handy when I'm doing a project search, as
-;; I don't want to include most results in the trail.  On the other
-;; hand, if I'm explicitly switching to a buffer, most certaily I'll
-;; want to keep track of it.
+;; This selectivity comes in handy when you're doing, for example, a
+;; project search, as you don't want search results to show up in the
+;; trail.  On the other hand, if you're explicitly switching to a
+;; buffer, you'll most certainly want to keep track of it.
+;; You can also explicitly add a buffer to trail if you need to.
 ;;
-;; Also note that you need to explicitly map a few functions:
+;; Also note that you need to explicitly map a few keybindings:
 ;;
 ;;    (global-set-key (kbd "s-.") 'buffer-trail-forward)
 ;;    (global-set-key (kbd "s-,") 'buffer-trail-backward)
-;;    (global-set-key (kbd "s-/") 'buffer-trail-show-breadcrumbs)
+;;    (global-set-key (kbd "s-<") 'buffer-trail-first)
+;;    (global-set-key (kbd "s->") 'buffer-trail-last)
+;;    (global-set-key (kbd "s-=") 'buffer-trail-drag-forward)
+;;    (global-set-key (kbd "s--") 'buffer-trail-drag-backward)
 ;;    (global-set-key (kbd "s-a") 'buffer-trail-add)
-;;    (global-set-key (kbd "s-=") 'buffer-trail-forward)
-;;    (global-set-key (kbd "s--") 'buffer-trail-backward)
+;;    (global-set-key (kbd "s-0") 'buffer-trail-drop)
+;;    (global-set-key (kbd "s-/") 'buffer-trail-show-breadcrumbs)
 ;;
-;; Note that when walking to the next or previous buffers, the current
-;; buffer is included in the trail if it isn't already.
+;; Note: when walking the buffer trail, the current buffer is included
+;; in the trail if it isn't already.
 
 ;;; Code:
 
@@ -146,13 +160,35 @@ and returns a new position."
   "Return a formatted string with the buffer trail.
 
 REF-BUFFER is the buffer to stand out visually."
-  (let ((trail (reverse (buffer-trail--get-trail))))
+  (let ((trail (buffer-trail--get-trail)))
     (cl-flet ((trail-to-str (buffer)
                             (let ((buffer-name (buffer-name buffer)))
                               (if (equal ref-buffer buffer)
-                                  (concat "[" buffer-name "]")
-                                buffer-name))))
-      (mapconcat #'trail-to-str trail "  "))))
+                                  (propertize (concat " [" buffer-name "] ") 'face 'font-lock-warning-face)
+                                (concat " [" buffer-name "] ")))))
+      (mapconcat (lambda (l) (apply #'concat l))
+                 (extract-list (mapcar #'trail-to-str trail)
+                               150
+                               0
+                               (list)
+                               (list))
+                 " \n "))))
+
+(defun extract-list (list length total-length sublist ret)
+  (if list
+      (let* ((buffer-name (car list))
+             (total-length (+ total-length (length buffer-name)))
+             (rest (rest list)))
+        (if (> total-length length)
+            (progn
+              (add-to-list 'ret sublist)
+              (extract-list list length 0 (list) ret))
+          (progn
+            (add-to-list 'sublist buffer-name)
+            (when (not rest)
+              (add-to-list 'ret sublist))
+            (extract-list rest length total-length sublist ret))))
+    ret))
 
 (defun buffer-trail--walk-and-show-breadcrumbs (step-func)
   "Walk the buffer trail with STEP-FUNC and display the breadcrumbs."
@@ -164,12 +200,35 @@ REF-BUFFER is the buffer to stand out visually."
 (defun buffer-trail-backward ()
   "Walk the buffer trail backward."
   (interactive)
-  (buffer-trail--walk-and-show-breadcrumbs (lambda (pos) (+ pos 1))))
+  (buffer-trail--walk-and-show-breadcrumbs (lambda (pos) (1+ pos))))
 
 (defun buffer-trail-forward ()
   "Walk the buffer trail forward."
   (interactive)
-  (buffer-trail--walk-and-show-breadcrumbs (lambda (pos) (- pos 1))))
+  (buffer-trail--walk-and-show-breadcrumbs (lambda (pos) (1- pos))))
+
+(defun buffer-trail-first ()
+  "Walk to the first buffer."
+  (interactive)
+  (buffer-trail--walk-and-show-breadcrumbs
+   (lambda (_pos) (1- (length (buffer-trail--get-trail))))))
+
+(defun buffer-trail-last ()
+  "Walk to the last buffer."
+  (interactive)
+  (buffer-trail--walk-and-show-breadcrumbs (lambda (_pos) 0)))
+
+(defun buffer-trail-drag-backward ()
+  "Move the current buffer backward."
+  (interactive)
+  (buffer-trail--move-breadcrumb (lambda (pos) (1+ pos)))
+  (call-interactively 'buffer-trail-show-breadcrumbs))
+
+(defun buffer-trail-drag-forward ()
+  "Move the current buffer forward."
+  (interactive)
+  (buffer-trail--move-breadcrumb (lambda (pos) (1- pos)))
+  (call-interactively 'buffer-trail-show-breadcrumbs))
 
 (defun buffer-trail-show-breadcrumbs (ref-buffer)
   "Displays a message with the formatted buffer trail.
@@ -193,29 +252,6 @@ default value is the current buffer."
                              (lambda (b) (equal b buffer))
                              buffer-trail--trail))
   (switch-to-buffer (car buffer-trail--trail))
-  (call-interactively 'buffer-trail-show-breadcrumbs))
-
-(defun buffer-trail-first ()
-  "Walk to the first buffer."
-  (interactive)
-  (buffer-trail--walk-and-show-breadcrumbs
-   (lambda (_pos) (1- (length (buffer-trail--get-trail))))))
-
-(defun buffer-trail-last ()
-  "Walk to the last buffer."
-  (interactive)
-  (buffer-trail--walk-and-show-breadcrumbs (lambda (_pos) 0)))
-
-(defun buffer-trail-backward ()
-  "Move the current buffer backward."
-  (interactive)
-  (buffer-trail--move-breadcrumb #'+)
-  (call-interactively 'buffer-trail-show-breadcrumbs))
-
-(defun buffer-trail-forward ()
-  "Move the current buffer forward."
-  (interactive)
-  (buffer-trail--move-breadcrumb #'-)
   (call-interactively 'buffer-trail-show-breadcrumbs))
 
 (provide 'buffer-trail)
