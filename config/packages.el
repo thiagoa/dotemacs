@@ -16,6 +16,7 @@
         aggressive-indent
         ag
         avy
+        github-browse-file
         goto-last-change
         swiper
         helm
