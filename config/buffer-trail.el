@@ -21,7 +21,7 @@
 
 ;;; Commentary:
 ;;
-;; I'm not satisfied with buffer navigation in Emacs.
+;; Buffer navigation in Emacs could be better.
 ;;
 ;; `switch-to-buffer` is great and I use it a lot, but when I'm
 ;; working with a small group of files and need to switch back and
@@ -29,23 +29,28 @@
 ;; powerful versions like `helm-buffers-list` require knowing the name
 ;; of the target buffer in order to switch over efficiently.  Often
 ;; times I pause and think, and if I don't know where I want to go,
-;; I'm forced to find the buffer I want somewhere among the cruft
-;; buffers automatically created by Emacs.
+;; I'm forced to find the buffer I want among the cruft buffers
+;; automatically created by Emacs.
 ;;
-;; Another option is `next-buffer` and `previous-buffer`, but
-;; unfortunately, these functions walk across all the cruft buffers.
-;; Moreover, they're not intuitive functions, and I'm never sure which
-;; one will take me to the buffer I want because Emacs manipulates the
-;; buffer list behind the curtains.
+;; Another option is using `next-buffer` and `previous-buffer`, but
+;; unfortunately, these functions factor in the cruft buffers.
+;; Moreover, they're not intuitive, and I'm never sure which one will
+;; take me to the buffer I want because Emacs manipulates the buffer
+;; list behind the curtains.
 ;;
-;; buffer-trail is designed to be a "private" list of buffers, updated
-;; when you explicitly switch buffers.  It works as you'd expect: you
-;; won't have surprises like walking the buffer trail backward and not
-;; reaching the buffer you were in.  Also, you'll never get lost
-;; because you'll see the list of buffers within the mini-buffer every
-;; time you switch.  You can drag the buffers along the trail like you
-;; do with browser tabs, but much more smoothly -- this way you can
-;; easily organize a group of buffers for fast switching.
+;; buffer-trail is designed to be a "private" list of buffers updated
+;; when you explicitly switch buffers.
+;;
+;; - It works as you'd expect: you won't have unpleasant surprises
+;; like walking the buffer trail backward and not reaching the buffer
+;; you were previously in.
+;;
+;; - You'll never get lost because you'll see the list of buffers
+;; within the mini-buffer every time you trigger a switch.
+;;
+;; - You can drag the buffers along the trail like you do with browser
+;; tabs, but much more smoothly -- this way you can easily organize a
+;; group of buffers for fast switching.
 ;;
 ;; To use buffer-trail, you need to manually tell what functions
 ;; update the trail, for example:
@@ -78,6 +83,7 @@
 
 ;;; Code:
 
+(require 'subr-x)
 (require 'seq)
 
 (defvar buffer-trail--trail '()
@@ -119,8 +125,8 @@ FUNCTIONS must be a list of function references."
 (defun buffer-trail--walk (step-func)
   "Walk the buffer trail.
 
-STEP-FUNC should be a callable that takes the current buffer
-position and returns a new position."
+STEP-FUNC is a callable that takes the current buffer position
+and returns a new position."
   (let ((buffer (current-buffer)))
     (cl-flet ((switch-to-adj (_buffer-pos _adj-buffer-pos adj-buffer _trail)
                              (switch-to-buffer adj-buffer)))
@@ -132,7 +138,7 @@ position and returns a new position."
 REF-BUFFER is the buffer used as a reference to find the adjacent
 buffer.  STEP-FUNC is a callable that will take the position of
 REF-BUFFER and return a new position.  The ACTION callable takes
-the position of the adjacent buffer and other related data."
+the position of the adjacent buffer and other related arguments."
   (buffer-trail--add ref-buffer)
   (let* ((trail (buffer-trail--get-trail))
          (ref-buffer-pos (cl-position ref-buffer trail))
@@ -144,11 +150,11 @@ the position of the adjacent buffer and other related data."
           adj-buffer)
       ref-buffer)))
 
-(defun buffer-trail--move-breadcrumb (step-func)
+(defun buffer-trail--drag-breadcrumb (step-func)
   "Move a breadcrumb along the trail.
 
-STEP-FUNC is a callable that takes the current buffer position
-and returns a new position."
+STEP-FUNC is a callable that takes the position of the current
+buffer and returns a new position."
   (let ((buffer (current-buffer)))
     (cl-flet ((switch-out-buffers
                (buffer-pos adj-buffer-pos adj-buffer trail)
@@ -186,11 +192,11 @@ REF-BUFFER is the buffer to stand out visually."
         (format-trail-segments trail-segments)))))
 
 (defun buffer-trail--split-breadcrumbs-to-frame-width (trail extra-length)
-  "Splits the trail into sublists, each with at most the length of the screen.
+  "Splits the trail into sublists, each with at most the length of the frame.
 
-TRAIL is the list of buffers.  EXTRA-LENGTH is the length of
-extra characters placed between the buffers to display the buffer
-trail.  For example, if the final buffer is wrapped in square
+TRAIL is the list of buffers.  EXTRA-LENGTH is the length of the
+characters placed between the buffers to display the buffer
+trail.  For instance, if the buffers are wrapped in square
 brackets and the separator is \" \", then EXTRA-LENGTH is 2 +
 2 (square brackets length + separator length)."
   (let ((total-length 0)
@@ -198,7 +204,9 @@ brackets and the separator is \" \", then EXTRA-LENGTH is 2 +
         (sublists (list))
         (cur-sublist (list)))
     (while trail
-      (setq total-length (+ (length (buffer-name (car trail))) extra-length total-length))
+      (setq total-length (+ (length (buffer-name (car trail)))
+                            extra-length
+                            total-length))
       (if (< total-length frame-width)
           (setq cur-sublist (cons (pop trail) cur-sublist))
         (progn
@@ -237,22 +245,22 @@ brackets and the separator is \" \", then EXTRA-LENGTH is 2 +
   (buffer-trail--walk-and-show-breadcrumbs (lambda (_pos) 0)))
 
 (defun buffer-trail-drag-backward ()
-  "Move the current buffer backward."
+  "Drag the current buffer backward."
   (interactive)
-  (buffer-trail--move-breadcrumb (lambda (pos) (1+ pos)))
+  (buffer-trail--drag-breadcrumb (lambda (pos) (1+ pos)))
   (call-interactively 'buffer-trail-show-breadcrumbs))
 
 (defun buffer-trail-drag-forward ()
-  "Move the current buffer forward."
+  "Drag the current buffer forward."
   (interactive)
-  (buffer-trail--move-breadcrumb (lambda (pos) (1- pos)))
+  (buffer-trail--drag-breadcrumb (lambda (pos) (1- pos)))
   (call-interactively 'buffer-trail-show-breadcrumbs))
 
 (defun buffer-trail-show-breadcrumbs (ref-buffer)
-  "Displays a message with the formatted buffer trail.
+  "Display a message with the formatted buffer trail.
 
-REF-BUFFER is the buffer to stand out visually.  Its
-default value is the current buffer."
+REF-BUFFER is the buffer to stand out visually.  It defaults to
+the current buffer."
   (interactive (list (current-buffer)))
   (buffer-trail--add ref-buffer)
   (message (buffer-trail--breadcrumbs ref-buffer)))
