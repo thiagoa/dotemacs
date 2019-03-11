@@ -160,44 +160,53 @@ and returns a new position."
   "Return a formatted string with the buffer trail.
 
 REF-BUFFER is the buffer to stand out visually."
-  (let ((trail (reverse (buffer-trail--get-trail))))
-    (cl-flet ((trail-to-str
-               (buffer)
-               (let ((buffer-name (buffer-name buffer)))
-                 (if (equal ref-buffer buffer)
-                     (propertize
-                      (concat "[" buffer-name "]")
-                      'face
-                      'font-lock-warning-face)
-                   (concat "[" buffer-name "]")))))
-      (let ((sublists (buffer-trail--split-breadcrumbs-to-frame-width
-                       (mapcar #'trail-to-str trail))))
-        (propertize (string-join (reverse sublists) " \n ")
-                    'line-spacing 3)))))
+  (let ((trail (reverse (buffer-trail--get-trail)))
+        (buffer-tmpl "[%s]")
+        (buffer-sep "  ")
+        (seg-sep "\n"))
+    (cl-labels ((buffer-visual-name (buffer) (format buffer-tmpl buffer))
+                (format-buffer
+                 (buffer)
+                 (let ((buffer-str (buffer-visual-name (buffer-name buffer))))
+                   (if (equal ref-buffer buffer)
+                       (propertize buffer-str 'face 'font-lock-warning-face)
+                     buffer-str)))
+                (format-a-trail-segment
+                 (segment)
+                 (string-join (mapcar #'format-buffer segment) buffer-sep))
+                (format-trail-segments
+                 (segments)
+                 (propertize (string-join segments seg-sep) 'line-spacing 3)))
+      (let* ((extra-chars-length (length (buffer-visual-name "")))
+             (buffer-sep-length (length buffer-sep))
+             (sublists (buffer-trail--split-breadcrumbs-to-frame-width
+                        trail
+                        (+ extra-chars-length buffer-sep-length)))
+             (trail-segments (mapcar #'format-a-trail-segment sublists)))
+        (format-trail-segments trail-segments)))))
 
-(defun buffer-trail--split-breadcrumbs-to-frame-width (trail)
+(defun buffer-trail--split-breadcrumbs-to-frame-width (trail extra-length)
   "Splits the trail into sublists, each with at most the length of the screen.
 
-This function will also space out the elements.  TRAIL is the list
-of buffer strings."
+TRAIL is the list of buffers.  EXTRA-LENGTH is the length of
+extra characters placed between the buffers to display the buffer
+trail.  For example, if the final buffer is wrapped in square
+brackets and the separator is \" \", then EXTRA-LENGTH is 2 +
+2 (square brackets length + separator length)."
   (let ((total-length 0)
         (frame-width (frame-width))
         (sublists (list))
-        (cur-sublist (list))
-        (sep "  "))
-    (cl-flet ((finished-cur-sublist
-               ()
-               (string-join (reverse cur-sublist) sep)))
-      (while trail
-        (setq total-length (+ (length (car trail)) (length sep) total-length))
-        (if (< total-length frame-width)
-            (setq cur-sublist (cons (pop trail) cur-sublist))
-          (progn
-            (setq total-length 0)
-            (setq sublists (cons (finished-cur-sublist) sublists))
-            (setq cur-sublist (list)))))
-      (setq sublists (cons (finished-cur-sublist) sublists)))
-    sublists))
+        (cur-sublist (list)))
+    (while trail
+      (setq total-length (+ (length (buffer-name (car trail))) extra-length total-length))
+      (if (< total-length frame-width)
+          (setq cur-sublist (cons (pop trail) cur-sublist))
+        (progn
+          (setq total-length 0)
+          (setq sublists (cons (reverse cur-sublist) sublists))
+          (setq cur-sublist (list)))))
+    (setq sublists (cons (reverse cur-sublist) sublists))
+    (reverse sublists)))
 
 (defun buffer-trail--walk-and-show-breadcrumbs (step-func)
   "Walk the buffer trail with STEP-FUNC and display the breadcrumbs."
