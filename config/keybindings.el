@@ -94,6 +94,7 @@
 (global-set-key (kbd "C-x M-g")        'magit-dispatch-popup)
 (global-set-key (kbd "C-x C-f")        'helm-find-files)
 (global-set-key (kbd "C-c i")          'swiper)
+(global-set-key (kbd "<s-return>")     'xah-run-current-file)
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Fast movement ;;
