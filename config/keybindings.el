@@ -145,6 +145,12 @@
 (define-key 'help-command (kbd "C-l")  'find-library)
 (define-key 'help-command (kbd "C-v")  'find-variable)
 
+;;;;;;;;;;
+;; Helm ;;
+;;;;;;;;;;
+
+(define-key helm-find-files-map (kbd "C-d") #'my-helm-exit-and-execute-action)
+
 ;;;;;;;;;;;;;;;;
 ;; Minibuffer ;;
 ;;;;;;;;;;;;;;;;
