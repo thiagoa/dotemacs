@@ -25,6 +25,7 @@
 (load "buffers.el")
 (load "terminal.el")
 (load "keybindings.el")
+(load "overrides.el")
 
 (mapc 'load
       (file-expand-wildcards

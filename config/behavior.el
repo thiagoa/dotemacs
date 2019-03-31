@@ -51,7 +51,7 @@
 
 (setq helm-buffers-fuzzy-matching t)
 (setq helm-recentf-fuzzy-match t)
-(setq helm-split-window-default-side 'same)
+(setq helm-split-window-default-side 'other)
 (setq undo-tree-enable-undo-in-region nil)
 
 ;; I hope I don't regret this
@@ -99,7 +99,7 @@
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 
-(magithub-feature-autoinject t)
+;; (magithub-feature-autoinject t)
 
 (load-history savehist-file)
 
