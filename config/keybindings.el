@@ -143,6 +143,7 @@
 (define-key 'help-command (kbd "C-k")  'find-function-on-key)
 (define-key 'help-command (kbd "C-p")  'find-function-at-point)
 (define-key 'help-command (kbd "C-l")  'find-library)
+(define-key 'help-command (kbd "C-v")  'find-variable)
 
 ;;;;;;;;;;;;;;;;
 ;; Minibuffer ;;
