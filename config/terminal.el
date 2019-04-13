@@ -41,3 +41,5 @@
             (turn-on-comint-history (getenv "HISTFILE"))))
 
 (setq comint-input-ring-separator "\n: \\([0-9]+\\):\\([0-9]+\\);")
+
+(provide 'terminal)

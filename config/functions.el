@@ -846,3 +846,5 @@ The exit code verification method can still be improved."
   (if (= compilation-num-errors-found 0)
       (notify-os "Tests passed 👍" "Hero")
     (notify-os "Tests failed 👎" "Basso")))
+
+(provide 'functions)
