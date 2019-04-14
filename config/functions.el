@@ -104,6 +104,17 @@
   (crux-smart-open-line-above)
   (crux-smart-open-line nil))
 
+;; Author: Thiago Araújo Silva
+(defun enable-god-mode-if-not-enabled (&rest args)
+  (apply args)
+  (when god-local-mode
+    (god-mode-all)))
+
+(advice-add 'crux-smart-open-line-above :around #'enable-god-mode-if-not-enabled)
+(advice-add 'crux-smart-open-line :around #'enable-god-mode-if-not-enabled)
+(advice-add 'change-outer :around #'enable-god-mode-if-not-enabled)
+(advice-add 'change-inner :around #'enable-god-mode-if-not-enabled)
+
 (defun replace-region ()
   (interactive)
   (call-interactively 'kill-region)

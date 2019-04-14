@@ -101,8 +101,8 @@
 (global-set-key (kbd "C-x C-2")        'split-window-below)
 (global-set-key (kbd "C-x C-3")        'split-window-right)
 (global-set-key (kbd "C-x C-0")        'delete-window)
-(global-set-key (kbd "C-a")            'my-beginning)
-(global-set-key (kbd "C-e")            'my-end)
+(global-set-key (kbd "C-a")            'my-beginning-of-line)
+(global-set-key (kbd "C-e")            'my-end-of-line)
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Fast movement ;;
