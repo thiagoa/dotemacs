@@ -98,6 +98,7 @@
 (setq history-length 1000)
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
+(setq large-file-warning-threshold nil)
 
 ;; (magithub-feature-autoinject t)
 
