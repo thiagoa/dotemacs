@@ -138,6 +138,23 @@
   (call-interactively 'kill-region)
   (when ((= (line-number-at-pos (point)) (line-number-at-pos (mark))))
     (call-interactively 'crux-smart-open-line-above)))
+;; Author: Thiago Araújo Silva
+(defun top-join-line ()
+  "Join the line below to the current line using a space as separator.
+
+If a region is active, joins together the lines corresponding to the
+region."
+  (interactive)
+  (flet ((join-line () (delete-indentation 1)))
+    (cond
+     ((use-region-p)
+      (let ((n (abs (-
+                     (line-number-at-pos (point))
+                     (line-number-at-pos (mark))))))
+        (when (= (point) (line-beginning-position)) (setq n (1- n)))
+        (when (> (point) (mark)) (exchange-point-and-mark))
+        (dotimes (_ n) (join-line))))
+     (t (join-line)))))
 
 ;; Author: Thiago Araújo Silva
 (defun mark-current-line (arg)
