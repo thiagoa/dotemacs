@@ -207,6 +207,7 @@
 (define-key god-local-mode-map (kbd "J") 'crux-top-join-line)
 (define-key god-local-mode-map (kbd "F") 'forward-word)
 (define-key god-local-mode-map (kbd "B") 'backward-word)
+(define-key god-local-mode-map (kbd "R") (with-god-insert 'replace-region))
 (define-key god-local-mode-map (kbd "z") (with-god-insert 'zap-to-char))
 (define-key god-local-mode-map (kbd "Z") (with-god-insert 'zap-up-to-char))
 (define-key god-local-mode-map (kbd "K") (with-god-insert 'my-kill-line))

@@ -132,10 +132,12 @@
   (interactive)
   (if paredit-mode (paredit-kill) (kill-line)))
 
+;; Author: Thiago Araújo Silva
 (defun replace-region ()
   (interactive)
   (call-interactively 'kill-region)
-  (call-interactively 'crux-smart-open-line-above))
+  (when ((= (line-number-at-pos (point)) (line-number-at-pos (mark))))
+    (call-interactively 'crux-smart-open-line-above)))
 
 ;; Author: Thiago Araújo Silva
 (defun mark-current-line (arg)
