@@ -118,16 +118,6 @@
                   (interactive)
                   (ignore-errors (previous-line 5))))
 
-(global-set-key (kbd "C-S-f")
-                (lambda ()
-                  (interactive)
-                  (ignore-errors (forward-char 5))))
-
-(global-set-key (kbd "C-S-b")
-                (lambda ()
-                  (interactive)
-                  (ignore-errors (backward-char 5))))
-
 ;;;;;;;;;;;;;;;
 ;; undo-tree ;;
 ;;;;;;;;;;;;;;;
@@ -203,6 +193,13 @@
 ;;;;;;;;;;;;;;
 
 (define-key god-local-mode-map (kbd "z") 'repeat)
+(define-key god-local-mode-map (kbd "A") 'backward-sentence)
+(define-key god-local-mode-map (kbd "E") 'forward-sentence)
+(define-key god-local-mode-map (kbd "i") 'god-mode-all)
+(define-key god-local-mode-map (kbd "V") 'scroll-down-command)
+(define-key god-local-mode-map (kbd "J") 'crux-top-join-line)
+(define-key god-local-mode-map (kbd "F") 'forward-word)
+(define-key god-local-mode-map (kbd "B") 'backward-word)
 
 ;;;;;;;;;;;;;
 ;; Clojure ;;
