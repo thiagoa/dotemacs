@@ -1,5 +1,6 @@
 ;;; -*- lexical-binding: t -*-
 
+(require 'elisp-ext)
 (require 'ido-goto-symbol)
 (require 'cl)
 (require 'cl-extra)
@@ -8,27 +9,6 @@
 (defalias 'ff  'find-file)
 (defalias 'e   'eval-buffer)
 (defalias 'keb 'kill-extraneous-buffers)
-
-;;;;;;;;;;;;;;;;;;;
-;; Elisp helpers ;;
-;;;;;;;;;;;;;;;;;;;
-
-;; Author: Thiago Araújo Silva
-(defun load-if-exists (f)
-  (when (file-exists-p f)
-    (load f)))
-
-;; Author: Thiago Araújo Silva
-(defmacro setq-list-append (var value)
-  (list 'setq var (list 'append var `'(,value))))
-
-;; Author: Thiago Araújo Silva
-(defmacro toggle-list-element (list element callback)
-  `(let ((present? (member ,element ,list)))
-     (if present?
-         (setq ,list (delete ,element ,list))
-       (add-to-list ',list ,element))
-     (,callback (not present?))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Config && Package management ;;
@@ -109,27 +89,6 @@
   "Exit god mode, which corresponding the insert mode."
   (interactive)
   (when god-local-mode (god-mode-all)))
-
-;; Author: Thiago Araújo Silva
-(defmacro simple-ilambda (&rest body)
-  "A convenience macro to generate an argless interactive lambda.
-
-This is a convenience macro to generate a lambda that takes no
-arguments.  BODY is the lambda body."
-  `(ilambda () ,@body))
-
-;; Author: Thiago Araújo Silva
-(defmacro multi-ilambda (&rest funcs)
-  "Generate an interactive lambda and run FUNCS in sequence."
-  `(simple-ilambda
-    ,@(mapcar (lambda (f) (list 'call-interactively f)) funcs)))
-
-;; Author: Thiago Araújo Silva
-(defmacro ilambda (&rest args)
-  "A convenience macro over a lambda to generate an interactive lambda.
-
-ARGS consists of the lambda arguments and body."
-  `(lambda ,(car args) (interactive) ,@(cdr args)))
 
 ;; Author: Thiago Araújo Silva
 (defmacro with-god-insert (&rest funcs)
@@ -846,7 +805,7 @@ compilation mode in it immediately."
   (toggle-list-element
    rspec-before-verification-hook
    'inf-ruby-switch-from-compilation
-   (lambda (on) (message (concat "Compilation mode is " (if on "OFF" "ON")))))
+   (lambda (on) (message (concat "Compilation mode is " (if on "ON" "OFF")))))
   (when (setq next-error-last-buffer (next-error-find-buffer))
     (with-current-buffer next-error-last-buffer
       (if (equal major-mode 'inf-ruby-mode)

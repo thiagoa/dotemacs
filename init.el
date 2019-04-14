@@ -8,6 +8,7 @@
 (setq custom-file (expand-file-name "auto.el" emacs-d))
 
 (add-to-list 'load-path (expand-file-name "config" emacs-d))
+(add-to-list 'load-path (expand-file-name "lib" emacs-d))
 (add-to-list 'load-path (expand-file-name "yasnippet" emacs-d))
 
 (load "packages.el")
