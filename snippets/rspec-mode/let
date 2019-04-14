@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
-# name: it
-# key: it
+# name: let
+# key: letb
 # --
-it '$1' do
+let(:$1) do
   $0
 end

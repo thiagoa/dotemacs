@@ -22,6 +22,9 @@
 (add-hook 'web-mode-hook 'projectile-rails-on)
 (add-hook 'inf-ruby-mode-hook (lambda () (turn-on-comint-history ".pry_history")))
 
+(eval-after-load 'rspec-mode
+  (yas-load-directory (concat emacs-d "snippets/rspec-mode")))
+
 (remove-hook 'ruby-mode-hook 'ruby-end-mode)
 
 (add-hook 'after-init-hook 'inf-ruby-switch-setup)

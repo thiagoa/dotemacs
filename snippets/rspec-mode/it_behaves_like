@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: it_behaves_like
+# key: sharede
+# --
+it_behaves_like $1${2: do
+  $0
+end}

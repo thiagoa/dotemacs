@@ -1,0 +1,5 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: is_expected
+# key: expect
+# --
+is_expected.to $0

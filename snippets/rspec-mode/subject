@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: subject
+# key: subject
+# --
+subject do
+  $0
+end
