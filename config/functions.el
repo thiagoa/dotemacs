@@ -124,6 +124,20 @@
 ;; Moving around ;;
 ;;;;;;;;;;;;;;;;;;;
 
+;; Author: Thiago Araújo Silva
+(defun my-beginning-of-line ()
+  (interactive)
+  (if (= (point) (line-beginning-position))
+      (beginning-of-defun)
+    (call-interactively 'move-beginning-of-line)))
+
+;; Author: Thiago Araújo Silva
+(defun my-end-of-line ()
+  (interactive)
+  (if (= (point) (line-end-position))
+      (end-of-defun)
+    (call-interactively 'move-end-of-line)))
+
 ;; Modified by Thiago to jump straight to the next or previous occurrence
 (defun xah-search-current-word ()
   "Call `isearch' on current word or text selection.
@@ -846,5 +860,14 @@ The exit code verification method can still be improved."
   (if (= compilation-num-errors-found 0)
       (notify-os "Tests passed 👍" "Hero")
     (notify-os "Tests failed 👎" "Basso")))
+
+(defun c/god-mode-update-cursor ()
+  (let ((limited-colors-p (> 257 (length (defined-colors)))))
+    (cond (god-local-mode (progn
+                            (set-face-background 'mode-line (if limited-colors-p "white" "#e9e2cb"))
+                            (set-face-background 'mode-line-inactive (if limited-colors-p "white" "#e9e2cb"))))
+          (t (progn
+               (set-face-background 'mode-line (if limited-colors-p "black" "#0a2832"))
+               (set-face-background 'mode-line-inactive (if limited-colors-p "black" "#0a2832")))))))
 
 (provide 'functions)

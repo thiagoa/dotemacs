@@ -20,7 +20,8 @@
 (global-set-key [(control shift down)] 'move-text-down-and-indent)
 (global-set-key (kbd "C-c l")          'winner-redo)
 (global-set-key (kbd "C-c h")          'winner-undo)
-(global-set-key (kbd "C-x C-b")        'ibuffer)
+(global-set-key (kbd "C-x C-b")        'helm-buffers-list)
+(global-set-key (kbd "C-x b")          'ibuffer)
 (global-set-key (kbd "s-n")             scroll-viewport-up)
 (global-set-key (kbd "s-p")             scroll-viewport-down)
 (global-set-key (kbd "C-1")            'eshell-here)
@@ -96,6 +97,12 @@
 (global-set-key (kbd "C-x C-f")        'helm-find-files)
 (global-set-key (kbd "C-c i")          'swiper)
 (global-set-key (kbd "<s-return>")     'xah-run-current-file)
+(global-set-key (kbd "C-x C-1")        'delete-other-windows)
+(global-set-key (kbd "C-x C-2")        'split-window-below)
+(global-set-key (kbd "C-x C-3")        'split-window-right)
+(global-set-key (kbd "C-x C-0")        'delete-window)
+(global-set-key (kbd "C-a")            'my-beginning)
+(global-set-key (kbd "C-e")            'my-end)
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Fast movement ;;
@@ -190,6 +197,12 @@
 
 (define-key rspec-verifiable-mode-map (kbd "C-c , r") 'tests-anywhere-rerun)
 (define-key rspec-verifiable-mode-map (kbd "C-c , a") 'tests-anywhere-verify-all)
+
+;;;;;;;;;;;;;;
+;; God mode ;;
+;;;;;;;;;;;;;;
+
+(define-key god-local-mode-map (kbd "z") 'repeat)
 
 ;;;;;;;;;;;;;
 ;; Clojure ;;

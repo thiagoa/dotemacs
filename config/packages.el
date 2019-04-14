@@ -30,6 +30,7 @@
         change-inner
         move-text
         dot-mode
+        keyfreq
         iy-go-to-char
         smartscan
         multiple-cursors
@@ -41,7 +42,7 @@
         magithub
         git-link
         company
-        enh-ruby-mode
+        god-mode
         bundler
         goto-gem
         projectile-rails

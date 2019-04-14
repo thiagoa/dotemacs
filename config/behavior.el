@@ -1,3 +1,5 @@
+(require 'god-mode)
+
 (load "dired-x.el")
 
 (run-server)
@@ -5,6 +7,20 @@
 (emacs-use-same-path-as-shell)
 (config-terminal-encoding)
 (set-default-shell "zsh")
+
+(global-set-key (kbd "<escape>") 'god-mode-all)
+
+(defun my-update-cursor ()
+  (setq cursor-type (if (or god-local-mode buffer-read-only)
+                        'box
+                      'bar)))
+
+(require 'god-mode-isearch)
+(define-key isearch-mode-map (kbd "<escape>") 'god-mode-isearch-activate)
+(define-key god-mode-isearch-map (kbd "<escape>") 'god-mode-isearch-disable)
+
+(add-hook 'god-mode-enabled-hook 'my-update-cursor)
+(add-hook 'god-mode-disabled-hook 'my-update-cursor)
 
 (global-dot-mode)
 (global-flycheck-mode)
@@ -19,6 +35,7 @@
 (delete-selection-mode)
 (save-place-mode)
 (ido-mode)
+(god-mode-all)
 
 (setq flycheck-check-syntax-automatically '(save mode-enable))
 
