@@ -37,14 +37,19 @@
           "/")
   "The Emacs main directory.")
 
+(defun reload-packages ()
+  "Reloads my packages file."
+  (load "packages.el"))
+
+(reload-packages)
+
+(unless (package-installed-p pivot-package)
+  (pac-install))
+
 (defun reload-config ()
   "Reload my configuration file."
   (interactive)
   (load (expand-file-name "init.el" emacs-d)))
-
-(defun reload-packages ()
-  "Reloads my packages file."
-  (load "packages.el"))
 
 (defun pac-install ()
   "Install packages specified in config/packages.el."

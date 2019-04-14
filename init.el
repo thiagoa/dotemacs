@@ -1,19 +1,15 @@
 (setq gc-cons-threshold 20000000)
 
 (let ((root (file-name-directory load-file-name)))
+  (setq custom-file (expand-file-name "auto.el" root))
   (mapc (lambda (dir)
           (add-to-list 'load-path (expand-file-name dir root)))
         '("config" "lib" "snippets")))
 
 (require 'config-base)
-
-(setq custom-file (expand-file-name "auto.el" emacs-d))
-
-(load "packages.el")
-(load "functions.el")
-
-(unless (package-installed-p pivot-package)
-  (pac-install))
+(require 'elisp-ext)
+(require 'functions)
+(require 'god-mode-ext)
 
 (load "environment.el")
 (load "missile.el")

@@ -1,6 +1,5 @@
 ;;; -*- lexical-binding: t -*-
 
-(require 'elisp-ext)
 (require 'ido-goto-symbol)
 (require 'cl)
 (require 'cl-extra)
@@ -15,17 +14,17 @@
 ;;;;;;;;;;;;;;;;;;
 
 ;; Author: Thiago Araújo Silva
-(defun move-text-up-and-indent (&optional start end n)
-  (interactive (move-text-get-region-and-prefix))
-  "Move the line or region (START END) up by N lines and indent."
-  (move-text-up start end n)
+(defun move-text-up-and-indent ()
+  "Move line or region up and indent."
+  (interactive)
+  (call-interactively 'move-text-up)
   (unless (use-region-p) (indent-according-to-mode)))
 
 ;; Author: Thiago Araújo Silva
-(defun move-text-down-and-indent (&optional start end n)
-  (interactive (move-text-get-region-and-prefix))
-  "Move the line or region (START END) up by N lines and indent."
-  (move-text-down start end n)
+(defun move-text-down-and-indent ()
+  "Move line or region down and indent."
+  (interactive)
+  (call-interactively 'move-text-down)
   (unless (use-region-p) (indent-according-to-mode)))
 
 ;; Author: Thiago Araújo Silva
@@ -50,21 +49,6 @@
   (interactive "p")
   (crux-smart-open-line-above)
   (crux-smart-open-line nil))
-
-;; Author: Thiago Araújo Silva
-(defun god-insert ()
-  "Exit god mode, which corresponding the insert mode."
-  (interactive)
-  (when god-local-mode (god-mode-all)))
-
-;; Author: Thiago Araújo Silva
-(defmacro with-god-insert (&rest funcs)
-  "Execute FUNCS and enter in god insert mode.
-
-This macro is useful to declare god mode keybindings that
-sensibly enter in insert mode afterwards."
-  (let ((funcs (append funcs (list ''god-insert))))
-    `(multi-ilambda ,@funcs)))
 
 ;; Author: Thiago Araújo Silva
 (defun my-kill-line ()
