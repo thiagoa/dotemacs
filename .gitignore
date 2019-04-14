@@ -23,3 +23,5 @@ abbrev_defs
 places
 .places
 url
+history
+config/.nrepl-port
