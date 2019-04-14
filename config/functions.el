@@ -106,29 +106,45 @@
 
 ;; Author: Thiago Araújo Silva
 (defun god-insert ()
+  "Exit god mode, which corresponding the insert mode."
   (interactive)
   (when god-local-mode (god-mode-all)))
 
 ;; Author: Thiago Araújo Silva
 (defmacro simple-ilambda (&rest body)
+  "A convenience macro to generate an argless interactive lambda.
+
+This is a convenience macro to generate a lambda that takes no
+arguments.  BODY is the lambda body."
   `(ilambda () ,@body))
 
 ;; Author: Thiago Araújo Silva
 (defmacro multi-ilambda (&rest funcs)
+  "Generate an interactive lambda and run FUNCS in sequence."
   `(simple-ilambda
     ,@(mapcar (lambda (f) (list 'call-interactively f)) funcs)))
 
 ;; Author: Thiago Araújo Silva
-(defmacro ilambda (&rest body)
-  `(lambda ,(car body) (interactive) ,@(cdr body)))
+(defmacro ilambda (&rest args)
+  "A convenience macro over a lambda to generate an interactive lambda.
+
+ARGS consists of the lambda arguments and body."
+  `(lambda ,(car args) (interactive) ,@(cdr args)))
 
 ;; Author: Thiago Araújo Silva
 (defmacro with-god-insert (&rest funcs)
+  "Execute FUNCS and enter in god insert mode.
+
+This macro is useful to declare god mode keybindings that
+sensibly enter in insert mode afterwards."
   (let ((funcs (append funcs (list ''god-insert))))
     `(multi-ilambda ,@funcs)))
 
 ;; Author: Thiago Araújo Silva
 (defun my-kill-line ()
+  "Kill line according to current mode.
+
+Primarily for use with custom scripts."
   (interactive)
   (if paredit-mode (paredit-kill) (kill-line)))
 
