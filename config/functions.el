@@ -10,39 +10,6 @@
 (defalias 'e   'eval-buffer)
 (defalias 'keb 'kill-extraneous-buffers)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Config && Package management ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; Author: Thiago Araújo Silva
-(defun reload-config ()
-  (interactive)
-  (load (expand-file-name "init.el" emacs-d)))
-
-(defun pac-install ()
-  (interactive)
-  (save-buffer)
-  (package-refresh-contents)
-  (load "packages.el")
-  (dolist (package package-selected-packages)
-    (unless (package-installed-p package)
-      (package-install package))))
-
-(defun pac-update ()
-  (interactive)
-  (save-buffer)
-  (package-refresh-contents)
-  (save-window-excursion
-    (package-list-packages t)
-    (package-menu-mark-upgrades)
-    (package-menu-execute t)))
-
-;; Author: Thiago Araújo Silva
-(defun pac-autoremove ()
-  (interactive)
-  (load "packages.el")
-  (package-autoremove))
-
 ;;;;;;;;;;;;;;;;;;
 ;; Text editing ;;
 ;;;;;;;;;;;;;;;;;;

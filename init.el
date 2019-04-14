@@ -1,15 +1,13 @@
 (setq gc-cons-threshold 20000000)
 
-(defconst emacs-d
-  (file-name-directory
-   (file-chase-links load-file-name))
-  "The Emacs main directory")
+(let ((root (file-name-directory load-file-name)))
+  (mapc (lambda (dir)
+          (add-to-list 'load-path (expand-file-name dir root)))
+        '("config" "lib" "snippets")))
+
+(require 'config-base)
 
 (setq custom-file (expand-file-name "auto.el" emacs-d))
-
-(add-to-list 'load-path (expand-file-name "config" emacs-d))
-(add-to-list 'load-path (expand-file-name "lib" emacs-d))
-(add-to-list 'load-path (expand-file-name "yasnippet" emacs-d))
 
 (load "packages.el")
 (load "functions.el")
