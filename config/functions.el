@@ -127,9 +127,22 @@
 ;; Author: Thiago Araújo Silva
 (defun my-beginning-of-line ()
   (interactive)
-  (if (= (point) (line-beginning-position))
-      (beginning-of-defun)
-    (call-interactively 'move-beginning-of-line)))
+  (cl-labels ((beginning-of-line-p ()
+                                   (= (point) (line-beginning-position))))
+    (cond
+     ((and (boundp 'rspec-mode) (beginning-of-line-p)) (backward-sentence))
+     ((beginning-of-line-p) (beginning-of-defun))
+     (t (call-interactively 'move-beginning-of-line)))))
+
+;; Author: Thiago Araújo Silva
+(defun my-end-of-line ()
+  (interactive)
+  (cl-labels ((end-of-line-p ()
+                             (= (point) (line-end-position))))
+    (cond
+     ((and (boundp 'rspec-mode) (end-of-line-p)) (forward-sentence))
+     ((end-of-line-p) (end-of-defun))
+     (t (call-interactively 'move-end-of-line)))))
 
 ;; Author: Thiago Araújo Silva
 (defun my-end-of-line ()
