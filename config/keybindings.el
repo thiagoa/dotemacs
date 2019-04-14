@@ -186,20 +186,32 @@
             (define-key inf-ruby-minor-mode-map (kbd "C-x l") 'ruby-load-file)))
 
 (define-key rspec-verifiable-mode-map (kbd "C-c , r") 'tests-anywhere-rerun)
+(define-key rspec-verifiable-mode-map (kbd "C-c , r") 'tests-anywhere-rerun)
 (define-key rspec-verifiable-mode-map (kbd "C-c , a") 'tests-anywhere-verify-all)
 
 ;;;;;;;;;;;;;;
 ;; God mode ;;
 ;;;;;;;;;;;;;;
 
-(define-key god-local-mode-map (kbd "z") 'repeat)
-(define-key god-local-mode-map (kbd "A") 'backward-sentence)
+(define-key god-local-mode-map (kbd ".") 'repeat)
+(define-key god-local-mode-map (kbd "<C-return>") (with-god-insert 'crux-smart-open-line))
+(define-key god-local-mode-map (kbd "<M-return>") (with-god-insert 'crux-smart-open-line-above))
+(define-key god-local-mode-map (kbd "I") (with-god-insert 'delete-char))
+(define-key god-local-mode-map (kbd "A")  'backward-sentence)
+(define-key god-local-mode-map (kbd "'")  (with-god-insert 'change-inner))
+(define-key god-local-mode-map (kbd "\"") (with-god-insert 'change-outer))
 (define-key god-local-mode-map (kbd "E") 'forward-sentence)
+(define-key god-local-mode-map (kbd "D") 'delete-backward-char)
 (define-key god-local-mode-map (kbd "i") 'god-mode-all)
 (define-key god-local-mode-map (kbd "V") 'scroll-down-command)
 (define-key god-local-mode-map (kbd "J") 'crux-top-join-line)
 (define-key god-local-mode-map (kbd "F") 'forward-word)
 (define-key god-local-mode-map (kbd "B") 'backward-word)
+(define-key god-local-mode-map (kbd "z") (with-god-insert 'zap-to-char))
+(define-key god-local-mode-map (kbd "Z") (with-god-insert 'zap-up-to-char))
+(define-key god-local-mode-map (kbd "K") (with-god-insert 'my-kill-line))
+(define-key god-local-mode-map (kbd "m") 'back-to-indentation)
+(define-key god-local-mode-map (kbd "M") (with-god-insert 'back-to-indentation 'my-kill-line))
 
 ;;;;;;;;;;;;;
 ;; Clojure ;;

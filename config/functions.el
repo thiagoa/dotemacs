@@ -105,15 +105,32 @@
   (crux-smart-open-line nil))
 
 ;; Author: Thiago Araújo Silva
-(defun enable-god-mode-if-not-enabled (&rest args)
-  (apply args)
-  (when god-local-mode
-    (god-mode-all)))
+(defun god-insert ()
+  (interactive)
+  (when god-local-mode (god-mode-all)))
 
-(advice-add 'crux-smart-open-line-above :around #'enable-god-mode-if-not-enabled)
-(advice-add 'crux-smart-open-line :around #'enable-god-mode-if-not-enabled)
-(advice-add 'change-outer :around #'enable-god-mode-if-not-enabled)
-(advice-add 'change-inner :around #'enable-god-mode-if-not-enabled)
+;; Author: Thiago Araújo Silva
+(defmacro simple-ilambda (&rest body)
+  `(ilambda () ,@body))
+
+;; Author: Thiago Araújo Silva
+(defmacro multi-ilambda (&rest funcs)
+  `(simple-ilambda
+    ,@(mapcar (lambda (f) (list 'call-interactively f)) funcs)))
+
+;; Author: Thiago Araújo Silva
+(defmacro ilambda (&rest body)
+  `(lambda ,(car body) (interactive) ,@(cdr body)))
+
+;; Author: Thiago Araújo Silva
+(defmacro with-god-insert (&rest funcs)
+  (let ((funcs (append funcs (list ''god-insert))))
+    `(multi-ilambda ,@funcs)))
+
+;; Author: Thiago Araújo Silva
+(defun my-kill-line ()
+  (interactive)
+  (if paredit-mode (paredit-kill) (kill-line)))
 
 (defun replace-region ()
   (interactive)
