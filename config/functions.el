@@ -735,7 +735,7 @@ Version 2018-07-01"
   (previous-line)
   (ruby-beginning-of-block)
   (back-to-indentation)
-  (open-previous-line 1)
+  (crux-smart-open-line-above)
   (next-line))
 
 ;; Author: Thiago Araújo Silva
