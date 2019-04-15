@@ -72,7 +72,6 @@
 (global-set-key (kbd "M-i")            'ido-goto-symbol)
 (global-set-key (kbd "M-\\")           'hippie-expand)
 (global-set-key (kbd "C-c p w")        'projectile-rails-console)
-(global-set-key (kbd "C-M-y")          'reverse-transpose-sexps)
 (global-set-key (kbd "C-x g")          'magit-status)
 (global-set-key (kbd "C-c d")          'crux-duplicate-current-line-or-region)
 (global-set-key (kbd "C-c M-d")        'crux-duplicate-and-comment-current-line-or-region)
@@ -120,8 +119,8 @@
 (global-set-key (kbd "C-c , a")        'tests-anywhere-verify-all)
 (global-set-key [left]                 'cycle-magit-buffers-backward)
 (global-set-key [right]                'cycle-magit-buffers-forward)
-(global-set-key (kbd "M-*")            'xah-seek-next-word)
-(global-set-key (kbd "M-#")            'xah-seek-previous-word)
+(global-set-key (kbd "M-*")            'isearch-seek-next-word)
+(global-set-key (kbd "M-#")            'isearch-seek-previous-word)
 (global-set-key (kbd "M-RET")          'replace-region)
 (global-set-key (kbd "M-z")            'zap-up-to-char)
 (global-set-key (kbd "M-Z")            'zap-to-char)
@@ -167,8 +166,8 @@
 ;; isearch ;;
 ;;;;;;;;;;;;;
 
-(define-key isearch-mode-map (kbd "M-*") 'xah-seek-next-word)
-(define-key isearch-mode-map (kbd "M-#") 'xah-seek-previous-word)
+(define-key isearch-mode-map (kbd "M-*") 'isearch-seek-next-word)
+(define-key isearch-mode-map (kbd "M-#") 'isearch-seek-previous-word)
 (define-key isearch-mode-map [(control return)] #'isearch-exit-other-end)
 
 ;;;;;;;;;;

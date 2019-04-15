@@ -13,6 +13,8 @@
 (require 'buffer-trail)
 (require 'missile)
 (require 'tests-anywhere)
+(require 'text-editing)
+(require 'movement)
 
 (load "environment.el")
 (load "looknfeel.el")
