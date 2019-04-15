@@ -22,6 +22,7 @@
 (add-hook 'god-mode-enabled-hook 'my-update-cursor)
 (add-hook 'god-mode-disabled-hook 'my-update-cursor)
 
+(beginend-global-mode)
 (global-dot-mode)
 (global-flycheck-mode)
 (global-discover-mode)

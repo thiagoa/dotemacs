@@ -16,6 +16,7 @@
         aggressive-indent
         ag
         avy
+        beginend
         github-browse-file
         goto-last-change
         swiper
