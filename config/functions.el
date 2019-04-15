@@ -402,12 +402,6 @@ Version 2015-04-09"
   (execute-command-under-dir dir 'helm-projectile-find-file))
 
 ;; Author: Thiago Araújo Silva
-(defun my-helm-exit-and-execute-action ()
-  (interactive)
-  (with-helm-alive-p
-    (helm-exit-and-execute-action 'helm-point-file-in-dired)))
-
-;; Author: Thiago Araújo Silva
 (defun safe-linum-mode ()
   "Run linum-mode safely."
   (interactive)

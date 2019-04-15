@@ -1,3 +1,45 @@
+;;; keybindings.el  --- TODO
+
+;; Copyright (C) 2012 Thiago Araújo Silva
+
+;; Author: Thiago Araújo <thiagoaraujos@gmail.com>
+;; Maintainer: Thiago Araújo <thiagoaraujos@gmail.com>
+
+;; This file is NOT part of GNU Emacs.
+
+;;; License:
+
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation; either version 3, or (at your option)
+;; any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with GNU Emacs; see the file COPYING.  If not, write to the
+;; Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+;; Boston, MA 02110-1301, USA.
+
+;;; Commentary:
+
+;;; Code:
+
+(require 'helm)
+(require 'ibuffer)
+(require 'undo-tree)
+(require 'inf-ruby)
+(require 'rspec-mode)
+(require 'god-mode)
+(require 'elixir-mode)
+(require 'alchemist-iex)
+(require 'paredit)
+(require 'magit-mode)
+(require 'elisp-ext)
+
 (defvar scroll-viewport-up       (kbd "C-u 3 C-v"))
 (defvar scroll-viewport-down     (kbd "C-u 3 M-v"))
 (defvar kill-whole-line-backward (kbd "C-e <C-backspace>"))
@@ -103,20 +145,17 @@
 (global-set-key (kbd "C-x C-0")        'delete-window)
 (global-set-key (kbd "C-a")            'my-beginning-of-line)
 (global-set-key (kbd "C-e")            'my-end-of-line)
+(global-set-key (kbd "<f6>")           'toggle-option-key)
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Fast movement ;;
 ;;;;;;;;;;;;;;;;;;;
 
-(global-set-key (kbd "C-S-n")
-                (lambda ()
-                  (interactive)
-                  (ignore-errors (next-line 5))))
+(global-set-key (kbd "C-S-n") (simple-ilambda
+                               (ignore-errors (forward-line 5))))
 
-(global-set-key (kbd "C-S-p")
-                (lambda ()
-                  (interactive)
-                  (ignore-errors (previous-line 5))))
+(global-set-key (kbd "C-S-p") (simple-ilambda
+                               (ignore-errors (forward-line -5))))
 
 ;;;;;;;;;;;;;;;
 ;; undo-tree ;;
@@ -147,7 +186,10 @@
 ;; Helm ;;
 ;;;;;;;;;;
 
-(define-key helm-find-files-map (kbd "C-d") #'my-helm-exit-and-execute-action)
+(define-key helm-map (kbd "C-d") (simple-ilambda
+                                  (with-helm-alive-p
+                                    (helm-exit-and-execute-action
+                                     'helm-point-file-in-dired))))
 
 ;;;;;;;;;;;;;;;;
 ;; Minibuffer ;;
@@ -165,8 +207,6 @@
 ;; Comint ;;
 ;;;;;;;;;;;;
 
-(require 'inf-ruby)
-
 (define-key comint-mode-map (kbd "<C-return>") 'comint-send-input-stay-on-line)
 (define-key inf-ruby-mode-map (kbd "C-M-f") 'comint-next-prompt)
 (define-key inf-ruby-mode-map (kbd "C-M-b") 'comint-previous-prompt)
@@ -174,8 +214,6 @@
 ;;;;;;;;;;
 ;; Ruby ;;
 ;;;;;;;;;;
-
-(require 'rspec-mode)
 
 (global-set-key (kbd "C-c , p") 'rspec-toggle-compilation-mode)
 
@@ -254,3 +292,6 @@
   '(progn
      (define-key magit-mode-map [left] 'cycle-magit-buffers-backward)
      (define-key magit-mode-map [right] 'cycle-magit-buffers-forward)))
+
+(provide 'keybindings)
+;;; keybindings.el ends here
