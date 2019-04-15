@@ -11,9 +11,10 @@
 (require 'functions)
 (require 'god-mode-ext)
 (require 'buffer-trail)
+(require 'missile)
+(require 'tests-anywhere)
 
 (load "environment.el")
-(load "missile.el")
 (load "looknfeel.el")
 (load "tests-anywhere.el")
 (load "behavior.el")
