@@ -9,7 +9,7 @@
 (disable-annoyances)
 (disable-startup-screen)
 (show-full-filename-in-window-title)
-(force-split-window-sensibly-to-vertical-when-big-font)
+(force-split-window-sensibly-to-horizontal-when-big-font)
 
 (setq mac-right-command-modifier 'meta)
 (setq linum-format "%d ")
@@ -35,9 +35,5 @@
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 (add-to-list 'default-frame-alist '(ns-appearance . dark))
-
-(fontify-frame nil)
-
-(push 'fontify-frame after-make-frame-functions)
 
 (custom-set-variables '(column-number-mode t))

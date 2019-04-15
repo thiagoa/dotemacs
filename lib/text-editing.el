@@ -73,6 +73,15 @@ Primarily for use with custom scripts."
   (interactive)
   (if paredit-mode (paredit-kill) (kill-line)))
 
+;; TODO: Find out what the region command is.
+(defun my-delete-char ()
+  "Delete char according to current mode.
+
+Primarily for use with custom scripts."
+  (interactive)
+  (let ((func (if paredit-mode 'paredit-forward-delete 'delete-char)))
+    (call-interactively func)))
+
 (defun isearch-seek-next-word ()
   "While in isearch, seeks the next occurrence instantly with xah-search-current-word."
   (interactive)

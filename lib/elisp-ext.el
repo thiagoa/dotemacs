@@ -69,5 +69,12 @@ lambda."
   `(simple-ilambda
     ,@(mapcar (lambda (f) (list 'call-interactively f)) funcs)))
 
+(defun execute-command-under-dir (dir &rest args)
+  "Execute command referred to by ARGS under DIR.
+
+ARGS is a list that can be given to the apply function."
+  (let ((default-directory dir))
+    (apply args)))
+
 (provide 'elisp-ext)
 ;;; elisp-ext.el ends here
