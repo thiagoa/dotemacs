@@ -1,4 +1,4 @@
-;;; helm-ext.el  --- TODO  -*- lexical-binding: t; -*-
+;;; ext-linum.el  --- Extension for linum mode  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019 Thiago Araújo Silva
 
@@ -29,26 +29,11 @@
 
 ;;; Code:
 
-(require 'helm-projectile)
+;; Author: Thiago Araújo Silva
+(defun safe-linum-mode ()
+  "Run \"linum-mode\" safely."
+  (interactive)
+  (ignore-errors (nlinum-mode 1)))
 
-(defun add-helm-projectile-projects-action (actions)
-  "Add custom ACTIONS to helm-projectile-switch-project.
-
-ACTIONS is a list containing one or more lists with three
-elements: description, keybinding, command."
-  (with-eval-after-load 'helm-projectile
-    (dolist (a actions)
-      (let ((desc (nth 0 a))
-            (keybinding (nth 1 a))
-            (func (nth 2 a)))
-        (add-to-list
-         'helm-source-projectile-projects-actions
-         `(,(concat desc " `" keybinding  "'") . ,func)
-         t)
-        (helm-projectile-define-key
-          helm-projectile-projects-map
-          (kbd keybinding)
-          func)))))
-
-(provide 'helm-ext)
-;;; helm-ext.el ends here
+(provide 'ext-linum)
+;;; ext-linum.el ends here

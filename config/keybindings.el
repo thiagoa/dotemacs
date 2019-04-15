@@ -38,7 +38,8 @@
 (require 'alchemist-iex)
 (require 'paredit)
 (require 'magit-mode)
-(require 'elisp-ext)
+(require 'ext-elisp)
+(require 'ext-god-mode)
 
 (defvar scroll-viewport-up       (kbd "C-u 3 C-v"))
 (defvar scroll-viewport-down     (kbd "C-u 3 M-v"))

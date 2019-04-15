@@ -1,4 +1,4 @@
-;;; god-mode-ext.el --- Simple god mode extensions  -*- lexical-binding: t; -*-
+;;; ext-god-mode.el --- Simple god mode extensions  -*- lexical-binding: t; -*-
 ;;
 ;; Copyright © 2019 Thiago Araújo Silva
 ;;
@@ -29,7 +29,7 @@
 
 ;;; Code:
 
-(require 'elisp-ext)
+(require 'ext-elisp)
 (require 'god-mode)
 
 ;; Author: Thiago Araújo Silva
@@ -57,5 +57,5 @@ sensibly enter in insert mode afterwards."
                (set-face-background 'mode-line (if limited-colors-p "black" "#0a2832"))
                (set-face-background 'mode-line-inactive (if limited-colors-p "black" "#0a2832")))))))
 
-(provide 'god-mode-ext)
-;;; god-mode-ext.el ends here
+(provide 'ext-god-mode)
+;;; ext-god-mode.el ends here

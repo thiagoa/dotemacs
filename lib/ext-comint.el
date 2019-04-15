@@ -1,4 +1,4 @@
-;;; server-ext.el  --- Emacs server extensions  -*- lexical-binding: t; -*-
+;;; ext-comint.el  --- Comint extensions  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019 Thiago Araújo Silva
 
@@ -29,13 +29,13 @@
 
 ;;; Code:
 
-(require 'server)
+(defun comint-send-input-stay-on-line ()
+  "Send command but stay on line to browse output."
+  (interactive)
+  (call-interactively 'comint-send-input)
+  (run-with-timer 0.1
+                  nil
+                  (lambda ()  (call-interactively 'comint-show-output))))
 
-(defun run-server ()
-  "Run the Emacs server if it is not running."
-  (require 'server)
-  (unless (server-running-p)
-    (server-start)))
-
-(provide 'server-ext)
-;;; server-ext.el ends here
+(provide 'ext-comint)
+;;; ext-comint.el ends here

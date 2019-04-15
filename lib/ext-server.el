@@ -1,4 +1,4 @@
-;;; linum-ext.el  --- Extension for linum mode  -*- lexical-binding: t; -*-
+;;; ext-server.el  --- Emacs server extensions  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019 Thiago Araújo Silva
 
@@ -29,11 +29,13 @@
 
 ;;; Code:
 
-;; Author: Thiago Araújo Silva
-(defun safe-linum-mode ()
-  "Run \"linum-mode\" safely."
-  (interactive)
-  (ignore-errors (nlinum-mode 1)))
+(require 'server)
 
-(provide 'linum-ext)
-;;; linum-ext.el ends here
+(defun run-server ()
+  "Run the Emacs server if it is not running."
+  (require 'server)
+  (unless (server-running-p)
+    (server-start)))
+
+(provide 'ext-server)
+;;; ext-server.el ends here

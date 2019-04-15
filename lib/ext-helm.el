@@ -1,4 +1,4 @@
-;;; comint-ext.el  --- Comint extensions  -*- lexical-binding: t; -*-
+;;; ext-helm.el  --- TODO  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019 Thiago Araújo Silva
 
@@ -29,13 +29,26 @@
 
 ;;; Code:
 
-(defun comint-send-input-stay-on-line ()
-  "Send command but stay on line to browse output."
-  (interactive)
-  (call-interactively 'comint-send-input)
-  (run-with-timer 0.1
-                  nil
-                  (lambda ()  (call-interactively 'comint-show-output))))
+(require 'helm-projectile)
 
-(provide 'comint-ext)
-;;; comint-ext.el ends here
+(defun add-helm-projectile-projects-action (actions)
+  "Add custom ACTIONS to helm-projectile-switch-project.
+
+ACTIONS is a list containing one or more lists with three
+elements: description, keybinding, command."
+  (with-eval-after-load 'helm-projectile
+    (dolist (a actions)
+      (let ((desc (nth 0 a))
+            (keybinding (nth 1 a))
+            (func (nth 2 a)))
+        (add-to-list
+         'helm-source-projectile-projects-actions
+         `(,(concat desc " `" keybinding  "'") . ,func)
+         t)
+        (helm-projectile-define-key
+          helm-projectile-projects-map
+          (kbd keybinding)
+          func)))))
+
+(provide 'ext-helm)
+;;; ext-helm.el ends here

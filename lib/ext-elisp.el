@@ -1,4 +1,4 @@
-;;; elisp-ext.el --- General Elisp utility functions.  -*- lexical-binding: t; -*-
+;;; ext-elisp.el --- General Elisp utility functions.  -*- lexical-binding: t; -*-
 ;;
 ;; Copyright © 2019 Thiago Araújo Silva
 ;;
@@ -76,5 +76,5 @@ ARGS is a list that can be given to the apply function."
   (let ((default-directory dir))
     (apply args)))
 
-(provide 'elisp-ext)
-;;; elisp-ext.el ends here
+(provide 'ext-elisp)
+;;; ext-elisp.el ends here

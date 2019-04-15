@@ -1,4 +1,4 @@
-;;; projectile-ext.el  --- Projectile extensions  -*- lexical-binding: t; -*-
+;;; ext-projectile.el  --- Projectile extensions  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019 Thiago Araújo Silva
 
@@ -33,7 +33,7 @@
 
 (require 'projectile)
 (require 'helm-projectile)
-(require 'elisp-ext)
+(require 'ext-elisp)
 
 (defun run-under-project-root (command)
   "Run COMMAND under the current project."
@@ -57,5 +57,5 @@ For use with projectile-switch-project."
 For use with helm-projectile-find-file."
   (execute-command-under-dir dir 'helm-projectile-find-file))
 
-(provide 'projectile-ext)
-;;; projectile-ext.el ends here
+(provide 'ext-projectile)
+;;; ext-projectile.el ends here
