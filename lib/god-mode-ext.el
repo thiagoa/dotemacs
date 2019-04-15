@@ -1,4 +1,4 @@
-;;; god-mode-ext.el --- Simple god mode extensions
+;;; god-mode-ext.el --- Simple god mode extensions  -*- lexical-binding: t; -*-
 ;;
 ;; Copyright © 2019 Thiago Araújo Silva
 ;;

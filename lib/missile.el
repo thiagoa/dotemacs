@@ -1,4 +1,4 @@
-;;; missile.el --- A way to set custom alternate buffers -*- lexical-binding: t -*-
+;;; missile.el --- A way to set custom alternate buffers  -*- lexical-binding: t -*-
 
 ;; Author: Thiago Araújo Silva <thiagoaraujos@gmail.com>
 

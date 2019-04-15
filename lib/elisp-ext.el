@@ -1,4 +1,4 @@
-;;; elisp-ext.el --- General Elisp utility functions.
+;;; elisp-ext.el --- General Elisp utility functions.  -*- lexical-binding: t; -*-
 ;;
 ;; Copyright © 2019 Thiago Araújo Silva
 ;;

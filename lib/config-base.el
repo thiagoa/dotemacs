@@ -1,4 +1,4 @@
-;;; config-base.el --- Functions to manage config and packages.
+;;; config-base.el --- Functions to manage config and packages.  -*- lexical-binding: t; -*-
 ;;
 ;; Copyright © 2019 Thiago Araújo Silva
 ;;

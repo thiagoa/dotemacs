@@ -1,4 +1,4 @@
-;;; tests-anywhere.el  --- TODO
+;;; tests-anywhere.el  --- Run tests in any file  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2012 Thiago Araújo Silva
 

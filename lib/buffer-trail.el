@@ -1,4 +1,4 @@
-;;; buffer-trail.el --- A private list of buffers to navigate across -*- lexical-binding: t -*-
+;;; buffer-trail.el --- A private list of buffers to navigate across.  -*- lexical-binding: t -*-
 
 ;; Author: Thiago Araújo Silva <thiagoaraujos@gmail.com>
 
