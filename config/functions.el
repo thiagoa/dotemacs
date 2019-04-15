@@ -9,93 +9,6 @@
 (defalias 'e   'eval-buffer)
 (defalias 'keb 'kill-extraneous-buffers)
 
-;;;;;;;;;;;;;;;;;;;;;;;
-;; Window management ;;
-;;;;;;;;;;;;;;;;;;;;;;;
-
-;; Author: Thiago Araújo Silva
-(defun kill-this-buffer-and-close-window ()
-  "Kill the current buffer."
-  (interactive)
-  (do-kill-this-buffer-and-close-window))
-
-;; Author: Thiago Araújo Silva
-(defun kill-other-buffer-and-close-window ()
-  "Kill the current buffer."
-  (interactive)
-  (other-window 1)
-  (do-kill-this-buffer-and-close-window))
-
-;; Author: Thiago Araújo Silva
-(defun do-kill-this-buffer-and-close-window ()
-  (kill-buffer (current-buffer))
-  (delete-window))
-
-(defun dired-file-at-point-dwim ()
-  (interactive)
-  (dired-jump nil (ffap-string-at-point 'file)))
-
-;; Taken from https://www.reddit.com/r/emacs/comments/676r5b/how_to_stop_findfileatprompting_when_there_is_a/
-;; Adapted to expand shell variables
-(defun find-file-at-point-dwim (&optional filename)
-  (interactive)
-  (let* ((name (or filename (ffap-string-at-point 'file)))
-         (fname (substitute-in-file-name (expand-file-name name))))
-    (if (and name fname (file-exists-p fname))
-        (find-file fname)
-      (find-file-at-point filename))))
-
-;; Author: Thiago Araújo Silva
-(defun kill-extraneous-buffers ()
-  (interactive)
-  (dolist (buf (buffer-list) nil)
-    (let ((bufname (buffer-name buf)))
-      (unless (cl-some
-               (lambda (b) (string= bufname b))
-               killable-buffer-exceptions)
-        (if (or (cl-some
-                 (lambda (pattern) (string-match pattern bufname))
-                 killable-buffer-patterns)
-                (cl-some
-                 (lambda (cur-mode) (eq cur-mode (with-current-buffer buf major-mode)))
-                 killable-buffer-major-modes))
-            (kill-buffer buf)))))
-  (message "Done."))
-
-(defun kill-all-buffers ()
-  (interactive)
-  (mapc 'kill-buffer (buffer-list)))
-
-(defvar killable-buffer-major-modes
-  '(dired-mode))
-
-(defvar killable-buffer-exceptions
-  '("*scratch*"))
-
-(defvar killable-buffer-patterns
-  '("^TAGS"
-    "^magit-"
-    "^*.+*$"
-    ".gz$"
-    "^HEAD$"))
-
-;;;;;;;;;;;;;;;;;;;;;
-;; File management ;;
-;;;;;;;;;;;;;;;;;;;;;
-
-;; Copied from the crux package. Modified to skip annoying
-;; vc-delete-file and do what I mean (dwim) please!
-(defun delete-file-and-buffer ()
-  "Kill the current buffer and deletes the file it is visiting."
-  (interactive)
-  (let ((filename (buffer-file-name)))
-    (if filename
-        (when (y-or-n-p (format "Are you sure you want to delete %s? " filename))
-          (delete-file filename delete-by-moving-to-trash)
-          (message "Deleted file %s" filename)
-          (kill-buffer))
-      (error "ERROR: No filename for this buffer"))))
-
 ;;;;;;;;;
 ;; Git ;;
 ;;;;;;;;;
@@ -644,14 +557,5 @@ The exit code verification method can still be improved."
   (if (= compilation-num-errors-found 0)
       (notify-os "Tests passed 👍" "Hero")
     (notify-os "Tests failed 👎" "Basso")))
-
-(defun c/god-mode-update-cursor ()
-  (let ((limited-colors-p (> 257 (length (defined-colors)))))
-    (cond (god-local-mode (progn
-                            (set-face-background 'mode-line (if limited-colors-p "white" "#e9e2cb"))
-                            (set-face-background 'mode-line-inactive (if limited-colors-p "white" "#e9e2cb"))))
-          (t (progn
-               (set-face-background 'mode-line (if limited-colors-p "black" "#0a2832"))
-               (set-face-background 'mode-line-inactive (if limited-colors-p "black" "#0a2832")))))))
 
 (provide 'functions)

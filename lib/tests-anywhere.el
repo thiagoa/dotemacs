@@ -1,6 +1,6 @@
 ;;; tests-anywhere.el  --- Run tests in any file  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2012 Thiago Araújo Silva
+;; Copyright (C) 2019 Thiago Araújo Silva
 
 ;; Author: Thiago Araújo <thiagoaraujos@gmail.com>
 ;; Maintainer: Thiago Araújo <thiagoaraujos@gmail.com>

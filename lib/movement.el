@@ -29,6 +29,9 @@
 
 ;;; Code:
 
+(require 'ffap)
+(require 'dired-x)
+
 (defun my-beginning-of-line ()
   "Move to the beginning of line or previous function.
 
@@ -72,6 +75,22 @@ If rspec-mode is enabled, goes to the next sentence."
   "Switch to alternate (last) buffer."
   (interactive)
   (switch-to-buffer nil))
+
+(defun dired-file-at-point-dwim ()
+  "Jump to file at point in dired."
+  (interactive)
+  (dired-jump nil (ffap-string-at-point 'file)))
+
+(defun find-file-at-point-dwim (&optional filename)
+  "Find file at point expanding any shell variables it encounters.
+
+Optionally takes the FILENAME."
+  (interactive)
+  (let* ((name (or filename (ffap-string-at-point 'file)))
+         (fname (substitute-in-file-name (expand-file-name name))))
+    (if (and name fname (file-exists-p fname))
+        (find-file fname)
+      (find-file-at-point filename))))
 
 (provide 'movement)
 ;;; movement.el ends here

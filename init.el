@@ -15,6 +15,8 @@
 (require 'tests-anywhere)
 (require 'text-editing)
 (require 'movement)
+(require 'window-management)
+(require 'buffer)
 
 (load "environment.el")
 (load "looknfeel.el")

@@ -1,9 +1,6 @@
-# -*- mode: snippet -*-
-#name : head
-# --
-;;; `(file-name-nondirectory (buffer-file-name))`  --- TODO  -*- lexical-binding: t; -*-
+;;; window-management.el  --- TODO  -*- lexical-binding: t; -*-
 
-;; Copyright (C) `(format-time-string "%Y")` Thiago Araújo Silva
+;; Copyright (C) 2019 Thiago Araújo Silva
 
 ;; Author: Thiago Araújo <thiagoaraujos@gmail.com>
 ;; Maintainer: Thiago Araújo <thiagoaraujos@gmail.com>
@@ -31,3 +28,18 @@
 ;;; Commentary:
 
 ;;; Code:
+
+(defun kill-this-buffer-and-close-window ()
+  "Kill current buffer and close window."
+  (interactive)
+  (kill-buffer (current-buffer))
+  (delete-window))
+
+(defun kill-other-buffer-and-close-window ()
+  "Kill buffer from other window and close it."
+  (interactive)
+  (other-window 1)
+  (kill-this-buffer-and-close-window))
+
+(provide 'window-management)
+;;; window-management.el ends here
