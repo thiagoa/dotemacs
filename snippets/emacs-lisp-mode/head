@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
 #name : head
 # --
-;;; `(file-name-nondirectory (buffer-file-name))`  --- TODO
+;;; `(file-name-nondirectory (buffer-file-name))`  --- TODO  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2012 Thiago Araújo Silva
 
