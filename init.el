@@ -17,11 +17,13 @@
           (add-to-list 'load-path (expand-file-name dir root)))
         '("config" "lib" "snippets")))
 
+;; Require config base and packages
+(require 'config-base)
+
 ;; Require third party extensions
 (require 'crux)
 
 ;; Require my own libraries and extensions
-(require 'config-base)
 (require 'ext-elisp)
 (require 'general)
 (require 'config-helpers)
