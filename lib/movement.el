@@ -41,8 +41,10 @@ If rspec-mode is enabled, goes to the previous sentence."
   (cl-labels ((beginning-of-line-p ()
                                    (= (point) (line-beginning-position))))
     (cond
-     ((and (boundp 'rspec-mode) (beginning-of-line-p)) (backward-sentence))
-     ((beginning-of-line-p) (beginning-of-defun))
+     ((and (string-match "_spec\.rb$" (buffer-file-name))
+           (beginning-of-line-p)) (backward-sentence))
+     ((beginning-of-line-p) (progn (beginning-of-defun)
+                                   (call-interactively 'move-beginning-of-line)))
      (t (call-interactively 'move-beginning-of-line)))))
 
 (defun my-end-of-line ()
