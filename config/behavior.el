@@ -35,6 +35,7 @@
 (delete-selection-mode)
 (save-place-mode)
 (god-mode-all)
+(global-undo-tree-mode)
 
 (buffer-trail-advise '(helm-buffers-list
                        helm-find-files
