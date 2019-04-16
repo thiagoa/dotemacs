@@ -4,7 +4,6 @@
 
 ;; Author: Thiago Araújo <thiagoaraujos@gmail.com>
 ;; Maintainer: Thiago Araújo <thiagoaraujos@gmail.com>
-;; Version: 0.0.1
 
 ;; This file is NOT part of GNU Emacs.
 
@@ -79,6 +78,36 @@
           (message "Deleted file %s" filename)
           (kill-buffer))
       (error "ERROR: No filename for this buffer"))))
+
+;; https://www.reddit.com/r/emacs/comments/90xkzt/what_do_you_use_the_scratch_buffer_for/
+(defcustom tmp-buffer-mode-alist
+  '((?o . org-mode)
+    (?t . text-mode)
+    (?m . markdown-mode)
+    (?r . enh-ruby-mode)
+    (?e . emacs-lisp-mode)
+    (?l . lisp-interaction-mode)
+    (?s . sql-mode)
+    (?c . clojure-mode))
+  "List of major modes for temporary buffers and their hotkeys."
+  :type '(alist :key-type character :value-type symbol))
+
+;; https://www.reddit.com/r/emacs/comments/90xkzt/what_do_you_use_the_scratch_buffer_for/
+(defun tmp-buffer (mode)
+  "Open temporary buffer in specified major MODE."
+  (interactive "c")
+  (if (eq mode ?\C-h)
+      (with-output-to-temp-buffer "*Help*"
+        (princ "Temporary buffers:\n\nKey\tMode\n")
+        (dolist (km tmp-buffer-mode-alist)
+          (princ (format " %c\t%s\n" (car km) (cdr km)))))
+    (let ((buf (generate-new-buffer "*tmp*")))
+      (with-current-buffer buf
+        (let ((mode-func (cdr (assoc mode tmp-buffer-mode-alist))))
+          (if mode-func
+              (funcall mode-func)
+            (error "No such mode"))))
+      (pop-to-buffer buf))))
 
 (provide 'buffer)
 ;;; buffer.el ends here

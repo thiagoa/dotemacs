@@ -50,5 +50,31 @@ elements: description, keybinding, command."
           (kbd keybinding)
           func)))))
 
+(defun helm-buffer--show-details (buf-name prefix help-echo
+                                           size mode dir face1 face2
+                                           proc details type)
+  "Override this function to provide fewer details.
+
+Takes BUF-NAME, PREFIX, HELP-ECHO, SIZE, MODE, DIR, FACE1, FACE2,
+PROC, DETAILS, TYPE."
+  (append
+   (list
+    (concat prefix
+            (propertize buf-name 'face face1
+                        'help-echo help-echo
+                        'type type)))
+   (and details
+        (list
+         (propertize
+          (if proc
+              (format "(%s %s in `%s')"
+                      (process-name proc)
+                      (process-status proc) dir)
+            (format "%s" (concat  (projectile-project-name)
+                                  " / "
+                                  (file-name-base (string-trim dir nil "/")))))
+          'face face2)))))
+
+
 (provide 'ext-helm)
 ;;; ext-helm.el ends here

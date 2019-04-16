@@ -1,6 +1,9 @@
 (require 'god-mode)
-
-(load "dired-x.el")
+(require 'god-mode-isearch)
+(require 'dired-x)
+(require 'projectile)
+(require 'helm)
+(require 'eshell)
 
 (run-server)
 
@@ -10,12 +13,6 @@
 
 (global-set-key (kbd "<escape>") 'god-mode-all)
 
-(defun my-update-cursor ()
-  (setq cursor-type (if (or god-local-mode buffer-read-only)
-                        'box
-                      'bar)))
-
-(require 'god-mode-isearch)
 (define-key isearch-mode-map (kbd "<escape>") 'god-mode-isearch-activate)
 (define-key god-mode-isearch-map (kbd "<escape>") 'god-mode-isearch-disable)
 
@@ -118,11 +115,22 @@
 (setq ido-everywhere t)
 (setq large-file-warning-threshold nil)
 
-;; (magithub-feature-autoinject t)
-
 (load-history savehist-file)
 
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
+
+(setq ibuffer-formats
+      '((mark modified read-only " "
+              (name 50 50 :left :elide) " "
+              filename-and-process)
+        (mark " " (name 16 -1) " " filename)))
+
+(setq ibuffer-show-empty-filter-groups nil)
+
+(add-hook 'ibuffer-mode-hook
+          '(lambda ()
+             (ibuffer-auto-mode 1)
+             (ibuffer-vc-set-filter-groups-by-vc-root)))
 
 (add-hook 'before-save-hook 'whitespace-cleanup)

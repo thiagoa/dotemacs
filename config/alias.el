@@ -1,4 +1,4 @@
-;;; general.el  --- General helpers  -*- lexical-binding: t; -*-
+;;; alias.el  --- My function aliases  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019 Thiago Araújo Silva
 
@@ -29,19 +29,12 @@
 
 ;;; Code:
 
-(defun toggle-option-key ()
-  "Toggle meta between meta and option."
-  (interactive)
-  (if (eq ns-option-modifier 'meta)
-      (progn (setq ns-option-modifier 'none) (message "Changed to none"))
-    (progn (setq ns-option-modifier 'meta) (message "Changed to meta"))))
+(defalias 'ff     'find-file)
+(defalias 'e      'eval-buffer)
+(defalias 'keb    'kill-extraneous-buffers)
+(defalias 'repl   'ielm)
+(defalias 'bundle 'bundle-install)
+(defalias 'repl   'ielm)
 
-(defun shell-command-output (command)
-  "Run shell COMMAND and return output."
-  (replace-regexp-in-string
-   "\n$"
-   ""
-   (shell-command-to-string command)))
-
-(provide 'general)
-;;; general.el ends here
+(provide 'alias)
+;;; alias.el ends here

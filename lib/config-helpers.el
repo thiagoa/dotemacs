@@ -1,4 +1,4 @@
-;;; config.el  --- Make Emacs config readable  -*- lexical-binding: t; -*-
+;;; config-helpers.el  --- Make Emacs config readable  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019 Thiago Araújo Silva
 
@@ -88,5 +88,5 @@
       (shell-command (concat "touch " savehist-file))))
   (load savehist-file))
 
-(provide 'config)
-;;; config.el ends here
+(provide 'config-helpers)
+;;; config-helpers.el ends here

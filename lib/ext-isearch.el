@@ -1,4 +1,4 @@
-;;; general.el  --- General helpers  -*- lexical-binding: t; -*-
+;;; ext-isearch.el  --- isearch extensions  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019 Thiago Araújo Silva
 
@@ -29,19 +29,29 @@
 
 ;;; Code:
 
-(defun toggle-option-key ()
-  "Toggle meta between meta and option."
+(require 'xah)
+
+(defun isearch-exit-other-end ()
+  "Exit isearch, at the opposite end of the string."
   (interactive)
-  (if (eq ns-option-modifier 'meta)
-      (progn (setq ns-option-modifier 'none) (message "Changed to none"))
-    (progn (setq ns-option-modifier 'meta) (message "Changed to meta"))))
+  (isearch-exit)
+  (goto-char isearch-other-end))
 
-(defun shell-command-output (command)
-  "Run shell COMMAND and return output."
-  (replace-regexp-in-string
-   "\n$"
-   ""
-   (shell-command-to-string command)))
+(defun isearch-seek-next-word ()
+  "While in isearch, seeks the next occurrence instantly with xah-search-current-word."
+  (interactive)
+  (xah-search-current-word)
+  (isearch-repeat-forward)
+  (unless (= (point) isearch-other-end) (goto-char isearch-other-end)))
 
-(provide 'general)
-;;; general.el ends here
+(defun isearch-seek-previous-word ()
+  "While in isearch, seeks the prev occurrence instantly with xah-search-current-word."
+  (interactive)
+  (let ((was-bound (bound-and-true-p isearch-mode)))
+    (xah-search-current-word)
+    (unless was-bound (isearch-repeat-backward))
+    (isearch-repeat-backward))
+  (unless (= (point) isearch-other-end) (goto-char isearch-other-end)))
+
+(provide 'ext-isearch)
+;;; ext-isearch.el ends here

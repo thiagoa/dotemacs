@@ -1,7 +1,43 @@
+;;; ext-ido.el  --- TODO  -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2019 Thiago Araújo Silva
+
+;; Author: Thiago Araújo <thiagoaraujos@gmail.com>
+;; Maintainer: Thiago Araújo <thiagoaraujos@gmail.com>
+;; Version: 0.0.1
+
+;; This file is NOT part of GNU Emacs.
+
+;;; License:
+
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation; either version 3, or (at your option)
+;; any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with GNU Emacs; see the file COPYING.  If not, write to the
+;; Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+;; Boston, MA 02110-1301, USA.
+
+;;; Commentary:
+
+;;; Code:
+
+(require 'imenu)
+
 ;; source: http://www.emacswiki.org/emacs/ImenuMode
-;; by shjk (updated by MattKeller to handle overlays as “positions”; updated by VegardOye to set the mark before jumping).
+;; by shjk (updated by MattKeller to handle overlays as “positions”;
+;; updated by VegardOye to set the mark before jumping).
 (defun ido-goto-symbol (&optional symbol-list)
-  "Refresh imenu and jump to a place in the buffer using Ido."
+  "Refresh imenu and jump to a place in the buffer using Ido.
+
+Takes an optional SYMBOL-LIST to browse from."
   (interactive)
   (unless (featurep 'imenu)
     (require 'imenu nil t))
@@ -48,4 +84,5 @@
           (add-to-list 'symbol-names name)
           (add-to-list 'name-and-pos (cons name position))))))))
 
-(provide 'ido-goto-symbol)
+(provide 'ext-ido)
+;;; ext-ido.el ends here

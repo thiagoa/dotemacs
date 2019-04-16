@@ -1,4 +1,4 @@
-;;; general.el  --- General helpers  -*- lexical-binding: t; -*-
+;;; ext-minibuffer.el  --- TODO  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019 Thiago Araújo Silva
 
@@ -29,19 +29,13 @@
 
 ;;; Code:
 
-(defun toggle-option-key ()
-  "Toggle meta between meta and option."
+(defun name-of-the-file ()
+  "From the minibuffer, gets the name of the file the current buffer is based on."
   (interactive)
-  (if (eq ns-option-modifier 'meta)
-      (progn (setq ns-option-modifier 'none) (message "Changed to none"))
-    (progn (setq ns-option-modifier 'meta) (message "Changed to meta"))))
+  (insert (concat
+           "\""
+           (buffer-file-name (window-buffer (minibuffer-selected-window)))
+           "\"")))
 
-(defun shell-command-output (command)
-  "Run shell COMMAND and return output."
-  (replace-regexp-in-string
-   "\n$"
-   ""
-   (shell-command-to-string command)))
-
-(provide 'general)
-;;; general.el ends here
+(provide 'ext-minibuffer)
+;;; ext-minibuffer.el ends here

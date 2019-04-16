@@ -9,7 +9,7 @@
 (require 'rubocop)
 (require 'rspec-mode)
 (require 'projectile-rails)
-(require 'functions)
+(require 'config-base)
 
 (add-to-list 'auto-mode-alist '("\\.erb$" . web-mode))
 

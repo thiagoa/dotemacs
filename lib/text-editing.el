@@ -82,22 +82,6 @@ Primarily for use with custom scripts."
   (let ((func (if paredit-mode 'paredit-forward-delete 'delete-char)))
     (call-interactively func)))
 
-(defun isearch-seek-next-word ()
-  "While in isearch, seeks the next occurrence instantly with xah-search-current-word."
-  (interactive)
-  (xah-search-current-word)
-  (isearch-repeat-forward)
-  (unless (= (point) isearch-other-end) (goto-char isearch-other-end)))
-
-(defun isearch-seek-previous-word ()
-  "While in isearch, seeks the prev occurrence instantly with xah-search-current-word."
-  (interactive)
-  (let ((was-bound (bound-and-true-p isearch-mode)))
-    (xah-search-current-word)
-    (unless was-bound (isearch-repeat-backward))
-    (isearch-repeat-backward))
-  (unless (= (point) isearch-other-end) (goto-char isearch-other-end)))
-
 (defun replace-region ()
   "Sensibly replace the region, making the cursor ready for insertion."
   (interactive)

@@ -1,4 +1,4 @@
-;;; general.el  --- General helpers  -*- lexical-binding: t; -*-
+;;; ext-compile.el  --- TODO  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019 Thiago Araújo Silva
 
@@ -29,19 +29,25 @@
 
 ;;; Code:
 
-(defun toggle-option-key ()
-  "Toggle meta between meta and option."
-  (interactive)
-  (if (eq ns-option-modifier 'meta)
-      (progn (setq ns-option-modifier 'none) (message "Changed to none"))
-    (progn (setq ns-option-modifier 'meta) (message "Changed to meta"))))
+(require 'compile)
 
-(defun shell-command-output (command)
-  "Run shell COMMAND and return output."
-  (replace-regexp-in-string
-   "\n$"
-   ""
-   (shell-command-to-string command)))
+(defun notify-os (message sound)
+  "Send a notification to macOS.
+Requires terminal-notifier (install it via homebrew).
+MESSAGE is the notification message; SOUND is the sound that will be played."
+  (shell-command
+   (concat
+    "bash -c -l 'echo " message " | terminal-notifier -sound "
+    sound
+    "'")))
 
-(provide 'general)
-;;; general.el ends here
+(defun finish-test-compilation ()
+  "Calback to be run after a compilation task finishes.
+
+The exit code verification method can still be improved."
+  (if (= compilation-num-errors-found 0)
+      (notify-os "Tests passed 👍" "Hero")
+    (notify-os "Tests failed 👎" "Basso")))
+
+(provide 'ext-compile)
+;;; ext-compile.el ends here

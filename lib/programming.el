@@ -1,4 +1,4 @@
-;;; general.el  --- General helpers  -*- lexical-binding: t; -*-
+;;; programming.el  --- TODO  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019 Thiago Araújo Silva
 
@@ -29,19 +29,12 @@
 
 ;;; Code:
 
-(defun toggle-option-key ()
-  "Toggle meta between meta and option."
+(defun comment-or-uncomment-line-or-region ()
+  "Comment or uncomments the current line or region."
   (interactive)
-  (if (eq ns-option-modifier 'meta)
-      (progn (setq ns-option-modifier 'none) (message "Changed to none"))
-    (progn (setq ns-option-modifier 'meta) (message "Changed to meta"))))
+  (if (region-active-p)
+      (comment-or-uncomment-region (region-beginning) (region-end))
+    (comment-or-uncomment-region (line-beginning-position) (line-end-position))))
 
-(defun shell-command-output (command)
-  "Run shell COMMAND and return output."
-  (replace-regexp-in-string
-   "\n$"
-   ""
-   (shell-command-to-string command)))
-
-(provide 'general)
-;;; general.el ends here
+(provide 'programming)
+;;; programming.el ends here

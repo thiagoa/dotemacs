@@ -57,5 +57,11 @@ sensibly enter in insert mode afterwards."
                (set-face-background 'mode-line (if limited-colors-p "black" "#0a2832"))
                (set-face-background 'mode-line-inactive (if limited-colors-p "black" "#0a2832")))))))
 
+(defun my-update-cursor ()
+  "Update cursor when in god mode."
+  (setq cursor-type (if (or god-local-mode buffer-read-only)
+                        'box
+                      'bar)))
+
 (provide 'ext-god-mode)
 ;;; ext-god-mode.el ends here

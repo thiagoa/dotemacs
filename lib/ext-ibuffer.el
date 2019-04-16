@@ -1,4 +1,4 @@
-;;; general.el  --- General helpers  -*- lexical-binding: t; -*-
+;;; ext-ibuffer.el  --- TODO  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019 Thiago Araújo Silva
 
@@ -29,19 +29,14 @@
 
 ;;; Code:
 
-(defun toggle-option-key ()
-  "Toggle meta between meta and option."
-  (interactive)
-  (if (eq ns-option-modifier 'meta)
-      (progn (setq ns-option-modifier 'none) (message "Changed to none"))
-    (progn (setq ns-option-modifier 'meta) (message "Changed to meta"))))
+(require 'ibuf-ext)
 
-(defun shell-command-output (command)
-  "Run shell COMMAND and return output."
-  (replace-regexp-in-string
-   "\n$"
-   ""
-   (shell-command-to-string command)))
+(define-ibuffer-filter marked-buffers
+    "Limit current view to marked buffers"
+  (:description "marked buffers"
+                :reader nil)
+  (let ((bufs (ibuffer-get-marked-buffers)))
+    (member buf bufs)))
 
-(provide 'general)
-;;; general.el ends here
+(provide 'ext-ibuffer)
+;;; ext-ibuffer.el ends here

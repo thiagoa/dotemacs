@@ -60,17 +60,6 @@ If rspec-mode is enabled, goes to the next sentence."
      ((end-of-line-p) (end-of-defun))
      (t (call-interactively 'move-end-of-line)))))
 
-(defun isearch-exit-other-end ()
-  "Exit isearch, at the opposite end of the string."
-  (interactive)
-  (isearch-exit)
-  (goto-char isearch-other-end))
-
-(defun go-to-rspec-compilation-buffer ()
-  "Go straight to rspec compilation buffer."
-  (interactive)
-  (switch-to-buffer (get-buffer "*rspec-compilation*")))
-
 (defun go-to-alternate-buffer ()
   "Switch to alternate (last) buffer."
   (interactive)
@@ -91,6 +80,23 @@ Optionally takes the FILENAME."
     (if (and name fname (file-exists-p fname))
         (find-file fname)
       (find-file-at-point filename))))
+
+;; https://www.masteringemacs.org/article/fixing-mark-commands-transient-mark-mode
+(defun push-mark-no-activate ()
+  "Push `point' to `mark-ring', does not activate the region.
+
+Equivalent to \\[set-mark-command] when \\[transient-mark-mode] is disabled"
+  (interactive)
+  (push-mark (point) t nil)
+  (message "Pushed mark to ring"))
+
+;; https://www.masteringemacs.org/article/fixing-mark-commands-transient-mark-mode
+(defun jump-to-mark ()
+  "Jump to the local mark, respecting the `mark-ring' order.
+
+This is the same as using \\[set-mark-command] with the prefix argument."
+  (interactive)
+  (set-mark-command 1))
 
 (provide 'movement)
 ;;; movement.el ends here
