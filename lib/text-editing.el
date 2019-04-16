@@ -4,7 +4,6 @@
 
 ;; Author: Thiago Araújo <thiagoaraujos@gmail.com>
 ;; Maintainer: Thiago Araújo <thiagoaraujos@gmail.com>
-;; Version: 0.0.1
 
 ;; This file is NOT part of GNU Emacs.
 
@@ -120,6 +119,13 @@ Take ARG universal argument to mark N lines."
      (dotimes (_ arg) (forward-line))
      (move-beginning-of-line 1)
      (point))))
+
+(defun comment-or-uncomment-line-or-region ()
+  "Comment or uncomments the current line or region."
+  (interactive)
+  (if (region-active-p)
+      (comment-or-uncomment-region (region-beginning) (region-end))
+    (comment-or-uncomment-region (line-beginning-position) (line-end-position))))
 
 (provide 'text-editing)
 ;;; text-editing.el ends here

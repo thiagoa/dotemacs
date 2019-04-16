@@ -1,10 +1,9 @@
-;;; ext-ido.el  --- TODO  -*- lexical-binding: t; -*-
+;;; ext-ido.el  --- ido extensions  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019 Thiago Araújo Silva
 
-;; Author: Thiago Araújo <thiagoaraujos@gmail.com>
+;; Author: Thiago Araújo <thiagoaraujos@gmail.com> (except where noted)
 ;; Maintainer: Thiago Araújo <thiagoaraujos@gmail.com>
-;; Version: 0.0.1
 
 ;; This file is NOT part of GNU Emacs.
 

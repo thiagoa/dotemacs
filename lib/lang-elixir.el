@@ -1,10 +1,9 @@
-;;; lang-elixir.el  --- TODO  -*- lexical-binding: t; -*-
+;;; lang-elixir.el  --- Elxir-related functions  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019 Thiago Araújo Silva
 
 ;; Author: Thiago Araújo <thiagoaraujos@gmail.com>
 ;; Maintainer: Thiago Araújo <thiagoaraujos@gmail.com>
-;; Version: 0.0.1
 
 ;; This file is NOT part of GNU Emacs.
 
@@ -26,6 +25,8 @@
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Commentary:
+
+;; Configure Elixir environment in Emacs and make working with it easier.
 
 ;;; Code:
 

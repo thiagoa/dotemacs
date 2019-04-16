@@ -2,7 +2,7 @@
 ;;
 ;; Copyright © 2019 Thiago Araújo Silva
 ;;
-;; Author: Thiago Araújo Silva
+;; Author: Thiago Araújo Silva (except where noted)
 
 ;; This file is not part of GNU Emacs.
 
@@ -32,13 +32,11 @@
 (require 'ext-elisp)
 (require 'god-mode)
 
-;; Author: Thiago Araújo Silva
 (defun god-insert ()
   "Exit god mode, which corresponding the insert mode."
   (interactive)
   (when god-local-mode (god-mode-all)))
 
-;; Author: Thiago Araújo Silva
 (defmacro with-god-insert (&rest funcs)
   "Execute FUNCS and enter in god insert mode.
 
@@ -47,6 +45,7 @@ sensibly enter in insert mode afterwards."
   (let ((funcs (append funcs (list ''god-insert))))
     `(multi-ilambda ,@funcs)))
 
+;; Taken from god-mode README
 (defun c/god-mode-update-cursor ()
   "Update cursor according to current god mode: insertion or not."
   (let ((limited-colors-p (> 257 (length (defined-colors)))))
@@ -57,6 +56,7 @@ sensibly enter in insert mode afterwards."
                (set-face-background 'mode-line (if limited-colors-p "black" "#0a2832"))
                (set-face-background 'mode-line-inactive (if limited-colors-p "black" "#0a2832")))))))
 
+;; Taken from god-mode README
 (defun my-update-cursor ()
   "Update cursor when in god mode."
   (setq cursor-type (if (or god-local-mode buffer-read-only)

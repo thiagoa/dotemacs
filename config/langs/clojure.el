@@ -1,3 +1,9 @@
+;;; clojure.el --- Clojure lang configuration
+;;
+;;; Commentary:
+
+;;; Code:
+
 (add-hook 'clojure-mode-hook 'paredit-mode)
 (add-hook 'clojure-mode-hook 'safe-linum-mode)
 (add-hook 'clojure-mode-hook 'aggressive-indent-mode)
@@ -18,3 +24,6 @@
                           (cljr--init-middleware)
                           (other-window -1)))
  '(cider-allow-jack-in-without-project t))
+
+(provide 'clojure)
+;;; clojure.el ends here

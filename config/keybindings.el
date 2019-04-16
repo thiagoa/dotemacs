@@ -1,30 +1,8 @@
-;;; keybindings.el  --- TODO
-
-;; Copyright (C) 2012 Thiago Araújo Silva
-
-;; Author: Thiago Araújo <thiagoaraujos@gmail.com>
-;; Maintainer: Thiago Araújo <thiagoaraujos@gmail.com>
-
-;; This file is NOT part of GNU Emacs.
-
-;;; License:
-
-;; This program is free software; you can redistribute it and/or modify
-;; it under the terms of the GNU General Public License as published by
-;; the Free Software Foundation; either version 3, or (at your option)
-;; any later version.
-
-;; This program is distributed in the hope that it will be useful,
-;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;; GNU General Public License for more details.
-
-;; You should have received a copy of the GNU General Public License
-;; along with GNU Emacs; see the file COPYING.  If not, write to the
-;; Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-;; Boston, MA 02110-1301, USA.
-
+;;; keybindings.el --- Behavior config
+;;
 ;;; Commentary:
+;;
+;; Keybindings config.  One single place to rule'em all.
 
 ;;; Code:
 
@@ -230,6 +208,11 @@
 ;; God mode ;;
 ;;;;;;;;;;;;;;
 
+(global-set-key (kbd "<escape>") 'god-mode-all)
+
+(define-key isearch-mode-map (kbd "<escape>") 'god-mode-isearch-activate)
+(define-key god-mode-isearch-map (kbd "<escape>") 'god-mode-isearch-disable)
+
 (define-key god-local-mode-map (kbd ".") 'repeat)
 (define-key god-local-mode-map (kbd "<C-return>") (with-god-insert 'crux-smart-open-line))
 (define-key god-local-mode-map (kbd "<M-return>") (with-god-insert 'crux-smart-open-line-above))
@@ -292,6 +275,12 @@
   '(progn
      (define-key magit-mode-map [left] 'cycle-magit-buffers-backward)
      (define-key magit-mode-map [right] 'cycle-magit-buffers-forward)))
+
+;;;;;;;;;;;;;;;;
+;; Projectile ;;
+;;;;;;;;;;;;;;;;
+
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
 (provide 'keybindings)
 ;;; keybindings.el ends here

@@ -1,3 +1,9 @@
+;;; markdown.el --- Elisp config
+;;
+;;; Commentary:
+
+;;; Code:
+
 (add-hook 'markdown-mode-hook 'safe-linum-mode)
 
 (eval-after-load 'markdown-mode
@@ -5,3 +11,6 @@
 
 (eval-after-load 'markdown-mode
   '(define-key markdown-mode-map (kbd "C-x ,") 'cider-insert-last-sexp-in-repl))
+
+(provide 'markdown)
+;;; markdown.el ends here

@@ -1,3 +1,9 @@
+;;; lisp.el --- Elisp config
+;;
+;;; Commentary:
+
+;;; Code:
+
 (require 'slime-autoloads)
 
 (setq inferior-lisp-program (shell-command-output "which sbcl"))
@@ -7,3 +13,6 @@
 (add-hook 'slime-mode-hook 'safe-linum-mode)
 (add-hook 'slime-mode-hook 'aggressive-indent-mode)
 (add-hook 'slime-mode-hook 'rainbow-delimiters-mode)
+
+(provide 'lisp)
+;;; lisp.el ends here

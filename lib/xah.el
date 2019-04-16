@@ -2,9 +2,8 @@
 
 ;; Copyright (C) Ergomacs http://ergoemacs.org
 
-;; Author: Thiago Araújo <thiagoaraujos@gmail.com>
+;; Author: Thiago Araújo <thiagoaraujos@gmail.com> (except where noted)
 ;; Maintainer: Thiago Araújo <thiagoaraujos@gmail.com>
-;; Version: 0.0.1
 
 ;; This file is NOT part of GNU Emacs.
 

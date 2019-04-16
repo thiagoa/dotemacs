@@ -1,3 +1,21 @@
+;;; terminal.el --- Terminal (ansi, comint, etc) config
+;;
+;;; Commentary:
+
+;;; Code:
+
+(require 'comint)
+(require 'em-smart)
+(require 'config-helpers)
+
+(config-terminal-encoding)
+
+(setq eshell-where-to-jump 'begin)
+(setq eshell-review-quick-commands nil)
+(setq eshell-smart-space-goes-to-end t)
+
+(set-default-shell "zsh")
+
 (defadvice term-sentinel (around my-advice-term-sentinel (proc msg))
   (if (memq (process-status proc) '(signal exit))
       (let ((buffer (process-buffer proc)))
@@ -43,3 +61,4 @@
 (setq comint-input-ring-separator "\n: \\([0-9]+\\):\\([0-9]+\\);")
 
 (provide 'terminal)
+;;; terminal.el ends here

@@ -1,3 +1,9 @@
+;;; elixir.el --- Elixir config
+;;
+;;; Commentary:
+
+;;; Code:
+
 (require 'company)
 
 (elixir-set-source-dir)
@@ -9,3 +15,6 @@
 (add-hook 'elixir-mode-hook 'smartscan-mode)
 (add-hook 'elixir-mode-hook (lambda () (add-hook 'before-save-hook 'elixir-format nil t)))
 (add-to-list 'elixir-mode-hook 'auto-activate-ruby-end-mode-for-elixir-mode)
+
+(provide 'elixir)
+;;; elixir.el ends here

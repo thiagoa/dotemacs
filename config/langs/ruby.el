@@ -1,8 +1,6 @@
-;;; ruby.el --- My Ruby configuration
+;;; ruby.el --- Ruby config
 ;;
 ;;; Commentary:
-;;
-;; My Ruby config
 
 ;;; Code:
 

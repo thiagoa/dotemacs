@@ -1,8 +1,8 @@
-;;; buffer.el  --- TODO  -*- lexical-binding: t; -*-
+;;; buffer.el  --- Functions to manage buffers  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019 Thiago Araújo Silva
 
-;; Author: Thiago Araújo <thiagoaraujos@gmail.com>
+;; Author: Thiago Araújo <thiagoaraujos@gmail.com> (except where noted)
 ;; Maintainer: Thiago Araújo <thiagoaraujos@gmail.com>
 
 ;; This file is NOT part of GNU Emacs.

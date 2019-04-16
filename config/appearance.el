@@ -1,4 +1,15 @@
+;;; appearance.el --- Behavior config
+;;
+;;; Commentary:
+;;
+;; Make it look nice and pretty.
+
+;;; Code:
+
+(require 'config-helpers)
 (require 'uniquify)
+(require 'linum)
+(require 'ansi-color)
 
 (ignore-errors (menu-bar-mode -1))
 (ignore-errors (scroll-bar-mode -1))
@@ -11,11 +22,10 @@
 (show-full-filename-in-window-title)
 (force-split-window-sensibly-to-horizontal-when-big-font)
 
-(setq mac-right-command-modifier 'meta)
 (setq linum-format "%d ")
 (setq uniquify-buffer-name-style 'post-forward)
 (setq uniquify-separator " : ")
-(setq my-default-font "Menlo 16")
+(defvar my-default-font "Menlo 16")
 (setq ns-use-proxy-icon nil)
 (setq frame-title-format
       '((:eval (if (buffer-file-name)
@@ -37,3 +47,6 @@
 (add-to-list 'default-frame-alist '(ns-appearance . dark))
 
 (custom-set-variables '(column-number-mode t))
+
+(provide 'appearance)
+;;; appearance.el ends here

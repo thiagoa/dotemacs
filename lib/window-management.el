@@ -1,10 +1,9 @@
-;;; window-management.el  --- TODO  -*- lexical-binding: t; -*-
+;;; window-management.el  --- Window management functions  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019 Thiago Araújo Silva
 
 ;; Author: Thiago Araújo <thiagoaraujos@gmail.com>
 ;; Maintainer: Thiago Araújo <thiagoaraujos@gmail.com>
-;; Version: 0.0.1
 
 ;; This file is NOT part of GNU Emacs.
 
