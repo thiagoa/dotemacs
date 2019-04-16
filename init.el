@@ -9,7 +9,7 @@
 (setq gc-cons-threshold 20000000)
 
 (let ((root (file-name-directory load-file-name)))
-  ;; For custom set variables
+  ;; Change location of custom set variables
   (setq custom-file (expand-file-name "auto.el" root))
 
   ;; Set load path

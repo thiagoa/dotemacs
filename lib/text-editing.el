@@ -127,5 +127,17 @@ Take ARG universal argument to mark N lines."
       (comment-or-uncomment-region (region-beginning) (region-end))
     (comment-or-uncomment-region (line-beginning-position) (line-end-position))))
 
+(defun blank-out-line ()
+  "Sensibly blanks out the current line."
+  (interactive)
+  (back-to-indentation)
+  (when (not (current-line-empty-p)) (my-kill-line)))
+
+(defun current-line-empty-p ()
+  "Return non-nil if the current line is empty."
+  (save-excursion
+    (beginning-of-line)
+    (looking-at "[[:space:]]*$")))
+
 (provide 'text-editing)
 ;;; text-editing.el ends here
