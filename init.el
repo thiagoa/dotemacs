@@ -1,11 +1,26 @@
+;;; init.el --- Initialization file for Emacs
+;;
+;;; Commentary:
+;;
+;; My Emacs Startup File
+
+;;; Code:
+
 (setq gc-cons-threshold 20000000)
 
 (let ((root (file-name-directory load-file-name)))
+  ;; For custom set variables
   (setq custom-file (expand-file-name "auto.el" root))
+
+  ;; Set load path
   (mapc (lambda (dir)
           (add-to-list 'load-path (expand-file-name dir root)))
         '("config" "lib" "snippets")))
 
+;; Require third party extensions
+(require 'crux)
+
+;; Require my own libraries and extensions
 (require 'config-base)
 (require 'ext-elisp)
 (require 'general)
@@ -18,7 +33,6 @@
 (require 'movement)
 (require 'window-management)
 (require 'git)
-(require 'crux)
 (require 'ext-god-mode)
 (require 'ext-helm)
 (require 'ext-projectile)
@@ -33,15 +47,14 @@
 (require 'lang-elixir)
 (require 'lang-ruby)
 
-(load "environment.el")
-(load "appearance.el")
-(load "behavior.el")
-(load "terminal.el")
-(load "keybindings.el")
-(load "alias.el")
-
-(mapc 'load
-      (file-expand-wildcards
-       (expand-file-name "config/langs/*.el" emacs-d)))
+;; Load configuration files
+(mapc (lambda (pattern)
+        (mapc 'load
+              (file-expand-wildcards
+               (expand-file-name pattern emacs-d))))
+      '("config/*.el" "config/langs/*.el"))
 
 (load-if-exists "~/.emacs.custom.el")
+
+(provide 'init)
+;;; init.el ends here
