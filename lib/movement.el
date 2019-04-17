@@ -31,6 +31,10 @@
 (require 'ffap)
 (require 'dired-x)
 
+(defun rspec-file-p ()
+  "Return non-nil if current file is an rspec file."
+  (and (string-match "_spec\.rb$" (or (buffer-file-name) ""))))
+
 (defun my-beginning-of-line ()
   "Move to the beginning of line or previous function.
 
@@ -41,8 +45,7 @@ If rspec-mode is enabled, goes to the previous sentence."
   (cl-labels ((beginning-of-line-p ()
                                    (= (point) (line-beginning-position))))
     (cond
-     ((and (string-match "_spec\.rb$" (or (buffer-file-name) ""))
-           (beginning-of-line-p)) (backward-sentence))
+     ((rspec-file-p) (backward-sentence))
      ((beginning-of-line-p) (progn (beginning-of-defun)
                                    (call-interactively 'move-beginning-of-line)))
      (t (call-interactively 'move-beginning-of-line)))))
@@ -57,7 +60,7 @@ If rspec-mode is enabled, goes to the next sentence."
   (cl-labels ((end-of-line-p ()
                              (= (point) (line-end-position))))
     (cond
-     ((and (boundp 'rspec-mode) (end-of-line-p)) (forward-sentence))
+     ((rspec-file-p) (forward-sentence))
      ((end-of-line-p) (end-of-defun))
      (t (call-interactively 'move-end-of-line)))))
 
