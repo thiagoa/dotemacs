@@ -28,10 +28,13 @@
 
 ;;; Code:
 
-(defun toggle-option-key ()
-  "Toggle meta between meta and option."
+(defun toggle-option-key (&optional key)
+  "Toggle meta between meta and option.
+
+If specifying KEY, set the \"ns-option-modifier\" accordingly."
   (interactive)
-  (if (eq ns-option-modifier 'meta)
+  (or key (setq key (if (eq ns-option-modifier 'meta) 'none 'meta)))
+  (if (eq key 'none)
       (progn (setq ns-option-modifier 'none) (message "Changed to macOS option"))
     (progn (setq ns-option-modifier 'meta) (message "Changed to Emacs meta"))))
 
