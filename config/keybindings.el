@@ -217,7 +217,7 @@
 (define-key god-local-mode-map (kbd "<C-return>") (with-god-insert 'crux-smart-open-line))
 (define-key god-local-mode-map (kbd "<M-return>") (with-god-insert 'crux-smart-open-line-above))
 (define-key god-local-mode-map (kbd "S") (with-god-insert 'delete-char))
-(define-key god-local-mode-map (kbd "A") (with-god-insert 'beginning-of-line))
+(define-key god-local-mode-map (kbd "A") (with-god-insert 'back-to-indentation))
 (define-key god-local-mode-map (kbd "E") (with-god-insert 'end-of-line))
 (define-key god-local-mode-map (kbd "'") (with-god-insert 'change-inner))
 (define-key god-local-mode-map (kbd "\"") (with-god-insert 'change-outer))
