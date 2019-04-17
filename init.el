@@ -45,6 +45,7 @@
 (require 'ext-minibuffer)
 (require 'ext-ibuffer)
 (require 'ext-compile)
+(require 'ext-ido)
 (require 'lang-elixir)
 (require 'lang-ruby)
 
