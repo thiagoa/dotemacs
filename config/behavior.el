@@ -112,6 +112,12 @@
               filename-and-process)
         (mark " " (name 16 -1) " " filename)))
 
+(add-hook 'god-mode-enabled-hook (lambda ()
+                                   (when (eq major-mode 'markdown-mode)
+                                     (toggle-option-key 'meta))))
+(add-hook 'god-mode-disabled-hook (lambda ()
+                                    (when (eq major-mode 'markdown-mode)
+                                      (toggle-option-key 'none))))
 (add-hook 'ibuffer-mode-hook
           '(lambda ()
              (ibuffer-auto-mode 1)
