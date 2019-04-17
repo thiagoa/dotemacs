@@ -32,8 +32,8 @@
   "Toggle meta between meta and option."
   (interactive)
   (if (eq ns-option-modifier 'meta)
-      (progn (setq ns-option-modifier 'none) (message "Changed to none"))
-    (progn (setq ns-option-modifier 'meta) (message "Changed to meta"))))
+      (progn (setq ns-option-modifier 'none) (message "Changed to macOS option"))
+    (progn (setq ns-option-modifier 'meta) (message "Changed to Emacs meta"))))
 
 (defun shell-command-output (command)
   "Run shell COMMAND and return output."
