@@ -69,8 +69,10 @@ PROC, DETAILS, TYPE."
               (format "(%s %s in `%s')"
                       (process-name proc)
                       (process-status proc) dir)
-            (format "%s" (concat  (projectile-project-name)
-                                  " / "
+            (format "%s" (concat  (format "%-25s"
+                                          (with-current-buffer
+                                              buf-name
+                                            (projectile-project-name)))
                                   (file-name-base (string-trim dir nil "/")))))
           'face face2)))))
 
