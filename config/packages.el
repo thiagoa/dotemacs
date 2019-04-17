@@ -30,6 +30,7 @@
         helm-projectile
         helm-rg
         ido-vertical-mode
+        ido-goto-symbol
         hippie-exp
         yasnippet
         flycheck
