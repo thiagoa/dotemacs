@@ -28,6 +28,7 @@
 (add-hook 'after-init-hook 'inf-ruby-switch-setup)
 (add-to-list 'rspec-before-verification-hook 'inf-ruby-switch-from-compilation)
 
+(setq ruby-align-chained-calls t)
 (setq projectile-rails-expand-snippet nil)
 (setq ruby-deep-indent-paren nil)
 (setq rspec-use-rake-when-possible nil)
