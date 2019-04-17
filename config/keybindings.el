@@ -122,7 +122,7 @@
 (global-set-key (kbd "C-x C-0")        'delete-window)
 (global-set-key (kbd "C-a")            'my-beginning-of-line)
 (global-set-key (kbd "C-e")            'my-end-of-line)
-(global-set-key (kbd "<f6>")           'toggle-option-key)
+(global-set-key (kbd "C-\\")           'toggle-option-key)
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Fast movement ;;
