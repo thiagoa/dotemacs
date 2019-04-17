@@ -235,6 +235,7 @@
 (define-key god-local-mode-map (kbd "m") 'back-to-indentation)
 (define-key god-local-mode-map (kbd "d") 'my-delete-char)
 (define-key god-local-mode-map (kbd "M") (with-god-insert 'blank-out-line))
+(define-key god-local-mode-map (kbd "M-D") (with-god-insert 'kill-word))
 
 ;;;;;;;;;;;;;
 ;; Clojure ;;
