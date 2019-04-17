@@ -84,7 +84,7 @@
   '((?o . org-mode)
     (?t . text-mode)
     (?m . markdown-mode)
-    (?r . enh-ruby-mode)
+    (?r . ruby-mode)
     (?e . emacs-lisp-mode)
     (?l . lisp-interaction-mode)
     (?s . sql-mode)
