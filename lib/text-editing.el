@@ -70,21 +70,27 @@ Useful to define functions in between spaces."
 
 Primarily for use with custom scripts."
   (interactive)
-  (if paredit-mode (paredit-kill) (kill-line)))
+  (if paredit-mode
+      (call-interactively 'paredit-kill)
+    (call-interactively 'kill-line)))
 
 (defun my-backward-delete-char ()
   "Backward delete char according to current mode.
 
 Primarily for use with custom scripts."
   (interactive)
-  (if paredit-mode (paredit-backward-delete) (backward-delete-char)))
+  (if paredit-mode
+      (call-interactively 'paredit-backward-delete)
+    (call-interactively 'backward-delete-char)))
 
 (defun my-backward-kill-word ()
   "Backward kill word according to current mode.
 
 Primarily for use with custom scripts."
   (interactive)
-  (if paredit-mode (paredit-backward-kill-word) (backward-kill-word)))
+  (if paredit-mode
+      (call-interactively 'paredit-backward-kill-word)
+    (call-interactively 'backward-kill-word)))
 
 ;; TODO: Find out what the region command is.
 (defun my-delete-char ()
