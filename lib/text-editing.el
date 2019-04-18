@@ -72,6 +72,20 @@ Primarily for use with custom scripts."
   (interactive)
   (if paredit-mode (paredit-kill) (kill-line)))
 
+(defun my-backward-delete-char ()
+  "Backward delete char according to current mode.
+
+Primarily for use with custom scripts."
+  (interactive)
+  (if paredit-mode (paredit-backward-delete) (backward-delete-char)))
+
+(defun my-backward-kill-word ()
+  "Backward kill word according to current mode.
+
+Primarily for use with custom scripts."
+  (interactive)
+  (if paredit-mode (paredit-backward-kill-word) (backward-kill-word)))
+
 ;; TODO: Find out what the region command is.
 (defun my-delete-char ()
   "Delete char according to current mode.
