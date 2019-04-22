@@ -45,8 +45,7 @@ If rspec-mode is enabled, goes to the previous sentence."
   (cl-labels ((beginning-of-line-p ()
                                    (= (point) (line-beginning-position))))
     (cond
-     ((rspec-file-p) (backward-sentence))
-     ((beginning-of-line-p) (progn (beginning-of-defun)
+     ((beginning-of-line-p) (progn (if (rspec-file-p) (backward-sentence) (beginning-of-defun))
                                    (call-interactively 'move-beginning-of-line)))
      (t (call-interactively 'move-beginning-of-line)))))
 
@@ -60,8 +59,7 @@ If rspec-mode is enabled, goes to the next sentence."
   (cl-labels ((end-of-line-p ()
                              (= (point) (line-end-position))))
     (cond
-     ((rspec-file-p) (forward-sentence))
-     ((end-of-line-p) (end-of-defun))
+     ((end-of-line-p) (if (rspec-file-p) (forward-sentence) (end-of-defun)))
      (t (call-interactively 'move-end-of-line)))))
 
 (defun go-to-alternate-buffer ()
