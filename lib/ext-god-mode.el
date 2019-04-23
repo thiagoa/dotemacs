@@ -32,6 +32,8 @@
 (require 'ext-elisp)
 (require 'god-mode)
 
+(defvar buffers-with-auto-toggle-option-key-on-god-insert '())
+
 (defun god-insert ()
   "Exit god mode, which corresponding the insert mode."
   (interactive)
@@ -62,6 +64,40 @@ sensibly enter in insert mode afterwards."
   (setq cursor-type (if (or god-local-mode buffer-read-only)
                         'box
                       'bar)))
+
+(defun god-toggle-option-key-member-p (name)
+  "Is NAME buffer set to toggle option key?"
+  (member name buffers-with-auto-toggle-option-key-on-god-insert))
+
+(defun god-toggle-option-key ()
+  "Set the current buffer to toggle option key for macOS on god insert mode.
+
+When entering god insert mode, the option key gets set to macOS.
+Otherwise, it gets set to Emacs meta."
+  (interactive)
+  (let ((name (buffer-name)))
+    (if (god-toggle-option-key-member-p name)
+        (progn (setq buffers-with-auto-toggle-option-key-on-god-insert
+                     (cl-remove name
+                                buffers-with-auto-toggle-option-key-on-god-insert
+                                :test #'equal))
+               (message "Current buffer is no longer set to toggle option key"))
+      (progn
+        (add-to-list 'buffers-with-auto-toggle-option-key-on-god-insert name)
+        (message "Current buffer is now set to toggle option key")))))
+
+(defun auto-toggle-option-key-on-god-insert (&rest args)
+  "Auto toggle option key on god insert in selected buffers.
+
+This function is supposed to be used as an advice that takes ARGS."
+  (when (and (god-toggle-option-key-member-p (buffer-name)))
+    (if (bound-and-true-p god-local-mode) ;
+        (toggle-option-key 'none)
+      (toggle-option-key 'meta)))
+  (apply args))
+
+
+(advice-add 'god-mode-all :around #'auto-toggle-option-key-on-god-insert)
 
 (provide 'ext-god-mode)
 ;;; ext-god-mode.el ends here
