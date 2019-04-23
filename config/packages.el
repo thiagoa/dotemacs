@@ -23,6 +23,7 @@
         ag
         avy
         beginend
+        nord-theme
         github-browse-file
         goto-last-change
         swiper
