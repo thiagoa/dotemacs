@@ -84,6 +84,7 @@ FUNCTION is a test callback."
   "Get the function to run all project test depending on project type."
   (pcase (projectile-project-type)
     ('rails-rspec 'rspec-verify-all)
+    ('ruby-rspec 'rspec-verify-all)
     ('elixir 'alchemist-mix-test)
     ('lein-test (lambda () (cider-test-run-project-tests nil)))))
 
