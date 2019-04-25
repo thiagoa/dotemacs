@@ -115,7 +115,7 @@
 (add-hook 'ibuffer-mode-hook
           '(lambda ()
              (ibuffer-auto-mode 1)
-             (ibuffer-vc-qset-filter-groups-by-vc-root)))
+             (ibuffer-vc-set-filter-groups-by-vc-root)))
 (add-hook 'god-mode-enabled-hook 'my-update-cursor)
 (add-hook 'god-mode-disabled-hook 'my-update-cursor)
 (add-hook 'before-save-hook 'whitespace-cleanup)
