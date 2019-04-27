@@ -60,6 +60,14 @@
         (remq 'process-kill-buffer-query-function
               kill-buffer-query-functions)))
 
+(defun copy-env-vars-from-shell ()
+  "Copy env vars from shell."
+  (mapc (lambda (pair)
+          (let ((var (split-string pair "=")))
+            (setenv (first var) (second var))))
+        (split-string (shell-command-output
+                       (concat explicit-shell-file-name " -c env")))))
+
 (defun set-default-shell (name)
   "Set the default shell to NAME."
   (setq
