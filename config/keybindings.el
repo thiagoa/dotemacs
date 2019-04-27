@@ -201,8 +201,12 @@
             (define-key inf-ruby-minor-mode-map (kbd "C-x l") 'ruby-load-file)))
 
 (define-key rspec-verifiable-mode-map (kbd "C-c , r") 'tests-anywhere-rerun)
-(define-key rspec-verifiable-mode-map (kbd "C-c , r") 'tests-anywhere-rerun)
 (define-key rspec-verifiable-mode-map (kbd "C-c , a") 'tests-anywhere-verify-all)
+(define-key rspec-verifiable-mode-map (kbd "C-c , s") 'tests-anywhere-verify-single)
+
+(define-key rspec-mode-map (kbd "C-c , r") 'tests-anywhere-rerun)
+(define-key rspec-mode-map (kbd "C-c , a") 'tests-anywhere-verify-all)
+(define-key rspec-mode-map (kbd "C-c , s") 'tests-anywhere-verify-single)
 
 ;;;;;;;;;;;;;;
 ;; God mode ;;

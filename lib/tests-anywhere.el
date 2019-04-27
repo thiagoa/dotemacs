@@ -34,9 +34,11 @@
 
 (defconst tests-anywhere--test-functions
   '((rails-rspec . ((rerun . rails-rspec)
-                    (verify-all . rspec-verify-all)))
+                    (verify-all . rspec-verify-all)
+                    (verify-single . rspec-verify-single)))
     (ruby-rspec . ((rerun . rspec-rerun)
-                   (verify-all . rspec-verify-all)))
+                   (verify-all . rspec-verify-all)
+                   (verify-single . rspec-verify-single)))
     (elixir . ((rerun . alchemist-mix-rerun-last-test)
                (verify-all . alchemist-mix-test)))
     (lein-test . ((rerun . cider-test-run-loaded-tests)
@@ -96,6 +98,11 @@ FUNC-TYPE can be: rerun, verify-all, etc."
   "Rerun the last test from anywhere."
   (interactive)
   (tests-anywhere--run 'rerun))
+
+(defun tests-anywhere-verify-single ()
+  "Rerun the last test from anywhere."
+  (interactive)
+  (tests-anywhere--run 'verify-single))
 
 (defun tests-anywhere-verify-all ()
   "Run all project test from anywhere."
