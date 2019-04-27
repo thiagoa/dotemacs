@@ -69,6 +69,7 @@ FUNCTION is a test callback."
   "Get the function to rerun the last test depending on project type."
   (pcase (projectile-project-type)
     ('rails-rspec 'rspec-rerun)
+    ('ruby-rspec 'rspec-rerun)
     ('elixir 'alchemist-mix-rerun-last-test)
     ('lein-test (lambda () (cider-test-run-loaded-tests nil)))))
 
