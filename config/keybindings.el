@@ -227,7 +227,7 @@
 (define-key god-local-mode-map (kbd "'") (with-god-insert 'change-inner))
 (define-key god-local-mode-map (kbd "\"") (with-god-insert 'change-outer))
 (define-key god-local-mode-map (kbd "I") (with-god-insert 'forward-char))
-(define-key god-local-mode-map (kbd "D") (with-god-insert 'my-delete-char))
+(define-key god-local-mode-map (kbd "D") (with-god-insert (key-binding "\C-d")))
 (define-key god-local-mode-map (kbd "W") (with-god-insert 'kill-region))
 (define-key god-local-mode-map (kbd "<C-S-backspace>") (with-god-insert 'crux-kill-line-backwards))
 (define-key god-local-mode-map (kbd "i") 'god-mode-all)
@@ -238,13 +238,13 @@
 (define-key god-local-mode-map (kbd "R") (with-god-insert 'replace-region))
 (define-key god-local-mode-map (kbd "z") 'zap-up-to-char)
 (define-key god-local-mode-map (kbd "Z") (with-god-insert 'zap-up-to-char))
-(define-key god-local-mode-map (kbd "K") (with-god-insert 'my-kill-line))
+(define-key god-local-mode-map (kbd "K") (with-god-insert (key-binding "\C-k")))
 (define-key god-local-mode-map (kbd "m") 'back-to-indentation)
-(define-key god-local-mode-map (kbd "d") 'my-delete-char)
+(define-key god-local-mode-map (kbd "d") (key-binding "\C-d"))
 (define-key god-local-mode-map (kbd "M") (with-god-insert 'back-to-indentation))
 (define-key god-local-mode-map (kbd "M-D") (with-god-insert 'kill-word))
-(define-key god-local-mode-map [(shift backspace)] (with-god-insert 'my-backward-delete-char))
-(define-key god-local-mode-map [(meta shift backspace)] (with-god-insert 'my-backward-kill-word))
+(define-key god-local-mode-map [(shift backspace)] (with-god-insert (key-binding (kbd "DEL"))))
+(define-key god-local-mode-map [(meta shift backspace)] (with-god-insert (key-binding (kbd "<M-DEL>"))))
 
 ;;;;;;;;;;;;;
 ;; Clojure ;;

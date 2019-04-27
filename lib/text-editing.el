@@ -65,42 +65,6 @@ Useful to define functions in between spaces."
   (crux-smart-open-line-above)
   (crux-smart-open-line nil))
 
-(defun my-kill-line ()
-  "Kill line according to current mode.
-
-Primarily for use with custom scripts."
-  (interactive)
-  (if paredit-mode
-      (call-interactively 'paredit-kill)
-    (call-interactively 'kill-line)))
-
-(defun my-backward-delete-char ()
-  "Backward delete char according to current mode.
-
-Primarily for use with custom scripts."
-  (interactive)
-  (if paredit-mode
-      (call-interactively 'paredit-backward-delete)
-    (call-interactively 'backward-delete-char)))
-
-(defun my-backward-kill-word ()
-  "Backward kill word according to current mode.
-
-Primarily for use with custom scripts."
-  (interactive)
-  (if paredit-mode
-      (call-interactively 'paredit-backward-kill-word)
-    (call-interactively 'backward-kill-word)))
-
-;; TODO: Find out what the region command is.
-(defun my-delete-char ()
-  "Delete char according to current mode.
-
-Primarily for use with custom scripts."
-  (interactive)
-  (let ((func (if paredit-mode 'paredit-forward-delete 'delete-char)))
-    (call-interactively func)))
-
 (defun replace-region ()
   "Sensibly replace the region, making the cursor ready for insertion.
 
@@ -155,7 +119,7 @@ Take ARG universal argument to mark N lines."
   "Sensibly blanks out the current line."
   (interactive)
   (back-to-indentation)
-  (when (not (current-line-empty-p)) (my-kill-line)))
+  (when (not (current-line-empty-p)) (call-interactively (key-binding "\C-k"))))
 
 (defun current-line-empty-p ()
   "Return non-nil if the current line is empty."
