@@ -34,60 +34,69 @@
 
 (cl-defstruct tests-anywhere-command directory function)
 
-(defvar tests-anywhere-state
+(defconst tests-anywhere--test-functions
+  '((rails-rspec . ((rerun . rails-rspec)
+                    (verify-all . rspec-verify-all)))
+    (ruby-rspec . ((rerun . rspec-rerun)
+                   (verify-all . rspec-verify-all)))
+    (elixir . ((rerun . alchemist-mix-rerun-last-test)
+               (verify-all . alchemist-mix-test)))
+    (lein-test . ((rerun . cider-test-run-loaded-tests)
+                  (verify-all . cider-test-run-project-tests))))
+  "Functions to run tests by project type and function type.")
+
+(defvar tests-anywhere--state
   (make-hash-table)
   "A hash with the last command for each test run action.")
 
-(defun tests-anywhere-register-and-run (key function)
+(defun tests-anywhere--register-and-run (key func)
   "Run a test function and register the last command which has been run.
 
 KEY is an identifier for the type of test that's being run.
-FUNCTION is a test callback."
+FUNC is a test callback."
   (let ((command (make-tests-anywhere-command
                   :directory (projectile-project-root)
-                  :function function)))
-    (puthash key command tests-anywhere-state))
-  (tests-anywhere-run-registered key))
+                  :function func)))
+    (puthash key command tests-anywhere--state))
+  (tests-anywhere--run-registered key))
 
-(defun tests-anywhere-run-registered (key)
+(defun tests-anywhere--run-registered (key)
   "Look for a test function to be run by KEY."
-  (let* ((state (or (gethash key tests-anywhere-state) (error "No prior test run")))
+  (let* ((state (or (gethash key tests-anywhere--state)
+                    (error "No prior test run (unknown project type)")))
          (default-directory (tests-anywhere-command-directory state)))
     (if state
-        (funcall (tests-anywhere-command-function state))
-      (message "No prior test run"))))
+        (apply 'call-interactively
+               (list (tests-anywhere-command-function state)))
+      (message "No prior test run (unknown project type)"))))
+
+(defun tests-anywhere--run (func-type)
+  "Run function FUNC-TYPE.  Takes into account current project type."
+  (let ((func (tests-anywhere--get-function func-type)))
+    (if func
+        (tests-anywhere--register-and-run func-type func)
+      (tests-anywhere--run-registered func-type))))
+
+(defun tests-anywhere--get-function (func-type)
+  "Get the function to run test by FUNC-TYPE.
+
+FUNC-TYPE can be: rerun, verify-all, etc."
+  (let* ((project-type (projectile-project-type))
+         (funcs-by-type (cdr (assoc project-type
+                                    tests-anywhere--test-functions)))
+         (func (cdr (assoc func-type
+                           funcs-by-type))))
+    func))
 
 (defun tests-anywhere-rerun ()
   "Rerun the last test from anywhere."
   (interactive)
-  (let ((func (tests-anywhere--rerun-get-function)))
-    (if func
-        (tests-anywhere-register-and-run 'rerun func)
-      (tests-anywhere-run-registered 'rerun))))
-
-(defun tests-anywhere--rerun-get-function ()
-  "Get the function to rerun the last test depending on project type."
-  (pcase (projectile-project-type)
-    ('rails-rspec 'rspec-rerun)
-    ('ruby-rspec 'rspec-rerun)
-    ('elixir 'alchemist-mix-rerun-last-test)
-    ('lein-test (lambda () (cider-test-run-loaded-tests nil)))))
+  (tests-anywhere--run 'rerun))
 
 (defun tests-anywhere-verify-all ()
   "Run all project test from anywhere."
   (interactive)
-  (let ((func (tests-anywhere--verify-all-get-function)))
-    (if func
-        (tests-anywhere-register-and-run 'verify-all func)
-      (tests-anywhere-run-registered 'verify-all))))
-
-(defun tests-anywhere--verify-all-get-function ()
-  "Get the function to run all project test depending on project type."
-  (pcase (projectile-project-type)
-    ('rails-rspec 'rspec-verify-all)
-    ('ruby-rspec 'rspec-verify-all)
-    ('elixir 'alchemist-mix-test)
-    ('lein-test (lambda () (cider-test-run-project-tests nil)))))
+  (tests-anywhere--run 'verify-all))
 
 (provide 'tests-anywhere)
 ;;; tests-anywhere.el ends here
