@@ -76,5 +76,13 @@ ARGS is a list that can be given to the apply function."
   (let ((default-directory dir))
     (apply args)))
 
+(defmacro universalize (func)
+  "Generate a lambda to run FUNC n times with universal argument.
+A useful hack when a command does not support universal argument.
+Can be called directly with the set-keybinding and friends."
+  `(lambda (arg)
+     (interactive "p")
+     (dotimes (_ arg) (call-interactively ,func))))
+
 (provide 'ext-elisp)
 ;;; ext-elisp.el ends here
