@@ -32,8 +32,6 @@
 (require 'projectile)
 (require 'cider)
 
-(cl-defstruct tests-anywhere-command directory function)
-
 (defconst tests-anywhere--test-functions
   '((rails-rspec . ((rerun . rails-rspec)
                     (verify-all . rspec-verify-all)))
@@ -45,47 +43,53 @@
                   (verify-all . cider-test-run-project-tests))))
   "Functions to run tests by project type and function type.")
 
-(defvar tests-anywhere--state
-  (make-hash-table)
+(defvar tests-anywhere--state nil
   "A hash with the last command for each test run action.")
 
-(defun tests-anywhere--register-and-run (key func)
+(cl-defun tests-anywhere--set-state (&key directory project-type)
+  "Set state for last run tests within a qualified project."
+  (setq tests-anywhere--state `((:directory . ,directory)
+                                (:project-type . ,project-type))))
+
+(defun tests-anywhere--get-state (key)
+  "Get state for KEY."
+  (cdr (assoc key tests-anywhere--state)))
+
+(defun tests-anywhere--register-and-run (project-type func)
   "Run a test function and register the last command which has been run.
 
-KEY is an identifier for the type of test that's being run.
-FUNC is a test callback."
-  (let ((command (make-tests-anywhere-command
-                  :directory (projectile-project-root)
-                  :function func)))
-    (puthash key command tests-anywhere--state))
-  (tests-anywhere--run-registered key))
+PROJECT-TYPE is the project type compatible with tests-anywhere.
+FUNC is the test function to be run."
+  (tests-anywhere--set-state :directory (buffer-file-name (current-buffer))
+                             :project-type project-type)
+  (tests-anywhere--run-registered func))
 
-(defun tests-anywhere--run-registered (key)
-  "Look for a test function to be run by KEY."
-  (let* ((state (or (gethash key tests-anywhere--state)
-                    (error "No prior test run (unknown project type)")))
-         (default-directory (tests-anywhere-command-directory state)))
-    (if state
-        (apply 'call-interactively
-               (list (tests-anywhere-command-function state)))
-      (message "No prior test run (unknown project type)"))))
+(defun tests-anywhere--run-registered (func)
+  "Run FUNC in the last registered directory."
+  (let* ((default-directory (tests-anywhere--get-state :directory)))
+    (apply 'call-interactively (list func))))
 
 (defun tests-anywhere--run (func-type)
   "Run function FUNC-TYPE.  Takes into account current project type."
-  (let ((func (tests-anywhere--get-function func-type)))
-    (if func
-        (tests-anywhere--register-and-run func-type func)
-      (tests-anywhere--run-registered func-type))))
+  (let* ((tests-anywhere-project-type (tests-anywhere--project-type))
+         (project-type (or tests-anywhere-project-type
+                           (tests-anywhere--get-state :project-type)
+                           (error "No prior test run (unknown project type)")))
+         (func (tests-anywhere--get-function project-type func-type)))
+    (if tests-anywhere-project-type
+        (tests-anywhere--register-and-run project-type func)
+      (tests-anywhere--run-registered func))))
 
-(defun tests-anywhere--get-function (func-type)
-  "Get the function to run test by FUNC-TYPE.
+(defun tests-anywhere--project-type ()
+  "Is the current project known to tests-anywhere? If so, return it."
+  (car (assoc (projectile-project-type) tests-anywhere--test-functions)))
+
+(defun tests-anywhere--get-function (project-type func-type)
+  "Get the function to run test by FUNC-TYPE and PROJECT-TYPE.
 
 FUNC-TYPE can be: rerun, verify-all, etc."
-  (let* ((project-type (projectile-project-type))
-         (funcs-by-type (cdr (assoc project-type
-                                    tests-anywhere--test-functions)))
-         (func (cdr (assoc func-type
-                           funcs-by-type))))
+  (let* ((funcs-by-type (cdr (assoc project-type tests-anywhere--test-functions)))
+         (func (cdr (assoc func-type funcs-by-type))))
     func))
 
 (defun tests-anywhere-rerun ()
