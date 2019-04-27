@@ -40,5 +40,12 @@
   (other-window 1)
   (kill-this-buffer-and-close-window))
 
+(defun kill-other-buffer-and-keep-window ()
+  "Kill buffer from other window and close it."
+  (interactive)
+  (other-window 1)
+  (kill-buffer (current-buffer))
+  (other-window -1))
+
 (provide 'window-management)
 ;;; window-management.el ends here

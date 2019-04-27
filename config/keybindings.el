@@ -123,6 +123,7 @@
 (global-set-key (kbd "C-a")            'my-beginning-of-line)
 (global-set-key (kbd "C-e")            'my-end-of-line)
 (global-set-key (kbd "C-\\")           'toggle-option-key)
+(global-set-key (kbd "C-c K")          'kill-other-buffer-and-keep-window)
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Fast movement ;;
