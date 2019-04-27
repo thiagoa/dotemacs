@@ -227,7 +227,6 @@
 (define-key god-local-mode-map (kbd ".") 'repeat)
 (define-key god-local-mode-map (kbd "RET") 'crux-smart-open-line)
 (define-key god-local-mode-map (kbd "<S-return>") 'crux-smart-open-line-above)
-(define-key god-local-mode-map (kbd "d") (key-binding "\C-d"))
 
 ;; Insert mode hook keybindings (most "shifted")
 (define-key god-local-mode-map (kbd "<C-return>") (with-god-insert 'crux-smart-open-line))
