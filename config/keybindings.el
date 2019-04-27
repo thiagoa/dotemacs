@@ -268,6 +268,14 @@
 (eval-after-load 'alchemist-iex-mode
   '(define-key alchemist-iex-mode-map (kbd "C-x C-/") 'company-complete))
 
+;;;;;;;;;;;;;;
+;; Web mode ;;
+;;;;;;;;;;;;;;
+
+(eval-after-load 'web-mode
+  '(progn
+     (define-key web-mode-map (kbd "C-c C-h") 'crux-kill-whole-line)))
+
 ;;;;;;;;;;;
 ;; Lisps ;;
 ;;;;;;;;;;;
