@@ -102,14 +102,18 @@ Primarily for use with custom scripts."
     (call-interactively func)))
 
 (defun replace-region ()
-  "Sensibly replace the region, making the cursor ready for insertion."
+  "Sensibly replace the region, making the cursor ready for insertion.
+
+If no region set, delete char at point."
   (interactive)
-  (let ((region-on-same-line-p (=
-                                (line-number-at-pos (point))
-                                (line-number-at-pos (mark)))))
-    (call-interactively 'kill-region)
-    (when (not region-on-same-line-p)
-      (call-interactively 'crux-smart-open-line-above))))
+  (if (region-active-p)
+      (let ((region-on-same-line-p (=
+                                    (line-number-at-pos (point))
+                                    (line-number-at-pos (mark)))))
+        (call-interactively 'kill-region)
+        (when (not region-on-same-line-p)
+          (call-interactively 'crux-smart-open-line-above)))
+    (call-interactively 'delete-char)))
 
 (defun top-join-line ()
   "Join the line below to the current line using a space as separator.
