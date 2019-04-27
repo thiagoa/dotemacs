@@ -51,14 +51,14 @@
   (setq comint-input-ring-file-name history-file)
   (comint-read-input-ring 'silent))
 
-(exec-path-from-shell-initialize)
-(exec-path-from-shell-copy-env "HISTFILE")
-
 (add-hook 'shell-mode-hook
           (lambda ()
             (turn-on-comint-history (getenv "HISTFILE"))))
 
 (setq comint-input-ring-separator "\n: \\([0-9]+\\):\\([0-9]+\\);")
+
+(when (memq window-system '(mac ns x))
+  (copy-env-vars-from-shell))
 
 (provide 'terminal)
 ;;; terminal.el ends here

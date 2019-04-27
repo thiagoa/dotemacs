@@ -22,7 +22,6 @@
 (require 'config-base)
 
 (run-server)
-(emacs-use-same-path-as-shell)
 (beginend-global-mode)
 (global-dot-mode)
 (global-flycheck-mode)

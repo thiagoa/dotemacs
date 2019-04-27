@@ -29,7 +29,6 @@
 ;;; Code:
 
 (require 'shell)
-(require 'exec-path-from-shell)
 (require 'general)
 
 (defun force-split-window-sensibly-to-horizontal-when-big-font ()
@@ -54,30 +53,16 @@
 (defun disable-annoyances ()
   "Disable annoying Emacs stuff such as dialog prompts, bells, etc."
   (fset 'yes-or-no-p 'y-or-n-p)
-  (setq exec-path-from-shell-check-startup-files nil)
   (setq confirm-nonexistent-file-or-buffer nil)
   (setq kill-buffer-query-functions
         (remq 'process-kill-buffer-query-function
               kill-buffer-query-functions)))
-
-(defun copy-env-vars-from-shell ()
-  "Copy env vars from shell."
-  (mapc (lambda (pair)
-          (let ((var (split-string pair "=")))
-            (setenv (first var) (second var))))
-        (split-string (shell-command-output
-                       (concat explicit-shell-file-name " -c env")))))
 
 (defun set-default-shell (name)
   "Set the default shell to NAME."
   (setq
    explicit-shell-file-name
    (shell-command-output (concat "which " name))))
-
-(defun emacs-use-same-path-as-shell ()
-  "Set Emacs path to the shell path."
-  (when (memq window-system '(mac ns))
-    (exec-path-from-shell-initialize)))
 
 (defun show-full-filename-in-window-title ()
   "Show full filename in window title."

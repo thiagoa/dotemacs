@@ -15,7 +15,6 @@
 (setq package-selected-packages
       '(discover
         undo-tree
-        exec-path-from-shell
         ibuffer-vc
         crux
         string-inflection

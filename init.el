@@ -46,6 +46,7 @@
 (require 'ext-ibuffer)
 (require 'ext-compile)
 (require 'ext-ido)
+(require 'ext-shell)
 (require 'lang-elixir)
 (require 'lang-ruby)
 
@@ -57,7 +58,6 @@
       '("config/*.el" "config/langs/*.el"))
 
 (load-if-exists "~/.emacs.custom.el")
-(copy-env-vars-from-shell)
 
 (provide 'init)
 ;;; init.el ends here
