@@ -1,4 +1,4 @@
-;;; ext-shell.el  --- TODO  -*- lexical-binding: t; -*-
+;;; shell-integration.el  --- TODO  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019 Thiago Araújo Silva
 
@@ -59,5 +59,5 @@
                        (concat explicit-shell-file-name " -l -i -c env"))
                       "\n")))
 
-(provide 'ext-shell)
-;;; ext-shell.el ends here
+(provide 'shell-integration)
+;;; shell-integration.el ends here

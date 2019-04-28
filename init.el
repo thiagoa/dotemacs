@@ -25,6 +25,7 @@
 
 ;; Require my own libraries and extensions
 (require 'ext-elisp)
+(require 'shell-integration)
 (require 'general)
 (require 'config-helpers)
 (require 'buffer)
@@ -35,6 +36,8 @@
 (require 'movement)
 (require 'window-management)
 (require 'git)
+(require 'lang-elixir)
+(require 'lang-ruby)
 (require 'ext-god-mode)
 (require 'ext-helm)
 (require 'ext-projectile)
@@ -46,9 +49,6 @@
 (require 'ext-ibuffer)
 (require 'ext-compile)
 (require 'ext-ido)
-(require 'ext-shell)
-(require 'lang-elixir)
-(require 'lang-ruby)
 
 ;; Load configuration files
 (mapc (lambda (pattern)
