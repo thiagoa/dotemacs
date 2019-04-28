@@ -26,7 +26,6 @@
 (remove-hook 'ruby-mode-hook 'ruby-end-mode)
 
 (add-hook 'after-init-hook 'inf-ruby-switch-setup)
-(add-to-list 'rspec-before-verification-hook 'inf-ruby-switch-from-compilation)
 
 (setq ruby-align-chained-calls t)
 (setq projectile-rails-expand-snippet nil)

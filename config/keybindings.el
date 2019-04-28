@@ -193,6 +193,10 @@
 ;; Ruby ;;
 ;;;;;;;;;;
 
+(eval-after-load 'rspec-compilation-mode
+  (define-key compilation-mode-map (kbd "i")
+    'inf-ruby-switch-from-compilation))
+
 (global-set-key (kbd "C-c , p") 'rspec-toggle-compilation-mode)
 
 (add-hook 'ruby-mode-hook
