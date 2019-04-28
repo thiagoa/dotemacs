@@ -49,6 +49,7 @@
 (require 'ext-ibuffer)
 (require 'ext-compile)
 (require 'ext-ido)
+(require 'ext-rake)
 
 ;; Load configuration files
 (mapc (lambda (pattern)
