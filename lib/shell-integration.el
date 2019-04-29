@@ -45,16 +45,16 @@
 
 (defun copy-env-vars-from-shell ()
   "Copy env vars from default shell."
-  (mapc (lambda (full-var)
-          (let* ((pair (split-string full-var "="))
-                 (key (first pair))
-                 (value (second pair)))
-            (unless (member key env-vars-to-ignore)
-              (when (equal "PATH" key)
+  (mapc (lambda (assignment)
+          (let* ((parts (split-string assignment "="))
+                 (var (first parts))
+                 (value (second parts)))
+            (unless (member var env-vars-to-ignore)
+              (when (equal "PATH" var)
                 (setq eshell-path-env value
                       exec-path (append (parse-colon-path value)
                                         (list exec-directory))))
-              (setenv key value))))
+              (setenv var value))))
         (split-string (shell-command-output
                        (concat explicit-shell-file-name " -l -i -c env"))
                       "\n")))

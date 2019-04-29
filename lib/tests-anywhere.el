@@ -1,4 +1,4 @@
-;;; tests-anywhere.el  --- Run tests in any file  -*- lexical-binding: t; -*-
+;;; tests-anywhere.el  --- Run tests  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019 Thiago Araújo Silva
 
@@ -43,69 +43,74 @@
                (verify-all . alchemist-mix-test)))
     (lein-test . ((rerun . cider-test-run-loaded-tests)
                   (verify-all . cider-test-run-project-tests))))
-  "Functions to run tests by project type and function type.")
+  "Mapping of 'project-type => test-function-type => test-function'.")
 
 (defvar tests-anywhere--state nil
-  "A hash with the last command for each test run action.")
+  "Remembers the project where the last test function ran.
+How this state is used: if running tests from an unsupported
+project type, makes it run it for the last *known project*
+instead.")
 
 (cl-defun tests-anywhere--set-state (&key directory project-type)
-  "Set state for last run tests within a qualified project."
+  "Register state for the last test function ran."
   (setq tests-anywhere--state `((:directory . ,directory)
                                 (:project-type . ,project-type))))
 
 (defun tests-anywhere--get-state (key)
-  "Get state for KEY."
+  "Get state for the last test function ran.
+KEY is the information to retrieve from state, for example 'directory'."
   (cdr (assoc key tests-anywhere--state)))
 
 (defun tests-anywhere--register-and-run (project-type func)
-  "Run a test function and register the last command which has been run.
-
-PROJECT-TYPE is the project type compatible with tests-anywhere.
-FUNC is the test function to be run."
+  "Run test FUNC and record info about it in 'state'.
+PROJECT-TYPE is a project type (as per projectile) compatible
+with tests-anywhere.  See 'tests-anywhere--test-functions' for
+more info.  FUNC is the test function to be run."
   (tests-anywhere--set-state :directory (buffer-file-name (current-buffer))
                              :project-type project-type)
   (tests-anywhere--run-registered func))
 
 (defun tests-anywhere--run-registered (func)
-  "Run FUNC in the last registered directory."
+  "Run FUNC under the last registered project."
   (let* ((default-directory (tests-anywhere--get-state :directory)))
     (apply 'call-interactively (list func))))
 
-(defun tests-anywhere--run (func-type)
-  "Run function FUNC-TYPE.  Takes into account current project type."
+(defun tests-anywhere--run (type)
+  "Run test function.
+Lookup the test function for TYPE and try to figure out the current
+project.  TYPE can be 'rerun, 'verify-all, 'verify-single, etc."
   (let* ((tests-anywhere-project-type (tests-anywhere--project-type))
          (project-type (or tests-anywhere-project-type
                            (tests-anywhere--get-state :project-type)
                            (error "No prior test run (unknown project type)")))
-         (func (tests-anywhere--get-function project-type func-type)))
+         (func (tests-anywhere--get-function project-type type)))
     (if tests-anywhere-project-type
         (tests-anywhere--register-and-run project-type func)
       (tests-anywhere--run-registered func))))
 
 (defun tests-anywhere--project-type ()
-  "Is the current project known to tests-anywhere? If so, return it."
+  "Is the current project known to tests-anywhere? If so, return its type."
   (car (assoc (projectile-project-type) tests-anywhere--test-functions)))
 
-(defun tests-anywhere--get-function (project-type func-type)
-  "Get the function to run test by FUNC-TYPE and PROJECT-TYPE.
-
-FUNC-TYPE can be: rerun, verify-all, etc."
+(defun tests-anywhere--get-function (project-type type)
+  "What test function should I run for PROJECT-TYPE and TYPE?
+TYPE is the type of the function, such as 'rerun, 'verify-single, etc."
   (let* ((funcs-by-type (cdr (assoc project-type tests-anywhere--test-functions)))
-         (func (cdr (assoc func-type funcs-by-type))))
+         (func (cdr (assoc type funcs-by-type))))
     func))
 
 (defun tests-anywhere-rerun ()
-  "Rerun the last test from anywhere."
+  "Rerun last test."
   (interactive)
   (tests-anywhere--run 'rerun))
 
 (defun tests-anywhere-verify-single ()
-  "Rerun the last test from anywhere."
+  "Run test at point."
   (interactive)
   (tests-anywhere--run 'verify-single))
 
 (defun tests-anywhere-verify-all ()
-  "Run all project test from anywhere."
+  "Run every test."
   (interactive)
   (tests-anywhere--run 'verify-all))
 

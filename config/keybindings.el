@@ -124,6 +124,9 @@
 (global-set-key (kbd "C-e")            'my-end-of-line)
 (global-set-key (kbd "C-\\")           'toggle-option-key)
 (global-set-key (kbd "C-c K")          'kill-other-buffer-and-keep-window)
+(global-set-key (kbd "C-x C-m")        'execute-extended-command)
+(global-set-key (kbd "C-c s p")        'ag-project)
+(global-set-key (kbd "C-c s s")        'ag)
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Fast movement ;;
@@ -188,6 +191,7 @@
 (define-key comint-mode-map (kbd "<C-return>") 'comint-send-input-stay-on-line)
 (define-key inf-ruby-mode-map (kbd "C-M-f") 'comint-next-prompt)
 (define-key inf-ruby-mode-map (kbd "C-M-b") 'comint-previous-prompt)
+(define-key inf-ruby-mode-map (kbd "<escape>") 'inf-ruby-maybe-switch-to-compilation)
 
 ;;;;;;;;;;
 ;; Ruby ;;
