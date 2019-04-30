@@ -29,6 +29,7 @@
 ;;; Code:
 
 (require 'compile)
+(require 'ext-elisp)
 
 (defun notify-os (message sound)
   "Send a notification to macOS.
@@ -47,6 +48,37 @@ The exit code verification method can still be improved."
   (if (= compilation-num-errors-found 0)
       (notify-os "Tests passed 👍" "Hero")
     (notify-os "Tests failed 👎" "Basso")))
+
+(defun go-to-file (func arg)
+  "Generic function to go to file in compilation buffer.
+
+FUNC is the movement function to be used.  ARG is the universal
+argument and specifies how many error messages to move; negative
+means move back to previous error messages."
+  (when (setq next-error-last-buffer (next-error-find-buffer))
+    (with-current-buffer next-error-last-buffer
+      (call-interactively func)
+      (compile-goto-error)
+      (when next-error-recenter
+        (recenter next-error-recenter))
+      (run-hooks 'next-error-hook))))
+
+(defun next-file (&optional arg)
+  "Go to next file in compilation buffer.
+
+A prefix ARG specifies how many error messages to move;
+negative means move back to previous error messages."
+  (interactive "P")
+  (go-to-file 'compilation-next-file arg))
+
+
+(defun previous-file (&optional arg)
+  "Go to previous file in compilation buffer.
+
+A prefix ARG specifies how many error messages to move;
+negative means move back to previous error messages."
+  (interactive "P")
+  (go-to-file 'compilation-previous-file arg))
 
 (provide 'ext-compile)
 ;;; ext-compile.el ends here
