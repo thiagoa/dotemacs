@@ -39,7 +39,8 @@
 (buffer-trail-advise '(helm-buffers-list
                        helm-find-files
                        helm-recentf
-                       helm-projectile-find-file))
+                       helm-projectile-find-file
+                       xref-find-definitions))
 
 (add-helm-projectile-projects-action
  '(("Rails console"        "M-r" execute-projectile-rails-console-under-dir)
