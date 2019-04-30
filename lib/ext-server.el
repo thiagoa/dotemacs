@@ -36,5 +36,19 @@
   (unless (server-running-p)
     (server-start)))
 
+(defun my-server-edit ()
+  "A smarter server-edit.
+
+Less noisy and switches to compilation buffer (supposing the
+external edit was triggered from a compilation buffer)."
+  (interactive)
+  (save-buffer)
+  (call-interactively 'server-edit)
+  (let ((buf (next-error-find-buffer)))
+    (dolist (win (window-list) nil)
+      (if (eq buf (window-buffer win))
+          (select-window win)))
+    (switch-to-buffer buf)))
+
 (provide 'ext-server)
 ;;; ext-server.el ends here

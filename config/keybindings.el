@@ -127,6 +127,7 @@
 (global-set-key (kbd "C-x C-m")        'execute-extended-command)
 (global-set-key (kbd "C-c s p")        'ag-project)
 (global-set-key (kbd "C-c s s")        'ag)
+(global-set-key (kbd "C-x %")          'my-server-edit)
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Fast movement ;;
