@@ -49,7 +49,6 @@
 (require 'ext-ibuffer)
 (require 'ext-compile)
 (require 'ext-ido)
-(require 'ext-rake)
 (require 'ext-align)
 
 ;; Load configuration files

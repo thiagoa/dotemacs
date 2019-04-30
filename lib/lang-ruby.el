@@ -37,10 +37,6 @@
 (require 'ext-compile)
 
 (defvar last-ruby-project nil)
-(defvar
-  rake--env-vars
-  ""
-  "Environment variables to run rake with.")
 
 (defun ruby-mark-block ()
   "Mark a Ruby block.  I bet this can be improved."
@@ -88,6 +84,14 @@ other project types, thus uncoupling from Ruby."
 
 (advice-add 'projectile-rails-console :around #'within-last-ruby-project)
 
+(defun rake-test ()
+  "Run rake in test mode on Rails apps."
+  (interactive)
+  (let ((rails-env (getenv "RAILS_ENV")))
+    (unwind-protect (progn (setenv "RAILS_ENV" "test")
+                           (call-interactively 'rake))
+      (setenv "RAILS_ENV" rails-env))))
+
 (defun rspec-toggle-compilation-mode ()
   "Toggle compilation mode for future rspec executions.
 
@@ -109,24 +113,6 @@ compilation mode in it immediately."
       (if (equal major-mode 'inf-ruby-mode)
           (inf-ruby-maybe-switch-to-compilation)
         (inf-ruby-switch-from-compilation)))))
-
-(defun rake--compile-with-env-var (orig-fun root task mode)
-  "Allow overriding rake env variables.  See rake--env-vars.
-
-ORIG-FUN, ROOT, TASK, and MODE are delegated to the original rake
-function."
-  (let ((task (concat rake--env-vars task)))
-    (apply orig-fun `(,root ,task ,mode))))
-
-(advice-add 'rake--compile :around #'rake--compile-with-env-var)
-
-(defun rake-test (arg)
-  "Run rake in test environment.
-
-ARG is the universal argument delegated to rake."
-  (interactive "P")
-  (let ((rake--env-vars "RAILS_ENV=test "))
-    (rake arg)))
 
 (defun go-to-rspec-compilation-buffer ()
   "Go straight to rspec compilation buffer."
