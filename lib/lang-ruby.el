@@ -34,6 +34,7 @@
 (require 'projectile-rails)
 (require 'inf-ruby)
 (require 'ext-elisp)
+(require 'ext-compile)
 
 (defvar last-ruby-project nil)
 (defvar
@@ -131,6 +132,34 @@ ARG is the universal argument delegated to rake."
   "Go straight to rspec compilation buffer."
   (interactive)
   (switch-to-buffer (get-buffer "*rspec-compilation*")))
+
+(defun go-to-spec (func arg)
+  "Go to spec file in compilation buffer.
+
+Runs FUNC in compilation buffer until finding a spec file reference.
+A prefix ARG specifies how many error messages to move;
+negative means move back to previous error messages."
+  (interactive "P")
+  (go-to-file (simple-ilambda
+               (while (progn
+                        (call-interactively func)
+                        (not (looking-at ".*_spec\.rb*"))))) arg))
+
+(defun next-spec (&optional arg)
+  "Go to next spec in compilation buffer.
+
+A prefix ARG specifies how many error messages to move;
+negative means move back to previous error messages."
+  (interactive "P")
+  (go-to-spec 'compilation-next-file arg))
+
+(defun previous-spec (&optional arg)
+  "Go to previous spec in compilation buffer.
+
+A prefix ARG specifies how many error messages to move;
+negative means move back to previous error messages."
+  (interactive "P")
+  (go-to-spec 'compilation-previous-file arg))
 
 (provide 'lang-ruby)
 ;;; lang-ruby.el ends here

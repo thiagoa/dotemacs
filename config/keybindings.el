@@ -129,6 +129,8 @@
 (global-set-key (kbd "C-c s s")        'ag)
 (global-set-key (kbd "M-g M-}")        'next-file)
 (global-set-key (kbd "M-g M-{")        'previous-file)
+(global-set-key (kbd "M-g M-s")        'next-spec)
+(global-set-key (kbd "M-g M-S")        'previous-spec)
 (global-set-key (kbd "C-x %")          'my-server-edit)
 
 ;;;;;;;;;;;;;;;;;;;
