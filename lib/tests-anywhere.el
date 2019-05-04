@@ -33,7 +33,7 @@
 (require 'cider)
 
 (defconst tests-anywhere--test-functions
-  '((rails-rspec . ((rerun . rails-rspec)
+  '((rails-rspec . ((rerun . rspec-rerun)
                     (verify-all . rspec-verify-all)
                     (verify-single . rspec-verify-single)))
     (ruby-rspec . ((rerun . rspec-rerun)
