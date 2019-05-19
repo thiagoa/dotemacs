@@ -66,16 +66,18 @@ Useful to define functions in between spaces."
   (crux-smart-open-line nil))
 
 (defun replace-region ()
-  "Sensibly replace the region, making the cursor ready for insertion.
-
+  "Sensibly replace the region making the cursor ready for insertion.
 If no region set, delete char at point."
   (interactive)
   (if (region-active-p)
-      (let ((region-on-same-line-p (=
-                                    (line-number-at-pos (point))
-                                    (line-number-at-pos (mark)))))
+      (let* ((point-at-line-beginning-p (eq (line-beginning-position) (point)))
+             (mark-line-beginning-position (save-excursion
+                                             (goto-char (mark))
+                                             (line-beginning-position)))
+             (mark-at-line-beginning-p (eq mark-line-beginning-position (mark))))
         (call-interactively 'kill-region)
-        (when (not region-on-same-line-p)
+        (call-interactively 'indent-for-tab-command)
+        (when (and point-at-line-beginning-p mark-at-line-beginning-p)
           (call-interactively 'crux-smart-open-line-above)))
     (call-interactively 'delete-char)))
 
