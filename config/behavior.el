@@ -74,6 +74,8 @@
 (setq save-interprogram-paste-before-kill t)
 (setq tags-add-tables nil)
 (setq magit-no-confirm '(unstage-all-changes))
+(setq magit-status-margin
+      '(nil "%Y-%m-%d %H:%M " magit-log-margin-width t 18))
 (setq vc-follow-symlinks t)
 (setq recentf-max-saved-items 2000)
 (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
