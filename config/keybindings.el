@@ -247,7 +247,7 @@
 ;; Insert mode hook keybindings (most "shifted")
 (define-key god-local-mode-map (kbd "<C-return>") (with-god-insert 'crux-smart-open-line))
 (define-key god-local-mode-map (kbd "<M-return>") (with-god-insert 'crux-smart-open-line-above))
-(define-key god-local-mode-map (kbd "S") (with-god-insert 'blank-out-line))
+(define-key god-local-mode-map (kbd "S") (with-god-insert 'clear-line))
 (define-key god-local-mode-map (kbd "A") (with-god-insert 'beginning-of-line))
 (define-key god-local-mode-map (kbd "E") (with-god-insert 'end-of-line))
 (define-key god-local-mode-map (kbd "F") (with-god-insert 'forward-char))

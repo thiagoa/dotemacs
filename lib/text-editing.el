@@ -115,10 +115,11 @@ Take ARG universal argument to mark N lines."
       (comment-or-uncomment-region (region-beginning) (region-end))
     (comment-or-uncomment-region (line-beginning-position) (line-end-position))))
 
-(defun blank-out-line ()
-  "Sensibly blanks out the current line."
+(defun clear-line ()
+  "Sensibly clears the current line."
   (interactive)
-  (back-to-indentation)
+  (call-interactively 'indent-for-tab-command)
+  (call-interactively 'back-to-indentation)
   (when (not (current-line-empty-p)) (call-interactively (key-binding "\C-k"))))
 
 (defun current-line-empty-p ()
