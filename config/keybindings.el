@@ -31,7 +31,7 @@
 (global-set-key (kbd "<C-backspace>")  'crux-kill-line-backwards)
 (global-set-key (kbd "<C-M-backspace>") kill-whole-line-backward)
 (global-set-key (kbd "M-h")            'mark-paragraph)
-(global-set-key (kbd "C-c C-l")        'mark-current-line)
+(global-set-key (kbd "C-c C-SPC")      'mark-current-line)
 (global-set-key (kbd "<C-return>")     'crux-smart-open-line)
 (global-set-key (kbd "<M-return>")     'crux-smart-open-line-above)
 (global-set-key (kbd "<C-M-return>")   'smart-open-line-below-and-above)
