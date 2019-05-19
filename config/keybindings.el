@@ -18,11 +18,13 @@
 (require 'magit-mode)
 (require 'ext-elisp)
 (require 'ext-god-mode)
+(require 'enh-ruby-mode)
 
 (defvar scroll-viewport-up       (kbd "C-u 3 C-v"))
 (defvar scroll-viewport-down     (kbd "C-u 3 M-v"))
 (defvar kill-whole-line-backward (kbd "C-e <C-backspace>"))
 (defvar duplicate-sexp-below     [?\C-\M-b ?\C-\M-  ?\M-w ?\C-\M-f return ?\C-y ?\C-\M-b])
+
 (windmove-default-keybindings) ; Shift + arrow keys to move between windows
 
 (global-set-key (kbd "C-x 4 t")        'crux-transpose-windows)
@@ -212,6 +214,7 @@
 (mapc (lambda (mode)
         (with-eval-after-load mode
           (mapc (lambda (map)
+                  (define-key map (kbd "C-M-SPC") 'ruby-mark-sexp)
                   (define-key map (kbd "C-c u d") 'ruby-duplicate-sexp-below))
                 (list ruby-mode-map enh-ruby-mode-map))))
       '("ruby-mode" "enh-ruby-mode"))

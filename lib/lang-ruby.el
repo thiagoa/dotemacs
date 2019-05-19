@@ -38,15 +38,15 @@
 
 (defvar last-ruby-project nil)
 
-(defun ruby-mark-block ()
-  "Mark a Ruby block.  I bet this can be improved."
-  (interactive)
-  (ruby-beginning-of-block)
-  (move-beginning-of-line 1)
-  (push-mark nil t t)
-  (ruby-end-of-block)
-  (move-beginning-of-line 1)
-  (forward-line 1))
+(defun ruby-mark-sexp (arg)
+  (interactive "^p")
+  (if (use-region-p)
+      (progn (exchange-point-and-mark))
+    (set-mark-command nil))
+  (if (> arg 0)
+      (dotimes (_ arg) (enh-ruby-forward-sexp))
+    (enh-ruby-backward-sexp))
+  (exchange-point-and-mark))
 
 (defun ruby-duplicate-sexp-below (arg)
   "Duplicate Ruby sexp and place point at the start of duplicated sexp.
