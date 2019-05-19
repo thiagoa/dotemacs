@@ -28,15 +28,21 @@
 
 ;;; Code:
 
+(setq mac-command-modifier 'hyper)
+
 (defun toggle-option-key (&optional key)
   "Toggle meta between meta and option.
 
 If specifying KEY, set the \"ns-option-modifier\" accordingly."
   (interactive)
-  (or key (setq key (if (eq ns-option-modifier 'meta) 'none 'meta)))
+  (or key (setq key (if (eq mac-option-modifier 'meta) 'none 'meta)))
   (if (eq key 'none)
-      (progn (setq ns-option-modifier 'none) (message "Changed to macOS option"))
-    (progn (setq ns-option-modifier 'meta) (message "Changed to Emacs meta"))))
+      (progn (setq mac-option-modifier nil)
+             (setq mac-command-modifier 'meta)
+             (message "Changed to macOS option"))
+    (progn (setq mac-option-modifier 'meta)
+           (setq mac-command-modifier 'hyper)
+           (message "Changed to Emacs meta"))))
 
 (defun shell-command-output (command)
   "Run shell COMMAND and return output."

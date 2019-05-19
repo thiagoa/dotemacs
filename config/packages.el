@@ -23,6 +23,7 @@
         avy
         beginend
         nord-theme
+        poet-theme
         github-browse-file
         goto-last-change
         swiper
