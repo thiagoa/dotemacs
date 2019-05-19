@@ -68,7 +68,6 @@
 (global-set-key (kbd "C-c v i")        'string-insert-rectangle)
 (global-set-key (kbd "C-c v k")        'kill-rectangle)
 (global-set-key (kbd "C-S-SPC")        'rectangle-mark-mode)
-(global-set-key (kbd "C-c u d")        'ruby-duplicate-block-below)
 (global-set-key (kbd "C-c D")          'delete-file-and-buffer)
 (global-set-key (kbd "C-c R")          'crux-rename-buffer-and-file)
 (global-set-key (kbd "C-'")            'change-inner)
