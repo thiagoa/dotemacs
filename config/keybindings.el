@@ -209,18 +209,19 @@
 
 (global-set-key (kbd "C-c , p") 'rspec-toggle-compilation-mode)
 
-(add-hook 'ruby-mode-hook
-          (lambda ()
-            (define-key inf-ruby-minor-mode-map (kbd "C-c C-l") 'mark-current-line)
-            (define-key inf-ruby-minor-mode-map (kbd "C-M-g") 'ruby-mark-block)
-            (define-key inf-ruby-minor-mode-map (kbd "C-x l") 'ruby-load-file)))
+(mapc (lambda (mode)
+        (with-eval-after-load mode
+          (mapc (lambda (map)
+                  (define-key map (kbd "C-c u d") 'ruby-duplicate-sexp-below))
+                (list ruby-mode-map enh-ruby-mode-map))))
+      '("ruby-mode" "enh-ruby-mode"))
 
-(mapc (lambda (map)
-        (define-key map (kbd "C-c , r") 'tests-anywhere-rerun)
-        (define-key map (kbd "C-c , a") 'tests-anywhere-verify-all)
-        (define-key map (kbd "C-c , s") 'tests-anywhere-verify-single))
-      (list rspec-mode-map rspec-verifiable-mode-map))
-
+(with-eval-after-load "rspec-mode"
+  (mapc (lambda (map)
+          (define-key map (kbd "C-c , r") 'tests-anywhere-rerun)
+          (define-key map (kbd "C-c , a") 'tests-anywhere-verify-all)
+          (define-key map (kbd "C-c , s") 'tests-anywhere-verify-single))
+        (list rspec-mode-map rspec-verifiable-mode-map)))
 ;;;;;;;;;;;;;;
 ;; God mode ;;
 ;;;;;;;;;;;;;;

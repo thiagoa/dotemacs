@@ -48,21 +48,23 @@
   (move-beginning-of-line 1)
   (forward-line 1))
 
-(defun ruby-duplicate-block-below ()
-  "Duplicates nearest Ruby block below.  I bet this can be improved."
-  (interactive)
-  (ruby-mark-block)
+(defun ruby-duplicate-sexp-below (arg)
+  "Duplicate Ruby sexp and place point at the start of duplicated sexp.
+Point must be at the end of the Ruby sexp for this to work.
+If given universal ARG, does not open a newline between sexps."
+  (interactive "^p")
+  (set-mark-command nil)
+  (enh-ruby-backward-sexp)
+  (beginning-of-line)
+  (exchange-point-and-mark)
+  (forward-line 1)
   (kill-ring-save (region-beginning) (region-end))
-  (move-beginning-of-line 1)
   (yank)
   (deactivate-mark)
-  (forward-line -1)
-  (ruby-beginning-of-block)
+  (enh-ruby-backward-sexp)
   (back-to-indentation)
-  (crux-smart-open-line-above)
-  (forward-line 1))
+  (if (eq arg 1) (newline-and-indent)))
 
-;; Author: Thiago Araújo Silva
 (defun within-last-ruby-project (&rest args)
   "A function decorator to register the last ruby project.
 
