@@ -24,6 +24,7 @@
         beginend
         nord-theme
         poet-theme
+        enh-ruby-mode
         github-browse-file
         goto-last-change
         swiper
