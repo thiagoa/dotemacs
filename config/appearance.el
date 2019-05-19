@@ -22,6 +22,12 @@
 (show-full-filename-in-window-title)
 (force-split-window-sensibly-to-horizontal-when-big-font)
 
+(setq ns-use-thin-smoothing t
+      ns-use-mwheel-momentum t
+      ns-use-mwheel-acceleration t
+      ;; MacPorts emacs-app port bug
+      x-colors (ns-list-colors))
+
 (setq linum-format "%d ")
 (setq uniquify-buffer-name-style 'post-forward)
 (setq uniquify-separator " : ")
