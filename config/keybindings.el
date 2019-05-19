@@ -132,6 +132,7 @@
 (global-set-key (kbd "M-g M-s")        'next-spec)
 (global-set-key (kbd "M-g M-S")        'previous-spec)
 (global-set-key (kbd "C-x %")          'my-server-edit)
+(global-set-key (kbd "<M-SPC>")        'mark-word)
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Fast movement ;;
