@@ -44,12 +44,5 @@ If specifying KEY, set the \"ns-option-modifier\" accordingly."
            (setq mac-command-modifier 'hyper)
            (message "Changed to Emacs meta"))))
 
-(defun shell-command-output (command)
-  "Run shell COMMAND and return output."
-  (replace-regexp-in-string
-   "\n$"
-   ""
-   (shell-command-to-string command)))
-
 (provide 'general)
 ;;; general.el ends here

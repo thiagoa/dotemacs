@@ -43,6 +43,13 @@
                                "LESSOPEN" "_")
   "A list of env vars to not copy to Emacs.")
 
+(defun shell-command-output (command)
+  "Run shell COMMAND and return output."
+  (replace-regexp-in-string
+   "\n$"
+   ""
+   (shell-command-to-string command)))
+
 (defun copy-env-vars-from-shell ()
   "Copy env vars from default shell."
   (mapc (lambda (assignment)
