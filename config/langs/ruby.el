@@ -20,7 +20,7 @@
                          (safe-linum-mode)
                          (smartscan-mode)
                          (rubocop-mode))))
-      '(ruby-mode enh-ruby-mode))
+      '(ruby-mode enh-ruby-mode-hook))
 (add-hook 'rspec-after-verification-hook 'finish-test-compilation)
 (add-hook 'web-mode-hook 'projectile-rails-on)
 (add-hook 'inf-ruby-mode-hook (lambda () (turn-on-comint-history ".pry_history")))
