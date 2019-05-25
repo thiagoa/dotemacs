@@ -164,19 +164,17 @@ build the tag candidates.  We assume your tags file is parsed
 with ripper tags, including the --emacs and --extra=q tags."
   (interactive)
   (let* ((tag (ruby-symbol-at-point))
-         (top-level-p (string-prefix-p "::" tag))
+         (top-level-constant-p (string-prefix-p "::" tag))
          (tag (replace-regexp-in-string "^::" "" tag))
-         (candidates (if top-level-p () (ruby-tag-prefix-candidates)))
+         (candidates (if top-level-constant-p () (ruby-tag-prefix-candidates)))
          (candidates (mapcar (lambda (c) (concat c "::" tag)) candidates))
-         (candidates (append candidates (list tag))))
-    (catch 'found
-      (mapc
-       (lambda (c)
-         (ignore-errors
-           (let ((val (xref-find-definitions c)))
-             (throw 'found nil))))
-       candidates)))
-  (error "No definitions found!"))
+         (candidates (append candidates (list tag)))
+         (done nil))
+    (while (and (not done) candidates)
+      (ignore-errors
+        (xref-find-definitions (pop candidates))
+        (setq done t)))
+    (if (not done) (error (concat "No definitions for " tag " found!")))))
 
 (defun ruby-tag-prefix-candidates ()
   "Find Ruby modules until nesting level at point.

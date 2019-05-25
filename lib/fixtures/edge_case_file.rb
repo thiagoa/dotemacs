@@ -14,3 +14,9 @@ module Foo
     :where_the_error_could_happen
   end
 end
+
+module Bar
+  class << self
+    :singleton_class
+  end
+end
