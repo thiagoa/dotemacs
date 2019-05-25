@@ -116,6 +116,12 @@
    "where_the_error_could_happen"
    (should (equal (ruby-tag-prefix-candidates) '("Foo::Bar" "Foo")))))
 
+(ert-deftest ruby-tag-prefix-candidates-ignore-singleton-class ()
+  (test-with-file-contents
+   "edge_case_file.rb"
+   "singleton_class"
+   (should (equal (ruby-tag-prefix-candidates) '("Bar")))))
+
 (ert-deftest ruby-symbol-at-point-constant ()
   (test-with-buffer-contents
    "module Bat\n  Foobar::Baz.something\nend"
