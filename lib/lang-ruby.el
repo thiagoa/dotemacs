@@ -37,6 +37,7 @@
 (require 'ext-compile)
 
 (defvar last-ruby-project nil)
+(defconst ruby-module-regex "\\(class\\|module\\) \\([^\s]+\\)")
 
 (defun ruby-mark-sexp (arg)
   (interactive "^p")
@@ -154,7 +155,26 @@ negative means move back to previous error messages."
   (let ((tag (substring-no-properties (thing-at-point 'symbol))))
     (replace-regexp-in-string "^:+" "" tag)))
 
-(defconst ruby-module-regex "\\(class\\|module\\) \\([^\s]+\\)")
+(defun ruby-find-definitions ()
+  "Find definitions for the Ruby tag a point.
+This function calls `xref-find-definitions` with a series
+of likely tag candidates.  It reads the current buffer and
+tries to figure out at what level of nesting you are to
+build the tag candidates.  We assume your tags file is parsed
+with ripper tags, including the --emacs and --extra=q tags."
+  (interactive)
+  (let* ((tag (ruby-symbol-at-point))
+         (candidates (ruby-tag-prefix-candidates))
+         (candidates (mapcar (lambda (c) (concat c "::" tag)) candidates))
+         (candidates (append candidates (list tag))))
+    (catch 'found
+      (mapc
+       (lambda (c)
+         (ignore-errors
+           (let ((val (xref-find-definitions c)))
+             (throw 'found nil))))
+       candidates)))
+  (error "No definitions found!"))
 
 (defun ruby-tag-prefix-candidates ()
   "Find Ruby modules until nesting level at point.
