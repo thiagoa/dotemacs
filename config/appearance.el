@@ -16,7 +16,7 @@
 (ignore-errors (tooltip-mode -1))
 (ignore-errors (tool-bar-mode -1))
 
-(load-theme 'nord t)
+(load-theme 'zenburn t)
 (disable-annoyances)
 (disable-startup-screen)
 (show-full-filename-in-window-title)
