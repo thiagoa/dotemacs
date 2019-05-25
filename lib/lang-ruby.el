@@ -153,7 +153,7 @@ negative means move back to previous error messages."
 (defun ruby-symbol-at-point ()
   "Figure out the Ruby symbol at point."
   (let ((tag (substring-no-properties (thing-at-point 'symbol))))
-    (replace-regexp-in-string "^:[^:]" "" tag)))
+    (replace-regexp-in-string "^:\\([^:]+\\)" "\\1" tag)))
 
 (defun ruby-find-definitions ()
   "Find definitions for the Ruby tag a point.
@@ -164,7 +164,9 @@ build the tag candidates.  We assume your tags file is parsed
 with ripper tags, including the --emacs and --extra=q tags."
   (interactive)
   (let* ((tag (ruby-symbol-at-point))
-         (candidates (ruby-tag-prefix-candidates))
+         (top-level-p (string-prefix-p "::" tag))
+         (tag (replace-regexp-in-string "^::" "" tag))
+         (candidates (if top-level-p () (ruby-tag-prefix-candidates)))
          (candidates (mapcar (lambda (c) (concat c "::" tag)) candidates))
          (candidates (append candidates (list tag))))
     (catch 'found
