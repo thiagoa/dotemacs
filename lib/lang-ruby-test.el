@@ -128,7 +128,7 @@
    "module Bat\n  ::Top::Level.bar\nend"
    "Top"
    (enh-ruby-mode)
-   (should (equal "Top::Level" (ruby-symbol-at-point)))))
+   (should (equal "::Top::Level" (ruby-symbol-at-point)))))
 
 (provide 'lang-ruby-test)
 ;;; lang-ruby-test.el ends here

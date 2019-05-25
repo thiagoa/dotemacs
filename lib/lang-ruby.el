@@ -153,7 +153,7 @@ negative means move back to previous error messages."
 (defun ruby-symbol-at-point ()
   "Figure out the Ruby symbol at point."
   (let ((tag (substring-no-properties (thing-at-point 'symbol))))
-    (replace-regexp-in-string "^:+" "" tag)))
+    (replace-regexp-in-string "^:[^:]" "" tag)))
 
 (defun ruby-find-definitions ()
   "Find definitions for the Ruby tag a point.
