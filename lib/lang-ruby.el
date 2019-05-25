@@ -149,5 +149,56 @@ negative means move back to previous error messages."
   (interactive "P")
   (go-to-spec 'compilation-previous-file arg))
 
+(defun ruby-symbol-at-point ()
+  "Figure out the Ruby symbol at point."
+  (let ((tag (substring-no-properties (thing-at-point 'symbol))))
+    (replace-regexp-in-string "^:+" "" tag)))
+
+(defconst ruby-module-regex "\\(class\\|module\\) \\([^\s]+\\)")
+
+(defun ruby-tag-prefix-candidates ()
+  "Find Ruby modules until nesting level at point.
+This is a simple regex-based function to return a list
+of Ruby modules.  If you're under modules 'One' and 'Two',
+this function will return '(list \"One::Two\" \"One\")."
+  (save-excursion
+    (let ((line (line-number-at-pos))
+          (indent-level (if (eq major-mode 'enh-ruby-mode)
+                            enh-ruby-indent-level
+                          ruby-indent-level))
+          (last-indent 0)
+          symbol
+          modules
+          nesting)
+      (goto-char (point-min))
+      (cl-flet ((filter-by-indent (modules current-indent)
+                                  (seq-remove
+                                   (lambda (tuple)
+                                     (let ((module-indent (car tuple)))
+                                       (>= module-indent current-indent)))
+                                   modules)))
+        (while (not (eq (line-number-at-pos) line))
+          (let ((found-module (re-search-forward ruby-module-regex
+                                                 (line-end-position)
+                                                 t)))
+            (when found-module
+              (let* ((current-indent (current-indentation))
+                     (symbol (ruby-symbol-at-point))
+                     (offset (abs (- last-indent current-indent)))
+                     found-module)
+                (if (<= current-indent last-indent)
+                    (dotimes (_ (/ (+ indent-level offset) indent-level))
+                      (pop nesting)))
+                (setq found-module (append (reverse nesting) (list symbol)))
+                (setq modules (filter-by-indent modules current-indent))
+                (push (cons current-indent found-module) modules)
+                (push symbol nesting)
+                (setq last-indent current-indent))))
+          (forward-line 1))
+        (setq modules (filter-by-indent modules (current-indentation))))
+      (mapcar (lambda (tuple)
+                (let ((module-name (cdr tuple)))
+                  (string-join module-name "::"))) modules))))
+
 (provide 'lang-ruby)
 ;;; lang-ruby.el ends here
