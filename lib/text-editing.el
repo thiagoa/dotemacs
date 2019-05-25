@@ -100,7 +100,6 @@ region."
 
 (defun mark-current-line (arg)
   "Mark the current line.
-
 Take ARG universal argument to mark N lines."
   (interactive "p")
   (move-beginning-of-line 1)
@@ -108,7 +107,8 @@ Take ARG universal argument to mark N lines."
    (save-excursion
      (dotimes (_ arg) (forward-line))
      (move-beginning-of-line 1)
-     (point))))
+     (point)))
+  (exchange-point-and-mark))
 
 (defun comment-or-uncomment-line-or-region ()
   "Comment or uncomments the current line or region."
