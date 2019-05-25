@@ -89,7 +89,9 @@
 (global-set-key (kbd "C-c F")          'find-file-at-point-dwim)
 (global-set-key (kbd "C-S-c C-S-c")    'mc/edit-lines)
 (global-set-key (kbd "C->")            'mc/mark-next-like-this)
+(global-set-key (kbd "C-c >")          'mc/skip-to-next-like-this)
 (global-set-key (kbd "C-<")            'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c <")          'mc/skip-to-previous-like-this)
 (global-set-key (kbd "C-:")            'mc/mark-next-like-this-word)
 (global-set-key (kbd "C-c C-<")        'mc/mark-all-like-this)
 (global-set-key (kbd "H-SPC")          'mc/mark-pop)
@@ -135,6 +137,7 @@
 (global-set-key (kbd "M-g M-S")        'previous-spec)
 (global-set-key (kbd "C-x %")          'my-server-edit)
 (global-set-key (kbd "<M-SPC>")        'mark-word)
+(global-set-key (kbd "C-c z")          'zap-to-char)
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Fast movement ;;
@@ -240,6 +243,7 @@
 (define-key god-local-mode-map (kbd "V") 'scroll-down-command)
 (define-key god-local-mode-map (kbd "J") 'top-join-line)
 (define-key god-local-mode-map (kbd "z") 'zap-up-to-char)
+(define-key god-local-mode-map (kbd "C-c Z") (with-god-insert 'zap-to-char))
 (define-key god-local-mode-map (kbd "m") 'back-to-indentation)
 (define-key god-local-mode-map (kbd ".") 'repeat)
 (define-key god-local-mode-map (kbd "RET") 'crux-smart-open-line)
