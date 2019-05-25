@@ -24,6 +24,7 @@
 (defvar scroll-viewport-down     (kbd "C-u 3 M-v"))
 (defvar kill-whole-line-backward (kbd "C-e <C-backspace>"))
 (defvar duplicate-sexp-below     [?\C-\M-b ?\C-\M-  ?\M-w ?\C-\M-f return ?\C-y ?\C-\M-b])
+(defvar duplicate-sexp-below     [?\C-\M-b ?\C-\M-  ?\M-w ?\C-\M-f ?\C-j ?\C-y ?\C-\M-b])
 
 (windmove-default-keybindings) ; Shift + arrow keys to move between windows
 
