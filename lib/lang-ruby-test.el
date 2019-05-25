@@ -51,6 +51,7 @@
   `(with-temp-buffer
      (insert ,contents)
      (goto-char (point-min))
+     (enh-ruby-mode)
      (search-forward ,term-to-seek)
      ,@body))
 
@@ -109,25 +110,28 @@
    "inside_module"
    (should (equal (ruby-tag-prefix-candidates) '("One")))))
 
+(ert-deftest ruby-tag-prefix-candidates-random-code-mistaken-as-module ()
+  (test-with-file-contents
+   "edge_case_file.rb"
+   "where_the_error_could_happen"
+   (should (equal (ruby-tag-prefix-candidates) '("Foo::Bar" "Foo")))))
+
 (ert-deftest ruby-symbol-at-point-constant ()
   (test-with-buffer-contents
    "module Bat\n  Foobar::Baz.something\nend"
    "Foo"
-   (enh-ruby-mode)
    (should (equal "Foobar::Baz" (ruby-symbol-at-point)))))
 
 (ert-deftest ruby-symbol-at-point-symbol ()
   (test-with-buffer-contents
    "module Bat\n  foo(:symbol)\nend"
    "symb"
-   (enh-ruby-mode)
    (should (equal "symbol" (ruby-symbol-at-point)))))
 
 (ert-deftest ruby-symbol-at-point-top-level-constant ()
   (test-with-buffer-contents
    "module Bat\n  ::Top::Level.bar\nend"
    "Top"
-   (enh-ruby-mode)
    (should (equal "::Top::Level" (ruby-symbol-at-point)))))
 
 (provide 'lang-ruby-test)

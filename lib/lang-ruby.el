@@ -37,7 +37,7 @@
 (require 'ext-compile)
 
 (defvar last-ruby-project nil)
-(defconst ruby-module-regex "\\(class\\|module\\) \\([^\s]+\\)")
+(defconst ruby-module-regex "^[\s]*\\(class\\|module\\) \\([^\s]+\\)")
 
 (defun ruby-mark-sexp (arg)
   (interactive "^p")
