@@ -220,5 +220,34 @@ this function will return '(list \"One::Two\" \"One\")."
                 (let ((module-name (cdr tuple)))
                   (string-join module-name "::"))) modules))))
 
+(defun tags ()
+  "Reload tags."
+  (interactive)
+  (let* ((root (projectile-project-root))
+         (gitroot (concat root ".git"))
+         (gitdir (if (f-file? gitroot)
+                     (concat root (with-temp-buffer
+                                    (insert-file-contents gitroot)
+                                    (buffer-string)))
+                   gitroot))
+         (ctags-bin (concat
+                     (string-trim (replace-regexp-in-string
+                                   "^gitdir: "
+                                   ""
+                                   gitdir))
+                     "/hooks/ctags")))
+    (if (f-file? ctags-bin)
+        (progn
+          (set-process-sentinel
+           (start-process "tags-compilation"
+                          "*Tags Compilation*"
+                          (concat ctags-bin))
+           (lambda (process msg)
+             (when (memq (process-status process) '(exit signal))
+               (if (eq (process-exit-status process) 0)
+                   (notify-os "Tags generated successfully 👍" "Hero")
+                 (notify-os "Tags generation FAILED! 👎" "Basso"))))))
+      (error "No ctags found for this project"))))
+
 (provide 'lang-ruby)
 ;;; lang-ruby.el ends here
