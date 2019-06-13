@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: describe
+# name: context
 # key: cont
 # --
 context '$1' do
