@@ -62,6 +62,8 @@ If given universal ARG, does not open a newline between sexps."
   (kill-ring-save (region-beginning) (region-end))
   (yank)
   (deactivate-mark)
+  (forward-line -1)
+  (end-of-line)
   (enh-ruby-backward-sexp)
   (back-to-indentation)
   (if (eq arg 1) (newline-and-indent)))
