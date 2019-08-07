@@ -122,7 +122,10 @@ compilation mode in it immediately."
 (defun go-to-rspec-compilation-buffer ()
   "Go straight to rspec compilation buffer."
   (interactive)
-  (switch-to-buffer (get-buffer "*rspec-compilation*")))
+  (let ((buffer (get-buffer "*rspec-compilation*")))
+    (if buffer
+        (switch-to-buffer buffer)
+      (error "No rspec compilation buffer!"))))
 
 (defun go-to-spec (func arg)
   "Go to spec file in compilation buffer.
