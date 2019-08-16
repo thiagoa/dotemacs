@@ -245,9 +245,11 @@ this function will return '(list \"One::Two\" \"One\")."
         (progn
           (setq proc-name (concat project-name "-tags-compilation"))
           (setq main-buffer (get-buffer-create
-                             (concat "*" project-name " -tags-compilation*")))
+                             (concat "*" project-name "-tags-compilation*")))
           (setq error-buffer (get-buffer-create
                               (concat "*" project-name  "-tags-compilation-error-log*")))
+          (with-current-buffer main-buffer (erase-buffer))
+          (with-current-buffer error-buffer (erase-buffer))
           (make-process :name proc-name
                         :buffer main-buffer
                         :command (list ctags-bin project-dir)
