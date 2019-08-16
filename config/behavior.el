@@ -73,6 +73,7 @@
 (setq projectile-enable-caching t)
 (setq save-interprogram-paste-before-kill t)
 (setq tags-add-tables nil)
+(setq tags-revert-without-query 1)
 (setq magit-no-confirm '(unstage-all-changes))
 (setq magit-status-margin
       '(nil "%Y-%m-%d %H:%M " magit-log-margin-width t 18))
