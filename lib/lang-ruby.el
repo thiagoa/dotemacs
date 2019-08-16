@@ -225,33 +225,39 @@ this function will return '(list \"One::Two\" \"One\")."
                 (let ((module-name (cdr tuple)))
                   (string-join module-name "::"))) modules))))
 
-(defun tags ()
-  "Reload tags."
-  (interactive)
-  (let* ((root (projectile-project-root))
-         (gitroot (concat root ".git"))
+(defun tags (project-dir project-name)
+  "Reload tags.  Optionally takes PROJECT-DIR and PROJECT-NAME."
+  (interactive (list (projectile-project-root)
+                     (projectile-project-name)))
+  (setq project-dir (concat (string-remove-suffix "/" project-dir) "/"))
+  (let* ((gitroot (concat project-dir ".git"))
          (gitdir (if (f-file? gitroot)
-                     (concat root (with-temp-buffer
-                                    (insert-file-contents gitroot)
-                                    (buffer-string)))
+                     (concat project-dir
+                             (replace-regexp-in-string
+                              "^gitdir: "
+                              ""
+                              (string-trim (with-temp-buffer
+                                             (insert-file-contents gitroot)
+                                             (buffer-string)))))
                    gitroot))
-         (ctags-bin (concat
-                     (string-trim (replace-regexp-in-string
-                                   "^gitdir: "
-                                   ""
-                                   gitdir))
-                     "/hooks/ctags")))
+         (ctags-bin (concat gitdir "/hooks/ctags")))
     (if (f-file? ctags-bin)
         (progn
-          (set-process-sentinel
-           (start-process "tags-compilation"
-                          "*Tags Compilation*"
-                          (concat ctags-bin))
-           (lambda (process msg)
-             (when (memq (process-status process) '(exit signal))
-               (if (eq (process-exit-status process) 0)
-                   (notify-os "Tags generated successfully 👍" "Hero")
-                 (notify-os "Tags generation FAILED! 👎" "Basso"))))))
+          (setq proc-name (concat project-name "-tags-compilation"))
+          (setq main-buffer (get-buffer-create
+                             (concat "*" project-name " -tags-compilation*")))
+          (setq error-buffer (get-buffer-create
+                              (concat "*" project-name  "-tags-compilation-error-log*")))
+          (make-process :name proc-name
+                        :buffer main-buffer
+                        :command (list ctags-bin project-dir)
+                        :sentinel (lambda (process msg)
+                                    (when (memq (process-status process) '(exit signal))
+                                      (if (eq (process-exit-status process) 0)
+                                          (notify-os "Tags generated successfully 👍" "Hero")
+                                        (notify-os "Is this a Ruby project? Tags generation FAILED! 👎"
+                                                   "Basso"))))
+                        :stderr error-buffer))
       (error "No ctags found for this project"))))
 
 (provide 'lang-ruby)
