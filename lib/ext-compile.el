@@ -73,7 +73,7 @@ means move back to previous error messages."
           (recenter next-error-recenter))
         (run-hooks 'next-error-hook)))))
 
-(defun next-file (&optional arg)
+(defun go-to-next-file (&optional arg)
   "Go to next file in compilation buffer.
 
 A prefix ARG specifies how many error messages to move;
@@ -82,7 +82,7 @@ negative means move back to previous error messages."
   (go-to-file 'compilation-next-file arg))
 
 
-(defun previous-file (&optional arg)
+(defun go-to-previous-file (&optional arg)
   "Go to previous file in compilation buffer.
 
 A prefix ARG specifies how many error messages to move;
