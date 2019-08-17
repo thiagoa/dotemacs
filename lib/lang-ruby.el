@@ -37,7 +37,6 @@
 (require 'ext-compile)
 
 (defvar last-ruby-project nil)
-(defconst ruby-module-regex "^[\s]*\\(class\\|module\\) \\([^\s<]+\\)")
 
 (defun ruby-mark-sexp (arg)
   (interactive "^p")
@@ -154,113 +153,6 @@ A prefix ARG specifies how many error messages to move;
 negative means move back to previous error messages."
   (interactive "P")
   (go-to-spec 'compilation-previous-file arg))
-
-(defun ruby-symbol-at-point ()
-  "Figure out the Ruby symbol at point."
-  (let ((tag (substring-no-properties (thing-at-point 'symbol))))
-    (replace-regexp-in-string "^:\\([^:]+\\)" "\\1" tag)))
-
-(defun ruby-find-definitions ()
-  "Find definitions for the Ruby tag a point.
-This function calls `xref-find-definitions` with a series
-of likely tag candidates.  It reads the current buffer and
-tries to figure out at what level of nesting you are to
-build the tag candidates.  We assume your tags file is parsed
-with ripper tags, including the --emacs and --extra=q tags."
-  (interactive)
-  (let* ((tag (ruby-symbol-at-point))
-         (top-level-constant-p (string-prefix-p "::" tag))
-         (tag (replace-regexp-in-string "^::" "" tag))
-         (candidates (if top-level-constant-p () (ruby-tag-prefix-candidates)))
-         (candidates (mapcar (lambda (c) (concat c "::" tag)) candidates))
-         (candidates (append candidates (list tag)))
-         (done nil))
-    (while (and (not done) candidates)
-      (ignore-errors
-        (xref-find-definitions (pop candidates))
-        (setq done t)))
-    (if (not done) (error (concat "No definitions for " tag " found!")))))
-
-(defun ruby-tag-prefix-candidates ()
-  "Find Ruby modules until nesting level at point.
-This is a simple regex-based function to return a list
-of Ruby modules.  If you're under modules 'One' and 'Two',
-this function will return '(list \"One::Two\" \"One\")."
-  (save-excursion
-    (let ((line (line-number-at-pos))
-          (indent-level (if (eq major-mode 'enh-ruby-mode)
-                            enh-ruby-indent-level
-                          ruby-indent-level))
-          (last-indent 0)
-          symbol
-          modules
-          nesting)
-      (goto-char (point-min))
-      (cl-flet ((filter-by-indent (modules current-indent)
-                                  (seq-remove
-                                   (lambda (tuple)
-                                     (let ((module-indent (car tuple)))
-                                       (>= module-indent current-indent)))
-                                   modules)))
-        (while (not (eq (line-number-at-pos) line))
-          (let ((found-module (re-search-forward ruby-module-regex
-                                                 (line-end-position)
-                                                 t)))
-            (when found-module
-              (let* ((current-indent (current-indentation))
-                     (symbol (ruby-symbol-at-point))
-                     (offset (abs (- last-indent current-indent)))
-                     found-module)
-                (if (<= current-indent last-indent)
-                    (dotimes (_ (/ (+ indent-level offset) indent-level))
-                      (pop nesting)))
-                (setq found-module (append (reverse nesting) (list symbol)))
-                (setq modules (filter-by-indent modules current-indent))
-                (push (cons current-indent found-module) modules)
-                (push symbol nesting)
-                (setq last-indent current-indent))))
-          (forward-line 1))
-        (setq modules (filter-by-indent modules (current-indentation))))
-      (mapcar (lambda (tuple)
-                (let ((module-name (cdr tuple)))
-                  (string-join module-name "::"))) modules))))
-
-(defun tags (project-dir project-name)
-  "Reload tags.  Optionally takes PROJECT-DIR and PROJECT-NAME."
-  (interactive (list (projectile-project-root)
-                     (projectile-project-name)))
-  (setq project-dir (concat (string-remove-suffix "/" project-dir) "/"))
-  (let* ((gitroot (concat project-dir ".git"))
-         (gitdir (if (f-file? gitroot)
-                     (concat project-dir
-                             (replace-regexp-in-string
-                              "^gitdir: "
-                              ""
-                              (string-trim (with-temp-buffer
-                                             (insert-file-contents gitroot)
-                                             (buffer-string)))))
-                   gitroot))
-         (ctags-bin (concat gitdir "/hooks/ctags")))
-    (if (f-file? ctags-bin)
-        (progn
-          (setq proc-name (concat project-name "-tags-compilation"))
-          (setq main-buffer (get-buffer-create
-                             (concat "*" project-name "-tags-compilation*")))
-          (setq error-buffer (get-buffer-create
-                              (concat "*" project-name  "-tags-compilation-error-log*")))
-          (with-current-buffer main-buffer (erase-buffer))
-          (with-current-buffer error-buffer (erase-buffer))
-          (make-process :name proc-name
-                        :buffer main-buffer
-                        :command (list ctags-bin project-dir)
-                        :sentinel (lambda (process msg)
-                                    (when (memq (process-status process) '(exit signal))
-                                      (if (eq (process-exit-status process) 0)
-                                          (notify-os "Tags generated successfully 👍" "Hero")
-                                        (notify-os "Is this a Ruby project? Tags generation FAILED! 👎"
-                                                   "Basso"))))
-                        :stderr error-buffer))
-      (error "No ctags found for this project"))))
 
 (provide 'lang-ruby)
 ;;; lang-ruby.el ends here

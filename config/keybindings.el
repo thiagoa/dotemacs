@@ -220,7 +220,7 @@
           (mapc (lambda (map)
                   (define-key map (kbd "C-M-SPC") 'ruby-mark-sexp)
                   (define-key map (kbd "C-c u d") 'ruby-duplicate-sexp-below)
-                  (define-key map (kbd "M-.") 'ruby-find-definitions))
+                  (define-key map (kbd "M-.") 'rbtagger-find-definitions))
                 (list ruby-mode-map enh-ruby-mode-map))))
       '("ruby-mode" "enh-ruby-mode"))
 

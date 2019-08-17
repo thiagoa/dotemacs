@@ -33,6 +33,13 @@
 
 (add-hook 'after-init-hook 'inf-ruby-switch-setup)
 
+(add-hook
+ 'rbtagger-after-generate-tag-hook
+ (lambda (success project-name)
+   (if success
+       (notify-os (concat project-name " tags generated successfully 👍") "Hero")
+     (notify-os "Is this a Ruby project? Tags generation FAILED! 👎" "Basso"))))
+
 (setq enh-ruby-hanging-brace-deep-indent-level 1)
 (setq ruby-align-chained-calls t)
 (setq projectile-rails-expand-snippet nil)

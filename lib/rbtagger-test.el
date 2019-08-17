@@ -55,72 +55,72 @@
      (search-forward ,term-to-seek)
      ,@body))
 
-(ert-deftest ruby-tag-prefix-candidates-zero-level-nesting ()
+(ert-deftest rbtagger-find-candidates-zero-level-nesting ()
   (test-with-file-contents
    "general_example.rb"
    "zero_level_nesting"
-   (should (equal () (ruby-tag-prefix-candidates)))))
+   (should (equal () (rbtagger-find-candidates)))))
 
-(ert-deftest ruby-tag-prefix-candidates-one-level-nesting ()
+(ert-deftest rbtagger-find-candidates-one-level-nesting ()
   (test-with-file-contents
    "general_example.rb"
    "one_level_nesting"
-   (should (equal '("One") (ruby-tag-prefix-candidates)))))
+   (should (equal '("One") (rbtagger-find-candidates)))))
 
-(ert-deftest ruby-tag-prefix-candidates-first-two-level-nesting ()
+(ert-deftest rbtagger-find-candidates-first-two-level-nesting ()
   (test-with-file-contents
    "general_example.rb"
    "first_two_level_nesting"
-   (should (equal '("One::Two" "One") (ruby-tag-prefix-candidates)))))
+   (should (equal '("One::Two" "One") (rbtagger-find-candidates)))))
 
-(ert-deftest ruby-tag-prefix-candidates-second-two-level-nesting ()
+(ert-deftest rbtagger-find-candidates-second-two-level-nesting ()
   (test-with-file-contents
    "general_example.rb"
    "second_two_level_nesting"
-   (should (equal '("One::Three" "One") (ruby-tag-prefix-candidates)))))
+   (should (equal '("One::Three" "One") (rbtagger-find-candidates)))))
 
-(ert-deftest ruby-tag-prefix-candidates-three-level-nesting ()
+(ert-deftest rbtagger-find-candidates-three-level-nesting ()
   (test-with-file-contents
    "general_example.rb"
    "three_level_nesting"
    (should (equal '("One::Three::Four" "One::Three" "One")
-                  (ruby-tag-prefix-candidates)))))
+                  (rbtagger-find-candidates)))))
 
-(ert-deftest ruby-tag-prefix-candidates-second-one-level-nesting ()
+(ert-deftest rbtagger-find-candidates-second-one-level-nesting ()
   (test-with-file-contents
    "general_example.rb"
    "second_one_level_nesting"
-   (should (equal '("Five") (ruby-tag-prefix-candidates)))))
+   (should (equal '("Five") (rbtagger-find-candidates)))))
 
-(ert-deftest ruby-tag-prefix-candidates-third-two-level-nesting ()
+(ert-deftest rbtagger-find-candidates-third-two-level-nesting ()
   (test-with-file-contents
    "general_example.rb"
    "third_two_level_nesting"
-   (should (equal '("Five::Six" "Five") (ruby-tag-prefix-candidates)))))
+   (should (equal '("Five::Six" "Five") (rbtagger-find-candidates)))))
 
-(ert-deftest ruby-tag-prefix-candidates-module-at-first-of-line ()
+(ert-deftest rbtagger-find-candidates-module-at-first-of-line ()
   (test-with-file-contents
    "module_at_first_line.rb"
    "module One"
-   (should (equal '() (ruby-tag-prefix-candidates)))))
+   (should (equal '() (rbtagger-find-candidates)))))
 
-(ert-deftest ruby-tag-prefix-candidates-module-at-first-of-line-one-level-nesting ()
+(ert-deftest rbtagger-find-candidates-module-at-first-of-line-one-level-nesting ()
   (test-with-file-contents
    "module_at_first_line.rb"
    "inside_module"
-   (should (equal (ruby-tag-prefix-candidates) '("One")))))
+   (should (equal (rbtagger-find-candidates) '("One")))))
 
-(ert-deftest ruby-tag-prefix-candidates-random-code-mistaken-as-module ()
+(ert-deftest rbtagger-find-candidates-random-code-mistaken-as-module ()
   (test-with-file-contents
    "edge_case_file.rb"
    "where_the_error_could_happen"
-   (should (equal (ruby-tag-prefix-candidates) '("Foo::Bar" "Foo")))))
+   (should (equal (rbtagger-find-candidates) '("Foo::Bar" "Foo")))))
 
-(ert-deftest ruby-tag-prefix-candidates-ignore-singleton-class ()
+(ert-deftest rbtagger-find-candidates-ignore-singleton-class ()
   (test-with-file-contents
    "edge_case_file.rb"
    "singleton_class"
-   (should (equal (ruby-tag-prefix-candidates) '("Bar")))))
+   (should (equal (rbtagger-find-candidates) '("Bar")))))
 
 (ert-deftest ruby-symbol-at-point-constant ()
   (test-with-buffer-contents
