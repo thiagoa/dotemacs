@@ -99,6 +99,9 @@
 (setq dired-dwim-target t)
 (setq dired-recursive-copies (quote always))
 (setq dired-recursive-deletes (quote top))
+(add-hook 'dired-mode-hook
+          (lambda ()
+            (dired-hide-details-mode)))
 (setq comint-move-point-for-output nil)
 (setq comint-scroll-to-bottom-on-input t)
 (setq comint-scroll-to-bottom-on-output nil)
