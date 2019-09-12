@@ -16,14 +16,18 @@
       '(discover
         undo-tree
         ibuffer-vc
+        f
         crux
         string-inflection
         aggressive-indent
         ag
+        wgrep
         avy
         beginend
         nord-theme
         poet-theme
+        rbtagger
+        dired-subtree
         enh-ruby-mode
         github-browse-file
         goto-last-change
