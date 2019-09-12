@@ -88,7 +88,8 @@
     (?e . emacs-lisp-mode)
     (?l . lisp-interaction-mode)
     (?s . sql-mode)
-    (?c . clojure-mode))
+    (?c . clojure-mode)
+    (?d . c-mode))
   "List of major modes for temporary buffers and their hotkeys."
   :type '(alist :key-type character :value-type symbol))
 
