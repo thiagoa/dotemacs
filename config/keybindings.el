@@ -184,6 +184,12 @@
                                     (helm-exit-and-execute-action
                                      'helm-point-file-in-dired))))
 
+;;;;;;;;;;;
+;; Dired ;;
+;;;;;;;;;;;
+
+(define-key dired-mode-map (kbd "<tab>") #'dired-subtree-toggle)
+
 ;;;;;;;;;;;;;;;;
 ;; Minibuffer ;;
 ;;;;;;;;;;;;;;;;
