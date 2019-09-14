@@ -68,7 +68,7 @@
 (setq eval-expression-print-level nil)
 (setq eval-expression-print-length nil)
 (setq auto-mode-alist (cons '("[^/]\\.dired$" . dired-virtual-mode) auto-mode-alist))
-(setq projectile-indexing-method 'turbo-alien)
+(setq projectile-indexing-method 'alien)
 (setq projectile-switch-project-action 'magit)
 (setq projectile-enable-caching t)
 (setq save-interprogram-paste-before-kill t)
