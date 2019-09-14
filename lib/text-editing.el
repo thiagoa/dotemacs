@@ -31,6 +31,9 @@
 (require 'paredit)
 (require 'xah)
 
+(defconst symbol-syntax-chars "w_'"
+  "The syntax chars for symbols.")
+
 (defun move-text-up-and-indent ()
   "Move line or region up then indent."
   (interactive)
@@ -109,6 +112,15 @@ Take ARG universal argument to mark N lines."
      (move-beginning-of-line 1)
      (point)))
   (exchange-point-and-mark))
+
+(defun mark-symbol ()
+  "Mark the current symbol at point."
+  (interactive)
+  (skip-syntax-backward symbol-syntax-chars)
+  (set-mark
+   (save-excursion
+     (skip-syntax-forward symbol-syntax-chars)
+     (point))))
 
 (defun comment-or-uncomment-line-or-region ()
   "Comment or uncomments the current line or region."
