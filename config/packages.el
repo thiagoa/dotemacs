@@ -6,6 +6,7 @@
 
 (setq package-archives
       '(("melpa" . "http://melpa.milkbox.net/packages/")
+        ("stable-melpa" . "https://stable.melpa.org/packages/")
         ("gnu" . "http://elpa.gnu.org/packages/")))
 
 (package-initialize)
@@ -27,6 +28,7 @@
         nord-theme
         poet-theme
         rbtagger
+        package-lint
         dired-subtree
         enh-ruby-mode
         github-browse-file
@@ -36,7 +38,6 @@
         helm-projectile
         helm-rg
         ido-vertical-mode
-        ido-goto-symbol
         hippie-exp
         yasnippet
         flycheck
