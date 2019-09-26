@@ -31,7 +31,7 @@
 (setq linum-format "%d ")
 (setq uniquify-buffer-name-style 'post-forward)
 (setq uniquify-separator " : ")
-(defvar my-default-font "Menlo 16")
+(defvar my-default-font "Menlo 15")
 (setq ns-use-proxy-icon nil)
 (setq frame-title-format
       '((:eval (if (buffer-file-name)
