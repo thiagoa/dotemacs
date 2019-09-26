@@ -9,5 +9,4 @@
                               (safe-linum-mode)
                               (smartscan-mode)))
 
-(provide 'coffee)
 ;;; coffee.el ends here

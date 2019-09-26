@@ -6,5 +6,4 @@
 
 (add-hook 'c-mode-hook 'safe-linum-mode)
 
-(provide 'c)
 ;;; c.el ends here

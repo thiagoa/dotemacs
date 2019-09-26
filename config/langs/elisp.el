@@ -12,5 +12,4 @@
 
 (add-to-list 'auto-mode-alist '("Cask$" . emacs-lisp-mode))
 
-(provide 'elisp)
 ;;; elisp.el ends here

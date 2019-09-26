@@ -9,5 +9,4 @@
 
 (add-hook 'web-mode-hook  'my-web-mode-hook)
 
-(provide 'webmode)
 ;;; webmode.el ends here

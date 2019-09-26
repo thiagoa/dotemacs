@@ -25,5 +25,4 @@
                           (other-window -1)))
  '(cider-allow-jack-in-without-project t))
 
-(provide 'clojure)
 ;;; clojure.el ends here

@@ -16,5 +16,4 @@
 (add-hook 'elixir-mode-hook (lambda () (add-hook 'before-save-hook 'elixir-format nil t)))
 (add-to-list 'elixir-mode-hook 'auto-activate-ruby-end-mode-for-elixir-mode)
 
-(provide 'elixir)
 ;;; elixir.el ends here

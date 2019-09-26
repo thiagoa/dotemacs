@@ -12,5 +12,4 @@
 (eval-after-load 'markdown-mode
   '(define-key markdown-mode-map (kbd "C-x ,") 'cider-insert-last-sexp-in-repl))
 
-(provide 'markdown)
 ;;; markdown.el ends here

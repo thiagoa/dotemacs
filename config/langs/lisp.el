@@ -14,5 +14,4 @@
 (add-hook 'slime-mode-hook 'aggressive-indent-mode)
 (add-hook 'slime-mode-hook 'rainbow-delimiters-mode)
 
-(provide 'lisp)
 ;;; lisp.el ends here

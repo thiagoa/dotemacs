@@ -9,5 +9,4 @@
 (add-hook 'scheme-mode-hook 'aggressive-indent-mode)
 (add-hook 'scheme-mode-hook 'rainbow-delimiters-mode)
 
-(provide 'scheme)
 ;;; scheme.el ends here

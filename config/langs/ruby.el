@@ -48,5 +48,4 @@
 (setq rspec-use-rake-when-possible nil)
 (setq rubocop-check-command "rubocop --format emacs -D")
 
-(provide 'ruby)
 ;;; ruby.el ends here
