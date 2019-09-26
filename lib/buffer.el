@@ -87,6 +87,7 @@
     (?r . ruby-mode)
     (?e . emacs-lisp-mode)
     (?l . lisp-interaction-mode)
+    (?j . javascript-mode)
     (?s . sql-mode)
     (?c . clojure-mode)
     (?d . c-mode))
