@@ -56,6 +56,7 @@
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 
+(setq helm--url-regexp "WILL-NEVER-EVER-MATCH-I-DONT-WANT-THIS-FUNCTIONALITY")
 (when window-system (global-unset-key "\C-z"))
 (setq-default indent-tabs-mode nil)
 (setq ido-auto-merge-work-directories-length -1) ;; Avoid ido-find-file jumps
