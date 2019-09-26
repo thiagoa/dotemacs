@@ -33,7 +33,7 @@
 (global-missile-mode)
 (delete-selection-mode)
 (save-place-mode)
-(god-mode-all)
+(god-mode)
 (global-undo-tree-mode)
 
 (buffer-trail-advise '(helm-buffers-list
