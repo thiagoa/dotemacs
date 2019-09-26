@@ -61,7 +61,6 @@
         bundler
         goto-gem
         projectile-rails
-        ruby-end
         sql-indent
         rubocop
         slime
