@@ -14,70 +14,86 @@
 (defvar pivot-package 'discover)
 
 (setq package-selected-packages
-      '(discover
-        undo-tree
+      '(;; Emacs extensions
+        dired-subtree
         ibuffer-vc
+
+        ;; Elisp
         f
-        crux
-        string-inflection
-        aggressive-indent
-        ag
-        wgrep
+        package-lint
+
+        ;; Movement / Text editing
         avy
         beginend
-        nord-theme
-        poet-theme
-        rbtagger
-        package-lint
-        dired-subtree
-        enh-ruby-mode
-        github-browse-file
+        change-inner
+        crux
+        dot-mode
         goto-last-change
-        swiper
+        iy-go-to-char
+        move-text
+        multiple-cursors
+        undo-tree
+
+        ;; Project / Search
+        ag
         helm
         helm-projectile
-        helm-rg
-        ido-vertical-mode
-        hippie-exp
-        yasnippet
-        flycheck
-        nlinum
-        change-inner
-        move-text
-        dot-mode
-        keyfreq
-        iy-go-to-char
-        smartscan
-        multiple-cursors
-        dracula-theme
-        zenburn-theme
-        doom-themes
         projectile
+        smartscan
+        swiper
+        wgrep
+
+        ;; Git
+        git-link
+        github-browse-file
         magit
         magithub
-        git-link
+
+        ;; Programming utils
         company
+        flycheck
+        hippie-exp
+        rainbow-delimiters
+        string-inflection
+        yasnippet
+
+        ;; Misc modes / Lang modes
+        aggressive-indent
+        coffee-mode
         god-mode
-        bundler
-        goto-gem
-        projectile-rails
+        json-mode
+        markdown-mode
+        nlinum
         sql-indent
-        rubocop
-        slime
-        rspec-mode
-        seeing-is-believing
-        elixir-mode
-        alchemist
+        web-mode
+
+        ;; Clojure / Common Lisp / Racket / Scheme
         cider
         clj-refactor
-        rainbow-delimiters
-        web-mode
-        json-mode
-        coffee-mode
-        markdown-mode
-        redshank
+        geiser ;; Scheme
         racket-mode
-        geiser))
+        redshank ;; CL
+        slime ;; CL
 
-(provide 'packages)
+        ;; Elixir
+        alchemist
+        elixir-mode
+
+        ;; Ruby / Rails
+        bundler
+        enh-ruby-mode
+        goto-gem
+        projectile-rails
+        rbtagger
+        rspec-mode
+        rubocop
+        seeing-is-believing
+
+        ;; Themes
+        doom-themes
+        dracula-theme
+        nord-theme
+        poet-theme
+        zenburn-theme))
+
 ;;; packages.el ends here
