@@ -20,7 +20,8 @@
                          (safe-linum-mode)
                          (smartscan-mode)
                          (rubocop-mode)
-                         (rbtagger-mode))))
+                         (rbtagger-mode)
+                         (simple-autopair-mode))))
       '(ruby-mode enh-ruby-mode-hook))
 (add-hook 'rspec-after-verification-hook 'finish-test-compilation)
 (add-hook 'web-mode-hook 'projectile-rails-on)
@@ -31,6 +32,8 @@
 
 (remove-hook 'enh-ruby-mode-hook 'ruby-end-mode)
 (remove-hook 'ruby-mode-hook 'ruby-end-mode)
+
+(simple-autopair-configure 'enh-ruby-mode-hook "(" ")" "\"" "'")
 
 (add-hook 'after-init-hook 'inf-ruby-switch-setup)
 
