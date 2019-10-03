@@ -258,6 +258,15 @@
       magit-status-margin
       '(nil "%Y-%m-%d %H:%M " magit-log-margin-width t 18))
 
+(setq magit-display-buffer-function
+      (lambda (buffer)
+        (display-buffer
+         buffer (if (and (derived-mode-p 'magit-mode)
+                         (equal (with-current-buffer buffer major-mode)
+                                'magit-status-mode))
+                    '(display-buffer-same-window)
+                  nil))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compilation buffer ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;
