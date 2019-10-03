@@ -168,6 +168,8 @@
 
 (setq eval-expression-print-level nil
       eval-expression-print-length nil
+      sentence-end-double-space nil
+      set-mark-command-repeat-pop 't
       mac-right-command-modifier 'meta
       save-interprogram-paste-before-kill t
       vc-follow-symlinks t
