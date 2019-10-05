@@ -76,9 +76,8 @@ Type \\[tmp-buffer] CODE to create a temporary buffer over the respective major 
       (tmp-buffer--help)
     (let* ((mode (tmp-buffer--find code :mode))
            (ext (tmp-buffer--find code :ext))
-           (buf (create-file-buffer (make-temp-file (symbol-name mode) nil ext))))
-      (with-current-buffer buf (funcall mode))
-      (pop-to-buffer buf))))
+           (buf (find-file-other-window (make-temp-file (symbol-name mode) nil ext))))
+      (with-current-buffer buf (funcall mode)))))
 
 (provide 'tmp-buffer)
 ;;; tmp-buffer.el ends here
