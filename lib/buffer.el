@@ -79,48 +79,5 @@
           (kill-buffer))
       (error "ERROR: No filename for this buffer"))))
 
-;; https://www.reddit.com/r/emacs/comments/90xkzt/what_do_you_use_the_scratch_buffer_for/
-(defcustom tmp-buffer-mode-alist
-  '((?o . ((:mode . org-mode)              (:ext . ".org")))
-    (?t . ((:mode . text-mode)             (:ext . ".txt")))
-    (?m . ((:mode . markdown-mode)         (:ext . ".md")))
-    (?r . ((:mode . ruby-mode)             (:ext . ".rb")))
-    (?e . ((:mode . emacs-lisp-mode)       (:ext . ".el")))
-    (?l . ((:mode . lisp-interaction-mode) (:ext . ".lisp")))
-    (?j . ((:mode . javascript-mode)       (:ext . ".js")))
-    (?s . ((:mode . sql-mode)              (:ext . ".sql")))
-    (?c . ((:mode . clojure-mode)          (:ext . ".clj")))
-    (?d . ((:mode . c-mode)                (:ext . ".c"))))
-  "List of major modes for temporary buffers and associated metadata."
-  :group 'tmp-buffer
-  :type '(alist :key-type character :value-type list))
-
-(defun tmp-buffer--find (code key)
-  "Find KEY for CODE within `tmp-buffer-mode-alist'."
-  (let ((km (or (assoc code tmp-buffer-mode-alist)
-                (and (not (eq code ?h)) (error "No such mode")))))
-    (cdr (assoc key (cdr km)))))
-
-(defun tmp-buffer--help ()
-  "Get help for available tmp-buffer codes."
-  (with-output-to-temp-buffer "*Help*"
-    (princ "Temporary buffers:\n\nKey\tMode\tExt\n")
-    (dolist (km tmp-buffer-mode-alist)
-      (princ (format " %c\t%s\n" (car km) (tmp-buffer--find (car km) :mode))))))
-
-;; https://www.reddit.com/r/emacs/comments/90xkzt/what_do_you_use_the_scratch_buffer_for/
-(defun tmp-buffer (code)
-  "Create temporary buffer over CODE, which represents the desired major mode.
-Type \\[tmp-buffer] `C-h to know what codes are available.
-Type \\[tmp-buffer] CODE to create a temporary buffer over the respective major mode."
-  (interactive "c")
-  (if (eq code ?\C-h)
-      (tmp-buffer--help)
-    (let* ((mode (tmp-buffer--find code :mode))
-           (ext (tmp-buffer--find code :ext))
-           (buf (create-file-buffer (make-temp-file (symbol-name mode) nil ext))))
-      (with-current-buffer buf (funcall mode))
-      (pop-to-buffer buf))))
-
 (provide 'buffer)
 ;;; buffer.el ends here

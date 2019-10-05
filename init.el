@@ -29,6 +29,7 @@
 (require 'shell-integration)
 (require 'general)
 (require 'config-helpers)
+(require 'tmp-buffer)
 (require 'buffer)
 (require 'buffer-trail)
 (require 'missile)
