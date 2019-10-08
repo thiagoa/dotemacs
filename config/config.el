@@ -303,6 +303,7 @@
 
 (add-hook 'god-mode-enabled-hook 'my-update-cursor)
 (add-hook 'god-mode-disabled-hook 'my-update-cursor)
+(add-to-list 'god-exempt-major-modes 'cider-repl-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Clean up whitespace before save ;;
