@@ -192,6 +192,7 @@
 ;;;;;;;;;;;
 
 (define-key dired-mode-map (kbd "<tab>") #'dired-subtree-toggle)
+(define-key dired-mode-map (kbd ")") #'dired-git-info-mode)
 
 ;;;;;;;;;;;;;;;;
 ;; Minibuffer ;;
