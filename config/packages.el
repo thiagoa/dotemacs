@@ -67,6 +67,10 @@
         sql-indent
         web-mode
 
+        ;; Org mode
+        org-journal
+        org-download
+
         ;; Clojure / Common Lisp / Racket / Scheme
         cider
         clj-refactor

@@ -305,6 +305,18 @@
 (add-hook 'god-mode-disabled-hook 'my-update-cursor)
 (add-to-list 'god-exempt-major-modes 'cider-repl-mode)
 
+;;;;;;;;;;;;;;
+;; Org mode ;;
+;;;;;;;;;;;;;;
+
+(setq-default org-download-image-dir "~/OneDrive/Journal/images"
+              org-journal-dir "~/OneDrive/Journal")
+
+(setq org-journal-file-format "%Y%m%d.org"
+      org-journal-date-format "%A, %Y-%m-%d")
+
+(require 'org-journal)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Clean up whitespace before save ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
