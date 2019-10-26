@@ -26,3 +26,5 @@ url
 history
 config/.nrepl-port
 transient
+ede-projects.el
+org-journal.cache
