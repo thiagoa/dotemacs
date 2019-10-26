@@ -105,11 +105,11 @@
       ns-use-mwheel-acceleration t
       x-colors (ns-list-colors)) ;; MacPorts emacs-app port bug
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Theme. Good options: zenburn, dracula, nimbus, spacemacs-dark ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Theme. Good options: nord, zenburn, dracula, nimbus, spacemacs-dark ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(load-theme 'nord t)
+(load-theme 'dracula t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; Lines and columns ;;
