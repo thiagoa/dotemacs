@@ -96,6 +96,7 @@
 
         ;; Themes
         doom-themes
+        kaolin-themes
         dracula-theme
         nord-theme
         poet-theme

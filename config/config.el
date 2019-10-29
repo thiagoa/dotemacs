@@ -109,7 +109,7 @@
 ;; Theme. Good options: nord, zenburn, dracula, nimbus, spacemacs-dark ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(load-theme 'dracula t)
+(load-theme 'kaolin-dark t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; Lines and columns ;;
