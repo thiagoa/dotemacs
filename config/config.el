@@ -27,24 +27,6 @@
 
 (run-server)
 
-;;;;;;;;;;;;;;;;;;
-;; Global modes ;;
-;;;;;;;;;;;;;;;;;;
-
-(beginend-global-mode)
-(global-dot-mode)
-(global-flycheck-mode)
-(yas-global-mode)
-(projectile-mode)
-(helm-projectile-on)
-(winner-mode)
-(savehist-mode)
-(global-missile-mode)
-(delete-selection-mode)
-(save-place-mode)
-(god-mode)
-(global-undo-tree-mode)
-
 ;;;;;;;;;;
 ;; Font ;;
 ;;;;;;;;;;
@@ -280,6 +262,13 @@
 (setq history-length 1000
       savehist-file (expand-file-name "tmp/savehist" emacs-d))
 (load-history savehist-file)
+(setq savehist-additional-variables
+      '(kill-ring
+        search-ring
+        regexp-search-ring
+        last-kbd-macro
+        kmacro-ring
+        shell-command-history))
 
 ;;;;;;;;;;;;;
 ;; Ibuffer ;;
@@ -322,5 +311,23 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (add-hook 'before-save-hook 'whitespace-cleanup)
+
+;;;;;;;;;;;;;;;;;;
+;; Global modes ;;
+;;;;;;;;;;;;;;;;;;
+
+(beginend-global-mode)
+(global-dot-mode)
+(global-flycheck-mode)
+(yas-global-mode)
+(projectile-mode)
+(helm-projectile-on)
+(winner-mode)
+(savehist-mode)
+(global-missile-mode)
+(delete-selection-mode)
+(save-place-mode)
+(god-mode)
+(global-undo-tree-mode)
 
 ;;; config.el ends here
