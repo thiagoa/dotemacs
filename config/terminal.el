@@ -56,6 +56,11 @@
             (turn-on-comint-history (getenv "HISTFILE"))))
 
 (setq comint-input-ring-separator "\n: \\([0-9]+\\):\\([0-9]+\\);")
+(setq comint-scroll-to-bottom-on-input 'this)
+(setq comint-scroll-to-bottom-on-output 'others)
+(setq comint-move-point-for-output 'others)
+(setq comint-scroll-show-maximum-output t)
+(setq comint-prompt-read-only nil)
 
 (when (memq window-system '(mac ns x))
   (copy-env-vars-from-shell))
