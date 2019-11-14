@@ -28,6 +28,7 @@
 (windmove-default-keybindings) ; Shift + arrow keys to move between windows
 
 (global-set-key (kbd "C-x C-c")        nil) ; unbind default quit cmd... easy to fire accidentally with god-mode
+(global-set-key (kbd "H-t")            'fzf-projectile) ; unbind default quit cmd... easy to fire accidentally with god-mode
 (global-set-key (kbd "C-x 4 t")        'crux-transpose-windows)
 (global-set-key (kbd "C-c C-h")        'crux-kill-whole-line)
 (global-set-key (kbd "C-k")            'kill-line)
@@ -254,6 +255,7 @@
 (define-key god-local-mode-map (kbd "V") 'scroll-down-command)
 (define-key god-local-mode-map (kbd "J") 'top-join-line)
 (define-key god-local-mode-map (kbd "z") 'zap-up-to-char)
+(define-key god-local-mode-map (kbd "Q") (simple-ilambda (kill-buffer (current-buffer))))
 (define-key god-local-mode-map (kbd "C-c Z") (with-god-insert 'zap-to-char))
 (define-key god-local-mode-map (kbd "m") 'back-to-indentation)
 (define-key god-local-mode-map (kbd ".") 'repeat)
