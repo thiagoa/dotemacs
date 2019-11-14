@@ -62,7 +62,7 @@ If SKIP > 1 is passed, override autopair behavior and insert char."
   (if skip
       (insert char)
     (let ((right-char (cdr (assoc char simple-autopair-pairs)))
-          (left-char (cdr (rassoc char simple-autopair-pairs))))
+          (left-char (car (rassoc char simple-autopair-pairs))))
       (cond
        (right-char (simple-autopair-do-char char right-char :left-char))
        (left-char (simple-autopair-do-char left-char char :right-char))
@@ -94,10 +94,10 @@ Takes LEFT-CHAR, RIGHT-CHAR, and TYPE, which can be :left-char or
         (simple-autopair-inside-p 'font-lock-comment-face)
         (simple-autopair-inside-p 'enh-ruby-string-delimiter-face))
     (insert (if (eq type :right-char) right-char left-char)))
-   ((and
-     (eq type :right-char)
-     (or (looking-at left-char) (looking-at right-char)))
-    (forward-char))
+   ((eq type :right-char)
+    (if (or (looking-at left-char) (looking-at right-char))
+        (forward-char)
+      (insert right-char)))
    (t
     (insert left-char right-char)
     (backward-char))))
