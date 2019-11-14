@@ -80,6 +80,9 @@
         redshank ;; CL
         slime ;; CL
 
+        ;; PHP
+        php-mode
+
         ;; Elixir
         alchemist
         elixir-mode
