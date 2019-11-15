@@ -33,8 +33,12 @@
 
 (defvar simple-autopair-pairs '(("("  . ")")
                                 ("\"" . "\"")
-                                ("'"  . "'"))
+                                ("'"  . "'")
+                                ("{"  . "}"))
   "The character pairs (cons cells) recognized by simple-autopairs.")
+
+(defvar simple-autopair-spaced '("{")
+  "Character to surround with spaces when outputting a pair.")
 
 (defvar simple-autopair-mode-map
   (let ((map (make-sparse-keymap)))
@@ -87,7 +91,7 @@ If SKIP > 1 is passed, override autopair behavior and insert char."
 Takes LEFT-CHAR, RIGHT-CHAR, and TYPE, which can be :left-char or
 :right-char."
   (cond
-   ((and (string= left-char "\"")
+   ((and (or (string= left-char "\"") (string= left-char "'"))
          (simple-autopair-inside-p 'enh-ruby-string-delimiter-face))
     (forward-char))
    ((or (simple-autopair-inside-p 'font-lock-string-face)
@@ -99,8 +103,12 @@ Takes LEFT-CHAR, RIGHT-CHAR, and TYPE, which can be :left-char or
         (forward-char)
       (insert right-char)))
    (t
-    (insert left-char right-char)
-    (backward-char))))
+    (let* ((autospaced-p (member left-char simple-autopair-spaced))
+           (sep (if autospaced-p " " "")))
+      (insert left-char sep sep right-char)
+      (if autospaced-p
+          (progn (backward-char) (backward-char))
+        (backward-char))))))
 
 ;;;###autoload
 (define-minor-mode simple-autopair-mode

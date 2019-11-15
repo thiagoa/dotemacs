@@ -33,7 +33,7 @@
 (remove-hook 'enh-ruby-mode-hook 'ruby-end-mode)
 (remove-hook 'ruby-mode-hook 'ruby-end-mode)
 
-(simple-autopair-configure 'enh-ruby-mode-hook "(" ")" "\"" "'")
+(simple-autopair-configure 'enh-ruby-mode-hook "(" ")" "\"" "'" "{" "}")
 
 (add-hook 'after-init-hook 'inf-ruby-switch-setup)
 

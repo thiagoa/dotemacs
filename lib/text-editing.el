@@ -60,6 +60,15 @@ end up with just \"foo(1)\". Works in any part of the line."
               (point))))
     (delete-region start (+ 2 end))))
 
+(defun break-delimited ()
+  "Break into newlines when surrounded by a pair of characters."
+  (interactive)
+  (newline)
+  (newline)
+  (indent-for-tab-command)
+  (previous-line)
+  (indent-for-tab-command))
+
 (defun smart-open-line-below-and-above ()
   "Open a space for editing with surrounding blank lines.
 

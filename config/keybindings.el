@@ -231,7 +231,8 @@
           (mapc (lambda (map)
                   (define-key map (kbd "C-M-SPC") 'ruby-mark-sexp)
                   (define-key map (kbd "C-c u d") 'ruby-duplicate-sexp-below)
-                  (define-key map (kbd "C-M-g") 'mark-defun))
+                  (define-key map (kbd "C-M-g") 'mark-defun)
+                  (define-key map (kbd "C-j") 'break-delimited))
                 (list ruby-mode-map enh-ruby-mode-map))))
       '("ruby-mode" "enh-ruby-mode"))
 
