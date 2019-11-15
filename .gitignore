@@ -29,3 +29,4 @@ transient
 ede-projects.el
 org-journal.cache
 games
+.persistent-scratch

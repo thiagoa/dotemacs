@@ -270,6 +270,12 @@
         kmacro-ring
         shell-command-history))
 
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; persistent-scratch ;;
+;;;;;;;;;;;;;;;;;;;;;;;;
+
+(persistent-scratch-setup-default)
+
 ;;;;;;;;;;;;;
 ;; Ibuffer ;;
 ;;;;;;;;;;;;;

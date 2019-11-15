@@ -17,6 +17,7 @@
       '(;; Emacs extensions
         dired-subtree
         ibuffer-vc
+        persistent-scratch
 
         ;; Elisp
         f
