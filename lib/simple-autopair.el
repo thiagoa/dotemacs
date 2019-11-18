@@ -92,7 +92,8 @@ Takes LEFT-CHAR, RIGHT-CHAR, and TYPE, which can be :left-char or
 :right-char."
   (cond
    ((and (or (string= left-char "\"") (string= left-char "'"))
-         (simple-autopair-inside-p 'enh-ruby-string-delimiter-face))
+         (simple-autopair-inside-p 'enh-ruby-string-delimiter-face)
+         (or (eq (char-after) ?\") (eq (char-after) ?\')))
     (forward-char))
    ((or (simple-autopair-inside-p 'font-lock-string-face)
         (simple-autopair-inside-p 'font-lock-comment-face)
