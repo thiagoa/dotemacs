@@ -255,6 +255,7 @@
 (define-key god-local-mode-map (kbd "i") 'god-mode-all)
 (define-key god-local-mode-map (kbd "V") 'scroll-down-command)
 (define-key god-local-mode-map (kbd "J") 'top-join-line)
+(define-key god-local-mode-map (kbd "j") 'newline)
 (define-key god-local-mode-map (kbd "z") 'zap-up-to-char)
 (define-key god-local-mode-map (kbd "Q") (simple-ilambda (kill-buffer (current-buffer))))
 (define-key god-local-mode-map (kbd "C-c Z") (with-god-insert 'zap-to-char))
