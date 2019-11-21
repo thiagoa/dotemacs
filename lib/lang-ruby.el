@@ -48,6 +48,13 @@
     (enh-ruby-backward-sexp))
   (exchange-point-and-mark))
 
+(defun ruby-mark-sexp-for-delete ()
+  (interactive)
+  (call-interactively 'ruby-mark-sexp)
+  (exchange-point-and-mark)
+  (next-line)
+  (beginning-of-line))
+
 (defun ruby-duplicate-sexp-below (arg)
   "Duplicate Ruby sexp and place point at the start of duplicated sexp.
 Point must be at the end of the Ruby sexp for this to work.
