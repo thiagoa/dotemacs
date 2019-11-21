@@ -76,7 +76,8 @@ If SKIP > 1 is passed, override autopair behavior and insert char."
 (defun simple-autopair-delete ()
   "Automatically delete an empty pair."
   (interactive)
-  (let* ((char (char-to-string (char-after (point))))
+
+  (let* ((char (char-to-string (or (char-after) ? )))
          (left-char (car (rassoc char simple-autopair-pairs)))
          (empty-pair-p (and left-char
                             (save-excursion (backward-char)
@@ -86,15 +87,24 @@ If SKIP > 1 is passed, override autopair behavior and insert char."
                (call-interactively 'delete-forward-char))
       (call-interactively 'delete-backward-char))))
 
+(defun simple-autopair--string-limit-p (str target-char)
+  "Determine whether STR is TARGET-CHAR and cursor is in a Ruby string delimiter."
+  (and (simple-autopair-inside-p 'enh-ruby-string-delimiter-face)
+       (string= str (char-to-string target-char))
+       (eq (char-after) target-char)))
+
 (defun simple-autopair-do-char (left-char right-char type)
   "Helper for autopair-char.
 Takes LEFT-CHAR, RIGHT-CHAR, and TYPE, which can be :left-char or
 :right-char."
   (cond
-   ((and (or (string= left-char "\"") (string= left-char "'"))
-         (simple-autopair-inside-p 'enh-ruby-string-delimiter-face)
-         (or (eq (char-after) ?\") (eq (char-after) ?\')))
-    (forward-char))
+   ((and (or (simple-autopair--string-limit-p left-char ?\')
+             (simple-autopair--string-limit-p left-char ?\")))
+    (cond ((simple-autopair--string-limit-p left-char ?\')
+           (forward-char))
+          ((simple-autopair--string-limit-p left-char ?\")
+           (forward-char))
+          (t (insert left-char))))
    ((or (simple-autopair-inside-p 'font-lock-string-face)
         (simple-autopair-inside-p 'font-lock-comment-face)
         (simple-autopair-inside-p 'enh-ruby-string-delimiter-face))
