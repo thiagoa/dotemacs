@@ -64,7 +64,8 @@
 (defun kill-all-buffers ()
   "Kill all buffers."
   (interactive)
-  (mapc 'kill-buffer (buffer-list)))
+  (mapc 'kill-buffer (buffer-list))
+  (delete-other-windows))
 
 ;; Copied from the crux package. Modified to skip annoying
 ;; vc-delete-file and do what I mean (dwim) please!
