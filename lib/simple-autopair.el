@@ -34,10 +34,11 @@
 (defvar simple-autopair-pairs '(("("  . ")")
                                 ("\"" . "\"")
                                 ("'"  . "'")
-                                ("{"  . "}"))
+                                ("{"  . "}")
+                                ("["  . "]"))
   "The character pairs recognized by simple-autopairs.")
 
-(defvar simple-autopair-enabled-pairs '("(" "\"" "'" "{")
+(defvar simple-autopair-enabled-pairs '("(" "\"" "'" "{" "[")
   "Pairs enabled by default.")
 
 (defvar simple-autopair-spaced '("{")
@@ -91,7 +92,8 @@ Takes LEFT-CHAR, RIGHT-CHAR, and TYPE, which can be :left-char or
         (simple-autopair-inside-p 'enh-ruby-string-delimiter-face))
     (insert (if (eq type :right-char) right-char left-char)))
    ((eq type :right-char)
-    (if (or (looking-at left-char) (looking-at right-char))
+    (if (or (looking-at (regexp-quote left-char))
+            (looking-at (regexp-quote right-char)))
         (forward-char)
       (insert right-char)))
    (t
