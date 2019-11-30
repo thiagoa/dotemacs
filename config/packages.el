@@ -35,6 +35,7 @@
         multiple-cursors
         undo-tree
         wrap-region
+        embrace
 
         ;; Project / Search
         ag

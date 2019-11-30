@@ -143,6 +143,7 @@
 (global-set-key (kbd "C-x %")          'my-server-edit)
 (global-set-key (kbd "<M-SPC>")        'mark-word)
 (global-set-key (kbd "C-c z")          'zap-to-char)
+(global-set-key (kbd "C-,")            'embrace-commander)
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Fast movement ;;
