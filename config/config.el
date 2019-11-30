@@ -24,6 +24,7 @@
 (require 'uniquify)
 (require 'linum)
 (require 'ansi-color)
+(require 'polymode)
 
 (run-server)
 
@@ -55,6 +56,24 @@
 
 (setq uniquify-buffer-name-style 'post-forward)
 (setq uniquify-separator " : ")
+
+;;;;;;;;;;;;;;
+;; Polymode ;;
+;;;;;;;;;;;;;;
+
+(setq polymode-prefix-key (kbd "C-c n"))
+(define-hostmode poly-ruby-hostmode :mode 'enh-ruby-mode)
+
+(define-innermode poly-graphql-ruby-innermode
+  :mode 'graphql-mode
+  :head-matcher (rx "define_query " (= 3 (char "'")) (* (any space)))
+  :tail-matcher (rx (= 3 (char "'")))
+  :head-mode 'host
+  :tail-mode 'host)
+
+(define-polymode poly-ruby-graphql-mode
+  :hostmode 'poly-ruby-hostmode
+  :innermodes '(poly-graphql-ruby-innermode))
 
 ;;;;;;;;;;;;
 ;; Colors ;;

@@ -62,6 +62,8 @@
         ;; Misc modes / Lang modes
         aggressive-indent
         coffee-mode
+        graphql-mode
+        polymode
         god-mode
         json-mode
         markdown-mode
