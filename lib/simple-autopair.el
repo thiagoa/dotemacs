@@ -46,34 +46,42 @@
 
 (defvar simple-autopair-mode-map
   (let ((map (make-sparse-keymap)))
+    (dolist (cell simple-autopair-pairs)
+      (dolist (key (list (car cell) (cdr cell)))
+        (define-key map (kbd key) 'simple-autopair-insert-char)))
     (define-key map [(backspace)] 'simple-autopair-delete)
     (define-key map (kbd "SPC") 'simple-autopair-space)
-    (dolist (cell simple-autopair-pairs)
-      (define-key map (kbd (car cell)) 'simple-autopair-insert-char)
-      (define-key map (kbd (cdr cell)) 'simple-autopair-insert-char))
     map)
   "Keymap for function `simple-autopair-mode'.")
 
 ;;;###autoload
 (defun simple-autopair-insert-char (skip-autopair)
   "Insert pair of characters or do other things depending on the context.
-If SKIP-AUTOPAIR > 1 is passed, override autopair behavior and insert char."
+If SKIP-AUTOPAIR > 1 is passed, skip autopair behavior and insert char."
   (interactive "P")
   (let ((char (this-command-keys)))
     (if skip-autopair
         (insert char)
-      (let* (enabled?
-             (right-char (cdr (assoc char simple-autopair-pairs)))
-             (left-char (car (rassoc char simple-autopair-pairs)))
+      (let* (pair-enabled?
+             (right-char (simple-autopair--right-char char))
+             (left-char (simple-autopair--left-char char))
              (master-char (cond (left-char left-char)
-                                (right-char (car (rassoc right-char simple-autopair-pairs)))
+                                (right-char (simple-autopair--left-char right-char))
                                 (t (error "No pair found for char")))))
-        (setq enabled? (member master-char simple-autopair-enabled-pairs))
-        (cond ((and enabled? right-char)
+        (setq pair-enabled? (member master-char simple-autopair-enabled-pairs))
+        (cond ((and pair-enabled? right-char)
                (simple-autopair-do-char char right-char :left-char))
-              ((and enabled? left-char)
+              ((and pair-enabled? left-char)
                (simple-autopair-do-char left-char char :right-char))
               (t (insert char)))))))
+
+(defun simple-autopair--left-char (right-char)
+  "Return the left char for RIGHT-CHAR."
+  (car (rassoc right-char simple-autopair-pairs)))
+
+(defun simple-autopair--right-char (left-char)
+  "Return the right char for LEFT-CHAR."
+  (cdr (assoc left-char simple-autopair-pairs)))
 
 (defun simple-autopair-do-char (left-char right-char type)
   "Helper for simple-autopair-insert-char that does the actual work.
@@ -87,9 +95,9 @@ Takes LEFT-CHAR, RIGHT-CHAR, and TYPE, which can be :left-char or
           ((simple-autopair--string-limit-p left-char ?\")
            (forward-char))
           (t (insert left-char))))
-   ((or (simple-autopair-inside-p 'font-lock-string-face)
-        (simple-autopair-inside-p 'font-lock-comment-face)
-        (simple-autopair-inside-p 'enh-ruby-string-delimiter-face))
+   ((or (simple-autopair--inside-p 'font-lock-string-face)
+        (simple-autopair--inside-p 'font-lock-comment-face)
+        (simple-autopair--inside-p 'enh-ruby-string-delimiter-face))
     (insert (if (eq type :right-char) right-char left-char)))
    ((eq type :right-char)
     (if (or (looking-at (regexp-quote left-char))
@@ -102,11 +110,11 @@ Takes LEFT-CHAR, RIGHT-CHAR, and TYPE, which can be :left-char or
 
 (defun simple-autopair--string-limit-p (str target-char)
   "Determine whether STR is TARGET-CHAR and whether cursor is at a string delimiter."
-  (and (simple-autopair-inside-p 'enh-ruby-string-delimiter-face)
+  (and (simple-autopair--inside-p 'enh-ruby-string-delimiter-face)
        (string= str (char-to-string target-char))
        (eq (char-after) target-char)))
 
-(defun simple-autopair-inside-p (font-lock-prop)
+(defun simple-autopair--inside-p (font-lock-prop)
   "Return non-nil if point is at FONT-LOCK-PROP font-lock-face property."
   (eq font-lock-prop (get-text-property (point) 'font-lock-face)))
 
@@ -115,7 +123,7 @@ Takes LEFT-CHAR, RIGHT-CHAR, and TYPE, which can be :left-char or
   "Automatically delete an empty pair."
   (interactive)
   (let* ((char (char-to-string (or (char-after) ? )))
-         (left-char (car (rassoc char simple-autopair-pairs)))
+         (left-char (simple-autopair--left-char char))
          (empty-pair-p (and left-char
                             (save-excursion (backward-char)
                                             (looking-at left-char)))))
@@ -128,11 +136,11 @@ Takes LEFT-CHAR, RIGHT-CHAR, and TYPE, which can be :left-char or
 (defun simple-autopair-space ()
   "Automatically space out a pair from `simple-autopair-spaced'."
   (interactive)
-  (let ((char-to-left (char-to-string (char-after (1- (point)))))
-        (char-to-right (char-to-string (char-after (point)))))
-    (if (and (member char-to-left simple-autopair-spaced)
-             (string= char-to-right
-                      (cdr (assoc char-to-left simple-autopair-pairs))))
+  (let ((left-char (char-to-string (char-after (1- (point)))))
+        (right-char (char-to-string (char-after (point)))))
+    (if (and (member left-char simple-autopair-spaced)
+             (string= right-char
+                      (simple-autopair--right-char left-char)))
         (progn (insert "  ") (backward-char))
       (insert " "))))
 
