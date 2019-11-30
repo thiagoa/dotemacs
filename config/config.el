@@ -178,7 +178,8 @@
       backup-directory-alist `((".*" . ,temporary-file-directory))
       auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
       system-uses-terminfo nil
-      large-file-warning-threshold nil)
+      large-file-warning-threshold nil
+      recenter-positions '(top middle bottom))
 
 ;;;;;;;;;;;;
 ;; Comint ;;
