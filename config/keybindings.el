@@ -75,9 +75,9 @@
 (global-set-key (kbd "C-c D")          'delete-file-and-buffer)
 (global-set-key (kbd "C-c R")          'crux-rename-buffer-and-file)
 (global-set-key (kbd "C-'")            'change-inner)
-(global-set-key (kbd "C-c '")          'change-outer)
+(global-set-key (kbd "M-'")            'change-outer)
 (global-set-key (kbd "C-;")            'iy-go-up-to-char)
-(global-set-key (kbd "C-c ;")          'iy-go-to-char-backward)
+(global-set-key (kbd "M-;")            'iy-go-to-char-backward)
 (global-set-key (kbd "C-c g p")        'magit-push-popup)
 (global-set-key (kbd "C-c g c")        'magit-commit)
 (global-set-key (kbd "C-c g p")        'magit-push)
@@ -283,6 +283,7 @@
 (define-key god-local-mode-map [(shift backspace)] (with-god-insert (key-binding (kbd "DEL"))))
 (define-key god-local-mode-map [(meta shift backspace)] (with-god-insert (key-binding (kbd "<M-DEL>"))))
 (define-key god-local-mode-map (kbd "'") (with-god-insert 'change-inner))
+(define-key god-local-mode-map (kbd "M-'") (with-god-insert 'change-outer))
 (define-key god-local-mode-map (kbd "\"") (with-god-insert 'change-outer))
 (define-key god-local-mode-map (kbd "<C-S-backspace>") (with-god-insert 'crux-kill-line-backwards))
 
@@ -326,6 +327,13 @@
      (define-key paredit-mode-map (kbd "M-r") 'move-to-window-line-top-bottom)
      (define-key paredit-mode-map (kbd "M-k") 'paredit-raise-sexp)
      (define-key paredit-mode-map (kbd "C-c u d") duplicate-sexp-below)))
+
+;;;;;;;;;;;;;;;
+;; Smartscan ;;
+;;;;;;;;;;;;;;;
+
+(define-key smartscan-map (kbd "M-'") nil)
+(define-key smartscan-map (kbd "M-[") 'smartscan-symbol-replace)
 
 ;;;;;;;;;;;
 ;; Magit ;;
