@@ -5,6 +5,7 @@
 ;;; Code:
 
 (defalias 'ff     'find-file)
+(defalias 'bb     'bury-buffer)
 (defalias 'e      'eval-buffer)
 (defalias 'keb    'kill-extraneous-buffers)
 (defalias 'repl   'ielm)
