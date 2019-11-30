@@ -34,6 +34,7 @@
         move-text
         multiple-cursors
         undo-tree
+        wrap-region
 
         ;; Project / Search
         ag

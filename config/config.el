@@ -346,6 +346,7 @@
 (global-dot-mode)
 (global-flycheck-mode)
 (yas-global-mode)
+(wrap-region-global-mode)
 (projectile-mode)
 (helm-projectile-on)
 (winner-mode)
