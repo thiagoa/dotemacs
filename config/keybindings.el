@@ -19,6 +19,7 @@
 (require 'ext-elisp)
 (require 'ext-god-mode)
 (require 'enh-ruby-mode)
+(require 'smartscan)
 
 (defvar scroll-viewport-up       (kbd "C-u 3 C-v"))
 (defvar scroll-viewport-down     (kbd "C-u 3 M-v"))
