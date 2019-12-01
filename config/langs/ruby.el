@@ -14,6 +14,9 @@
              '("\\(?:\\.rb\\|ru\\|rake\\|thor\\|jbuilder\\|gemspec\\|podspec\\|/\\(?:Gem\\|Rake\\|Cap\\|Thor\\|Vagrant\\|Guard\\|Pod\\)file\\)\\'" . enh-ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.erb$" . web-mode))
 
+(eval-after-load 'rspec-mode
+  (yas-load-directory (concat emacs-d "snippets/rspec-mode")))
+
 (mapc (lambda (mode)
         (add-hook mode (lambda ()
                          (projectile-rails-on)
@@ -26,15 +29,7 @@
 (add-hook 'rspec-after-verification-hook 'finish-test-compilation)
 (add-hook 'web-mode-hook 'projectile-rails-on)
 (add-hook 'inf-ruby-mode-hook (lambda () (turn-on-comint-history ".pry_history")))
-
-(eval-after-load 'rspec-mode
-  (yas-load-directory (concat emacs-d "snippets/rspec-mode")))
-
-(remove-hook 'enh-ruby-mode-hook 'ruby-end-mode)
-(remove-hook 'ruby-mode-hook 'ruby-end-mode)
-
 (add-hook 'after-init-hook 'inf-ruby-switch-setup)
-
 (add-hook
  'rbtagger-after-generate-tag-hook
  (lambda (success project-name)
@@ -42,6 +37,9 @@
        (notify-os (concat project-name " tags generated successfully 👍") "Hero")
      (notify-os "Is this a Ruby project? Is bundler able to run? Tags generation FAILED! 👎" "Basso"))))
 
+(setq enh-ruby-program "/usr/bin/env ruby")
+(setq rubocop-check-program "/usr/bin/env rubocop --format emacs")
+(setq rubocop-autocorrect-program "/usr/bin/env rubocop -a --format emacs")
 (setq enh-ruby-hanging-brace-deep-indent-level 1)
 (setq ruby-align-chained-calls t)
 (setq projectile-rails-expand-snippet nil)
