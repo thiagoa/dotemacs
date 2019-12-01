@@ -96,20 +96,15 @@ If SKIP-AUTOPAIR > 1 is passed, skip autopair behavior and insert char."
 Takes LEFT-CHAR, RIGHT-CHAR, and TYPE, which can be :left-char or
 :right-char."
   (cond
-   ((and (or (simple-autopair--string-limit-p left-char ?\')
-             (simple-autopair--string-limit-p left-char ?\")))
-    (cond ((simple-autopair--string-limit-p left-char ?\')
-           (forward-char))
-          ((simple-autopair--string-limit-p left-char ?\")
-           (forward-char))
-          (t (insert left-char))))
+   ((or (simple-autopair--string-limit-p left-char ?\')
+        (simple-autopair--string-limit-p left-char ?\"))
+    (forward-char))
    ((or (simple-autopair--inside-p 'font-lock-string-face)
         (simple-autopair--inside-p 'font-lock-comment-face)
         (simple-autopair--inside-p 'enh-ruby-string-delimiter-face))
     (insert (if (eq type :right-char) right-char left-char)))
    ((eq type :right-char)
-    (if (or (looking-at (regexp-quote left-char))
-            (looking-at (regexp-quote right-char)))
+    (if (eq (char-after) (string-to-char right-char))
         (forward-char)
       (insert right-char)))
    (t
@@ -142,7 +137,7 @@ Takes LEFT-CHAR, RIGHT-CHAR, and TYPE, which can be :left-char or
 
 ;;;###autoload
 (defun simple-autopair-space ()
-  "Automatically space out a pair from `simple-autopair-spaced'."
+  "Automatically space out pair if present in `simple-autopair-spaced'."
   (interactive)
   (let ((left-char (char-to-string (char-after (1- (point)))))
         (right-char (char-to-string (char-after (point)))))
