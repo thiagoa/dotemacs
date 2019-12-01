@@ -52,6 +52,7 @@
 (require 'ext-compile)
 (require 'ext-ido)
 (require 'ext-align)
+(require 'ext-rspec-mode)
 
 ;; Load configuration files
 (mapc (lambda (pattern)
