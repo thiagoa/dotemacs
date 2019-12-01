@@ -331,7 +331,7 @@
      (define-key paredit-mode-map (kbd "M-k") 'paredit-raise-sexp)
      (define-key paredit-mode-map (kbd "C-c u d") duplicate-sexp-below)
      (define-key paredit-mode-map (kbd "M-;") nil)
-     (define-key paredit-mode-map (kbd "C-M-;") 'paredit-comment-dwim)))
+     (define-key paredit-mode-map (kbd "C-M-'") 'paredit-comment-dwim)))
 
 ;;;;;;;;;;;;;;;
 ;; Smartscan ;;
