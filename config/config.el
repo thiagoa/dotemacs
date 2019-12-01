@@ -263,11 +263,10 @@
 (setq magit-display-buffer-function
       (lambda (buffer)
         (display-buffer
-         buffer (if (and (derived-mode-p 'magit-mode)
-                         (equal (with-current-buffer buffer major-mode)
-                                'magit-status-mode))
-                    '(display-buffer-same-window)
-                  nil))))
+         buffer (if (or (string-suffix-p "COMMIT_EDITMSG" (buffer-file-name))
+                        (derived-mode-p 'magit-mode))
+                    nil
+                  '(display-buffer-same-window)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compilation buffer ;;
