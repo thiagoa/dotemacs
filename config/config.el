@@ -320,6 +320,13 @@
 (add-hook 'god-mode-disabled-hook 'my-update-cursor)
 (add-to-list 'god-exempt-major-modes 'cider-repl-mode)
 
+;;;;;;;;;;;;;;;;;
+;; Wrap region ;;
+;;;;;;;;;;;;;;;;;
+
+(wrap-region-add-wrapper "( " " )" ")")
+(wrap-region-add-wrapper "{ " " }" "}")
+
 ;;;;;;;;;;;;;;
 ;; Org mode ;;
 ;;;;;;;;;;;;;;

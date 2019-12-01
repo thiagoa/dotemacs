@@ -41,7 +41,7 @@
 If given FORCE-CREATE, forces the creation of a file if it doesn't exist."
   (if (rspec-buffer-is-spec-p)
       (let ((rspec-primary-source-dirs (if force-create
-                                           (list (completing-read (concat "Where to create file (app)? ")
+                                           (list (completing-read "Where to open file (app)? "
                                                                   rspec-primary-source-dirs nil nil nil nil
                                                                   "app"))
                                          rspec-primary-source-dirs)))
