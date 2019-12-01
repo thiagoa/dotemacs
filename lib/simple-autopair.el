@@ -62,18 +62,26 @@ If SKIP-AUTOPAIR > 1 is passed, skip autopair behavior and insert char."
   (let ((char (this-command-keys)))
     (if skip-autopair
         (insert char)
-      (let* (pair-enabled?
+      (let* (pair-enabled-p
              (right-char (simple-autopair--right-char char))
              (left-char (simple-autopair--left-char char))
              (master-char (cond (left-char left-char)
-                                (right-char (simple-autopair--left-char right-char))
+                                (right-char char)
                                 (t (error "No pair found for char")))))
-        (setq pair-enabled? (member master-char simple-autopair-enabled-pairs))
-        (cond ((and pair-enabled? right-char)
+        (setq pair-enabled-p (simple-autopair--enabled-p master-char))
+        (cond ((and pair-enabled-p right-char)
                (simple-autopair-do-char char right-char :left-char))
-              ((and pair-enabled? left-char)
+              ((and pair-enabled-p left-char)
                (simple-autopair-do-char left-char char :right-char))
               (t (insert char)))))))
+
+(defun simple-autopair--enabled-p (left-char)
+  "Return whether the pair for LEFT-CHAR is enabled."
+  (member left-char simple-autopair-enabled-pairs))
+
+(defun simple-autopair--spaced-p (left-char)
+  "Return whether LEFT-CHAR should be spaced out when pressing space."
+  (member left-char simple-autopair-spaced))
 
 (defun simple-autopair--left-char (right-char)
   "Return the left char for RIGHT-CHAR."
@@ -138,7 +146,7 @@ Takes LEFT-CHAR, RIGHT-CHAR, and TYPE, which can be :left-char or
   (interactive)
   (let ((left-char (char-to-string (char-after (1- (point)))))
         (right-char (char-to-string (char-after (point)))))
-    (if (and (member left-char simple-autopair-spaced)
+    (if (and (simple-autopair--spaced-p left-char)
              (string= right-char
                       (simple-autopair--right-char left-char)))
         (progn (insert "  ") (backward-char))
