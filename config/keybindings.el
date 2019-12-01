@@ -286,6 +286,7 @@
 (define-key god-local-mode-map (kbd "'") (with-god-insert 'change-inner))
 (define-key god-local-mode-map (kbd "M-'") (with-god-insert 'change-outer))
 (define-key god-local-mode-map (kbd "\"") (with-god-insert 'change-outer))
+(define-key god-local-mode-map (kbd "C-M-K") (with-god-insert 'ruby-kill-sexp))
 (define-key god-local-mode-map (kbd "<C-S-backspace>") (with-god-insert 'crux-kill-line-backwards))
 
 ;;;;;;;;;;;;;

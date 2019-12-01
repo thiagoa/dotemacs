@@ -48,6 +48,18 @@
     (enh-ruby-backward-sexp))
   (exchange-point-and-mark))
 
+(defun ruby-kill-sexp (&optional arg)
+  "Kill the sexp (balanced expression) following point.
+With ARG, kill that many sexps after point.
+Negative arg -N means kill N sexps before point.
+This command assumes point is not in a string or comment."
+  (interactive "p")
+  (if (eq major-mode 'enh-ruby-mode)
+      (let ((opoint (point)))
+        (enh-ruby-forward-sexp (or arg 1))
+        (kill-region opoint (point)))
+    (kill-sexp arg)))
+
 (defun ruby-mark-sexp-for-delete ()
   (interactive)
   (call-interactively 'ruby-mark-sexp)
