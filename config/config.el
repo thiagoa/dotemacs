@@ -25,6 +25,7 @@
 (require 'linum)
 (require 'ansi-color)
 (require 'polymode)
+(require 'wrap-region)
 
 (run-server)
 
