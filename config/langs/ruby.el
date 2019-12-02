@@ -37,9 +37,6 @@
        (notify-os (concat project-name " tags generated successfully 👍") "Hero")
      (notify-os "Is this a Ruby project? Is bundler able to run? Tags generation FAILED! 👎" "Basso"))))
 
-(setq enh-ruby-program "/usr/bin/env ruby")
-(setq rubocop-check-program "/usr/bin/env rubocop --format emacs")
-(setq rubocop-autocorrect-program "/usr/bin/env rubocop -a --format emacs")
 (setq enh-ruby-hanging-brace-deep-indent-level 1)
 (setq ruby-align-chained-calls t)
 (setq projectile-rails-expand-snippet nil)
