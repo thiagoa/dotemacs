@@ -125,7 +125,7 @@ Takes LEFT-CHAR, RIGHT-CHAR, and TYPE, which can be :left-char or
 (defun simple-autopair-delete ()
   "Automatically delete an empty pair."
   (interactive)
-  (let* ((char (char-to-string (or (char-after) ? )))
+  (let* ((char (char-to-string (or (char-after) ?\s)))
          (left-char (simple-autopair--left-char char))
          (empty-pair-p (and left-char
                             (eq (char-after (1- (point)))
@@ -140,7 +140,7 @@ Takes LEFT-CHAR, RIGHT-CHAR, and TYPE, which can be :left-char or
   "Automatically space out pair if present in `simple-autopair-spaced'."
   (interactive)
   (let ((left-char (char-to-string (char-after (1- (point)))))
-        (right-char (char-to-string (char-after (point)))))
+        (right-char (char-to-string (or (char-after (point)) ?\s))))
     (if (and (simple-autopair--spaced-p left-char)
              (string= right-char
                       (simple-autopair--right-char left-char)))
