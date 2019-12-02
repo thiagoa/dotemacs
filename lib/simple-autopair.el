@@ -128,8 +128,8 @@ Takes LEFT-CHAR, RIGHT-CHAR, and TYPE, which can be :left-char or
   (let* ((char (char-to-string (or (char-after) ? )))
          (left-char (simple-autopair--left-char char))
          (empty-pair-p (and left-char
-                            (save-excursion (backward-char)
-                                            (looking-at left-char)))))
+                            (eq (char-after (1- (point)))
+                                (string-to-char left-char)))))
     (if empty-pair-p
         (progn (call-interactively 'delete-backward-char)
                (call-interactively 'delete-forward-char))
