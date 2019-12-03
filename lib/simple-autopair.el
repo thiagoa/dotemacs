@@ -35,7 +35,8 @@
                                 ("\"" . "\"")
                                 ("'"  . "'")
                                 ("{"  . "}")
-                                ("["  . "]"))
+                                ("["  . "]")
+                                ("|"  . "|"))
   "The character pairs recognized by simple-autopairs.")
 
 (defvar simple-autopair-enabled-pairs '("(" "\"" "'" "{" "[")
