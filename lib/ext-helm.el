@@ -30,6 +30,12 @@
 
 (require 'helm-projectile)
 
+(defun helm-find-files-project-root ()
+  "Find files starting from the project root."
+  (interactive)
+  (when-let (default-directory (concat (projectile-project-root) "./"))
+    (call-interactively 'helm-find-files)))
+
 (defun add-helm-projectile-projects-action (actions)
   "Add custom ACTIONS to helm-projectile-switch-project.
 
