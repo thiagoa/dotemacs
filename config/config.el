@@ -67,8 +67,10 @@
 
 (define-innermode poly-graphql-ruby-innermode
   :mode 'graphql-mode
-  :head-matcher (rx "define_query " (= 3 (char "'")) (* (any space)))
-  :tail-matcher (rx (= 3 (char "'")))
+  :head-matcher (rx (or (sequence "define_query " (= 3 (char "'")) (* (any space)))
+                        "<<-QUERY"))
+  :tail-matcher (rx (or (= 3 (char "'"))
+                        " QUERY"))
   :head-mode 'host
   :tail-mode 'host)
 
