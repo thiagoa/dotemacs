@@ -38,6 +38,17 @@
 
 (defvar last-ruby-project nil)
 
+(defun ruby-mark-inner-defun ()
+  "Mark the inner contents of a method."
+  (interactive)
+  (call-interactively 'mark-defun)
+  (while (not (looking-at "def"))
+    (forward-char))
+  (next-line)
+  (beginning-of-line)
+  (exchange-point-and-mark)
+  (previous-line))
+
 (defun ruby-mark-sexp (arg)
   (interactive "^p")
   (if (use-region-p)

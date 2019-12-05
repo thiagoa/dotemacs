@@ -235,7 +235,8 @@
                   (define-key map (kbd "C-M-'") 'ruby-mark-sexp-for-delete)
                   (define-key map (kbd "C-c u d") 'ruby-duplicate-sexp-below)
                   (define-key map (kbd "C-M-g") 'mark-defun)
-                  (define-key map (kbd "C-j") 'break-delimited))
+                  (define-key map (kbd "C-j") 'break-delimited)
+                  (define-key map (kbd "C-M-y") 'ruby-mark-inner-defun))
                 (list ruby-mode-map enh-ruby-mode-map))))
       '("ruby-mode" "enh-ruby-mode"))
 
