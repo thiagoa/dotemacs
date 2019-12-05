@@ -35,6 +35,9 @@
 ;;; embedded in a Ruby buffer, for example, there will usually be an
 ;;; offset of whitespace chars to the left inside a heredoc. Here we
 ;;; are accounting for that offset.
+
+(require 'graphql-mode)
+
 (defun graphql-indent-line ()
   "Indent GraphQL schema language."
   (let ((offset (save-excursion
