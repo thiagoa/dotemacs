@@ -53,7 +53,7 @@
 (global-set-key (kbd "H-n")             scroll-viewport-up)
 (global-set-key (kbd "H-p")             scroll-viewport-down)
 (global-set-key (kbd "C-c SPC")        'shell)
-(global-set-key (kbd "C-c j")          'avy-goto-word-or-subword-1)
+(global-set-key (kbd "C-c j")          'avy-goto-char)
 (global-set-key (kbd "C-=")            'er/expand-region)
 (global-set-key (kbd "M-i")            'ido-goto-symbol)
 (global-set-key (kbd "M-\\")           'hippie-expand)
