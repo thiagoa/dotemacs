@@ -36,10 +36,11 @@
                                 ("'"  . "'")
                                 ("{"  . "}")
                                 ("["  . "]")
-                                ("|"  . "|"))
+                                ("|"  . "|")
+                                ("/"  . "/"))
   "The character pairs recognized by simple-autopairs.")
 
-(defvar simple-autopair-enabled-pairs '("(" "\"" "'" "{" "[")
+(defvar simple-autopair-enabled-pairs '("(" "\"" "'" "{" "[" "|" "/")
   "Pairs enabled by default.")
 
 (defvar simple-autopair-spaced '("{")
@@ -98,7 +99,9 @@ Takes LEFT-CHAR, RIGHT-CHAR, and TYPE, which can be :left-char or
 :right-char."
   (cond
    ((or (simple-autopair--string-limit-p left-char ?\')
-        (simple-autopair--string-limit-p left-char ?\"))
+        (simple-autopair--string-limit-p left-char ?\")
+        (simple-autopair--forward-char-p left-char ?\|)
+        (simple-autopair--forward-char-p left-char ?\/))
     (forward-char))
    ((or (simple-autopair--inside-p 'font-lock-string-face)
         (simple-autopair--inside-p 'font-lock-comment-face)
@@ -112,11 +115,15 @@ Takes LEFT-CHAR, RIGHT-CHAR, and TYPE, which can be :left-char or
     (insert left-char right-char)
     (backward-char))))
 
+(defun simple-autopair--forward-char-p (str target-char)
+  "Given STR and TARGET-CHAR, determine whether to `forward-char'."
+  (and (string= str (char-to-string target-char))
+       (eq (char-after) target-char)))
+
 (defun simple-autopair--string-limit-p (str target-char)
   "Determine whether STR is TARGET-CHAR and whether cursor is at a string delimiter."
   (and (simple-autopair--inside-p 'enh-ruby-string-delimiter-face)
-       (string= str (char-to-string target-char))
-       (eq (char-after) target-char)))
+       (simple-autopair--forward-char-p str target-char)))
 
 (defun simple-autopair--inside-p (font-lock-prop)
   "Return non-nil if point is at FONT-LOCK-PROP font-lock-face property."
