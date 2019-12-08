@@ -70,14 +70,14 @@ If SKIP-AUTOPAIR > 1 is passed, skip autopair behavior and insert char."
              (master-char (cond (left-char left-char)
                                 (right-char char)
                                 (t (error "No pair found for char")))))
-        (setq pair-enabled-p (simple-autopair--enabled-p master-char))
+        (setq pair-enabled-p (simple-autopair--pair-enabled-p master-char))
         (cond ((and pair-enabled-p right-char)
                (simple-autopair-do-char char right-char :left-char))
               ((and pair-enabled-p left-char)
                (simple-autopair-do-char left-char char :right-char))
               (t (insert char)))))))
 
-(defun simple-autopair--enabled-p (left-char)
+(defun simple-autopair--pair-enabled-p (left-char)
   "Return whether the pair for LEFT-CHAR is enabled."
   (member left-char simple-autopair-enabled-pairs))
 
@@ -98,6 +98,9 @@ If SKIP-AUTOPAIR > 1 is passed, skip autopair behavior and insert char."
 Takes LEFT-CHAR, RIGHT-CHAR, and TYPE, which can be :left-char or
 :right-char."
   (cond
+   ;; TODO: These correspond to the pairs whose left and right chars
+   ;; are the same char. Can we automate this somehow? Note that the
+   ;; rule for strings is slightly different.
    ((or (simple-autopair--string-limit-p left-char ?\')
         (simple-autopair--string-limit-p left-char ?\")
         (simple-autopair--forward-char-p left-char ?\|)
@@ -133,25 +136,39 @@ Takes LEFT-CHAR, RIGHT-CHAR, and TYPE, which can be :left-char or
 (defun simple-autopair-delete ()
   "Automatically delete an empty pair."
   (interactive)
-  (let* ((char (char-to-string (or (char-after) ?\s)))
-         (left-char (simple-autopair--left-char char))
-         (empty-pair-p (and left-char
-                            (eq (char-after (1- (point)))
-                                (string-to-char left-char)))))
-    (if empty-pair-p
+  (let ((point (point)))
+    (if  (or (simple-autopair--point-around-empty-pair-p point)
+             (simple-autopair--point-around-spaced-pair-p point))
         (progn (call-interactively 'delete-backward-char)
                (call-interactively 'delete-forward-char))
       (call-interactively 'delete-backward-char))))
+
+(defun simple-autopair--point-around-empty-pair-p (point)
+  "Return the left char if an empty pair exists around POINT."
+  (let ((left-char (simple-autopair--points-form-a-pair-p (- point 1) point)))
+    (if (and left-char (simple-autopair--pair-enabled-p left-char))
+        left-char)))
+
+(defun simple-autopair--points-form-a-pair-p (left-point right-point)
+  "Return the left char if LEFT-POINT and RIGHT-POINT form a pair."
+  (let* ((left-char (char-to-string (or (char-after left-point) ?\s)))
+         (right-char (char-to-string (or (char-after right-point) ?\s)))
+         (right-char-for-left-char (simple-autopair--right-char left-char)))
+    (if (equal right-char right-char-for-left-char)
+        left-char)))
+
+(defun simple-autopair--point-around-spaced-pair-p (point)
+  "Return the left char if a spaced pair exists around POINT."
+  (let ((left-char (simple-autopair--points-form-a-pair-p (- point 2) (+ 1 point))))
+    (if (and left-char (simple-autopair--spaced-p left-char))
+        left-char)))
 
 ;;;###autoload
 (defun simple-autopair-space ()
   "Automatically space out pair if present in `simple-autopair-spaced'."
   (interactive)
-  (let ((left-char (char-to-string (char-after (1- (point)))))
-        (right-char (char-to-string (or (char-after (point)) ?\s))))
-    (if (and (simple-autopair--spaced-p left-char)
-             (string= right-char
-                      (simple-autopair--right-char left-char)))
+  (let ((left-char (simple-autopair--point-around-empty-pair-p (point))))
+    (if (and left-char (simple-autopair--spaced-p left-char))
         (progn (insert "  ") (backward-char))
       (insert " "))))
 
