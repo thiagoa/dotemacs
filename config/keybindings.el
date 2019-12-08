@@ -145,6 +145,7 @@
 (global-set-key (kbd "<M-SPC>")        'mark-word)
 (global-set-key (kbd "C-c z")          'zap-to-char)
 (global-set-key (kbd "C-,")            'embrace-commander)
+(global-set-key (kbd "C-c o")          'yas-insert-snippet)
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Fast movement ;;

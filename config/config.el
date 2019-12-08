@@ -331,6 +331,12 @@
 (wrap-region-add-wrapper "( " " )" ")")
 (wrap-region-add-wrapper "{ " " }" "}")
 
+;;;;;;;;;;;;;;;;
+;; Yasnippets ;;
+;;;;;;;;;;;;;;;;
+
+(setq yas-wrap-around-region t)
+
 ;;;;;;;;;;;;;;
 ;; Org mode ;;
 ;;;;;;;;;;;;;;
