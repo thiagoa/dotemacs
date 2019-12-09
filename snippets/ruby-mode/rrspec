@@ -2,12 +2,10 @@
 # name: rrspec
 # key: rrspec
 # --
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe ${1:`(let ((fn (capitalize (file-name-nondirectory
-				 (file-name-sans-extension
-				 (or (buffer-file-name)
-				     (buffer-name (current-buffer))))))))
-	     (replace-regexp-in-string "_" "" (replace-regexp-in-string "_spec" "" fn) t t))`} do
+RSpec.describe ${1:`(string-join (ruby-get-fully-qualified-name-parts-for-path) "::")`} do
   $0
 end

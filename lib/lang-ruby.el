@@ -35,6 +35,7 @@
 (require 'inf-ruby)
 (require 'ext-elisp)
 (require 'ext-compile)
+(require 'string-inflection)
 
 (defvar last-ruby-project nil)
 
@@ -183,6 +184,93 @@ A prefix ARG specifies how many error messages to move;
 negative means move back to previous error messages."
   (interactive "P")
   (go-to-spec 'compilation-previous-file arg))
+
+(defvar ruby-code-for-fully-qualified-name-current-indentation 0
+  "Keep track of the current indentation during yasnippet expansion.
+Read more about the purpose of this variable in
+`ruby-code-for-fully-qualified-name-top'.")
+
+(defun ruby-get-fully-qualified-name-parts-for-path ()
+  "Return a list of fully-qualified Ruby class name parts for the current file.
+Given a file path or buffer, determine what the class name is by
+following Rail's path to module name convention. If dealing with a
+spec file, ignore the '_spec.rb' suffix.
+
+For example, if we're visitting a
+app/models/first/second_third.rb buffer, this function would
+return '(\"First\" \"SecondThird\")"
+  (interactive)
+  (let* ((relative-path (replace-regexp-in-string
+                         (projectile-project-root)
+                         ""
+                         (or (buffer-file-name)
+                             (buffer-name (current-buffer)))))
+         (relative-path (replace-regexp-in-string "_?s?p?e?c?\.rb" "" relative-path))
+         (parts (split-string relative-path "/"))
+         (root-dir (car parts))
+         (path (pcase root-dir
+                 ("app" (cddr parts))
+                 ("lib" (cdr parts))
+                 ("spec" (cddr parts))
+                 (_ (error "File doesn\'t belong to app or lib")))))
+    (mapcar #'string-inflection-pascal-case-function path)))
+
+(defun ruby-code-for-fully-qualified-name-top (&optional class-or-mod)
+  "Return the Ruby code for the top part of the nested module definition.
+
+CLASS-OR-MOD should be 'class' or 'module', depending on whether
+you are generating code for a class or a module.
+
+This function generates the top part of the nested module
+skeleton for the current Ruby file. It is primarily meant to be
+used with yasnippets (there is more than one cool snippet using
+it). Unfortunately, we can't generate the full nested module code
+with a single function because yas doesn't support dynamic
+snippet generation. Instead, it supports elisp expansion but it
+doesn't recognize dynamically expanded snippet placeholders.
+Therefore, this functionality has to be divided into 3
+functions (top, middle, and bottom) which keep track of the
+current indentation with a global variable (hence not being
+pure.)"
+  (let* ((raw-seq (ruby-get-fully-qualified-name-parts-for-path))
+         (namespace-seq (mapcar (lambda (p) (concat "module " p "\n"))
+                                (butlast raw-seq)))
+         (class-or-mod-seq (list (concat class-or-mod " " (car (last raw-seq)))))
+         (full-seq (append namespace-seq class-or-mod-seq))
+         (res (seq-reduce (lambda (acc str)
+                            (let* ((indent-by (car acc))
+                                   (str-acc (cdr acc))
+                                   (indentation (make-string indent-by ?\s)))
+                              (cons (+ indent-by 2) (concat str-acc indentation str))))
+                          full-seq
+                          (cons 0 ""))))
+    (setq ruby-code-for-fully-qualified-name-current-indentation (car res))
+    (cdr res)))
+
+(defun ruby-code-for-fully-qualified-name-middle ()
+  "Return the Ruby code for the middle part of the nested module definition.
+The middle part is nothing but the leading indentation; the yas
+snippet will usually concatenate the indentation with $0 to
+determine where the cursor should stop after expanding the
+snippet.
+
+Read more about this function in `ruby-code-for-fully-qualified-name-top'."
+  (make-string ruby-code-for-fully-qualified-name-current-indentation ?\s))
+
+(defun ruby-code-for-fully-qualified-name-bottom ()
+  "Return the Ruby code for the bottom part of the nested module definition.
+The bottom part is nothing but 'end' statements.
+
+Read more about this function in `ruby-code-for-fully-qualified-name-top'."
+  (let* ((raw-seq (ruby-get-fully-qualified-name-parts-for-path))
+         (indent-by ruby-code-for-fully-qualified-name-current-indentation))
+    (string-trim-right
+     (seq-reduce (lambda (acc _)
+                   (setq indent-by (- indent-by 2))
+                   (concat acc (make-string indentation ?\s) "end\n"))
+                 raw-seq
+                 "")
+     "\n")))
 
 (provide 'lang-ruby)
 ;;; lang-ruby.el ends here

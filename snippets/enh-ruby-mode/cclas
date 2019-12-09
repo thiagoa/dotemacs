@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: cclas
+# key: cclas
+# --
+# frozen_string_literal: true
+
+`(ruby-code-for-fully-qualified-name-top "class")`
+`(ruby-code-for-fully-qualified-name-middle)`$0
+`(ruby-code-for-fully-qualified-name-bottom)`
