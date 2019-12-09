@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: mlcall
+# key: mlcall
+# --
+${1:method}(
+  $0
+)
