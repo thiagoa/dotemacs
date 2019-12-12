@@ -267,7 +267,7 @@ Read more about this function in `ruby-code-for-fully-qualified-name-top'."
     (string-trim-right
      (seq-reduce (lambda (acc _)
                    (setq indent-by (- indent-by 2))
-                   (concat acc (make-string indentation ?\s) "end\n"))
+                   (concat acc (make-string indent-by ?\s) "end\n"))
                  raw-seq
                  "")
      "\n")))
