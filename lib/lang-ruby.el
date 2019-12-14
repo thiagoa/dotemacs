@@ -41,7 +41,10 @@
 
 (defun ruby-finish-test-compilation ()
   "Calback to be run after a compilation task finishes."
-  (if rspec-last-failed-specs
+  (if (or rspec-last-failed-specs
+          (> (with-current-buffer "*rspec-compilation*"
+               compilation-num-errors-found)
+             0))
       (notify-os "Tests failed 👎" "Basso")
     (notify-os "Tests passed 👍" "Hero")))
 
