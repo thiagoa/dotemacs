@@ -43,6 +43,9 @@
 (defvar simple-autopair-enabled-pairs '("(" "\"" "'" "{" "[" "|" "/")
   "Pairs enabled by default.")
 
+(defvar simple-autopair-string-closing-chars '("'" "\"" "}" "/")
+  "Possible characters that close a string.")
+
 (defvar simple-autopair-spaced '("{")
   "Pairs to space out when pressing the space key.")
 
@@ -98,26 +101,30 @@ If SKIP-AUTOPAIR > 1 is passed, skip autopair behavior and insert char."
 Takes LEFT-CHAR, RIGHT-CHAR, and TYPE, which can be :left-char or
 :right-char."
   (cond
-   ;; TODO: These correspond to the pairs whose left and right chars
-   ;; are the same char. Can we automate this somehow? Note that the
-   ;; rule for strings is slightly different.
-   ((or (simple-autopair--str-boundary-forward-char-p right-char ?\')
-        (simple-autopair--str-boundary-forward-char-p right-char ?\")
-        (simple-autopair--str-boundary-forward-char-p right-char ?})
-        (simple-autopair--str-boundary-forward-char-p right-char ?\/)
-        (simple-autopair--forward-char-p right-char ?\|))
+   ((simple-autopair--should-forward-p right-char)
     (forward-char))
-   ((or (simple-autopair--within-str-p)
-        (simple-autopair--div-math-op-p left-char)
-        (simple-autopair--inside-p 'font-lock-comment-face))
+   ((simple-autopair--should-ignore-expansion left-char)
     (insert (if (eq type :right-char) right-char left-char)))
    ((eq type :right-char)
-    (if (eq (char-after) (string-to-char right-char))
+    (if (equal (char-to-string (char-after)) right-char)
         (forward-char)
       (insert right-char)))
    (t
     (insert left-char right-char)
     (backward-char))))
+
+(defun simple-autopair--should-forward-p (right-char)
+  "High-level function to determine if we should skip RIGHT-CHAR at point."
+  (or (simple-autopair--str-boundary-forward-char-p right-char
+                                                    simple-autopair-string-closing-chars)
+      (simple-autopair--forward-char-p right-char "|")))
+
+(defun simple-autopair--should-ignore-expansion (left-char)
+  "High-level function to determine if current pair expansion should be ignored.
+Takes LEFT-CHAR."
+  (or (simple-autopair--within-str-p)
+      (simple-autopair--div-math-op-p left-char)
+      (simple-autopair--inside-p 'font-lock-comment-face)))
 
 (defun simple-autopair--div-math-op-p (target-char)
   "Detect a math operation to avoid expanding /.
@@ -127,15 +134,15 @@ Takes TARGET-CHAR to compare against /."
        (save-excursion (goto-char (- (point) 2))
                        (looking-at "\[0-9a-zA-Z\]"))))
 
-(defun simple-autopair--forward-char-p (str target-char)
-  "Given STR and TARGET-CHAR, determine whether to `forward-char'."
-  (and (string= str (char-to-string target-char))
-       (eq (char-after) target-char)))
+(defun simple-autopair--forward-char-p (str &rest target-strs)
+  "Given STR and TARGET-STRS, determine whether to `forward-char'."
+  (let ((found (car (member str target-strs))))
+    (equal (char-to-string (char-after)) found)))
 
-(defun simple-autopair--str-boundary-forward-char-p (str target-char)
-  "Determine whether STR is TARGET-CHAR and whether cursor is at a string or regex delimiter."
+(defun simple-autopair--str-boundary-forward-char-p (str target-chars)
+  "Determine whether STR is one of TARGET-CHARS and whether cursor is at a string or regex delimiter."
   (and (simple-autopair--str-boundary-p)
-       (simple-autopair--forward-char-p str target-char)))
+       (apply #'simple-autopair--forward-char-p str target-chars)))
 
 (defun simple-autopair--str-boundary-p ()
   "Determine whether we are at string or regex boundaries."
