@@ -72,7 +72,8 @@ more info.  FUNC is the test function to be run."
 
 (defun tests-anywhere--run-registered (func)
   "Run FUNC under the last registered project."
-  (let* ((default-directory (tests-anywhere--get-state :directory)))
+  (let* ((default-directory (or (tests-anywhere--get-state :directory)
+                                default-directory)))
     (apply 'call-interactively (list func))))
 
 (defun tests-anywhere--run (type)
