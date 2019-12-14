@@ -39,6 +39,12 @@
 
 (defvar last-ruby-project nil)
 
+(defun ruby-finish-test-compilation ()
+  "Calback to be run after a compilation task finishes."
+  (if rspec-last-failed-specs
+      (notify-os "Tests failed 👎" "Basso")
+    (notify-os "Tests passed 👍" "Hero")))
+
 (defun ruby-mark-inner-defun ()
   "Mark the inner contents of a method."
   (interactive)

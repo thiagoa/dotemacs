@@ -26,7 +26,7 @@
                          (rbtagger-mode)
                          (simple-autopair-mode))))
       '(ruby-mode enh-ruby-mode-hook))
-(add-hook 'rspec-after-verification-hook 'finish-test-compilation)
+(add-hook 'rspec-after-verification-hook 'ruby-finish-test-compilation)
 (add-hook 'web-mode-hook 'projectile-rails-on)
 (add-hook 'inf-ruby-mode-hook (lambda () (turn-on-comint-history ".pry_history")))
 (add-hook 'after-init-hook 'inf-ruby-switch-setup)

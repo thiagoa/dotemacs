@@ -41,14 +41,6 @@ MESSAGE is the notification message; SOUND is the sound that will be played."
     sound
     "'")))
 
-(defun finish-test-compilation ()
-  "Calback to be run after a compilation task finishes.
-
-The exit code verification method can still be improved."
-  (if (= compilation-num-errors-found 0)
-      (notify-os "Tests passed 👍" "Hero")
-    (notify-os "Tests failed 👎" "Basso")))
-
 (defun find-buffer-in-windows (func &optional default)
   "Find buffer returned by FUNC in visible windows.
 If not found, returns DEFAULT."
