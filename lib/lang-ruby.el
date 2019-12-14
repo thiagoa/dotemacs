@@ -83,7 +83,8 @@ This command assumes point is not in a string or comment."
   (call-interactively 'ruby-mark-sexp)
   (exchange-point-and-mark)
   (next-line)
-  (beginning-of-line))
+  (beginning-of-line)
+  (exchange-point-and-mark))
 
 (defun ruby-duplicate-sexp-below (arg)
   "Duplicate Ruby sexp and place point at the start of duplicated sexp.
