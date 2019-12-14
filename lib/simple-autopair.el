@@ -103,12 +103,13 @@ Takes LEFT-CHAR, RIGHT-CHAR, and TYPE, which can be :left-char or
    ;; rule for strings is slightly different.
    ((or (simple-autopair--string-limit-p left-char ?\')
         (simple-autopair--string-limit-p left-char ?\")
-        (simple-autopair--forward-char-p left-char ?\|)
-        (simple-autopair--forward-char-p left-char ?\/))
+        (simple-autopair--string-limit-p right-char ?})
+        (simple-autopair--string-limit-p left-char ?\/)
+        (simple-autopair--forward-char-p left-char ?\|))
     (forward-char))
-   ((or (simple-autopair--inside-p 'font-lock-string-face)
-        (simple-autopair--inside-p 'font-lock-comment-face)
-        (simple-autopair--inside-p 'enh-ruby-string-delimiter-face))
+   ((or (simple-autopair--within-string-p)
+        (simple-autopair--div-math-op-p left-char)
+        (simple-autopair--inside-p 'font-lock-comment-face))
     (insert (if (eq type :right-char) right-char left-char)))
    ((eq type :right-char)
     (if (eq (char-after) (string-to-char right-char))
@@ -118,15 +119,34 @@ Takes LEFT-CHAR, RIGHT-CHAR, and TYPE, which can be :left-char or
     (insert left-char right-char)
     (backward-char))))
 
+(defun simple-autopair--div-math-op-p (target-char)
+  "Detect a math operation to avoid expanding /.
+Takes TARGET-CHAR to compare against /."
+  (and (equal target-char "/")
+       (eq (char-after (- (point) 1)) ?\s)
+       (save-excursion (goto-char (- (point) 2))
+                       (looking-at "\[0-9a-zA-Z\]"))))
+
 (defun simple-autopair--forward-char-p (str target-char)
   "Given STR and TARGET-CHAR, determine whether to `forward-char'."
   (and (string= str (char-to-string target-char))
        (eq (char-after) target-char)))
 
 (defun simple-autopair--string-limit-p (str target-char)
-  "Determine whether STR is TARGET-CHAR and whether cursor is at a string delimiter."
-  (and (simple-autopair--inside-p 'enh-ruby-string-delimiter-face)
+  "Determine whether STR is TARGET-CHAR and whether cursor is at a string or regex delimiter."
+  (and (or (simple-autopair--inside-p 'enh-ruby-string-delimiter-face)
+           (simple-autopair--inside-p 'enh-ruby-regexp-delimiter-face))
        (simple-autopair--forward-char-p str target-char)))
+
+(defun simple-autopair--within-string-p ()
+  "Determine whether point is within a string or regex."
+  (and (not (and (or (simple-autopair--inside-p 'enh-ruby-regexp-delimiter-face)
+                     (simple-autopair--inside-p 'enh-ruby-string-delimiter-face))
+                 (eq (char-after) ?\n)))
+       (or (simple-autopair--inside-p 'enh-ruby-string-delimiter-face)
+           (simple-autopair--inside-p 'enh-ruby-regexp-delimiter-face)
+           (simple-autopair--inside-p 'font-lock-string-face)
+           (simple-autopair--inside-p 'enh-ruby-regexp-face))))
 
 (defun simple-autopair--inside-p (font-lock-prop)
   "Return non-nil if point is at FONT-LOCK-PROP font-lock-face property."
