@@ -101,13 +101,13 @@ Takes LEFT-CHAR, RIGHT-CHAR, and TYPE, which can be :left-char or
    ;; TODO: These correspond to the pairs whose left and right chars
    ;; are the same char. Can we automate this somehow? Note that the
    ;; rule for strings is slightly different.
-   ((or (simple-autopair--string-limit-p left-char ?\')
-        (simple-autopair--string-limit-p left-char ?\")
-        (simple-autopair--string-limit-p right-char ?})
-        (simple-autopair--string-limit-p left-char ?\/)
-        (simple-autopair--forward-char-p left-char ?\|))
+   ((or (simple-autopair--str-boundary-forward-char-p right-char ?\')
+        (simple-autopair--str-boundary-forward-char-p right-char ?\")
+        (simple-autopair--str-boundary-forward-char-p right-char ?})
+        (simple-autopair--str-boundary-forward-char-p right-char ?\/)
+        (simple-autopair--forward-char-p right-char ?\|))
     (forward-char))
-   ((or (simple-autopair--within-string-p)
+   ((or (simple-autopair--within-str-p)
         (simple-autopair--div-math-op-p left-char)
         (simple-autopair--inside-p 'font-lock-comment-face))
     (insert (if (eq type :right-char) right-char left-char)))
@@ -132,25 +132,31 @@ Takes TARGET-CHAR to compare against /."
   (and (string= str (char-to-string target-char))
        (eq (char-after) target-char)))
 
-(defun simple-autopair--string-limit-p (str target-char)
+(defun simple-autopair--str-boundary-forward-char-p (str target-char)
   "Determine whether STR is TARGET-CHAR and whether cursor is at a string or regex delimiter."
-  (and (or (simple-autopair--inside-p 'enh-ruby-string-delimiter-face)
-           (simple-autopair--inside-p 'enh-ruby-regexp-delimiter-face))
+  (and (simple-autopair--str-boundary-p)
        (simple-autopair--forward-char-p str target-char)))
 
-(defun simple-autopair--within-string-p ()
-  "Determine whether point is within a string or regex."
-  (and (not (and (or (simple-autopair--inside-p 'enh-ruby-regexp-delimiter-face)
-                     (simple-autopair--inside-p 'enh-ruby-string-delimiter-face))
-                 (eq (char-after) ?\n)))
-       (or (simple-autopair--inside-p 'enh-ruby-string-delimiter-face)
-           (simple-autopair--inside-p 'enh-ruby-regexp-delimiter-face)
-           (simple-autopair--inside-p 'font-lock-string-face)
-           (simple-autopair--inside-p 'enh-ruby-regexp-face))))
+(defun simple-autopair--str-boundary-p ()
+  "Determine whether we are at string or regex boundaries."
+  (simple-autopair--inside-p 'enh-ruby-string-delimiter-face
+                             'enh-ruby-regexp-delimiter-face))
 
-(defun simple-autopair--inside-p (font-lock-prop)
-  "Return non-nil if point is at FONT-LOCK-PROP font-lock-face property."
-  (eq font-lock-prop (get-text-property (point) 'font-lock-face)))
+(defun simple-autopair--inside-str-p ()
+  "Determine whether we are inside the string, not at boundaries."
+  (simple-autopair--inside-p 'font-lock-string-face
+                             'enh-ruby-regexp-face))
+
+(defun simple-autopair--within-str-p ()
+  "Determine whether point is within a string or regex."
+  (and (not (and (simple-autopair--str-boundary-p)
+                 (eq (char-after) ?\n)))
+       (or (simple-autopair--inside-str-p)
+           (simple-autopair--str-boundary-p))))
+
+(defun simple-autopair--inside-p (&rest font-lock-props)
+  "Return non-nil if point is at one of FONT-LOCK-PROPS."
+  (member (get-text-property (point) 'font-lock-face) font-lock-props))
 
 ;;;###autoload
 (defun simple-autopair-delete ()
