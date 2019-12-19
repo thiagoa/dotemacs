@@ -72,6 +72,7 @@
         nlinum
         sql-indent
         web-mode
+        adoc-mode
 
         ;; Org mode
         org-journal
