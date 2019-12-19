@@ -41,10 +41,10 @@
   "The character pairs recognized by simple-autopairs.")
 
 (defvar simple-autopair-enabled-pairs '("(" "\"" "'" "{" "[" "|" "/")
-  "Pairs enabled by default.")
+  "Pairs enabled by default, identified after 'left-char'.")
 
 (defvar simple-autopair-string-closing-chars '("'" "\"" "}" "/")
-  "Possible characters that close a string.")
+  "Possible characters that close a string or regex, identified after 'right-char'.")
 
 (defvar simple-autopair-spaced '("{")
   "Pairs to space out when pressing the space key.")
