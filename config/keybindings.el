@@ -224,13 +224,13 @@
 ;;;;;;;;;;
 
 (eval-after-load 'rspec-compilation-mode
-  (define-key compilation-mode-map (kbd "i")
-    'inf-ruby-switch-from-compilation)
-  (define-key compilation-mode-map (kbd "C-d")
-    (lambda ()
-      (interactive)
-      (inf-ruby-switch-from-compilation)
-      (call-interactively 'comint-delchar-or-maybe-eof))))
+  (progn (define-key compilation-mode-map (kbd "i")
+           'inf-ruby-switch-from-compilation)
+         (define-key compilation-mode-map (kbd "C-d")
+           (lambda ()
+             (interactive)
+             (inf-ruby-switch-from-compilation)
+             (call-interactively 'comint-delchar-or-maybe-eof)))))
 
 
 (global-set-key (kbd "C-c , p") 'rspec-toggle-compilation-mode)
