@@ -26,6 +26,7 @@
 (require 'ansi-color)
 (require 'polymode)
 (require 'wrap-region)
+(require 'yi-go-to-char)
 
 (run-server)
 
@@ -254,6 +255,12 @@
 
 (setq auto-mode-alist
       (cons '("[^/]\\.dired$" . dired-virtual-mode) auto-mode-alist))
+
+;;;;;;;;;;;;;;;;;;;
+;; yi-go-to-char ;;
+;;;;;;;;;;;;;;;;;;;
+
+(setq iy-go-to-char-continue-when-repeating nil)
 
 ;;;;;;;;;;;
 ;; Magit ;;
