@@ -26,7 +26,7 @@
 (require 'ansi-color)
 (require 'polymode)
 (require 'wrap-region)
-(require 'yi-go-to-char)
+(require 'iy-go-to-char)
 
 (run-server)
 

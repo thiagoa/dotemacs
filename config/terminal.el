@@ -41,7 +41,6 @@
   (set-buffer-process-coding-system 'utf-8-unix 'utf-8-unix))
 (add-hook 'term-exec-hook 'my-term-use-utf8)
 
-
 (defun my-term-hook ()
   (goto-address-mode))
 
