@@ -273,6 +273,15 @@
 ;; Magit ;;
 ;;;;;;;;;;;
 
+(let ((unstaged-changes-pos
+       (cl-position 'magit-insert-unstaged-changes magit-status-sections-hook))
+      (untracked-files-pos
+       (cl-position 'magit-insert-untracked-files magit-status-sections-hook)))
+  (setf (nth unstaged-changes-pos magit-status-sections-hook)
+        'magit-insert-untracked-files)
+  (setf (nth untracked-files-pos magit-status-sections-hook)
+        'magit-insert-unstaged-changes))
+
 (setq magit-no-confirm '(unstage-all-changes)
       magit-status-margin
       '(nil "%Y-%m-%d %H:%M " magit-log-margin-width t 18))
