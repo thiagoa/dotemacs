@@ -37,7 +37,7 @@ Requires terminal-notifier (install it via homebrew).
 MESSAGE is the notification message; SOUND is the sound that will be played."
   (shell-command
    (concat
-    "bash -c -l 'echo " message " | terminal-notifier -sound "
+    "bash -c -l 'echo " message " | terminal-notifier -activate \'org.gnu.Emacs\' -sound "
     sound
     "'")))
 
