@@ -27,8 +27,15 @@
 (require 'polymode)
 (require 'wrap-region)
 (require 'iy-go-to-char)
+(require 'fzf)
 
 (run-server)
+
+;;;;;;;;;
+;; fzf ;;
+;;;;;;;;;
+
+(setq fzf/args "-x --print-query")
 
 ;;;;;;;;;;
 ;; Font ;;

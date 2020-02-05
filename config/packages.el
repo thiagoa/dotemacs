@@ -39,6 +39,7 @@
 
         ;; Project / Search
         ag
+        fzf
         helm
         helm-projectile
         projectile
