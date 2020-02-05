@@ -364,6 +364,17 @@
 ;; Org mode ;;
 ;;;;;;;;;;;;;;
 
+(setq org-todo-keyword-faces
+      '(("TODO" . (:foreground "#ff39a3" :weight bold))
+        ("READING" . "#E35DBF")
+        ("REVIEW" . (:foreground "white" :background "#4d4d4d" :weight bold))
+        ("DONE" . "pink")
+        ("BUSTED" . "#008080")
+        ("STOPPED" . "red")
+        ("BETA" . "gray")))
+
+(setq org-log-done 'time)
+
 (setq-default org-download-image-dir "~/OneDrive/Journal/images"
               org-journal-dir "~/OneDrive/Journal")
 
