@@ -41,7 +41,7 @@
 ;; Font ;;
 ;;;;;;;;;;
 
-(defvar my-default-font "Menlo 15")
+(defvar my-default-font "JetBrains Mono 15")
 
 ;;;;;;;;;;;;;;;;;;
 ;; Frame config ;;
