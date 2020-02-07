@@ -29,7 +29,6 @@
         change-inner
         crux
         dot-mode
-        goto-last-change
         iy-go-to-char
         move-text
         multiple-cursors

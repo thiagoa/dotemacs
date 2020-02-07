@@ -53,6 +53,7 @@
 (require 'ext-ido)
 (require 'ext-align)
 (require 'ext-rspec-mode)
+(require 'goto-last-change)
 
 ;; Load configuration files
 (mapc (lambda (pattern)
