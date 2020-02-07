@@ -80,6 +80,7 @@ more info.  FUNC is the test function to be run."
   "Run test function.
 Lookup the test function for TYPE and try to figure out the current
 project.  TYPE can be 'rerun, 'verify-all, 'verify-single, etc."
+  (call-interactively 'save-buffer)
   (let* ((tests-anywhere-project-type (tests-anywhere--project-type))
          (project-type (or tests-anywhere-project-type
                            (tests-anywhere--get-state :project-type)
