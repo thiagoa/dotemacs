@@ -232,7 +232,6 @@
              (inf-ruby-switch-from-compilation)
              (call-interactively 'comint-delchar-or-maybe-eof)))))
 
-
 (global-set-key (kbd "C-c , p") 'rspec-toggle-compilation-mode)
 
 (mapc (lambda (mode)
@@ -243,7 +242,12 @@
                   (define-key map (kbd "C-c u d") 'ruby-duplicate-sexp-below)
                   (define-key map (kbd "C-M-g") 'mark-defun)
                   (define-key map (kbd "C-j") 'break-delimited)
-                  (define-key map (kbd "C-M-y") 'ruby-mark-inner-defun))
+                  (define-key map (kbd "C-M-y") 'ruby-mark-inner-defun)
+                  (define-key map (kbd "C-c e r") 'ruby-send-region)
+                  (define-key map (kbd "C-c e b") 'ruby-send-block)
+                  (define-key map (kbd "C-c e a") 'ruby-send-buffer)
+                  (define-key map (kbd "C-c e d") 'ruby-send-definition)
+                  (define-key map (kbd "C-c e l") 'ruby-send-line))
                 (list ruby-mode-map enh-ruby-mode-map))))
       '("ruby-mode" "enh-ruby-mode"))
 
