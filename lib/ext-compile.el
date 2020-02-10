@@ -73,7 +73,6 @@ negative means move back to previous error messages."
   (interactive "P")
   (go-to-file 'compilation-next-file arg))
 
-
 (defun go-to-previous-file (&optional arg)
   "Go to previous file in compilation buffer.
 
@@ -81,6 +80,22 @@ A prefix ARG specifies how many error messages to move;
 negative means move back to previous error messages."
   (interactive "P")
   (go-to-file 'compilation-previous-file arg))
+
+(defun navigate-error-dwim (&rest args)
+  "If dealing with an RSpec buffer, make sure compilation mode is on.
+This is an advice function, hence ARGS."
+  (let* ((compilation-buffer (next-error-find-buffer))
+         (buffer-name (buffer-name compilation-buffer))
+         (inf-ruby-mode-p (and (string-prefix-p "*rspec-" buffer-name)
+                               (eq 'inf-ruby-mode
+                                   (with-current-buffer buffer-name major-mode)))))
+    (if inf-ruby-mode-p
+        (with-current-buffer buffer-name
+          (inf-ruby-maybe-switch-to-compilation)))
+    (apply (car args) (cdr args))))
+
+(progn (advice-mapc (lambda (advice _props) (advice-remove 'next-error advice)) 'next-error)
+       (advice-add 'next-error :around #'navigate-error-dwim))
 
 (provide 'ext-compile)
 ;;; ext-compile.el ends here
