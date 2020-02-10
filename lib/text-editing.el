@@ -138,12 +138,43 @@ Take ARG universal argument to mark N lines."
       (comment-or-uncomment-region (region-beginning) (region-end))
     (comment-or-uncomment-region (line-beginning-position) (line-end-position))))
 
-(defun clear-line ()
-  "Sensibly clears the current line."
+(defun kill-code-paragraph ()
+  "Kill paragraph and delete blank lines thereafter."
   (interactive)
+  (let ((start (point))
+        end
+        (cur-indent (save-excursion
+                      (call-interactively 'indent-for-tab-command)
+                      (current-indentation))))
+    (save-excursion
+      (forward-paragraph)
+      (back-to-indentation)
+      (if (< (current-indentation) cur-indent)
+          (progn
+            (while (< (current-indentation) cur-indent)
+              (previous-line))
+            (end-of-line)
+            (setq end (point))
+            (goto-char start)
+            (delete-region start end)
+            (delete-blank-lines))
+        (progn
+          (goto-char start)
+          (kill-paragraph 1))))
+    (if (save-excursion
+          (previous-line)
+          (< (current-indentation) cur-indent))
+        (delete-blank-lines))))
+
+(defun clear-line (arg)
+  "Sensibly clears the current line.
+ARG corresponds to the number of lines to clear."
+  (interactive "p")
+  (if (> arg 1)
+      (progn (dotimes (i (1- arg)) (crux-kill-whole-line))))
   (call-interactively 'indent-for-tab-command)
   (call-interactively 'back-to-indentation)
-  (when (not (current-line-empty-p)) (call-interactively (key-binding "\C-k"))))
+  (when (not (current-line-empty-p)) (funcall (key-binding "\C-k"))))
 
 (defun current-line-empty-p ()
   "Return non-nil if the current line is empty."
