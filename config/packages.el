@@ -18,6 +18,7 @@
         dired-subtree
         ibuffer-vc
         persistent-scratch
+        which-key
 
         ;; Elisp
         f

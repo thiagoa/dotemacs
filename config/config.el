@@ -28,6 +28,7 @@
 (require 'wrap-region)
 (require 'iy-go-to-char)
 (require 'fzf)
+(require 'which-key)
 
 (run-server)
 
@@ -42,6 +43,16 @@
 ;;;;;;;;;;
 
 (defvar my-default-font "JetBrains Mono 15")
+
+;;;;;;;;;;;;;;;
+;; which-key ;;
+;;;;;;;;;;;;;;;
+
+(setq which-key-show-early-on-C-h t)
+(setq which-key-idle-delay 10000)
+(setq which-key-idle-secondary-delay 0.05)
+
+(which-key-mode)
 
 ;;;;;;;;;;;;;;;;;;
 ;; Frame config ;;
