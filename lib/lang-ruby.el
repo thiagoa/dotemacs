@@ -111,7 +111,7 @@ If given universal ARG, does not open a newline between sexps."
   (if (eq arg 1) (newline-and-indent)))
 
 (defun within-last-ruby-project (&rest args)
-  "A function decorator to register the last ruby project.
+  "A function decorator to register the last Ruby project.
 
 ARGS is used to called the decorated function.
 
@@ -160,6 +160,14 @@ compilation mode in it immediately."
       (if (equal major-mode 'inf-ruby-mode)
           (inf-ruby-maybe-switch-to-compilation)
         (inf-ruby-switch-from-compilation)))))
+
+(defun rspec-quit-pry ()
+  "Quits Pry in the RSpec buffer if it's running."
+  (interactive)
+  (with-current-buffer "*rspec-compilation*"
+    (if (equal major-mode 'rspec-compilation-mode)
+        (inf-ruby-switch-from-compilation))
+    (comint-send-eof)))
 
 (defun go-to-rspec-compilation-buffer ()
   "Go straight to rspec compilation buffer."

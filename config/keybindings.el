@@ -248,6 +248,7 @@
                   (define-key map (kbd "C-c e a") 'ruby-send-buffer)
                   (define-key map (kbd "C-c e d") 'ruby-send-definition)
                   (define-key map (kbd "C-c e l") 'ruby-send-line))
+                  (define-key map (kbd "C-c , q") 'rspec-quit-pry)
                 (list ruby-mode-map enh-ruby-mode-map))))
       '("ruby-mode" "enh-ruby-mode"))
 
