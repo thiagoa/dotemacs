@@ -167,6 +167,7 @@ compilation mode in it immediately."
   (with-current-buffer "*rspec-compilation*"
     (if (equal major-mode 'rspec-compilation-mode)
         (inf-ruby-switch-from-compilation))
+    (end-of-buffer)
     (comint-send-eof)))
 
 (defun go-to-rspec-compilation-buffer ()
