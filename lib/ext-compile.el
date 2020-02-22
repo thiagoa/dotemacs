@@ -58,6 +58,10 @@ means move back to previous error messages."
     (let ((buffer (find-buffer-in-windows
                    'compilation-buffer-p
                    (next-error-find-buffer))))
+      (switch-to-compilation buffer
+                             (lambda (buffer-name)
+                               (with-current-buffer buffer-name
+                                 (beginning-of-buffer))))
       (with-current-buffer buffer
         (call-interactively func)
         (compile-goto-error)

@@ -158,7 +158,8 @@
 (setq helm--url-regexp "WILL-NEVER-EVER-MATCH-I-DONT-WANT-THIS-FUNCTIONALITY"
       helm-buffers-fuzzy-matching t
       helm-recentf-fuzzy-match t
-      helm-split-window-default-side 'other)
+      helm-split-window-default-side 'below
+      helm-split-window-in-side-p t)
 
 (add-helm-projectile-projects-action
  '(("Rails console"        "M-r" execute-projectile-rails-console-under-dir)
