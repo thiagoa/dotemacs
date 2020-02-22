@@ -47,5 +47,12 @@
   (kill-buffer (current-buffer))
   (other-window -1))
 
+(defun fix-secondary-window-covering-main-window ()
+  "When the secondary window opens covering the main window, fix it."
+  (interactive)
+  (call-interactively 'crux-transpose-windows)
+  (call-interactively 'other-window)
+  (switch-to-buffer nil))
+
 (provide 'window-management)
 ;;; window-management.el ends here

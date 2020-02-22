@@ -129,6 +129,7 @@
 (global-set-key (kbd "C-x C-2")        'split-window-below)
 (global-set-key (kbd "C-x C-3")        'split-window-right)
 (global-set-key (kbd "C-x C-0")        'delete-window)
+(global-set-key (kbd "C-x C-8")        'fix-secondary-window-covering-main-window)
 (global-set-key (kbd "C-x C-9")        'crux-swap-windows)
 (global-set-key (kbd "C-a")            'beginning-of-line)
 (global-set-key (kbd "C-e")            'end-of-line)
