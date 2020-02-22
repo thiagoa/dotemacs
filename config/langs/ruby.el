@@ -39,7 +39,11 @@
 
 (add-hook 'rspec-before-verification-hook
           (lambda ()
-            (push (get-buffer "*rspec-compilation*") inf-ruby-buffers)))
+            (setq inf-ruby-buffers (seq-filter 'buffer-live-p inf-ruby-buffers))
+            (setq inf-ruby-buffers
+                  (cl-delete-if (lambda (b) (string-prefix-p "*rspec-" (buffer-name b)))
+                                inf-ruby-buffers))
+            (add-to-list 'inf-ruby-buffers (get-buffer "*rspec-compilation*"))))
 
 (add-hook 'web-mode-hook 'projectile-rails-on)
 (add-hook 'inf-ruby-mode-hook (lambda () (turn-on-comint-history ".pry_history")))
