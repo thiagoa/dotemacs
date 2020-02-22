@@ -85,17 +85,23 @@ negative means move back to previous error messages."
   (interactive "P")
   (go-to-file 'compilation-previous-file arg))
 
-(defun navigate-error-dwim (&rest args)
-  "If dealing with an RSpec buffer, make sure compilation mode is on.
-This is an advice function, hence ARGS."
-  (let* ((compilation-buffer (next-error-find-buffer))
-         (buffer-name (buffer-name compilation-buffer))
+(defun switch-to-compilation (compilation-buffer &optional func)
+  "Make sure compilation mode is on on COMPILATION-BUFFER (rspec buffer)."
+  (let* ((buffer-name (buffer-name compilation-buffer))
          (inf-ruby-mode-p (and (string-prefix-p "*rspec-" buffer-name)
                                (eq 'inf-ruby-mode
                                    (with-current-buffer buffer-name major-mode)))))
     (if inf-ruby-mode-p
         (with-current-buffer buffer-name
-          (inf-ruby-maybe-switch-to-compilation)))
+          (progn
+            (inf-ruby-maybe-switch-to-compilation)
+            (if func (funcall func buffer-name)))))))
+
+(defun navigate-error-dwim (&rest args)
+  "If dealing with an RSpec buffer, make sure compilation mode is on.
+This is an advice function, hence ARGS."
+  (let* ((compilation-buffer (next-error-find-buffer)))
+    (switch-to-compilation compilation-buffer)
     (apply (car args) (cdr args))))
 
 (progn (advice-mapc (lambda (advice _props) (advice-remove 'next-error advice)) 'next-error)
