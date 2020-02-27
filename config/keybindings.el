@@ -244,11 +244,21 @@
                   (define-key map (kbd "C-M-g") 'mark-defun)
                   (define-key map (kbd "C-j") 'break-delimited)
                   (define-key map (kbd "C-M-y") 'ruby-mark-inner-defun)
-                  (define-key map (kbd "C-c e r") 'ruby-send-region)
-                  (define-key map (kbd "C-c e b") 'ruby-send-block)
-                  (define-key map (kbd "C-c e a") 'ruby-send-buffer)
-                  (define-key map (kbd "C-c e d") 'ruby-send-definition)
-                  (define-key map (kbd "C-c e l") 'ruby-send-line)
+                  (define-key map (kbd "C-c e r")
+                    (simple-ilambda (with-compilation-mode-off
+                                     (lambda () (call-interactively 'ruby-send-region)))))
+                  (define-key map (kbd "C-c e b")
+                    (simple-ilambda (with-compilation-mode-off
+                                     (lambda () (call-interactively 'ruby-send-block)))))
+                  (define-key map (kbd "C-c e a")
+                    (simple-ilambda (with-compilation-mode-off
+                                     (lambda () (call-interactively 'ruby-send-buffer)))))
+                  (define-key map (kbd "C-c e d")
+                    (simple-ilambda (with-compilation-mode-off
+                                     (lambda () (call-interactively 'ruby-send-definition)))))
+                  (define-key map (kbd "C-c e l")
+                    (simple-ilambda (with-compilation-mode-off
+                                     (lambda () (call-interactively 'ruby-send-line)))))
                   (define-key map (kbd "C-c , q") 'rspec-quit-pry)
                   (define-key map (kbd "M-k") 'kill-code-paragraph))
                 (list ruby-mode-map enh-ruby-mode-map))))

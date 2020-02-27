@@ -97,6 +97,17 @@ negative means move back to previous error messages."
             (inf-ruby-maybe-switch-to-compilation)
             (if func (funcall func buffer-name)))))))
 
+;; TODO: Refactor
+(defun with-compilation-mode-off (func)
+  "Takes FUNC. Refactor to eliminate cross-function duplication."
+  (let* ((buffer-name (next-error-find-buffer))
+         (inf-ruby-mode-p (eq 'inf-ruby-mode
+                              (with-current-buffer buffer-name major-mode))))
+    (unless inf-ruby-mode-p
+      (with-current-buffer buffer-name
+        (inf-ruby-switch-from-compilation)))
+    (funcall func)))
+
 (defun navigate-error-dwim (&rest args)
   "If dealing with an RSpec buffer, make sure compilation mode is on.
 This is an advice function, hence ARGS."
