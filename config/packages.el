@@ -87,6 +87,9 @@
         redshank ;; CL
         slime ;; CL
 
+        ;; JavaScript / JS
+        rjsx-mode
+
         ;; PHP
         php-mode
 
