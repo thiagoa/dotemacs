@@ -100,5 +100,13 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (interactive)
   (set-mark-command 1))
 
+(defun iy-go-to-char--command--without-case-fold (orig-fun &rest args)
+  "Advice to add case fold to iy-go-to-char--command. Takes ORIG-FUN and ARGS."
+  (let ((case-fold-search nil))
+    (apply orig-fun args)))
+
+(progn (advice-mapc (lambda (advice _props) (advice-remove 'iy-go-to-char--command advice)) 'yi-go-to-char--command)
+       (advice-add 'iy-go-to-char--command :around 'iy-go-to-char--command--without-case-fold))
+
 (provide 'movement)
 ;;; movement.el ends here
