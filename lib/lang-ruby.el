@@ -46,7 +46,10 @@
             (or (> compilation-num-errors-found 0)
                 (save-excursion
                   (beginning-of-buffer)
-                  (re-search-forward "\[0-9\]+ error occurred" nil t)))))
+                  (re-search-forward "\[0-9\]+ error occurred" nil t))
+                (save-excursion
+                  (beginning-of-buffer)
+                  (re-search-forward "exited abnormally with code" nil t)))))
       (notify-os "Tests failed 👎" "Basso")
     (notify-os "Tests passed 👍" "Hero")))
 
