@@ -282,6 +282,7 @@
 
 ;; Normal god mode keybindings (most non-"shifted")
 (define-key god-local-mode-map (kbd "i") 'god-mode-all)
+(define-key god-local-mode-map (kbd "o") 'crux-smart-open-line)
 (define-key god-local-mode-map (kbd "V") 'scroll-down-command)
 (define-key god-local-mode-map (kbd "J") 'top-join-line)
 (define-key god-local-mode-map (kbd "j") 'newline)
