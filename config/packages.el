@@ -93,6 +93,12 @@
         ;; PHP
         php-mode
 
+        ;; Rust
+        rust-mode
+        flycheck-rust
+        cargo
+        racer
+
         ;; Elixir
         alchemist
         elixir-mode
