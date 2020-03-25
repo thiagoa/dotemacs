@@ -150,6 +150,7 @@
 (global-set-key (kbd "C-c o")          'yas-insert-snippet)
 (global-set-key (kbd "H-s")            'mu-helm-project-search)
 (global-set-key (kbd "H-f")            'mu-helm-project-search-at-point)
+(global-set-key (kbd "H-g")            'mu-helm-file-search)
 (global-set-key (kbd "C-x c b")        'helm-resume)
 (global-set-key (kbd "C-c u b")        'unbury-buffer)
 
