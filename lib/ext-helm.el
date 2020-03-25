@@ -146,5 +146,11 @@ for file types to search in."
   (interactive "P")
   (mu-helm-rg default-directory nil with-types))
 
+;; By Thiago
+(defun mu-helm-custom-dir-file-search (&optional directory)
+  (interactive (list (read-directory-name "What directory? "
+                                          default-directory)))
+  (mu-helm-rg directory nil nil))
+
 (provide 'ext-helm)
 ;;; ext-helm.el ends here
