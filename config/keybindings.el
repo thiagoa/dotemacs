@@ -57,6 +57,7 @@
 (global-set-key (kbd "C-c j")          'avy-goto-char)
 (global-set-key (kbd "C-=")            'er/expand-region)
 (global-set-key (kbd "M-i")            'ido-goto-symbol)
+(global-set-key (kbd "M-I")            'helm-semantic-or-imenu)
 (global-set-key (kbd "M-\\")           'hippie-expand)
 (global-set-key (kbd "C-c p w")        'projectile-rails-console)
 (global-set-key (kbd "C-x g")          'magit-status)
@@ -205,6 +206,8 @@
 
 (define-key dired-mode-map (kbd "<tab>") #'dired-subtree-toggle)
 (define-key dired-mode-map (kbd ")") #'dired-git-info-mode)
+(define-key dired-mode-map (kbd "C-c , v") #'rspec-dired-verify)
+(define-key dired-mode-map (kbd "C-c , s") #'rspec-dired-verify-single)
 
 ;;;;;;;;;;;;;;;;
 ;; Minibuffer ;;
