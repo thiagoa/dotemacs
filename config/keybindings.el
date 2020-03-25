@@ -6,6 +6,7 @@
 
 ;;; Code:
 
+(require 'ag)
 (require 'helm)
 (require 'ibuffer)
 (require 'undo-tree)
@@ -67,6 +68,7 @@
 (global-set-key (kbd "C-c k a")        'kill-variable-assignment)
 (global-set-key (kbd "M-o")            'other-window)
 (global-set-key (kbd "C-o")            'go-to-alternate-buffer)
+(global-set-key (kbd "H-o")            'go-to-alternate-buffer)
 (global-set-key (kbd "C-c Q")          'kill-this-buffer-and-close-window)
 (global-set-key (kbd "C-c q")          'kill-other-buffer-and-close-window)
 (global-set-key (kbd "C-c v r")        'string-rectangle)
@@ -147,6 +149,10 @@
 (global-set-key (kbd "C-c z")          'zap-to-char)
 (global-set-key (kbd "C-,")            'embrace-commander)
 (global-set-key (kbd "C-c o")          'yas-insert-snippet)
+(global-set-key (kbd "H-s")            'mu-helm-project-search)
+(global-set-key (kbd "H-f")            'mu-helm-project-search-at-point)
+(global-set-key (kbd "C-x c b")        'helm-resume)
+(global-set-key (kbd "C-c u b")        'unbury-buffer)
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Fast movement ;;
@@ -204,6 +210,14 @@
 ;;;;;;;;;;;;;;;;
 
 (define-key minibuffer-local-map (kbd "C-c f") 'name-of-the-file)
+(add-hook 'minibuffer-setup-hook
+          (lambda () (local-set-key (kbd "C-w") 'minibuffer-insert-word-at-point)))
+
+;;;;;;;;;;;;;
+;; Ag-mode ;;
+;;;;;;;;;;;;;
+
+(define-key ag-mode-map (kbd "C-x C-q") 'wgrep-change-to-wgrep-mode)
 
 ;;;;;;;;;;;;;
 ;; ibuffer ;;

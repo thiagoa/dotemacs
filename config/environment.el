@@ -9,6 +9,7 @@
 (setenv "EDITOR" (getenv "VISUAL"))
 (setenv "PAGER" "cat")
 (setenv "TERM" "xterm-256-color")
+(setenv "SKIP_COVERAGE" "1")
 
 (provide 'environment)
 ;;; environment.el ends here

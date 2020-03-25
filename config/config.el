@@ -202,7 +202,8 @@
       auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
       system-uses-terminfo nil
       large-file-warning-threshold nil
-      recenter-positions '(top middle bottom))
+      recenter-positions '(top middle bottom)
+      enable-local-variables :all)
 
 ;;;;;;;;;;;;
 ;; Comint ;;

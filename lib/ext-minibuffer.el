@@ -36,5 +36,18 @@
            (buffer-file-name (window-buffer (minibuffer-selected-window)))
            "\"")))
 
+(defun minibuffer-insert-word-at-point ()
+  "Get word at point in original buffer and insert it to minibuffer."
+  (interactive)
+  (let (word beg)
+    (with-current-buffer (window-buffer (minibuffer-selected-window))
+      (save-excursion
+        (skip-syntax-backward "w_")
+        (setq beg (point))
+        (skip-syntax-forward "w_")
+        (setq word (buffer-substring-no-properties beg (point)))))
+    (when word
+      (insert word))))
+
 (provide 'ext-minibuffer)
 ;;; ext-minibuffer.el ends here
