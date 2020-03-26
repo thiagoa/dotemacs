@@ -31,11 +31,6 @@
 (require 'shell)
 (require 'general)
 
-(defun force-split-window-sensibly-to-horizontal-when-big-font ()
-  "When using a big font, split window horizontally."
-  (setq split-height-threshold nil)
-  (setq split-width-threshold 140))
-
 (defun disable-startup-screen ()
   "No annoying startup screen."
   (setq inhibit-startup-screen t)

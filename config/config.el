@@ -160,7 +160,8 @@
       helm-recentf-fuzzy-match t
       helm-split-window-default-side 'below
       helm-split-window-in-side-p t
-      helm-buffer-max-length 35)
+      helm-buffer-max-length 35
+      helm-window-prefer-horizontal-split t) ;; t means prefer vertical split
 
 (add-helm-projectile-projects-action
  '(("Rails console"        "M-r" execute-projectile-rails-console-under-dir)
@@ -183,7 +184,6 @@
 
 (disable-annoyances)
 (disable-startup-screen)
-(force-split-window-sensibly-to-horizontal-when-big-font)
 
 (put 'set-goal-column 'disabled nil)
 (put 'upcase-region 'disabled nil)
@@ -204,7 +204,9 @@
       system-uses-terminfo nil
       large-file-warning-threshold nil
       recenter-positions '(top middle bottom)
-      enable-local-variables :all)
+      enable-local-variables :all
+      split-height-threshold nil
+      split-width-threshold 0)
 
 ;;;;;;;;;;;;
 ;; Comint ;;
