@@ -1,4 +1,4 @@
-;;; keybindings.el --- Behavior config
+;;; keybindings.el --- Behavior config  -*- lexical-binding: t; -*-
 ;;
 ;;; Commentary:
 ;;
@@ -195,10 +195,18 @@
 ;; Helm ;;
 ;;;;;;;;;;
 
-(define-key helm-map (kbd "C-d") (simple-ilambda
-                                  (with-helm-alive-p
-                                    (helm-exit-and-execute-action
-                                     'helm-point-file-in-dired))))
+(define-key helm-map (kbd "C-d")
+  (simple-ilambda
+   (with-helm-alive-p
+     (helm-exit-and-execute-action
+      'helm-point-file-in-dired))))
+
+(define-key helm-grep-map (kbd "C-c a")
+  (simple-ilambda
+   (with-helm-alive-p
+     (let ((pattern (replace-regexp-in-string "pattern: " "" (buffer-string))))
+       (helm-exit-and-execute-action
+        (lambda (_arg) (ag pattern mu-helm-last-directory)))))))
 
 ;;;;;;;;;;;
 ;; Dired ;;

@@ -82,6 +82,7 @@ PROC, DETAILS, TYPE."
                                   (file-name-base (string-trim dir nil "/")))))
           'face face2)))))
 
+(defvar mu-helm-last-directory nil "Record the directory of the last search.")
 
 ;; Copied from https://www.manueluberti.eu//emacs/2020/03/13/helm-rg-refactoring/
 (defun mu--helm-rg (directory &optional with-tap type)
@@ -92,6 +93,7 @@ disables `helm-sources-using-default-as-input' temporarily to
 avoid the automatic search which starts when :default is set to
 `thing-at-point' (the default behaviour). The search starts
 automatically only with WITH-TAP."
+  (setq mu-helm-last-directory directory)
   (let ((helm-sources-using-default-as-input nil)
         (command (helm-grep--ag-command))
          ;; Changed to not error when there is no search term at cursor
