@@ -159,7 +159,8 @@
       helm-buffers-fuzzy-matching t
       helm-recentf-fuzzy-match t
       helm-split-window-default-side 'below
-      helm-split-window-in-side-p t)
+      helm-split-window-in-side-p t
+      helm-buffer-max-length 60)
 
 (add-helm-projectile-projects-action
  '(("Rails console"        "M-r" execute-projectile-rails-console-under-dir)
