@@ -96,9 +96,9 @@ automatically only with WITH-TAP."
   (setq mu-helm-last-directory directory)
   (let ((helm-sources-using-default-as-input nil)
         (command (helm-grep--ag-command))
-         ;; Changed to not error when there is no search term at cursor
+        ;; Changed to not error when there is no search term at cursor
         (input (when with-tap
-                 (substring-no-properties (thing-at-point 'symbol)))))
+                 (substring-no-properties (or (thing-at-point 'symbol) "")))))
     (setq helm-source-grep-ag
           (helm-make-source (upcase command) 'helm-grep-ag-class
             :header-name (lambda (name)
