@@ -125,8 +125,7 @@
 (setq ns-use-proxy-icon nil
       ns-use-thin-smoothing t
       ns-use-mwheel-momentum t
-      ns-use-mwheel-acceleration t
-      x-colors (ns-list-colors)) ;; MacPorts emacs-app port bug
+      ns-use-mwheel-acceleration t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Theme. Good options: nord, zenburn, dracula, nimbus, spacemacs-dark, kaolin-dark ;;

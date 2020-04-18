@@ -11,11 +11,11 @@
 
 (package-initialize)
 
-(defvar pivot-package 'discover)
+(defvar pivot-package 'magit)
 
 (setq package-selected-packages
       '(;; Emacs extensions
-        dired-subtree
+        dired-subtree			;
         ibuffer-vc
         persistent-scratch
         which-key
@@ -107,7 +107,6 @@
         ;; Ruby / Rails
         bundler
         enh-ruby-mode
-        goto-gem
         projectile-rails
         rbtagger
         rspec-mode

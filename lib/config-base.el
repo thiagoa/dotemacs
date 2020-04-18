@@ -41,11 +41,6 @@
   "Reloads my packages file."
   (load "packages.el"))
 
-(reload-packages)
-
-(unless (package-installed-p pivot-package)
-  (pac-install))
-
 (defun reload-config ()
   "Reload my configuration file."
   (interactive)
@@ -76,6 +71,11 @@
   (interactive)
   (reload-packages)
   (package-autoremove))
+
+(reload-packages)
+
+(unless (package-installed-p pivot-package)
+  (pac-install))
 
 (provide 'config-base)
 ;;; config-base.el ends here
