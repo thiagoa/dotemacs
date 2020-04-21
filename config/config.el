@@ -42,7 +42,9 @@
 ;; Font ;;
 ;;;;;;;;;;
 
-(defvar my-default-font "JetBrains Mono 15")
+(if (equal system-type 'gnu/linux)
+    (defvar my-default-font "JetBrains Mono 12")
+  (defvar my-default-font "JetBrains Mono 15"))
 
 ;;;;;;;;;;;;;;;
 ;; which-key ;;
