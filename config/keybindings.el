@@ -27,6 +27,12 @@
 (defvar kill-whole-line-backward (kbd "C-e <C-backspace>"))
 (defvar duplicate-sexp-below     [?\C-\M-b ?\C-\M-  ?\M-w ?\C-\M-f ?\C-j ?\C-y ?\C-\M-b])
 
+;; Force mapping C-[ to not act like a Meta key.
+;; Necessary on Linux
+(define-key input-decode-map
+  (kbd "C-[")
+  [escape])
+
 (windmove-default-keybindings) ; Shift + arrow keys to move between windows
 
 (global-set-key (kbd "C-x C-c")        nil) ; unbind default quit cmd... easy to fire accidentally with god-mode
@@ -51,8 +57,8 @@
 (global-set-key (kbd "C-x C-b")        'helm-mini)
 (global-set-key (kbd "C-x b")          'helm-mini)
 (global-set-key (kbd "s-k")            (simple-ilambda (kill-buffer (current-buffer))))
-(global-set-key (kbd "s-n")             scroll-viewport-up)
-(global-set-key (kbd "s-p")             scroll-viewport-down)
+(global-set-key (kbd "M-p")            scroll-viewport-down)
+(global-set-key (kbd "M-n")            scroll-viewport-up)
 (global-set-key (kbd "C-c SPC")        'shell)
 (global-set-key (kbd "C-c j")          'avy-goto-char)
 (global-set-key (kbd "C-=")            'er/expand-region)
@@ -149,10 +155,10 @@
 (global-set-key (kbd "C-c z")          'zap-to-char)
 (global-set-key (kbd "C-,")            'embrace-commander)
 (global-set-key (kbd "C-c o")          'yas-insert-snippet)
-(global-set-key (kbd "s-s")            'mu-helm-project-search)
+(global-set-key (kbd "s-r")            'mu-helm-project-search)
 (global-set-key (kbd "s-f")            'mu-helm-project-search-at-point)
 (global-set-key (kbd "s-g")            'mu-helm-file-search)
-(global-set-key (kbd "s-d")            'mu-helm-custom-dir-file-search)
+(global-set-key (kbd "s-e")            'mu-helm-custom-dir-file-search)
 (global-set-key (kbd "C-x c b")        'helm-resume)
 (global-set-key (kbd "C-c u b")        'unbury-buffer)
 
@@ -392,6 +398,10 @@
 ;;;;;;;;;;;;;;;
 
 (define-key smartscan-map (kbd "M-'") nil)
+(define-key smartscan-map (kbd "M-n") nil)
+(define-key smartscan-map (kbd "M-p") nil)
+(define-key smartscan-map (kbd "s-n") 'smartscan-symbol-go-forward)
+(define-key smartscan-map (kbd "s-p") 'smartscan-symbol-go-backward)
 (define-key smartscan-map (kbd "M-[") 'smartscan-symbol-replace)
 
 ;;;;;;;;;;;
