@@ -57,6 +57,7 @@
 (global-set-key (kbd "C-x C-b")        'helm-mini)
 (global-set-key (kbd "C-x b")          'helm-mini)
 (global-set-key (kbd "s-k")            (simple-ilambda (kill-buffer (current-buffer))))
+(global-set-key (kbd "C-x k")          (simple-ilambda (kill-buffer (current-buffer))))
 (global-set-key (kbd "M-p")            scroll-viewport-down)
 (global-set-key (kbd "M-n")            scroll-viewport-up)
 (global-set-key (kbd "C-c SPC")        'shell)
