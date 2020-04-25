@@ -156,10 +156,10 @@
 (global-set-key (kbd "C-c z")          'zap-to-char)
 (global-set-key (kbd "C-,")            'embrace-commander)
 (global-set-key (kbd "C-c o")          'yas-insert-snippet)
-(global-set-key (kbd "s-r")            'mu-helm-project-search)
+(global-set-key (kbd "s-s")            'mu-helm-project-search)
 (global-set-key (kbd "s-f")            'mu-helm-project-search-at-point)
 (global-set-key (kbd "s-g")            'mu-helm-file-search)
-(global-set-key (kbd "s-e")            'mu-helm-custom-dir-file-search)
+(global-set-key (kbd "s-d")            'mu-helm-custom-dir-file-search)
 (global-set-key (kbd "C-x c b")        'helm-resume)
 (global-set-key (kbd "C-c u b")        'unbury-buffer)
 
