@@ -192,7 +192,9 @@
 
 (setq-default indent-tabs-mode nil)
 
-(setq eval-expression-print-level nil
+(setq blink-matching-delay 0
+      recenter-positions '(middle top bottom)
+      eval-expression-print-level nil
       select-enable-clipboard t
       eval-expression-print-length nil
       sentence-end-double-space nil
