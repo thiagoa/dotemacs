@@ -180,6 +180,12 @@
 ;; Stop undo-tree from eating rectangle and bookmark bindings
 (define-key undo-tree-map (kbd "C-x r") nil)
 
+;;;;;;;;;;;;;;;;
+;; ace-window ;;
+;;;;;;;;;;;;;;;;
+
+(global-set-key (kbd "s-u") 'ace-window)
+
 ;;;;;;;;;;;;;
 ;; isearch ;;
 ;;;;;;;;;;;;;

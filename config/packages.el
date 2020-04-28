@@ -15,6 +15,7 @@
 
 (setq package-selected-packages
       '(;; Emacs extensions
+        ace-window
         dired-subtree			;
         ibuffer-vc
         persistent-scratch
