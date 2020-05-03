@@ -56,6 +56,12 @@
 
 (which-key-mode)
 
+;;;;;;;;;;;;;;;;;;;;;;
+;; balanced-windows ;;
+;;;;;;;;;;;;;;;;;;;;;;
+
+(balanced-windows-mode)
+
 ;;;;;;;;;;;;;;;;;;
 ;; Frame config ;;
 ;;;;;;;;;;;;;;;;;;
