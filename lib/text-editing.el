@@ -115,12 +115,18 @@ region."
 Take ARG universal argument to mark N lines."
   (interactive "p")
   (move-beginning-of-line 1)
-  (set-mark
-   (save-excursion
-     (dotimes (_ arg) (forward-line))
-     (move-beginning-of-line 1)
-     (point)))
-  (exchange-point-and-mark))
+  (let ((beg-point (point))
+        line-changed)
+    (set-mark
+     (save-excursion
+       (dotimes (_ arg) (forward-line))
+       (move-beginning-of-line 1)
+       (setq line-changed (not (eq (point) beg-point)))
+       (if (not line-changed)
+           (move-end-of-line 1))
+       (point)))
+    (if line-changed
+        (exchange-point-and-mark))))
 
 (defun mark-symbol ()
   "Mark the current symbol at point."
