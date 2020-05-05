@@ -38,13 +38,12 @@ Requires terminal-notifier on macOS (install it via homebrew).
 TITLE is the notification title;
 BODY is the notification message;
  SOUND is the sound that will be played."
-  (shell-command
-   (if (eq system-type 'gnu/linux)
-       (notifications-notify :title title :body body)
-     (concat "bash -c -l 'echo " body " | "
-             "terminal-notifier -activate \'org.gnu.Emacs\' -sound "
-             sound
-             "'"))))
+  (if (eq system-type 'gnu/linux)
+      (notifications-notify :title title :body body)
+    (shell-command (concat "bash -c -l 'echo " body " | "
+                           "terminal-notifier -activate \'org.gnu.Emacs\' -sound "
+                           sound
+                           "'"))))
 
 (defun find-buffer-in-windows (func &optional default)
   "Find buffer returned by FUNC in visible windows.
