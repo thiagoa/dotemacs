@@ -50,8 +50,8 @@
                 (save-excursion
                   (beginning-of-buffer)
                   (re-search-forward "exited abnormally with code" nil t)))))
-      (notify-os "Tests failed 👎" "Basso")
-    (notify-os "Tests passed 👍" "Hero")))
+      (notify-os "Ruby RSpec" "Tests failed 👎" "Basso")
+    (notify-os "Ruby RSpec" "Tests passed 👍" "Hero")))
 
 (defun ruby-mark-inner-defun ()
   "Mark the inner contents of a method."
