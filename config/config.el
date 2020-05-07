@@ -205,7 +205,6 @@
       eval-expression-print-length nil
       sentence-end-double-space nil
       set-mark-command-repeat-pop 't
-      mac-right-command-modifier 'meta
       save-interprogram-paste-before-kill t
       vc-follow-symlinks t
       recentf-max-saved-items 2000
@@ -217,6 +216,9 @@
       enable-local-variables :all
       split-height-threshold nil
       split-width-threshold 0)
+
+(if (eq system-type 'darwin)
+    (setq mac-right-command-modifier 'meta))
 
 ;;;;;;;;;;;;
 ;; Comint ;;
