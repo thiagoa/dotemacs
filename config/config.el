@@ -73,8 +73,8 @@
 
 (setq frame-title-format
       '((:eval (if (buffer-file-name)
-                   (abbreviate-file-name (buffer-file-name))
-                 "%b"))))
+                   (concat "Emacs - " (abbreviate-file-name (buffer-file-name)))
+                 "Emacs - %b"))))
 
 (show-full-filename-in-window-title)
 
