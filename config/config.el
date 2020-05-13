@@ -135,11 +135,11 @@
       ns-use-mwheel-momentum t
       ns-use-mwheel-acceleration t)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Theme. Good options: nord, zenburn, dracula, nimbus, spacemacs-dark, kaolin-dark ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Theme. Good options: nord, zenburn, dracula, nimbus, spacemacs-dark, kaolin-dark, doom-molokai ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(load-theme 'doom-molokai t)
+(load-theme 'solarized-dark t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; Lines and columns ;;
