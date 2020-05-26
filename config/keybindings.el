@@ -74,7 +74,7 @@
 (global-set-key (kbd "C-x C-j")        'dired-jump)
 (global-set-key (kbd "C-c g d")        'dired-file-at-point-dwim)
 (global-set-key (kbd "C-c k a")        'kill-variable-assignment)
-(global-set-key (kbd "M-o")            'other-window)
+(global-set-key (kbd "M-o")            'ace-window)
 (global-set-key (kbd "C-o")            'go-to-alternate-buffer)
 (global-set-key (kbd "s-o")            'go-to-alternate-buffer)
 (global-set-key (kbd "C-c Q")          'kill-this-buffer-and-close-window)
