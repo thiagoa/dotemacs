@@ -255,6 +255,8 @@
 ;;;;;;;;;;;;
 
 (define-key comint-mode-map (kbd "<C-return>") 'comint-send-input-stay-on-line)
+(define-key comint-mode-map (kbd "M-n") nil)
+(define-key comint-mode-map (kbd "M-p") nil)
 (define-key inf-ruby-mode-map (kbd "C-M-f") 'comint-next-prompt)
 (define-key inf-ruby-mode-map (kbd "C-M-b") 'comint-previous-prompt)
 (define-key inf-ruby-mode-map (kbd "<escape>") 'inf-ruby-maybe-switch-to-compilation)
