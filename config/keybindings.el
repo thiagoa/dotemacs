@@ -33,10 +33,8 @@
   (kbd "C-[")
   [escape])
 
-(windmove-default-keybindings) ; Shift + arrow keys to move between windows
-
 (global-set-key (kbd "C-x C-c")        nil) ; unbind default quit cmd... easy to fire accidentally with god-mode
-(global-set-key (kbd "s-t")            'fzf-projectile) ; unbind default quit cmd... easy to fire accidentally with god-mode
+(global-set-key (kbd "C-M-]")          'fzf-projectile) ; unbind default quit cmd... easy to fire accidentally with god-mode
 (global-set-key (kbd "C-x 4 t")        'crux-transpose-windows)
 (global-set-key (kbd "C-c C-h")        'crux-kill-whole-line)
 (global-set-key (kbd "C-k")            'kill-line)
@@ -54,6 +52,10 @@
 (global-set-key [(control shift down)] 'move-text-down-and-indent)
 (global-set-key (kbd "C-c l")          'next-buffer)
 (global-set-key (kbd "C-c h")          'previous-buffer)
+(global-set-key (kbd "C-c H")          'windmove-left)
+(global-set-key (kbd "C-c L")          'windmove-right)
+(global-set-key (kbd "C-c P")          'windmove-up)
+(global-set-key (kbd "C-c N")          'windmove-down)
 (global-set-key (kbd "C-x C-b")        'helm-mini)
 (global-set-key (kbd "C-x b")          'helm-mini)
 (global-set-key (kbd "s-k")            (simple-ilambda (kill-buffer (current-buffer))))
@@ -115,8 +117,8 @@
 (global-set-key (kbd "M-<mouse-1>")    'mc/add-cursor-on-click)
 (global-set-key (kbd "C-c , r")        'tests-anywhere-rerun)
 (global-set-key (kbd "C-c , a")        'tests-anywhere-verify-all)
-(global-set-key [left]                 'cycle-magit-buffers-backward)
-(global-set-key [right]                'cycle-magit-buffers-forward)
+(global-set-key (kbd "s-]")            'cycle-magit-buffers-backward)
+(global-set-key (kbd "s-\\")           'cycle-magit-buffers-forward)
 (global-set-key (kbd "M-*")            'isearch-seek-next-word)
 (global-set-key (kbd "M-#")            'isearch-seek-previous-word)
 (global-set-key (kbd "M-RET")          'replace-region)
@@ -152,7 +154,7 @@
 (global-set-key (kbd "M-g M-s")        'next-spec)
 (global-set-key (kbd "M-g M-S")        'previous-spec)
 (global-set-key (kbd "C-x %")          'my-server-edit)
-(global-set-key (kbd "<M-SPC>")        'mark-word)
+(global-set-key (kbd "<M-s-SPC>")      'mark-word)
 (global-set-key (kbd "C-c z")          'zap-to-char)
 (global-set-key (kbd "C-,")            'embrace-commander)
 (global-set-key (kbd "C-c o")          'yas-insert-snippet)
@@ -162,6 +164,13 @@
 (global-set-key (kbd "s-d")            'mu-helm-custom-dir-file-search)
 (global-set-key (kbd "C-x c b")        'helm-resume)
 (global-set-key (kbd "C-c u b")        'unbury-buffer)
+(global-set-key (kbd "C-c k s")        'clipboard-kill-ring-save)
+(global-set-key (kbd "C-c y")          'x-clipboard-yank)
+(global-set-key (kbd "C-c y")          'x-clipboard-yank)
+(global-set-key (kbd "M-]")            'forward-paragraph)
+(global-set-key (kbd "M-[")            'backward-paragraph)
+(global-set-key (kbd "M-P")            'move-text-up-and-indent)
+(global-set-key (kbd "M-N")            'move-text-down-and-indent)
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Fast movement ;;
@@ -208,11 +217,11 @@
 ;; Helm ;;
 ;;;;;;;;;;
 
-(define-key helm-map (kbd "C-d")
-  (simple-ilambda
-   (with-helm-alive-p
-     (helm-exit-and-execute-action
-      'helm-point-file-in-dired))))
+;; (define-key helm-map (kbd "C-d")
+;; (simple-ilambda
+;; (with-helm-alive-p
+;; (helm-exit-and-execute-action
+;; 'helm-point-file-in-dired))))
 
 (define-key helm-grep-map (kbd "C-c a")
   (simple-ilambda
@@ -236,7 +245,7 @@
 
 (define-key minibuffer-local-map (kbd "C-c f") 'name-of-the-file)
 (add-hook 'minibuffer-setup-hook
-          (lambda () (local-set-key (kbd "C-w") 'minibuffer-insert-word-at-point)))
+          (lambda () (local-set-key (kbd "C-c w") 'minibuffer-insert-word-at-point)))
 
 ;;;;;;;;;;;;;
 ;; Ag-mode ;;
@@ -255,8 +264,10 @@
 ;;;;;;;;;;;;
 
 (define-key comint-mode-map (kbd "<C-return>") 'comint-send-input-stay-on-line)
-(define-key comint-mode-map (kbd "M-n") nil)
-(define-key comint-mode-map (kbd "M-p") nil)
+(define-key comint-mode-map (kbd "M-n") 'comint-next-input)
+(define-key comint-mode-map (kbd "M-p") 'comint-previous-input)
+(define-key comint-mode-map (kbd "M-N") scroll-viewport-up)
+(define-key comint-mode-map (kbd "M-P") scroll-viewport-down)
 (define-key inf-ruby-mode-map (kbd "C-M-f") 'comint-next-prompt)
 (define-key inf-ruby-mode-map (kbd "C-M-b") 'comint-previous-prompt)
 (define-key inf-ruby-mode-map (kbd "<escape>") 'inf-ruby-maybe-switch-to-compilation)
@@ -411,11 +422,14 @@
 (define-key smartscan-map (kbd "M-p") nil)
 (define-key smartscan-map (kbd "s-n") 'smartscan-symbol-go-forward)
 (define-key smartscan-map (kbd "s-p") 'smartscan-symbol-go-backward)
-(define-key smartscan-map (kbd "M-[") 'smartscan-symbol-replace)
+(define-key smartscan-map (kbd "C-M-[") nil)
 
 ;;;;;;;;;;;
 ;; Magit ;;
 ;;;;;;;;;;;
+
+(define-key magit-mode-map (kbd "M-N") scroll-viewport-up)
+(define-key magit-mode-map (kbd "M-P") scroll-viewport-down)
 
 (eval-after-load 'magit-mode
   '(progn
