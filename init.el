@@ -52,6 +52,7 @@
 (require 'ext-compile)
 (require 'ext-ido)
 (require 'ext-align)
+(require 'ext-crux)
 (require 'ext-rspec-mode)
 (require 'goto-last-change)
 
