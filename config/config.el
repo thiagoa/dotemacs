@@ -205,6 +205,7 @@
       eval-expression-print-length nil
       sentence-end-double-space nil
       set-mark-command-repeat-pop 't
+      x-select-enable-clipboard t
       save-interprogram-paste-before-kill t
       vc-follow-symlinks t
       recentf-max-saved-items 2000
