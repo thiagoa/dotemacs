@@ -59,13 +59,6 @@
    explicit-shell-file-name
    (shell-command-output (concat "which " name))))
 
-(defun show-full-filename-in-window-title ()
-  "Show full filename in window title."
-  (setq-default
-   frame-title-format
-   '((:eval (if (buffer-file-name)
-                (abbreviate-file-name (buffer-file-name)) "%f")))))
-
 ;; Why is history not being loaded? :thinking:
 (defun load-history (savehist-file)
   "Explicitly load history from SAVEHIST-FILE."

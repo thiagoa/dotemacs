@@ -76,8 +76,6 @@
                    (concat "Emacs - " (abbreviate-file-name (buffer-file-name)))
                  "Emacs - %b"))))
 
-(show-full-filename-in-window-title)
-
 ;;;;;;;;;;;;;;;;;
 ;; Buffer list ;;
 ;;;;;;;;;;;;;;;;;
