@@ -54,8 +54,8 @@
  'rbtagger-after-generate-tag-hook
  (lambda (success project-name)
    (if success
-       (notify-os (concat project-name " tags generated successfully 👍") "Hero")
-     (notify-os "Is this a Ruby project? Is bundler able to run? Tags generation FAILED! 👎" "Basso"))))
+       (notify-os "Tags Success "(concat project-name " tags generated successfully 👍") "Hero")
+     (notify-os "Tags Fail" "Is this a Ruby project? Is bundler able to run? Tags generation FAILED! 👎" "Basso"))))
 
 (setq enh-ruby-hanging-brace-deep-indent-level 1)
 (setq ruby-align-chained-calls t)
