@@ -30,6 +30,10 @@
 
 (setq mac-command-modifier 'hyper)
 
+(defun set-font-size (size)
+  (interactive "n")
+  (set-face-attribute 'default nil :height size))
+
 (defun toggle-option-key (&optional key)
   "Toggle meta between meta and option.
 
