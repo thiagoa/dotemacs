@@ -10,6 +10,7 @@
 
 (add-hook 'javascript-mode-hook 'my/json-mode-hook)
 (add-hook 'js-mode-hook 'my/json-mode-hook)
+(add-hook 'js-mode-hook 'safe-linum-mode)
 
 (setq js2-mode-hook
       '(lambda () (progn
