@@ -54,6 +54,7 @@
 (require 'ext-align)
 (require 'ext-crux)
 (require 'ext-rspec-mode)
+(require 'ext-process)
 (require 'goto-last-change)
 
 ;; Load configuration files
