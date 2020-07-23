@@ -183,6 +183,13 @@
 (put 'paredit-doublequote 'delete-selection t)
 (put 'paredit-newline 'delete-selection t)
 
+;;;;;;;;;;;;;;;;;
+;; Perspective ;;
+;;;;;;;;;;;;;;;;;
+
+(add-to-list 'persp-switch-hook
+             (lambda () (message (persp-current-name))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Enable / tune up Emacs features ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

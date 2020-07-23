@@ -21,6 +21,7 @@
         ibuffer-vc
         persistent-scratch
         which-key
+        perspective
 
         ;; Elisp
         f

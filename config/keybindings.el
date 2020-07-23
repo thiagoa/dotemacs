@@ -442,5 +442,13 @@
 
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
+;;;;;;;;;;;;;;;;;
+;; Perspective ;;
+;;;;;;;;;;;;;;;;;
+
+;; l stands for label; n is better (= name), but it's already taken
+(define-key perspective-map (kbd "l")
+  (lambda () (interactive) (message (persp-current-name))))
+
 (provide 'keybindings)
 ;;; keybindings.el ends here
