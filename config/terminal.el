@@ -64,5 +64,4 @@
 (when (memq window-system '(mac ns x))
   (copy-env-vars-from-shell))
 
-(provide 'terminal)
 ;;; terminal.el ends here

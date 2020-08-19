@@ -14,5 +14,4 @@
 (defalias 'repl   'ielm)
 (defalias 'quit   'save-buffers-kill-terminal)
 
-(provide 'alias)
 ;;; alias.el ends here
