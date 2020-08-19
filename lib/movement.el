@@ -70,7 +70,9 @@ If rspec-mode is enabled, goes to the next sentence."
 (defun dired-file-at-point-dwim ()
   "Jump to file at point in dired."
   (interactive)
-  (dired-jump nil (ffap-string-at-point 'file)))
+  (let* ((file (ffap-string-at-point)))
+    (or (file-exists-p file) (error "Not a file!"))
+    (dired-jump nil file)))
 
 (defun find-file-at-point-dwim (&optional filename)
   "Find file at point expanding any shell variables it encounters.
