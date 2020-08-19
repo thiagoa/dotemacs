@@ -49,7 +49,7 @@
 (defun pac-install ()
   "Install packages specified in config/packages.el."
   (interactive)
-  (save-buffer)
+  (if buffer-file-name (save-buffer))
   (package-refresh-contents)
   (reload-packages)
   (dolist (package package-selected-packages)
