@@ -194,6 +194,8 @@
 ;; Perspective ;;
 ;;;;;;;;;;;;;;;;;
 
+(persp-mode)
+
 (add-to-list 'persp-switch-hook
              (lambda () (message (persp-current-name))))
 
