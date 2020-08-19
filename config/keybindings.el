@@ -133,6 +133,7 @@
 (global-set-key (kbd "s-i")            'go-to-rspec-compilation-buffer)
 (global-set-key (kbd "C-x M-g")        'magit-dispatch-popup)
 (global-set-key (kbd "C-x C-f")        'helm-find-files)
+(global-set-key (kbd "C-x F")          'helm-find-files-project-root)
 (global-set-key (kbd "C-c i")          'swiper)
 (global-set-key (kbd "<s-return>")     'xah-run-current-file)
 (global-set-key (kbd "C-x C-1")        'delete-other-windows)
@@ -371,7 +372,6 @@
 (define-key god-local-mode-map (kbd "\"") (with-god-insert 'change-outer))
 (define-key god-local-mode-map (kbd "C-M-K") (with-god-insert 'ruby-kill-sexp))
 (define-key god-local-mode-map (kbd "<C-S-backspace>") (with-god-insert 'crux-kill-line-backwards))
-(define-key god-local-mode-map (kbd "C-x F") 'helm-find-files-project-root)
 
 ;;;;;;;;;;;;;
 ;; Clojure ;;
