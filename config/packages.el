@@ -5,9 +5,13 @@
 ;;; Code:
 
 (setq package-archives
-      '(("melpa" . "http://melpa.milkbox.net/packages/")
+      '(("melpa" . "https://melpa.org/packages/")
         ("stable-melpa" . "https://stable.melpa.org/packages/")
-        ("gnu" . "http://elpa.gnu.org/packages/")))
+        ("gnu" . "http://elpa.gnu.org/packages/"))
+      package-archive-priorities
+      '(("stable-melpa" . 10)
+        ("gnu" . 5)
+        ("melpa" . 0)))
 
 (package-initialize)
 
