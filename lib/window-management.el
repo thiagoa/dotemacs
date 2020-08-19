@@ -54,5 +54,25 @@
   (call-interactively 'other-window)
   (switch-to-buffer nil))
 
+(defun close-other-window-and-rebalance ()
+  "Closes the next window and rebalances. Good for use with winner-undo."
+  (interactive)
+  (other-window 1)
+  (delete-window)
+  (balance-windows))
+
+(defun move-to-window ()
+  "Match my tmux shortcuts to move to windows."
+  (interactive)
+  (let ((key (read-event)))
+    (case key
+      (?t  (call-interactively #'transpose-chars))
+      (?\h (windmove-left))
+      (?\l (windmove-right))
+      (?\j (windmove-down))
+      (110 (windmove-down))
+      (?\k (windmove-up))
+      (?\p (windmove-up)))))
+
 (provide 'window-management)
 ;;; window-management.el ends here

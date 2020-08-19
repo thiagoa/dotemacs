@@ -34,7 +34,7 @@
   [escape])
 
 (global-set-key (kbd "C-x C-c")        nil) ; unbind default quit cmd... easy to fire accidentally with god-mode
-(global-set-key (kbd "C-M-]")          'fzf-projectile) ; unbind default quit cmd... easy to fire accidentally with god-mode
+(global-set-key (kbd "C-M-]")          'fzf) ; unbind default quit cmd... easy to fire accidentally with god-mode
 (global-set-key (kbd "C-x 4 t")        'crux-transpose-windows)
 (global-set-key (kbd "C-c C-h")        'crux-kill-whole-line)
 (global-set-key (kbd "C-k")            'kill-line)
@@ -52,10 +52,8 @@
 (global-set-key [(control shift down)] 'move-text-down-and-indent)
 (global-set-key (kbd "C-c l")          'next-buffer)
 (global-set-key (kbd "C-c h")          'previous-buffer)
-(global-set-key (kbd "C-c H")          'windmove-left)
-(global-set-key (kbd "C-c L")          'windmove-right)
-(global-set-key (kbd "C-c P")          'windmove-up)
-(global-set-key (kbd "C-c N")          'windmove-down)
+(global-set-key (kbd "C-T")            'transpose-chars)
+(global-set-key (kbd "C-t")            'move-to-window)
 (global-set-key (kbd "C-x C-b")        'helm-mini)
 (global-set-key (kbd "C-x b")          'helm-mini)
 (global-set-key (kbd "s-k")            (simple-ilambda (kill-buffer (current-buffer))))
@@ -131,6 +129,7 @@
 (global-set-key (kbd "C-c RET")        'xah-run-current-file)
 (global-set-key (kbd "C-x C-\\")       'goto-last-change)
 (global-set-key (kbd "C-c a :")        'align-to-colon)
+(global-set-key (kbd "C-c a h")        'align-to-hash-colon)
 (global-set-key (kbd "s-i")            'go-to-rspec-compilation-buffer)
 (global-set-key (kbd "C-x M-g")        'magit-dispatch-popup)
 (global-set-key (kbd "C-x C-f")        'helm-find-files)
@@ -164,6 +163,7 @@
 (global-set-key (kbd "s-d")            'mu-helm-custom-dir-file-search)
 (global-set-key (kbd "C-x c b")        'helm-resume)
 (global-set-key (kbd "C-c u b")        'unbury-buffer)
+(global-set-key (kbd "C-x &")          'close-other-window-and-rebalance)
 (global-set-key (kbd "C-c k s")        'clipboard-kill-ring-save)
 (global-set-key (kbd "C-c y")          'x-clipboard-yank)
 (global-set-key (kbd "C-c y")          'x-clipboard-yank)
@@ -291,11 +291,13 @@
         (with-eval-after-load mode
           (mapc (lambda (map)
                   (define-key map (kbd "C-M-SPC") 'ruby-mark-sexp)
-                  (define-key map (kbd "C-M-'") 'ruby-mark-sexp-for-delete)
+                  (define-key map (kbd "C-M-'")   'ruby-mark-sexp-for-delete)
+                  (define-key map (kbd "C-c , T") 'rspec-go-to-spec-dir)
                   (define-key map (kbd "C-c u d") 'ruby-duplicate-sexp-below)
-                  (define-key map (kbd "C-M-g") 'mark-defun)
-                  (define-key map (kbd "C-j") 'break-delimited)
-                  (define-key map (kbd "C-M-y") 'ruby-mark-inner-defun)
+                  (define-key map (kbd "C-M-g")   'mark-defun)
+                  (define-key map (kbd "C-j")     'break-delimited)
+                  (define-key map (kbd "C-M-y")   'ruby-mark-inner-defun)
+                  (define-key map (kbd "C-M-k")   'clear-line)
                   (define-key map (kbd "C-c e r")
                     (simple-ilambda (with-compilation-mode-off
                                      (lambda () (call-interactively 'ruby-send-region)))))
@@ -328,9 +330,9 @@
 ;;;;;;;;;;;;;;
 
 ;; "Escape" mappings across modes
-(global-set-key (kbd "<escape>") 'god-mode-all)
-(define-key isearch-mode-map (kbd "<escape>") 'god-mode-isearch-activate)
-(define-key god-mode-isearch-map (kbd "<escape>") 'god-mode-isearch-disable)
+;; (global-set-key (kbd "<escape>") 'god-mode-all)
+;; (define-key isearch-mode-map (kbd "<escape>") 'god-mode-isearch-activate)
+;; (define-key god-mode-isearch-map (kbd "<escape>") 'god-mode-isearch-disable)
 
 ;; Normal god mode keybindings (most non-"shifted")
 (define-key god-local-mode-map (kbd "i") 'god-mode-all)
@@ -347,6 +349,7 @@
 (define-key god-local-mode-map (kbd "<S-return>") 'crux-smart-open-line-above)
 
 ;; Insert mode hook keybindings (most "shifted")
+(define-key god-local-mode-map (kbd "<return>") (with-god-insert 'crux-smart-open-line))
 (define-key god-local-mode-map (kbd "<C-return>") (with-god-insert 'crux-smart-open-line))
 (define-key god-local-mode-map (kbd "<M-return>") (with-god-insert 'crux-smart-open-line-above))
 (define-key god-local-mode-map (kbd "S") (with-god-insert 'clear-line))
@@ -450,5 +453,4 @@
 (define-key perspective-map (kbd "l")
   (lambda () (interactive) (message (persp-current-name))))
 
-(provide 'keybindings)
 ;;; keybindings.el ends here
