@@ -230,7 +230,7 @@
       recenter-positions '(top middle bottom)
       enable-local-variables :all
       split-height-threshold nil
-      split-width-threshold 0)
+      split-width-threshold 140)
 
 (if (eq system-type 'darwin)
     (setq mac-right-command-modifier 'meta))
