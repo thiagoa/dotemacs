@@ -29,8 +29,17 @@
 (require 'iy-go-to-char)
 (require 'fzf)
 (require 'which-key)
+(require 'perspective)
 
 (run-server)
+
+;;;;;;;;;;;;;;
+;; windmove ;;
+;;;;;;;;;;;;;;
+
+(use-package windmove
+  :custom
+  (windmove-wrap-around t))
 
 ;;;;;;;;;
 ;; fzf ;;

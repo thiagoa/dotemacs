@@ -22,6 +22,8 @@
         persistent-scratch
         which-key
         perspective
+        lsp-mode
+        use-package
 
         ;; Elisp
         f
