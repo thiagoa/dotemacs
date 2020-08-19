@@ -50,7 +50,7 @@
 ;;;;;;;;;;
 
 (if (equal system-type 'gnu/linux)
-    (defvar my-default-font "JetBrains Mono 12")
+    (defvar my-default-font "DejaVu Sans Mono 11")
   (defvar my-default-font "JetBrains Mono 15"))
 
 ;;;;;;;;;;;;;;;
