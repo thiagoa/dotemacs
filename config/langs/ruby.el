@@ -55,7 +55,10 @@
  (lambda (success project-name)
    (if success
        (notify-os "Tags Success "(concat project-name " tags generated successfully 👍") "Hero")
-     (notify-os "Tags Fail" "Is this a Ruby project? Is bundler able to run? Tags generation FAILED! 👎" "Basso"))))
+     (notify-os "Tags Fail"
+                (concat "Is this a Ruby project? Is bundler able to run? Tags generation FAILED! 👎 Please check "
+                        (format rbtagger-stderr-buffer project-name))
+                "Basso"))))
 
 (setq enh-ruby-hanging-brace-deep-indent-level 1)
 (setq ruby-align-chained-calls t)
