@@ -6,8 +6,6 @@
 
 ;;; Code:
 
-(require 'god-mode)
-(require 'god-mode-isearch)
 (require 'dired-x)
 (require 'projectile)
 (require 'helm)
@@ -386,9 +384,13 @@
 ;; God mode ;;
 ;;;;;;;;;;;;;;
 
-(add-hook 'god-mode-enabled-hook 'my-update-cursor)
-(add-hook 'god-mode-disabled-hook 'my-update-cursor)
-(add-to-list 'god-exempt-major-modes 'cider-repl-mode)
+(use-package god-mode
+  :disabled
+  :hook ((god-mode-enabled-hook . my-update-cursor)
+         (god-mode-disabled-hook . my-update-cursor))
+  :config
+  (add-to-list 'god-exempt-major-modes 'cider-repl-mode)
+  (god-mode))
 
 ;;;;;;;;;;;;;;;;;
 ;; Wrap region ;;
@@ -448,7 +450,6 @@
 (global-missile-mode)
 (delete-selection-mode)
 (save-place-mode)
-(god-mode)
 (global-undo-tree-mode)
 
 ;;; config.el ends here
