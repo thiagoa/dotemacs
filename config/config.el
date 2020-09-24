@@ -227,11 +227,12 @@
       auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
       system-uses-terminfo nil
       large-file-warning-threshold nil
-      recenter-positions '(top middle bottom)
+      recenter-positions '(middle top bottom)
       enable-local-variables :all
       split-height-threshold nil
       split-width-threshold 140
-      visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
+      visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow)
+      confirm-kill-processes nil)
 
 (if (eq system-type 'darwin)
     (setq mac-right-command-modifier 'meta))
