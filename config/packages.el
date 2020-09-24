@@ -129,7 +129,7 @@
         dracula-theme
         nord-theme
         poet-theme
-        solarized
+        solarized-theme
         zenburn-theme))
 
 ;;; packages.el ends here
