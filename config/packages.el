@@ -13,7 +13,8 @@
         ("gnu" . 5)
         ("melpa" . 0)))
 
-(package-initialize)
+(unless (>= emacs-major-version 27)
+  (package-initialize))
 
 (defvar pivot-package 'magit)
 
