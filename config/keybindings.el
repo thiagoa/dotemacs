@@ -21,6 +21,7 @@
 (require 'ext-god-mode)
 (require 'enh-ruby-mode)
 (require 'smartscan)
+(require 'markdown-mode)
 
 (defvar scroll-viewport-up       (kbd "C-u 3 C-v"))
 (defvar scroll-viewport-down     (kbd "C-u 3 M-v"))
@@ -41,7 +42,7 @@
 (global-set-key (kbd "<C-backspace>")  'crux-kill-line-backwards)
 (global-set-key (kbd "<C-M-backspace>") kill-whole-line-backward)
 (global-set-key (kbd "M-h")            'mark-paragraph)
-(global-set-key (kbd "C-c C-SPC")      'mark-current-line)
+(global-set-key (kbd "C-z")            'mark-current-line)
 (global-set-key (kbd "C-M-;")          'mark-symbol)
 (global-set-key (kbd "<C-return>")     'crux-smart-open-line)
 (global-set-key (kbd "<M-return>")     'crux-smart-open-line-above)
@@ -231,6 +232,17 @@
        (helm-exit-and-execute-action
         (lambda (_arg) (ag pattern mu-helm-last-directory)))))))
 
+;;;;;;;;;;;;;;
+;; Markdown ;;
+;;;;;;;;;;;;;;
+
+(define-key markdown-mode-map (kbd "M-n") scroll-viewport-up)
+(define-key markdown-mode-map (kbd "M-p") scroll-viewport-down)
+(define-key markdown-mode-map (kbd "M-N") #'move-text-down-and-indent)
+(define-key markdown-mode-map (kbd "M-P") #'move-text-up-and-indent)
+(define-key markdown-mode-map (kbd "C-M-n") #'markdown-next-link)
+(define-key markdown-mode-map (kbd "C-M-p") #'markdown-previous-link)
+
 ;;;;;;;;;;;
 ;; Dired ;;
 ;;;;;;;;;;;
@@ -291,7 +303,7 @@
 (mapc (lambda (mode)
         (with-eval-after-load mode
           (mapc (lambda (map)
-                  (define-key map (kbd "C-M-SPC") 'ruby-mark-sexp)
+                  (define-key map (kbd "M-S-SPC") 'ruby-mark-sexp)
                   (define-key map (kbd "C-M-'")   'ruby-mark-sexp-for-delete)
                   (define-key map (kbd "C-c , T") 'rspec-go-to-spec-dir)
                   (define-key map (kbd "C-c u d") 'ruby-duplicate-sexp-below)
