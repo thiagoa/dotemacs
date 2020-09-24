@@ -66,5 +66,7 @@
 
 (load-if-exists "~/.emacs.custom.el")
 
+(delete-other-windows)
+
 (provide 'init)
 ;;; init.el ends here
