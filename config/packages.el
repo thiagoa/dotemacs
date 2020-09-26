@@ -130,6 +130,7 @@
         nord-theme
         poet-theme
         solarized-theme
-        zenburn-theme))
+        zenburn-theme
+        visual-fill-column))
 
 ;;; packages.el ends here
