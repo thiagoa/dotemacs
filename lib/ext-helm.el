@@ -85,7 +85,7 @@ PROC, DETAILS, TYPE."
 (defvar mu-helm-last-directory nil "Record the directory of the last search.")
 
 ;; Copied from https://www.manueluberti.eu//emacs/2020/03/13/helm-rg-refactoring/
-(defun mu--helm-rg (directory &optional with-tap type)
+(defun mu--helm-rg (directory &optional with-tap type prompt)
   "Build the Helm command for `mu-helm-rg'.
 
 For DIRECTORY, WITH-TAP, and TYPE see `mu-helm-rg'. This command
@@ -111,11 +111,12 @@ automatically only with WITH-TAP."
           :keymap helm-grep-map
           :history 'helm-grep-ag-history
           :input input
+          :prompt (or prompt "pattern: ")
           :truncate-lines helm-grep-truncate-lines
           :buffer (format "*helm %s*" command))))
 
 ;; Copied from https://www.manueluberti.eu//emacs/2020/03/13/helm-rg-refactoring/
-(defun mu-helm-rg (directory &optional with-tap with-types)
+(defun mu-helm-rg (directory &optional with-tap with-types prompt)
   "Search in DIRECTORY with RG.
 
 With WITH-TAP, search for thing at point. With WITH-TYPES, ask
@@ -131,7 +132,8 @@ for file types to search in."
                     :must-match t
                     :marked-candidates t
                     :fc-transformer 'helm-adaptive-sort
-                    :buffer "*helm rg types*"))))
+                    :buffer "*helm rg types*"))
+               prompt))
 
 ;; Copied from https://www.manueluberti.eu//emacs/2020/03/13/helm-rg-refactoring/
 (defun mu-helm-project-search (&optional with-types)
@@ -141,7 +143,12 @@ for file types to search in."
 ;; Copied from https://www.manueluberti.eu//emacs/2020/03/13/helm-rg-refactoring/
 (defun mu-helm-project-search-at-point (&optional with-types)
   (interactive "P")
-  (mu-helm-rg (projectile-project-root) t with-types))
+  (let ((root (projectile-project-root)))
+    (mu-helm-rg
+     (or root default-directory)
+     t
+     with-types
+     (unless root "pattern (WARNING: No project! searching in current directory): "))))
 
 ;; Copied from https://www.manueluberti.eu//emacs/2020/03/13/helm-rg-refactoring/
 (defun mu-helm-file-search (&optional with-types)
@@ -154,5 +161,4 @@ for file types to search in."
                                           default-directory)))
   (mu-helm-rg directory nil nil))
 
-(provide 'ext-helm)
 ;;; ext-helm.el ends here
