@@ -161,4 +161,5 @@ for file types to search in."
                                           default-directory)))
   (mu-helm-rg directory nil nil))
 
+(provide 'ext-helm)
 ;;; ext-helm.el ends here
