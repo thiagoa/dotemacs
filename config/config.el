@@ -230,7 +230,8 @@
       recenter-positions '(top middle bottom)
       enable-local-variables :all
       split-height-threshold nil
-      split-width-threshold 140)
+      split-width-threshold 140
+      visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
 
 (if (eq system-type 'darwin)
     (setq mac-right-command-modifier 'meta))
