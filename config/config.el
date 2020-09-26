@@ -437,6 +437,13 @@
 
 (add-hook 'before-save-hook 'whitespace-cleanup)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; OS-specific settings ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(if (eq system-type 'darwin)
+    (toggle-option-key))
+
 ;;;;;;;;;;;;;;;;;;
 ;; Global modes ;;
 ;;;;;;;;;;;;;;;;;;

@@ -41,11 +41,11 @@ If specifying KEY, set the \"ns-option-modifier\" accordingly."
   (interactive)
   (or key (setq key (if (eq mac-option-modifier 'meta) 'none 'meta)))
   (if (eq key 'none)
-      (progn (setq mac-option-modifier nil)
+      (progn (setq mac-option-modifier 'super)
              (setq mac-command-modifier 'meta)
              (message "Changed to macOS option"))
     (progn (setq mac-option-modifier 'meta)
-           (setq mac-command-modifier 'hyper)
+           (setq mac-command-modifier 'super)
            (message "Changed to Emacs meta"))))
 
 (provide 'general)
