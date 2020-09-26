@@ -68,7 +68,7 @@
         ;; Programming utils
         company
         flycheck
-        hippie-exp
+        hippie-exp-ext
         rainbow-delimiters
         string-inflection
         yasnippet
