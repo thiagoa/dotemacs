@@ -231,7 +231,8 @@ return '(\"First\" \"SecondThird\")"
                          ""
                          (or (buffer-file-name)
                              (buffer-name (current-buffer)))))
-         (relative-path (replace-regexp-in-string "_?s?p?e?c?\.rb" "" relative-path))
+         (relative-path (replace-regexp-in-string "_spec\.rb$" "" relative-path))
+         (relative-path (replace-regexp-in-string "\.rb$" "" relative-path))
          (parts (split-string relative-path "/"))
          (root-dir (car parts))
          (path (pcase root-dir
