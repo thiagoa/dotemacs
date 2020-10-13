@@ -136,8 +136,9 @@ Takes TARGET-CHAR to compare against /."
 
 (defun simple-autopair--forward-char-p (str &rest target-strs)
   "Given STR and TARGET-STRS, determine whether to `forward-char'."
-  (let ((found (car (member str target-strs))))
-    (equal (char-to-string (char-after)) found)))
+  (let ((found (car (member str target-strs)))
+        (char (char-after)))
+    (if char (equal (char-to-string (char-after)) found))))
 
 (defun simple-autopair--str-boundary-forward-char-p (str target-chars)
   "Determine whether STR is one of TARGET-CHARS and whether cursor is at a string or regex delimiter."
