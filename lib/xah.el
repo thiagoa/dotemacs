@@ -113,7 +113,7 @@ Note: This function was changed by Thiago to support other languages."
       (progn
         (shell-command
          (format
-          "gcc -o %s %s && ./%s"
+          "gcc -o \"%s\" \"%s\" && ./\"%s\""
           $fname-sans-extension
           $fname
           $fname-sans-extension)
