@@ -33,8 +33,12 @@
 (defun helm-find-files-project-root ()
   "Find files starting from the project root."
   (interactive)
-  (when-let (default-directory (concat (projectile-project-root) "./"))
-    (call-interactively 'helm-find-files)))
+  ;; helm ignores default-directory when major mode is dired, so let's
+  ;; trick it. Recall that our goal here is to find files from the
+  ;; project root.
+  (let ((major-mode (if (eq major-mode 'dired-mode) 'fundamental-mode major-mode)))
+    (when-let (default-directory (concat (projectile-project-root) "./"))
+      (call-interactively 'helm-find-files))))
 
 (defun add-helm-projectile-projects-action (actions)
   "Add custom ACTIONS to helm-projectile-switch-project.
@@ -134,6 +138,16 @@ for file types to search in."
                     :fc-transformer 'helm-adaptive-sort
                     :buffer "*helm rg types*"))
                prompt))
+
+(defun mu-helm-global ()
+  "Select between search functions"
+  (interactive)
+  (let ((key (read-event)))
+    (case key
+      (?s (mu-helm-project-search))
+      (?f (mu-helm-project-search-at-point))
+      (?g (mu-helm-file-search))
+      (?d (call-interactively 'mu-helm-custom-dir-file-search)))))
 
 ;; Copied from https://www.manueluberti.eu//emacs/2020/03/13/helm-rg-refactoring/
 (defun mu-helm-project-search (&optional with-types)
