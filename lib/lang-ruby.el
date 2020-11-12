@@ -88,11 +88,13 @@ This command assumes point is not in a string or comment."
 
 (defun ruby-mark-sexp-for-delete ()
   (interactive)
-  (call-interactively 'ruby-mark-sexp)
-  (exchange-point-and-mark)
-  (next-line)
-  (beginning-of-line)
-  (exchange-point-and-mark))
+  (let ((is-bolp (bolp)))
+    (call-interactively 'ruby-mark-sexp)
+    (when is-bolp
+      (exchange-point-and-mark)
+      (next-line)
+      (beginning-of-line)
+      (exchange-point-and-mark))))
 
 (defun ruby-duplicate-sexp-below (arg)
   "Duplicate Ruby sexp and place point at the start of duplicated sexp.
