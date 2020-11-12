@@ -347,6 +347,14 @@
                        nil)
                       (t '(display-buffer-same-window))))))
 
+;;;;;;;;;
+;; LSP ;;
+;;;;;;;;;
+
+(use-package lsp
+  :config
+  (setq lsp-enable-xref nil))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compilation buffer ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;
