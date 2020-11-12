@@ -23,7 +23,6 @@
 (require 'linum)
 (require 'ansi-color)
 (require 'polymode)
-(require 'wrap-region)
 (require 'iy-go-to-char)
 (require 'fzf)
 (require 'which-key)
@@ -406,8 +405,11 @@
 ;; Wrap region ;;
 ;;;;;;;;;;;;;;;;;
 
-(wrap-region-add-wrapper "( " " )" ")")
-(wrap-region-add-wrapper "{ " " }" "}")
+(use-package wrap-region
+  :config
+  (wrap-region-add-wrapper "( " " )" ")")
+  (wrap-region-add-wrapper "{ " " }" "}")
+  (setq wrap-region-only-with-negative-prefix t))
 
 ;;;;;;;;;;;;;;;;
 ;; Yasnippets ;;
