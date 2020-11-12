@@ -41,6 +41,7 @@
 (require 'lang-elixir)
 (require 'lang-ruby)
 (require 'ext-god-mode)
+(require 'helm-fzf)
 (require 'ext-helm)
 (require 'ext-projectile)
 (require 'ext-linum)

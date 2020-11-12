@@ -35,7 +35,7 @@
   [escape])
 
 (global-set-key (kbd "C-x C-c")        nil) ; unbind default quit cmd... easy to fire accidentally with god-mode
-(global-set-key (kbd "C-M-]")          'fzf) ; unbind default quit cmd... easy to fire accidentally with god-mode
+(global-set-key (kbd "C-M-]")          'helm-fzf-project-root) ; unbind default quit cmd... easy to fire accidentally with god-mode
 (global-set-key (kbd "C-x 4 t")        'crux-transpose-windows)
 (global-set-key (kbd "C-c C-h")        'crux-kill-whole-line)
 (global-set-key (kbd "C-k")            'kill-line)

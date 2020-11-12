@@ -51,7 +51,6 @@
         ;; Project / Search
         ag
         wgrep-ag
-        fzf
         helm
         helm-projectile
         projectile
