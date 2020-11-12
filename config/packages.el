@@ -29,6 +29,7 @@
         perspective
         lsp-mode
         use-package
+        visual-fill-column
 
         ;; Elisp
         f
