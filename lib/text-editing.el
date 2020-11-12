@@ -135,6 +135,9 @@ Take ARG universal argument to mark N lines."
   (set-mark
    (save-excursion
      (skip-syntax-forward symbol-syntax-chars)
+     (when (and (eq ?! (char-after (point)))
+                (eq major-mode 'enh-ruby-mode))
+       (forward-char))
      (point))))
 
 (defun comment-or-uncomment-line-or-region ()
