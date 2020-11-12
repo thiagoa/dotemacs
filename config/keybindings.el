@@ -136,7 +136,7 @@
 (global-set-key (kbd "C-x C-f")        'helm-find-files)
 (global-set-key (kbd "C-x F")          'helm-find-files-project-root)
 (global-set-key (kbd "C-c i")          'swiper)
-(global-set-key (kbd "<s-return>")     'xah-run-current-file)
+(global-set-key (kbd "C-c r")          'xah-run-current-file)
 (global-set-key (kbd "C-x C-1")        'delete-other-windows)
 (global-set-key (kbd "C-x C-2")        'split-window-below)
 (global-set-key (kbd "C-x C-3")        'split-window-right)
