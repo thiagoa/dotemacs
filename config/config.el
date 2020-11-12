@@ -182,7 +182,8 @@
 
 (add-helm-projectile-projects-action
  '(("Rails console"        "M-r" execute-projectile-rails-console-under-dir)
-   ("Find file in project" "C-f" execute-helm-projectile-find-file-under-dir)))
+   ("Find file in project" "C-f" execute-helm-projectile-find-file-under-dir)
+   ("Open project shell"   "M-s" execute-helm-project-shell-under-dir)))
 
 ;;;;;;;;;;;;;
 ;; Paredit ;;

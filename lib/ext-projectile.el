@@ -56,5 +56,11 @@ For use with projectile-switch-project."
 For use with helm-projectile-find-file."
   (execute-command-under-dir dir 'helm-projectile-find-file))
 
+(defun execute-helm-project-shell-under-dir (dir)
+  "Execute projectile-run-shell under DIR.
+
+For use with helm-projectile-find-file."
+  (execute-command-under-dir dir 'projectile-run-shell nil))
+
 (provide 'ext-projectile)
 ;;; ext-projectile.el ends here
