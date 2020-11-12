@@ -65,6 +65,7 @@
 (setq projectile-rails-expand-snippet nil)
 (setq ruby-deep-indent-paren nil)
 (setq rspec-use-rake-when-possible nil)
+(setq rake-completion-system 'helm)
 (setq rubocop-check-command "rubocop --format emacs -D")
 
 ;;; ruby.el ends here
