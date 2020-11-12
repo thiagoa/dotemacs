@@ -12,6 +12,7 @@
 
 (defun my-visual-line-mode-hook ()
   (when visual-line-mode
+    (require 'whitespace)
     (setq my-visual-line-state
           `(whitespace-style ,whitespace-style
                              whitespace-mode ,whitespace-mode
