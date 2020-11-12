@@ -42,9 +42,7 @@
                                    (rename-file filename new-name t)
                                    (set-visited-file-name new-name t t))))
           (make-directory containing-dir t)
-          (if (string-prefix-p (projectile-project-root) new-name)
-              (vc-rename-file filename new-name)
-            (non-vc-rename)))))))
+          (non-vc-rename))))))
 
 (provide 'ext-crux)
 ;;; ext-crux.el ends here
