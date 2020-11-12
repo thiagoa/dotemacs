@@ -64,6 +64,8 @@
   "Insert pair of characters or do other things depending on the context.
 If SKIP-AUTOPAIR > 1 is passed, skip autopair behavior and insert char."
   (interactive "P")
+  (if (region-active-p)
+      (delete-region (region-beginning) (region-end)))
   (let ((char (this-command-keys)))
     (if skip-autopair
         (insert char)
