@@ -124,6 +124,12 @@
        "cyan3"
        "gray90"])
 
+;;;;;;;;;;;;
+;; Swiper ;;
+;;;;;;;;;;;;
+
+(setq swiper-goto-start-of-match t)
+
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; GUI Emacs config ;;
 ;;;;;;;;;;;;;;;;;;;;;;
