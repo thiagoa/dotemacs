@@ -40,6 +40,7 @@
 (require 'git)
 (require 'lang-elixir)
 (require 'lang-ruby)
+(require 'ext-cider)
 (require 'ext-god-mode)
 (require 'helm-fzf)
 (require 'ext-helm)
