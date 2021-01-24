@@ -1,6 +1,8 @@
 ;; Taken from https://vlevit.org/en/blog/tech/visual-line-wrap
 ;; I might customize this...
 
+(require 'whitespace)
+
 (setq whitespace-display-mappings
       '((newline-mark 10 [?↷ 10])))      ; newline
 
