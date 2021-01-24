@@ -36,4 +36,5 @@
   (interactive)
   (cider-nrepl-sync-request:eval str))
 
+(provide 'ext-cider)
 ;;; ext-cider.el ends here
