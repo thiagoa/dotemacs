@@ -228,6 +228,11 @@
        (helm-exit-and-execute-action
         (lambda (_arg) (ag pattern mu-helm-last-directory)))))))
 
+(define-key helm-grep-map (kbd "C-c C-r")
+  (simple-ilambda
+   (with-helm-alive-p
+     (helm-refresh))))
+
 ;;;;;;;;;;;;;;
 ;; Markdown ;;
 ;;;;;;;;;;;;;;

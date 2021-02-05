@@ -54,13 +54,19 @@ For use with projectile-switch-project."
   "Execute helm-projectile-find-file under DIR.
 
 For use with helm-projectile-find-file."
-  (execute-command-under-dir dir 'helm-projectile-find-file))
+  (execute-command-under-dir dir 'helm-fzf dir))
 
 (defun execute-helm-project-shell-under-dir (dir)
   "Execute projectile-run-shell under DIR.
 
 For use with helm-projectile-find-file."
   (execute-command-under-dir dir 'projectile-run-shell nil))
+
+(defun execute-helm-ag-under-dir (dir)
+  "Execute mu-helm-project-search under DIR.
+
+For use with helm-projectile-find-file."
+  (execute-command-under-dir dir 'mu-helm-project-search))
 
 (provide 'ext-projectile)
 ;;; ext-projectile.el ends here
