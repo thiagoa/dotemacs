@@ -265,6 +265,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (setq flycheck-check-syntax-automatically '(save mode-enable))
+(setq flycheck-standard-error-navigation' nil)
 
 ;;;;;;;;;;;;;;;;
 ;; Projectile ;;
