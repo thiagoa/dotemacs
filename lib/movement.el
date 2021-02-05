@@ -63,9 +63,9 @@ If rspec-mode is enabled, goes to the next sentence."
      (t (call-interactively 'move-end-of-line)))))
 
 (defun go-to-alternate-buffer ()
-  "Switch to alternate (last) buffer."
+  "Alternate between the current buffer and the previous."
   (interactive)
-  (switch-to-buffer nil))
+  (switch-to-buffer (caar (window-prev-buffers))))
 
 (defun dired-file-at-point-dwim ()
   "Jump to file at point in dired."
