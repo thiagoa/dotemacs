@@ -54,8 +54,8 @@
   "Copy env vars from default shell."
   (mapc (lambda (assignment)
           (let* ((parts (split-string assignment "="))
-                 (var (first parts))
-                 (value (second parts)))
+                 (var (car parts))
+                 (value (cadr parts)))
             (unless (member var env-vars-to-ignore)
               (when (equal "PATH" var)
                 (setq eshell-path-env value

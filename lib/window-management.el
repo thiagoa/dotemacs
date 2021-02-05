@@ -65,7 +65,7 @@
   "Match my tmux shortcuts to move to windows."
   (interactive)
   (let ((key (read-event)))
-    (case key
+    (cl-case key
       (?t  (call-interactively #'transpose-chars))
       (?\h (windmove-left))
       (?\l (windmove-right))

@@ -143,7 +143,7 @@ for file types to search in."
   "Select between search functions"
   (interactive)
   (let ((key (read-event)))
-    (case key
+    (cl-case key
       (?s (mu-helm-project-search))
       (?f (mu-helm-project-search-at-point))
       (?g (mu-helm-file-search))
