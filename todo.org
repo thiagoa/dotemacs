@@ -1,0 +1,4 @@
+TODO scratch buffer
+
+- C-M-space should also select ! in Ruby, and other relevant characters
+- Command to show full file path of open buffers

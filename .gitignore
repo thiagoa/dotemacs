@@ -30,3 +30,6 @@ ede-projects.el
 org-journal.cache
 games
 .persistent-scratch
+session*
+eln-cache
+.lsp-session*
