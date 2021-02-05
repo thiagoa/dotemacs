@@ -19,6 +19,9 @@
 (require 's)
 (require 'dash)
 
+;; takes gitignore into account
+(setenv "FZF_DEFAULT_COMMAND" "ag -g \"\"")
+
 (defcustom helm-fzf-executable "fzf"
   "Default executable for fzf"
   :type 'stringp
@@ -34,7 +37,6 @@
 
 (defun helm-fzf--do-candidate-process ()
   (let* ((cmd-args (-filter 'identity (list helm-fzf-executable
-                                            "--no-sort"
                                             "-f"
                                             helm-pattern)))
          (proc (apply 'start-file-process "helm-fzf" helm-buffer cmd-args)))
