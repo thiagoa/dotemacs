@@ -304,7 +304,7 @@
 (mapc (lambda (mode)
         (with-eval-after-load mode
           (mapc (lambda (map)
-                  (define-key map (kbd "M-S-SPC") 'ruby-mark-sexp)
+                  (define-key map (kbd "C-M-SPC") 'ruby-mark-sexp)
                   (define-key map (kbd "C-M-'")   'ruby-mark-sexp-for-delete)
                   (define-key map (kbd "C-c , T") 'rspec-go-to-spec-dir)
                   (define-key map (kbd "C-c u d") 'ruby-duplicate-sexp-below)
