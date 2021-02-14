@@ -273,7 +273,8 @@
 
 (setq projectile-enable-caching t
       projectile-indexing-method 'alien
-      projectile-switch-project-action 'magit)
+      projectile-switch-project-action 'magit
+      projectile-create-missing-test-files t)
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Hippie expand ;;
