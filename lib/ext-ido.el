@@ -7,6 +7,7 @@
 ;;; Code:
 
 (require 'imenu)
+(require 'cl-lib)
 
 (defun ido-goto-symbol (&optional a-symbol)
   "Update the imenu index and then use ido to select a symbol to navigate to.
@@ -16,25 +17,25 @@ Optionally takes A-SYMBOL."
   (imenu--make-index-alist)
   (let ((name-and-pos '())
         (symbol-names '()))
-    (flet ((addsymbols (symbol-list)
-                       (when (listp symbol-list)
-                         (dolist (symbol symbol-list)
-                           (let ((name nil) (position nil))
-                             (cond
-                              ((and (listp symbol) (imenu--subalist-p symbol))
-                               (addsymbols symbol))
+    (cl-flet ((addsymbols (symbol-list)
+                          (when (listp symbol-list)
+                            (dolist (symbol symbol-list)
+                              (let ((name nil) (position nil))
+                                (cond
+                                 ((and (listp symbol) (imenu--subalist-p symbol))
+                                  (addsymbols symbol))
 
-                              ((listp symbol)
-                               (setq name (car symbol))
-                               (setq position (cdr symbol)))
+                                 ((listp symbol)
+                                  (setq name (car symbol))
+                                  (setq position (cdr symbol)))
 
-                              ((stringp symbol)
-                               (setq name symbol)
-                               (setq position (get-text-property 1 'org-imenu-marker symbol))))
+                                 ((stringp symbol)
+                                  (setq name symbol)
+                                  (setq position (get-text-property 1 'org-imenu-marker symbol))))
 
-                             (unless (or (null position) (null name))
-                               (cl-pushnew name symbol-names)
-                               (cl-pushnew (cons name position) name-and-pos)))))))
+                                (unless (or (null position) (null name))
+                                  (cl-pushnew name symbol-names)
+                                  (cl-pushnew (cons name position) name-and-pos)))))))
       (addsymbols imenu--index-alist))
     (let* ((selected-symbol
             (if (null a-symbol)
