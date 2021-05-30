@@ -238,7 +238,9 @@
       split-height-threshold nil
       split-width-threshold 140
       visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow)
-      confirm-kill-processes nil)
+      confirm-kill-processes nil
+      backup-directory-alist '(("" . "~/.emacs.d/backup"))
+      backup-by-copying t)
 
 (if (eq system-type 'darwin)
     (setq mac-right-command-modifier 'meta))
@@ -317,7 +319,7 @@
       (cons '("[^/]\\.dired$" . dired-virtual-mode) auto-mode-alist))
 
 ;;;;;;;;;;;;;;;;;;;
-;; yi-go-to-char ;;
+;; iy-go-to-char ;;
 ;;;;;;;;;;;;;;;;;;;
 
 (setq iy-go-to-char-continue-when-repeating nil)

@@ -33,3 +33,4 @@ games
 session*
 eln-cache
 .lsp-session*
+./backup
