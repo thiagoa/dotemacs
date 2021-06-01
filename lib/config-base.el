@@ -28,6 +28,7 @@
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Code:
+(require 'package)
 
 (defconst emacs-d
   (concat (expand-file-name

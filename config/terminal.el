@@ -64,4 +64,6 @@
 (when (memq window-system '(mac ns x))
   (copy-env-vars-from-shell))
 
+(setenv "LS_COLORS" nil)
+
 ;;; terminal.el ends here

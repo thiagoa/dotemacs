@@ -24,6 +24,7 @@
 (require 'crux)
 
 ;; Require my own libraries and extensions
+(require 'iy-go-to-char)
 (require 'simple-autopair)
 (require 'ext-elisp)
 (require 'shell-integration)

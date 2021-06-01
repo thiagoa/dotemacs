@@ -9,7 +9,7 @@
 (require 'projectile-rails)
 (require 'config-base)
 
-(define-key projectile-rails-mode-map (kbd "C-c r") 'projectile-rails-command-map)
+(define-key projectile-rails-mode-map (kbd "C-c b") 'projectile-rails-command-map)
 
 (add-to-list 'auto-mode-alist '("\\.rb$" . enh-ruby-mode))
 (add-to-list 'auto-mode-alist

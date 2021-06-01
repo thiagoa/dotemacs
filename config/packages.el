@@ -9,9 +9,9 @@
         ("stable-melpa" . "https://stable.melpa.org/packages/")
         ("gnu" . "http://elpa.gnu.org/packages/"))
       package-archive-priorities
-      '(("stable-melpa" . 10)
-        ("gnu" . 5)
-        ("melpa" . 0)))
+      '(("melpa" . 20)
+        ("stable-melpa" . 10)
+        ("gnu" . 5)))
 
 (unless (>= emacs-major-version 27)
   (package-initialize))
@@ -41,7 +41,7 @@
         change-inner
         crux
         dot-mode
-        iy-go-to-char
+        ;;iy-go-to-char
         move-text
         multiple-cursors
         undo-tree
