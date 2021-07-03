@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Kernel.binding.pry
+# key: kpry
+# --
+require 'pry'; ::Kernel.binding.pry$0
