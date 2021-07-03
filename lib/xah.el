@@ -61,7 +61,7 @@ Note: This function was changed by Thiago to support other languages."
          `(
            ("php" . "php")
            ("pl" . "perl")
-           ("py" . "python")
+           ("py" . "python3")
            ("py3" . "python3")
            ("rb" . "ruby")
            ("go" . "go run")
