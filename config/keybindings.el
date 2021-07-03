@@ -169,6 +169,7 @@
 (global-set-key (kbd "M-[")            'backward-paragraph)
 (global-set-key (kbd "M-P")            'move-text-up-and-indent)
 (global-set-key (kbd "M-N")            'move-text-down-and-indent)
+(global-set-key (kbd "C-c C-o")        'xah-shrink-whitespaces)
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Fast movement ;;
