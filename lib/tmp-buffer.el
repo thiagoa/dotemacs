@@ -46,7 +46,8 @@
     (?j . ((:mode . javascript-mode)       (:ext . ".js")))
     (?s . ((:mode . sql-mode)              (:ext . ".sql")))
     (?c . ((:mode . clojure-mode)          (:ext . ".clj")))
-    (?d . ((:mode . c-mode)                (:ext . ".c"))))
+    (?d . ((:mode . c-mode)                (:ext . ".c")))
+    (?p . ((:mode . python-mode)           (:ext . ".py"))))
   "List of major modes for temporary buffers and associated metadata."
   :group 'tmp-buffer
   :type '(alist :key-type character :value-type list))
