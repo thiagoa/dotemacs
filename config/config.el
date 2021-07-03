@@ -240,7 +240,8 @@
       visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow)
       confirm-kill-processes nil
       backup-directory-alist '(("" . "~/.emacs.d/backup"))
-      backup-by-copying t)
+      backup-by-copying t
+      create-lockfiles nil)
 
 (if (eq system-type 'darwin)
     (setq mac-right-command-modifier 'meta))
