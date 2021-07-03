@@ -62,7 +62,7 @@
 (global-set-key (kbd "M-p")            scroll-viewport-down)
 (global-set-key (kbd "M-n")            scroll-viewport-up)
 (global-set-key (kbd "C-c SPC")        'shell)
-(global-set-key (kbd "C-c j")          'avy-goto-char)
+(global-set-key (kbd "C-c j")          'avy-goto-char-timer)
 (global-set-key (kbd "C-=")            'er/expand-region)
 (global-set-key (kbd "M-i")            'ido-goto-symbol)
 (global-set-key (kbd "M-I")            'helm-semantic-or-imenu)
