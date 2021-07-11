@@ -446,8 +446,8 @@
 
 (setq org-log-done 'time)
 
-(setq-default org-download-image-dir "~/OneDrive/Journal/images"
-              org-journal-dir "~/OneDrive/Journal")
+(setq-default org-download-image-dir "~/Dropbox/Journal/images"
+              org-journal-dir "~/Dropbox/Journal")
 
 (setq org-journal-file-format "%Y%m%d.org"
       org-journal-date-format "%A, %Y-%m-%d")
