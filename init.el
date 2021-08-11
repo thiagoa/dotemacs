@@ -50,6 +50,7 @@
 (require 'ext-server)
 (require 'ext-comint)
 (require 'ext-isearch)
+(require 'ext-sgml)
 (require 'ext-minibuffer)
 (require 'ext-ibuffer)
 (require 'ext-compile)

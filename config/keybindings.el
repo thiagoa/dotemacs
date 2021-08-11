@@ -194,6 +194,12 @@
 
 (global-set-key (kbd "s-u") 'ace-window)
 
+;;;;;;;;;;;;;;;
+;; sgml-mode ;;
+;;;;;;;;;;;;;;;
+
+(define-key sgml-mode-map (kbd "C-c C-c DEL") 'sgml-delete-tagged-text)
+
 ;;;;;;;;;;;;;
 ;; isearch ;;
 ;;;;;;;;;;;;;
