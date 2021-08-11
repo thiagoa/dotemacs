@@ -57,6 +57,7 @@
 (require 'ext-ido)
 (require 'ext-align)
 (require 'ext-crux)
+(require 'ext-flycheck)
 (require 'ext-rspec-mode)
 (require 'ext-process)
 (require 'goto-last-change)
