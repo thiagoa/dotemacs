@@ -44,6 +44,7 @@
 (require 'ext-cider)
 (require 'ext-god-mode)
 (require 'helm-fzf)
+(require 'flycheck-standardrb)
 (require 'ext-helm)
 (require 'ext-projectile)
 (require 'ext-linum)
