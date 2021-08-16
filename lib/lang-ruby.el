@@ -221,7 +221,7 @@ Read more about the purpose of this variable in
 (defun ruby-get-fully-qualified-name-parts-for-path ()
   "Return a list of fully-qualified Ruby class name parts for the current file.
 Given a file path or buffer, determine what the class name is by
-following Rail's path to module name convention. If dealing with a
+following Rails' path-to-module name convention. If dealing with a
 spec file, ignore the '_spec.rb' suffix.
 
 For example, if we're visitting a
