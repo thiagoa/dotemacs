@@ -2,9 +2,7 @@
 # name: rrspec
 # key: rrspec
 # --
-# frozen_string_literal: true
-
-require 'rails_helper'
+`(snippet-frozen-string-literal)`require `snippet-quote-char`rails_helper`snippet-quote-char`
 
 RSpec.describe ${1:`(string-join (ruby-get-fully-qualified-name-parts-for-path) "::")`} do
   $0

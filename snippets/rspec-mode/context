@@ -2,6 +2,6 @@
 # name: context
 # key: cont
 # --
-context '$1' do
+context `snippet-quote-char`$1`snippet-quote-char` do
   $0
 end

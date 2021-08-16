@@ -2,6 +2,6 @@
 # name: describe
 # key: desc
 # --
-describe '$1' do
+describe `snippet-quote-char`$1`snippet-quote-char` do
   $0
 end

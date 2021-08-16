@@ -9,6 +9,13 @@
 (require 'projectile-rails)
 (require 'config-base)
 
+(defvar snippet-quote-char "\"")
+(defvar snippet-frozen-string-literal nil)
+
+(defun snippet-frozen-string-literal ()
+  (if snippet-frozen-string-literal
+      "# frozen_string_literal: true\n\n"))
+
 (define-key projectile-rails-mode-map (kbd "C-c b") 'projectile-rails-command-map)
 
 (add-to-list 'auto-mode-alist '("\\.rb$" . enh-ruby-mode))
