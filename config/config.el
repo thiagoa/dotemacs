@@ -458,7 +458,8 @@
 ;; Clean up whitespace before save ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(add-hook 'before-save-hook 'whitespace-cleanup)
+(add-hook 'before-save-hook (lambda () (unless (equal major-mode 'markdown-mode)
+                                         (whitespace-cleanup))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; OS-specific settings ;;
