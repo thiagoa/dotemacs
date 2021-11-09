@@ -302,7 +302,8 @@
 ;;;;;;;;;;;;;;;;;
 
 (setq tags-add-tables nil
-      tags-revert-without-query 1)
+      tags-revert-without-query 1
+      tags-case-fold-search nil)
 
 ;;;;;;;;;;;
 ;; Dired ;;
