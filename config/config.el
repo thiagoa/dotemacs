@@ -48,7 +48,7 @@
 ;;;;;;;;;;
 
 (if (equal system-type 'gnu/linux)
-    (defvar my-default-font "DejaVu Sans Mono 11")
+    (defvar my-default-font "DejaVu Sans Mono 13")
   (defvar my-default-font "Menlo 14"))
 
 ;;;;;;;;;;;;;;;
