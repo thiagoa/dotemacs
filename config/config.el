@@ -148,7 +148,7 @@
 ;; Theme. Good options: nord, zenburn, dracula, nimbus, spacemacs-dark, kaolin-dark, doom-molokai ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(load-theme 'kaolin-aurora t)
+(load-theme 'dracula t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; Lines and columns ;;
