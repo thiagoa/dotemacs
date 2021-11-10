@@ -71,6 +71,10 @@
                         (format rbtagger-stderr-buffer project-name))
                 "Basso"))))
 
+(add-to-list 'semantic-symref-filepattern-alist
+             (cons 'enh-ruby-mode
+                   (cdr (assoc 'ruby-mode semantic-symref-filepattern-alist))))
+
 (setq enh-ruby-hanging-brace-deep-indent-level 1)
 (setq ruby-align-chained-calls t)
 (setq projectile-rails-expand-snippet nil)
