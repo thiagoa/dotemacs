@@ -40,6 +40,11 @@
                          (simple-autopair-mode))))
       '(ruby-mode enh-ruby-mode-hook))
 
+(add-hook 'after-save-hook
+          (lambda ()
+            (if (eq major-mode 'enh-ruby-mode)
+                (call-interactively 'rbtagger-generate-tags))))
+
 (add-hook 'rspec-after-verification-hook
           (lambda ()
             (setq inf-ruby-buffers
@@ -60,8 +65,7 @@
 (add-hook
  'rbtagger-after-generate-tag-hook
  (lambda (success project-name)
-   (if success
-       (notify-os "Tags Success "(concat project-name " tags generated successfully 👍") "Hero")
+   (unless success
      (notify-os "Tags Fail"
                 (concat "Is this a Ruby project? Is bundler able to run? Tags generation FAILED! 👎 Please check "
                         (format rbtagger-stderr-buffer project-name))
