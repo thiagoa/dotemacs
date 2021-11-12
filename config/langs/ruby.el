@@ -8,6 +8,7 @@
 (require 'rspec-mode)
 (require 'projectile-rails)
 (require 'config-base)
+(require 'semantic/symref/grep)
 
 (defvar snippet-quote-char "\"")
 (defvar snippet-frozen-string-literal nil)
