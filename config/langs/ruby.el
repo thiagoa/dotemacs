@@ -50,7 +50,7 @@
           (lambda ()
             (setq inf-ruby-buffers
                   (delete (get-buffer "*rspec-compilation*") inf-ruby-buffers))
-            (ruby-finish-test-compilation)))
+            (unless wsl? (ruby-finish-test-compilation))))
 
 (add-hook 'rspec-before-verification-hook
           (lambda ()
@@ -66,7 +66,7 @@
 (add-hook
  'rbtagger-after-generate-tag-hook
  (lambda (success project-name)
-   (ignore-errors
+   (unless (wsl?)
      (unless success
        (notify-os "Tags Fail"
                   (concat "Is this a Ruby project? Is bundler able to run? Tags generation FAILED! 👎 Please check "
