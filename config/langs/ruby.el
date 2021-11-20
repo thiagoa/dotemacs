@@ -68,10 +68,10 @@
  (lambda (success project-name)
    (ignore-errors
      (unless success
-     (notify-os "Tags Fail"
-                (concat "Is this a Ruby project? Is bundler able to run? Tags generation FAILED! 👎 Please check "
-                        (format rbtagger-stderr-buffer project-name))
-                "Basso")))))
+       (notify-os "Tags Fail"
+                  (concat "Is this a Ruby project? Is bundler able to run? Tags generation FAILED! 👎 Please check "
+                          (format rbtagger-stderr-buffer project-name))
+                  "Basso")))))
 
 (add-to-list 'semantic-symref-filepattern-alist
              (cons 'enh-ruby-mode

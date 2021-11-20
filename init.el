@@ -6,6 +6,10 @@
 
 ;;; Code:
 
+(defun wsl? ()
+  "Are we running under WSL?"
+  (eq 0 (call-process "grep" nil nil nil "microsoft" "/proc/version")))
+
 (setq gc-cons-threshold 20000000)
 
 (let ((root (file-name-directory load-file-name)))

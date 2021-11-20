@@ -49,8 +49,8 @@
 
 (unless (wsl?)
   (if (equal system-type 'gnu/linux)
-    (defvar my-default-font "DejaVu Sans Mono 13")
-  (defvar my-default-font "Menlo 14")))
+      (defvar my-default-font "Menlo 14")
+    (defvar my-default-font "Menlo 14")))
 
 ;;;;;;;;;;;;;;;
 ;; which-key ;;
