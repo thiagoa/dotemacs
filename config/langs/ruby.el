@@ -8,6 +8,7 @@
 (require 'rspec-mode)
 (require 'projectile-rails)
 (require 'config-base)
+(require 'semantic/symref/grep)
 
 (defvar snippet-quote-char "\"")
 (defvar snippet-frozen-string-literal nil)
@@ -40,6 +41,11 @@
                          (simple-autopair-mode))))
       '(ruby-mode enh-ruby-mode-hook))
 
+(add-hook 'after-save-hook
+          (lambda ()
+            (if (eq major-mode 'enh-ruby-mode)
+                (call-interactively 'rbtagger-generate-tags))))
+
 (add-hook 'rspec-after-verification-hook
           (lambda ()
             (setq inf-ruby-buffers
@@ -61,12 +67,15 @@
  'rbtagger-after-generate-tag-hook
  (lambda (success project-name)
    (ignore-errors
-     (if success
-         (notify-os "Tags Success "(concat project-name " tags generated successfully 👍") "Hero")
-       (notify-os "Tags Fail"
-                  (concat "Is this a Ruby project? Is bundler able to run? Tags generation FAILED! 👎 Please check "
-                          (format rbtagger-stderr-buffer project-name))
-                  "Basso")))))
+     (unless success
+     (notify-os "Tags Fail"
+                (concat "Is this a Ruby project? Is bundler able to run? Tags generation FAILED! 👎 Please check "
+                        (format rbtagger-stderr-buffer project-name))
+                "Basso")))))
+
+(add-to-list 'semantic-symref-filepattern-alist
+             (cons 'enh-ruby-mode
+                   (cdr (assoc 'ruby-mode semantic-symref-filepattern-alist))))
 
 (setq enh-ruby-hanging-brace-deep-indent-level 1)
 (setq ruby-align-chained-calls t)

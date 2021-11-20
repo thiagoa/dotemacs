@@ -83,7 +83,7 @@ Examples of callbacks can be 'next-buffer and 'previous-buffer"
 
 (defun git-link-default-branch ()
   (interactive)
-  (git-link-branch "develop"))
+  (git-link-branch "main"))
 
 (defun git-link-branch (branch)
   "Get a github link for the given BRANCH at the current line."

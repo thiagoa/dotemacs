@@ -49,8 +49,8 @@
 
 (unless (wsl?)
   (if (equal system-type 'gnu/linux)
-      (defvar my-default-font "Menlo 14")
-    (defvar my-default-font "Menlo 14")))
+    (defvar my-default-font "DejaVu Sans Mono 13")
+  (defvar my-default-font "Menlo 14")))
 
 ;;;;;;;;;;;;;;;
 ;; which-key ;;
@@ -151,7 +151,7 @@
 ;; Theme. Good options: nord, zenburn, dracula, nimbus, spacemacs-dark, kaolin-dark, doom-molokai ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(load-theme 'kaolin-aurora t)
+(load-theme 'dracula t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; Lines and columns ;;
@@ -305,7 +305,8 @@
 ;;;;;;;;;;;;;;;;;
 
 (setq tags-add-tables nil
-      tags-revert-without-query 1)
+      tags-revert-without-query 1
+      tags-case-fold-search nil)
 
 ;;;;;;;;;;;
 ;; Dired ;;
