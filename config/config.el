@@ -47,9 +47,10 @@
 ;; Font ;;
 ;;;;;;;;;;
 
-(if (equal system-type 'gnu/linux)
-    (defvar my-default-font "DejaVu Sans Mono 11")
-  (defvar my-default-font "Menlo 14"))
+(unless (wsl?)
+  (if (equal system-type 'gnu/linux)
+      (defvar my-default-font "Menlo 14")
+    (defvar my-default-font "Menlo 14")))
 
 ;;;;;;;;;;;;;;;
 ;; which-key ;;
@@ -71,7 +72,9 @@
 ;; Frame config ;;
 ;;;;;;;;;;;;;;;;;;
 
-(add-to-list 'default-frame-alist `(font . ,my-default-font))
+(when (boundp 'my-default-font)
+  (add-to-list 'default-frame-alist `(font . ,my-default-font)))
+
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 (add-to-list 'default-frame-alist '(ns-appearance . dark))
