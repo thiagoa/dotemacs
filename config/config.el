@@ -180,7 +180,8 @@
       helm-split-window-default-side 'below
       helm-split-window-in-side-p t
       helm-buffer-max-length 35
-      helm-window-prefer-horizontal-split t) ;; t means prefer vertical split
+      helm-window-prefer-horizontal-split t  ;; t means prefer vertical split
+      helm-grep-ag-command "ag --ignore=TAGS --line-numbers -S --color --nogroup %s %s %s")
 
 (add-helm-projectile-projects-action
  '(("Rails console"        "M-r"   execute-projectile-rails-console-under-dir)
