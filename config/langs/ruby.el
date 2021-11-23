@@ -50,7 +50,7 @@
           (lambda ()
             (setq inf-ruby-buffers
                   (delete (get-buffer "*rspec-compilation*") inf-ruby-buffers))
-            (unless wsl? (ruby-finish-test-compilation))))
+            (unless (wsl?) (ruby-finish-test-compilation))))
 
 (add-hook 'rspec-before-verification-hook
           (lambda ()
