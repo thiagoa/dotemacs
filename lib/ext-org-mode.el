@@ -69,5 +69,10 @@ Replaces remote links with local lines."
       (org-download-image (plist-get i :url))
       (insert (concat "[[" org-download-path-last-file "]]")))))
 
+(defun org-journal-dired ()
+  "Open org journal folder in dired."
+  (interactive)
+  (dired org-journal-dir))
+
 (provide 'ext-org-mode)
 ;;; ext-org-mode.el ends here
