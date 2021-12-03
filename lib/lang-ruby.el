@@ -301,5 +301,13 @@ Read more about this function in `ruby-code-for-fully-qualified-name-top'."
                  "")
      "\n")))
 
+(defun ruby-set-standardrb-project ()
+  (interactive)
+  (find-file (concat (projectile-project-root) "Gemfile"))
+  (add-dir-local-variable 'enh-ruby-mode 'flycheck-checker 'ruby-standardrb)
+  (save-buffer)
+  (kill-buffer (current-buffer))
+  (kill-buffer (current-buffer)))
+
 (provide 'lang-ruby)
 ;;; lang-ruby.el ends here
