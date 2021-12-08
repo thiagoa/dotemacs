@@ -62,7 +62,6 @@
         git-link
         github-browse-file
         magit
-        magithub
         dired-git-info
 
         ;; Programming utils
