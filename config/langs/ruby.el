@@ -43,7 +43,7 @@
 
 (add-hook 'after-save-hook
           (lambda ()
-            (if (eq major-mode 'enh-ruby-mode)
+            (if (and (projectile-project-root) (eq major-mode 'enh-ruby-mode))
                 (call-interactively 'rbtagger-generate-tags))))
 
 (add-hook 'rspec-after-verification-hook
