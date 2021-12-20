@@ -67,6 +67,8 @@
 (require 'ext-process)
 (require 'goto-last-change)
 
+(load-if-exists "~/.emacs.custom.before.el")
+
 ;; Load configuration files
 (mapc (lambda (pattern)
         (mapc 'load

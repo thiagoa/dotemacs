@@ -47,10 +47,10 @@
 ;; Font ;;
 ;;;;;;;;;;
 
-(unless (wsl?)
+(unless (or (boundp 'my-default-font) (wsl?))
   (if (equal system-type 'gnu/linux)
-      (defvar my-default-font "Menlo 14")
-    (defvar my-default-font "Menlo 14")))
+      (defvar my-default-font "Menlo 12")
+    (defvar my-default-font "Menlo 12")))
 
 ;;;;;;;;;;;;;;;
 ;; which-key ;;
