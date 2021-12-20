@@ -72,6 +72,7 @@
         rainbow-delimiters
         string-inflection
         yasnippet
+        haml-mode
 
         ;; Misc modes / Lang modes
         aggressive-indent
