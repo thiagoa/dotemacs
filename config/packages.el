@@ -28,6 +28,7 @@
         which-key
         perspective
         lsp-mode
+        lsp-ui
         use-package
         visual-fill-column
 
@@ -99,6 +100,10 @@
 
         ;; JavaScript / JS
         rjsx-mode
+        typescript-mode
+        tide
+        prettier-js
+        add-node-modules-path
 
         ;; PHP
         php-mode
