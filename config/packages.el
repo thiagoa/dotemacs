@@ -64,6 +64,7 @@
         github-browse-file
         magit
         dired-git-info
+        forge
 
         ;; Programming utils
         company
