@@ -245,7 +245,8 @@
       confirm-kill-processes nil
       backup-directory-alist '(("" . "~/.emacs.d/backup"))
       backup-by-copying t
-      create-lockfiles nil)
+      create-lockfiles nil
+      explicit-shell-file-name "/usr/bin/zsh")
 
 (if (eq system-type 'darwin)
     (setq mac-right-command-modifier 'meta))
