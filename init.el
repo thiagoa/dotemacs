@@ -21,6 +21,8 @@
           (add-to-list 'load-path (expand-file-name dir root)))
         '("config" "lib" "snippets")))
 
+(require 'compatibility)
+
 ;; Require config base and packages
 (require 'config-base)
 
