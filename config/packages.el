@@ -126,6 +126,7 @@
         projectile-rails
         rbtagger
         rspec-mode
+        minitest
         rubocop
         seeing-is-believing
 

@@ -36,6 +36,7 @@
 (require 'ext-elisp)
 (require 'ext-compile)
 (require 'string-inflection)
+(require 'minitest)
 
 (defvar last-ruby-project nil)
 
@@ -308,6 +309,12 @@ Read more about this function in `ruby-code-for-fully-qualified-name-top'."
   (save-buffer)
   (kill-buffer (current-buffer))
   (kill-buffer (current-buffer)))
+
+(defun minitest--test-name-flag (test-name)
+  "Warning, monkey patch! Makes test name resolution work correctly."
+  (let ((flag (format "-n/%s/" (replace-regexp-in-string "?" "\\\?" test-name))))
+    (cond (minitest-use-spring (concat "TESTOPTS=" flag))
+          (t flag))))
 
 (provide 'lang-ruby)
 ;;; lang-ruby.el ends here

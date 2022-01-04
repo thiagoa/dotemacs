@@ -346,6 +346,12 @@
           (define-key map (kbd "C-c , s") 'tests-anywhere-verify-single))
         (list rspec-mode-map rspec-verifiable-mode-map)))
 
+(require 'minitest)
+
+(define-key minitest-mode-map (kbd "C-c , r") 'tests-anywhere-rerun)
+(define-key minitest-mode-map (kbd "C-c , a") 'tests-anywhere-verify-all)
+(define-key minitest-mode-map (kbd "C-c , s") 'tests-anywhere-verify-single)
+
 ;;;;;;;;;;;;;;
 ;; God mode ;;
 ;;;;;;;;;;;;;;
