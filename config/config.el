@@ -335,6 +335,9 @@
 ;; Magit ;;
 ;;;;;;;;;;;
 
+(use-package forge
+  :after magit)
+
 (let ((unstaged-changes-pos
        (cl-position 'magit-insert-unstaged-changes magit-status-sections-hook))
       (untracked-files-pos
