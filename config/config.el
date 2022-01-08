@@ -9,6 +9,7 @@
 (require 'dired-x)
 (require 'projectile)
 (require 'helm)
+(require 'helm-mode)
 (require 'helm-buffers)
 (require 'helm-for-files)
 (require 'ido)
