@@ -316,5 +316,11 @@ Read more about this function in `ruby-code-for-fully-qualified-name-top'."
     (cond (minitest-use-spring (concat "TESTOPTS=" flag))
           (t flag))))
 
+(defun minitest--post-command (test)
+  (let ((name (cdr test)))
+    (if (string= (car test) "it")
+        name
+      (format "%s" (replace-regexp-in-string "[\s:]" "_" name)))))
+
 (provide 'lang-ruby)
 ;;; lang-ruby.el ends here
