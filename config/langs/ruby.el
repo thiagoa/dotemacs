@@ -19,6 +19,9 @@
 
 (define-key projectile-rails-mode-map (kbd "C-c b") 'projectile-rails-command-map)
 
+(when (boundp 'projectile-rails-keymap-prefix)
+  (setq projectile-rails-keymap-prefix "C-c b"))
+
 (add-to-list 'auto-mode-alist '("\\.rb$" . enh-ruby-mode))
 (add-to-list 'auto-mode-alist
              '("\\(?:\\.rb\\|ru\\|rake\\|thor\\|jbuilder\\|gemspec\\|podspec\\|/\\(?:Gem\\|Rake\\|Cap\\|Thor\\|Vagrant\\|Guard\\|Pod\\)file\\)\\'" . enh-ruby-mode))
