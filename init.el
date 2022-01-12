@@ -68,6 +68,7 @@
 (require 'ext-rspec-mode)
 (require 'ext-process)
 (require 'goto-last-change)
+(require 'wsl)
 
 (load-if-exists "~/.emacs.custom.before.el")
 
