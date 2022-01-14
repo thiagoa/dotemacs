@@ -280,6 +280,10 @@
 ;; Projectile ;;
 ;;;;;;;;;;;;;;;;
 
+(add-to-list 'projectile-globally-ignored-files "*.org")
+(add-to-list 'projectile-globally-ignored-modes "org-mode")
+(add-to-list 'projectile-globally-ignored-directories "orgfiles")
+
 (setq projectile-enable-caching t
       projectile-indexing-method 'alien
       projectile-switch-project-action 'magit

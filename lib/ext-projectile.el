@@ -33,6 +33,7 @@
 (require 'projectile)
 (require 'helm-projectile)
 (require 'ext-elisp)
+(require 'projectile)
 
 (defun run-under-project-root (command)
   "Run COMMAND under the current project."
@@ -67,6 +68,12 @@ For use with helm-projectile-find-file."
 
 For use with helm-projectile-find-file."
   (execute-command-under-dir dir 'mu-helm-project-search))
+
+(defun projectile-find-file-hook-function-ext (&rest args)
+  (unless (or (derived-mode-p 'org-mode))
+    (apply (car args) (cdr args))))
+
+(advice-add 'projectile-find-file-hook-function :around #'projectile-find-file-hook-function-ext)
 
 (provide 'ext-projectile)
 ;;; ext-projectile.el ends here
