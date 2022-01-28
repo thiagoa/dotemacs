@@ -67,6 +67,7 @@
 (require 'ext-flycheck)
 (require 'ext-rspec-mode)
 (require 'ext-process)
+(require 'ext-magit)
 (require 'goto-last-change)
 (require 'wsl)
 
