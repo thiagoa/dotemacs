@@ -30,6 +30,7 @@
 
 ;;; Code:
 
+(require 'cl-seq)
 (require 'rspec-mode)
 (require 'projectile-rails)
 (require 'inf-ruby)
@@ -167,26 +168,48 @@ compilation mode in it immediately."
           (inf-ruby-maybe-switch-to-compilation)
         (inf-ruby-switch-from-compilation)))))
 
+(defun find-ruby-test-buffer-in-visible-windows ()
+  (or (car
+       (cl-remove-if-not
+        (lambda (buffer) (with-current-buffer buffer
+                           (or (eq major-mode 'minitest-compilation-mode)
+                               (eq major-mode 'rspec-compilation-mode)
+                               (eq major-mode 'inf-ruby-mode))))
+        (mapcar #'window-buffer (window-list))))
+      (error "No Ruby test buffer found")))
+
+(defun find-ruby-test-buffer ()
+  (let* ((buffer-list (cl-remove-if-not (lambda (buffer)
+                                          (string-match "*Minitest\\|*rspec"
+                                                        (buffer-name buffer)))
+                                        (buffer-list)))
+         (buffer (cl-remove-if-not (lambda (b) (comint-check-proc b))
+                                   buffer-list)))
+    (or buffer (first buffer-list))))
+
 (defun rspec-quit-pry ()
   "Quits Pry in the RSpec buffer if it's running."
   (interactive)
-  (with-current-buffer "*rspec-compilation*"
-    (if (equal major-mode 'rspec-compilation-mode)
-        (inf-ruby-switch-from-compilation))
-    (end-of-buffer)
-    (ignore-errors (crux-kill-whole-line))
-    (comint-send-eof)
-    (inf-ruby-maybe-switch-to-compilation)))
+  (let* ((buffer (find-ruby-test-buffer-in-visible-windows))
+         (mode (with-current-buffer buffer major-mode)))
+    (with-current-buffer buffer
+      (inf-ruby-switch-from-compilation)
+      (if (eq 'minitest-compilation-mode mode)
+          (comint-send-eof)
+        (end-of-buffer)
+        (ignore-errors (kill-line))
+        (comint-send-eof)
+        (inf-ruby-maybe-switch-to-compilation)))))
 
-(defun go-to-rspec-compilation-buffer ()
+(defun go-to-ruby-compilation-buffer ()
   "Go straight to rspec compilation buffer."
   (interactive)
-  (let ((buffer (get-buffer "*rspec-compilation*")))
+  (let ((buffer (find-ruby-test-buffer)))
     (if buffer
         (switch-to-buffer buffer)
-      (error "No rspec compilation buffer!"))))
+      (error "No Ruby compilation buffer!"))))
 
-(defun go-to-spec (func arg)
+(defun go-to-ruby-test-file-line (func arg)
   "Go to spec file in compilation buffer.
 
 Runs FUNC in compilation buffer until finding a spec file reference.
@@ -196,7 +219,8 @@ negative means move back to previous error messages."
   (go-to-file (simple-ilambda
                (while (progn
                         (call-interactively func)
-                        (not (looking-at ".*_spec\.rb*"))))) arg))
+                        (or (not (looking-at ".*_test\.rb*"))
+                            (not (looking-at ".*_spec\.rb*")))))) arg))
 
 (defun next-spec (&optional arg)
   "Go to next spec in compilation buffer.
@@ -204,7 +228,7 @@ negative means move back to previous error messages."
 A prefix ARG specifies how many error messages to move;
 negative means move back to previous error messages."
   (interactive "P")
-  (go-to-spec 'compilation-next-file arg))
+  (go-to-ruby-test-file-line 'compilation-next-file arg))
 
 (defun previous-spec (&optional arg)
   "Go to previous spec in compilation buffer.
@@ -212,7 +236,7 @@ negative means move back to previous error messages."
 A prefix ARG specifies how many error messages to move;
 negative means move back to previous error messages."
   (interactive "P")
-  (go-to-spec 'compilation-previous-file arg))
+  (go-to-ruby-test-file-line 'compilation-previous-file arg))
 
 (defvar ruby-code-for-fully-qualified-name-current-indentation 0
   "Keep track of the current indentation during yasnippet expansion.

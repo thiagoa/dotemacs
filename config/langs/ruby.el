@@ -89,4 +89,9 @@
 (setq rspec-use-opts-file-when-available nil)
 (setq rubocop-check-command "rubocop --format emacs -D")
 
+(add-to-list 'compilation-error-regexp-alist-alist
+             '(minitest "\\[\\(.+_test\.rb\\):\\([0-9]+\\)\\]" 1 2 nil 2 1))
+
+(add-to-list 'compilation-error-regexp-alist 'minitest)
+
 ;;; ruby.el ends here

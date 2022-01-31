@@ -130,7 +130,7 @@
 (global-set-key (kbd "C-x C-\\")       'goto-last-change)
 (global-set-key (kbd "C-c a :")        'align-to-colon)
 (global-set-key (kbd "C-c a h")        'align-to-hash-colon)
-(global-set-key (kbd "s-i")            'go-to-rspec-compilation-buffer)
+(global-set-key (kbd "s-i")            'go-to-ruby-compilation-buffer)
 (global-set-key (kbd "C-x M-g")        'magit-dispatch-popup)
 (global-set-key (kbd "C-x C-f")        'helm-find-files)
 (global-set-key (kbd "C-x F")          'helm-find-files-project-root)
