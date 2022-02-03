@@ -213,6 +213,14 @@
 (define-key isearch-mode-map [(control return)] #'isearch-exit-other-end)
 
 ;;;;;;;;;;
+;; helm ;;
+;;;;;;;;;;
+
+;; I want this keybinding to be really global, to navigate across
+;; buffers
+(define-key helm-map (kbd "C-c l") nil)
+
+;;;;;;;;;;
 ;; Help ;;
 ;;;;;;;;;;
 
