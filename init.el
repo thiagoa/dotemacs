@@ -70,6 +70,7 @@
 (require 'ext-magit)
 (require 'goto-last-change)
 (require 'wsl)
+(require 'ext-emacs)
 
 (load-if-exists "~/.emacs.custom.before.el")
 
