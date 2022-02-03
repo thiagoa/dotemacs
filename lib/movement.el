@@ -65,7 +65,7 @@ If rspec-mode is enabled, goes to the next sentence."
 (defun go-to-alternate-buffer ()
   "Alternate between the current buffer and the previous."
   (interactive)
-  (switch-to-buffer (caar (window-prev-buffers))))
+  (switch-to-buffer (other-buffer (current-buffer))))
 
 (defun dired-file-at-point-dwim ()
   "Jump to file at point in dired."
