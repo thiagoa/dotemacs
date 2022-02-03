@@ -155,6 +155,10 @@
 (global-set-key (kbd "M-g M-S")        'previous-spec)
 (global-set-key (kbd "C-x %")          'my-server-edit)
 (global-set-key (kbd "<M-s-SPC>")      'mark-word)
+
+(when (wsl?)
+  (global-set-key (kbd "C-<f12>") 'mark-word))
+
 (global-set-key (kbd "C-c z")          'zap-to-char)
 (global-set-key (kbd "C-,")            'embrace-commander)
 (global-set-key (kbd "C-c o")          'yas-insert-snippet)
@@ -440,7 +444,9 @@
      (define-key paredit-mode-map (kbd "M-k") 'paredit-raise-sexp)
      (define-key paredit-mode-map (kbd "C-c u d") duplicate-sexp-below)
      (define-key paredit-mode-map (kbd "M-;") nil)
-     (define-key paredit-mode-map (kbd "C-M-'") 'paredit-comment-dwim)))
+     (define-key paredit-mode-map (kbd "C-M-'") 'paredit-comment-dwim)
+     (when (wsl?)
+       (define-key paredit-mode-map (kbd "C-<f11>") 'paredit-forward-slurp-sexp))))
 
 ;;;;;;;;;;;;;;;
 ;; Smartscan ;;

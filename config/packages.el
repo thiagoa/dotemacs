@@ -87,6 +87,7 @@
         sql-indent
         web-mode
         adoc-mode
+        ahk-mode ;; Windows' Autohotkey support
 
         ;; Org mode
         org-journal
