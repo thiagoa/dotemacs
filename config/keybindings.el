@@ -113,6 +113,7 @@
 (global-set-key (kbd "C-c C->")        'mc/reverse-regions)
 (global-unset-key                      (kbd "M-<down-mouse-1>"))
 (global-set-key (kbd "M-<mouse-1>")    'mc/add-cursor-on-click)
+(global-set-key (kbd "C-c , v")        'tests-anywhere-verify-single)
 (global-set-key (kbd "C-c , r")        'tests-anywhere-rerun)
 (global-set-key (kbd "C-c , a")        'tests-anywhere-verify-all)
 (global-set-key (kbd "s-]")            'cycle-magit-buffers-backward)

@@ -45,7 +45,10 @@
     (elixir . ((rerun . alchemist-mix-rerun-last-test)
                (verify-all . alchemist-mix-test)))
     (lein-test . ((rerun . cider-test-run-loaded-tests)
-                  (verify-all . cider-test-run-project-tests))))
+                  (verify-all . cider-test-run-project-tests)))
+    (typescript . ((rerun . jest-repeat)
+                   (verify-all . jest)
+                   (verify-single . jest-file))))
   "Mapping of 'project-type => test-function-type => test-function'.")
 
 (defvar tests-anywhere--state nil
@@ -95,7 +98,9 @@ project.  TYPE can be 'rerun, 'verify-all, 'verify-single, etc."
 
 (defun tests-anywhere--project-type ()
   "Is the current project known to tests-anywhere? If so, return its type."
-  (car (assoc (projectile-project-type) tests-anywhere--test-functions)))
+  (if (bound-and-true-p tide-mode)
+      'typescript
+    (car (assoc (projectile-project-type) tests-anywhere--test-functions))))
 
 (defun tests-anywhere--get-function (project-type type)
   "What test function should I run for PROJECT-TYPE and TYPE?
