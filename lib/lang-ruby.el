@@ -344,6 +344,12 @@ Read more about this function in `ruby-code-for-fully-qualified-name-top'."
   (let ((name (cdr test)))
     (if (string= (car test) "it")
         name
+      (format "%s" (replace-regexp-in-string "[\s]" "_" name)))))
+
+(defun minitest--post-command (test)
+  (let ((name (cdr test)))
+    (if (string= (car test) "it")
+        name
       (format "%s" (replace-regexp-in-string "[\s:]" "_" name)))))
 
 (provide 'lang-ruby)
