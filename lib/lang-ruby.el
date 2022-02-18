@@ -259,6 +259,7 @@ return '(\"First\" \"SecondThird\")"
                          (or (buffer-file-name)
                              (buffer-name (current-buffer)))))
          (relative-path (replace-regexp-in-string "_spec\.rb$" "" relative-path))
+         (relative-path (replace-regexp-in-string "_test\.rb$" "" relative-path))
          (relative-path (replace-regexp-in-string "\.rb$" "" relative-path))
          (parts (split-string relative-path "/"))
          (root-dir (car parts))
@@ -266,6 +267,7 @@ return '(\"First\" \"SecondThird\")"
                  ("app" (cddr parts))
                  ("lib" (cdr parts))
                  ("spec" (cddr parts))
+                 ("test" (cddr parts))
                  (_ (error "File doesn\'t belong to app or lib")))))
     (mapcar #'string-inflection-pascal-case-function path)))
 
