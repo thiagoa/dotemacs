@@ -37,7 +37,8 @@
   (interactive)
   (pcase (projectile-project-type)
     (`,(or 'ruby-rspec 'rails-rspec) (alt-file--switch-to-ruby-test-file))
-    (`,(or 'ruby-test 'rails-test) (alt-file--switch-to-ruby-test-file))))
+    (`,(or 'ruby-test 'rails-test) (alt-file--switch-to-ruby-test-file))
+    (_ (error "Language not supported"))))
 
 (defun alt-file--current-relative-path ()
   (replace-regexp-in-string (projectile-project-root) "" (or buffer-file-name "")))
