@@ -175,6 +175,7 @@
 (global-set-key (kbd "M-P")            'move-text-up-and-indent)
 (global-set-key (kbd "M-N")            'move-text-down-and-indent)
 (global-set-key (kbd "C-c C-o")        'xah-shrink-whitespaces)
+(global-set-key (kbd "C-c , t")        'alt-file-switch-to-test)
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Fast movement ;;
@@ -356,7 +357,8 @@
   (mapc (lambda (map)
           (define-key map (kbd "C-c , r") 'tests-anywhere-rerun)
           (define-key map (kbd "C-c , a") 'tests-anywhere-verify-all)
-          (define-key map (kbd "C-c , s") 'tests-anywhere-verify-single))
+          (define-key map (kbd "C-c , s") 'tests-anywhere-verify-single)
+          (define-key map (kbd "C-c , t") nil))
         (list rspec-mode-map rspec-verifiable-mode-map)))
 
 (require 'minitest)

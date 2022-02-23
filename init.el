@@ -71,6 +71,7 @@
 (require 'goto-last-change)
 (require 'wsl)
 (require 'ext-emacs)
+(require 'alt-file)
 
 (load-if-exists "~/.emacs.custom.before.el")
 

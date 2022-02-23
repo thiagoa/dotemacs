@@ -1,4 +1,4 @@
-;;; alternate_file.el  --- TODO  -*- lexical-binding: t; -*-
+;;; alt_file.el  --- TODO  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2022 Thiago Araújo Silva
 
@@ -90,11 +90,11 @@
                                          '("app/" "lib/")
                                          2nd-level-folder
                                          test-path-fallback))
-                        ("test" (progn (funcall path-selector
-                                                root
-                                                '("lib/" "app/")
-                                                2nd-level-folder
-                                                test-path-fallback))))))
+                        ("test" (funcall path-selector
+                                         root
+                                         '("lib/" "app/")
+                                         2nd-level-folder
+                                         test-path-fallback)))))
     (string-join (append (list dest-folder)
                          (cdr final-path-parts)
                          (list dest-file-name))
@@ -110,5 +110,5 @@
                  (ido-completing-read "Where should this file go? " '("app/" "lib/"))
                  2nd-level-folder)))))
 
-(provide 'alternate-file)
-;;; alternate_file.el ends here
+(provide 'alt-file)
+;;; alt_file.el ends here
