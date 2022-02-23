@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: rmctest
+# key: rmctest
+# description: Rails minitest boilerplate
+# --
+`(snippet-frozen-string-literal)`require `snippet-quote-char`test_helper`snippet-quote-char`
+
+class ${1:`(string-join (ruby-get-fully-qualified-name-parts-for-path) "::")`}Test < ${2:ActionDispatch::IntegrationTest}
+  $0
+end
