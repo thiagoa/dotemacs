@@ -88,6 +88,8 @@
         web-mode
         adoc-mode
         ahk-mode ;; Windows' Autohotkey support
+        dockerfile-mode
+        protobuf-mode
 
         ;; Org mode
         org-journal
