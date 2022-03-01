@@ -104,6 +104,7 @@
         slime ;; CL
 
         ;; JavaScript / JS
+        jest
         rjsx-mode
         typescript-mode
         tide
