@@ -105,46 +105,5 @@ This is the same as using \\[set-mark-command] with the prefix argument."
 (progn (advice-mapc (lambda (advice _props) (advice-remove 'iy-go-to-char--command advice)) 'yi-go-to-char--command)
        (advice-add 'iy-go-to-char--command :around 'iy-go-to-char--command--without-case-fold))
 
-(defvar thiago/exclude-buffers '("^*" "^\s\\*" "^magit-" "^TAGS$"))
-(defvar thiago/include-buffers '("^*scratch\\*$"))
-
-(defun thiago/go-to-alternate-buffer ()
-  "Alternate between the current buffer and the previous."
-  (interactive)
-  (let ((buffer (cl-find-if (lambda (buffer)
-                              (thiago/buffer-visitable-p
-                               (buffer-name buffer)))
-                            (mapcar (lambda (buffer-info) (car buffer-info))
-                                    (window-prev-buffers)))))
-    (when buffer (switch-to-buffer buffer))))
-
-(defun thiago/buffer-visitable-p (buffer-name)
-  (not (and (cl-find-if (lambda (re) (string-match re buffer-name))
-                        thiago/exclude-buffers)
-            (cl-find-if-not (lambda (re) (string-match re buffer-name))
-                            thiago/include-buffers))))
-
-(defun thiago/cycle-buffers (fun)
-  (let ((initial-buffer (current-buffer)))
-    (while (progn
-             (funcall fun)
-             (let* ((buffer (current-buffer))
-                    (buffer-name (buffer-name buffer)))
-               (and (not (eq buffer initial-buffer))
-                    (not (thiago/buffer-visitable-p buffer-name))))))
-    (set-transient-map
-     (let ((map (make-sparse-keymap)))
-       (define-key map (vector ?l) 'thiago/next-buffer)
-       (define-key map (vector ?h) 'thiago/previous-buffer)
-       map))))
-
-(defun thiago/next-buffer ()
-  (interactive)
-  (thiago/cycle-buffers 'next-buffer))
-
-(defun thiago/previous-buffer ()
-  (interactive)
-  (thiago/cycle-buffers 'previous-buffer))
-
 (provide 'movement)
 ;;; movement.el ends here

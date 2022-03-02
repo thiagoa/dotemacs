@@ -43,6 +43,7 @@
 (require 'tests-anywhere)
 (require 'text-editing)
 (require 'movement)
+(require 'navigation)
 (require 'window-management)
 (require 'git)
 (require 'lang-elixir)
