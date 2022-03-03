@@ -33,7 +33,7 @@
 
 (defvar thiago/non-visitable-buffers '("^*"
                                        "^\s\\*"
-                                       "^magit"
+                                       "^magit-"
                                        "^TAGS$")
   "Buffers matching any of the regexes from this list are not visitable.")
 

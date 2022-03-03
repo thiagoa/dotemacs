@@ -17,4 +17,10 @@
                     (set-variable 'indent-tabs-mode nil)
                     (set-variable 'tab-width 2))))
 
+(add-to-list 'compilation-error-regexp-alist-alist
+             '(jest "(\\(.+\\):\\([0-9]+\\):.+)" 1 2 nil 2 1))
+
+(add-to-list 'compilation-error-regexp-alist 'minitest)
+(add-to-list 'compilation-error-regexp-alist 'jest)
+
 ;;; javascript.el ends here
