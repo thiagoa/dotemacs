@@ -31,10 +31,18 @@
 
 ;;; Code:
 
-(defvar thiago/non-visitable-buffers '("^*" "^\s\\*" "^magit-" "^TAGS$")
+(defvar thiago/non-visitable-buffers '("^*"
+                                       "^\s\\*"
+                                       "^magit"
+                                       "^TAGS$")
   "Buffers matching any of the regexes from this list are not visitable.")
 
-(defvar thiago/non-visitable-buffer-exceptions '("^*scratch\\*$")
+(defvar thiago/non-visitable-buffer-exceptions '("^*scratch\\*$"
+                                                 "^*shell "
+                                                 "^*rails"
+                                                 "^*rspec"
+                                                 "^*jest"
+                                                 "^*Mini")
   "Regexes that define exceptions to NON-VISITABLE-BUFFERS.
 Buffers in this list are actually visitable because they override
 NON-VISITABLE-BUFFERS.")
@@ -42,10 +50,10 @@ NON-VISITABLE-BUFFERS.")
 (defun thiago/buffer-visitable-p (buffer)
   "Return whether BUFFER is visitable or not."
   (let ((buffer-name (buffer-name buffer)))
-    (not (and (cl-find-if (lambda (re) (string-match re buffer-name))
-                          thiago/non-visitable-buffers)
-              (cl-find-if-not (lambda (re) (string-match re buffer-name))
-                              thiago/non-visitable-buffer-exceptions)))))
+    (or (not (cl-find-if (lambda (re) (string-match re buffer-name))
+                         thiago/non-visitable-buffers))
+        (cl-find-if (lambda (re) (string-match re buffer-name))
+                    thiago/non-visitable-buffer-exceptions))))
 
 (defun thiago/go-to-alternate-buffer ()
   "Alternate between current and previous visitable buffers.
