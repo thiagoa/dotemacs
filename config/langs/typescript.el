@@ -45,4 +45,3 @@
 
 (add-hook 'web-mode-hook 'company-mode)
 (add-hook 'web-mode-hook 'prettier-js-mode)
-(add-hook 'web-mode-hook #'turn-on-smartparens-mode t)

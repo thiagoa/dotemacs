@@ -4,6 +4,8 @@
 
 ;;; Code:
 
+(require 'jest)
+
 (setq js-indent-level 2)
 
 (defun my/json-mode-hook () (setq tab-width 2))
