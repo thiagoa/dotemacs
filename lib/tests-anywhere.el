@@ -35,20 +35,32 @@
 (defconst tests-anywhere--test-functions
   '((rails-rspec . ((rerun . rspec-rerun)
                     (verify-all . rspec-verify-all)
-                    (verify-single . rspec-verify-single)))
+                    (verify-single . rspec-verify-single)
+                    (verify-file . rspec-verify)))
     (ruby-rspec . ((rerun . rspec-rerun)
                    (verify-all . rspec-verify-all)
-                   (verify-single . rspec-verify-single)))
+                   (verify-single . rspec-verify-single)
+                   (verify-file . rspec-verify)))
     (rails-test . ((rerun . minitest-rerun)
                    (verify-all . minitest-verify-all)
-                   (verify-single . minitest-verify-single)))
+                   (verify-single . minitest-verify-single)
+                   (verify-file . minitest-verify)))
     (elixir . ((rerun . alchemist-mix-rerun-last-test)
-               (verify-all . alchemist-mix-test)))
+               (verify-all . alchemist-mix-test)
+               (verify-single . alchemist-mix-test-at-point)
+               (verify-file . alchemist-mix-test-file)))
     (lein-test . ((rerun . cider-test-run-loaded-tests)
-                  (verify-all . cider-test-run-project-tests)))
+                  (verify-all . cider-test-run-project-tests)
+                  (verify-single . cider-test-run-test)
+                  (verify-file . cider-test-run-ns-tests)))
     (typescript . ((rerun . jest-repeat)
                    (verify-all . jest)
-                   (verify-single . jest-file))))
+                   (verify-single . jest-function)
+                   (verify-file . jest-file)))
+    (js2-mode . ((rerun . jest-repeat)
+                 (verify-all . jest)
+                 (verify-single . jest-function)
+                 (verify-file . jest-file))))
   "Mapping of 'project-type => test-function-type => test-function'.")
 
 (defvar tests-anywhere--state nil
@@ -98,7 +110,8 @@ project.  TYPE can be 'rerun, 'verify-all, 'verify-single, etc."
 
 (defun tests-anywhere--project-type ()
   "Is the current project known to tests-anywhere? If so, return its type."
-  (if (bound-and-true-p tide-mode)
+  (if (or (bound-and-true-p tide-mode)
+          (eq major-mode 'js2-mode))
       'typescript
     (car (assoc (projectile-project-type) tests-anywhere--test-functions))))
 
@@ -118,6 +131,11 @@ TYPE is the type of the function, such as 'rerun, 'verify-single, etc."
   "Run test at point."
   (interactive)
   (tests-anywhere--run 'verify-single))
+
+(defun tests-anywhere-verify-file ()
+  "Run test at point."
+  (interactive)
+  (tests-anywhere--run 'verify-file))
 
 (defun tests-anywhere-verify-all ()
   "Run every test."
