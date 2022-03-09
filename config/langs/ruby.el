@@ -80,6 +80,7 @@
              (cons 'enh-ruby-mode
                    (cdr (assoc 'ruby-mode semantic-symref-filepattern-alist))))
 
+(setq enh-ruby-deep-indent-construct nil)
 (setq enh-ruby-hanging-brace-deep-indent-level 1)
 (setq ruby-align-chained-calls t)
 (setq projectile-rails-expand-snippet nil)
