@@ -27,4 +27,16 @@ mode temporarily."
             (t (activate-mark)))
       nil)))
 
+(define-advice run-mode-hooks (:around (orig-fun &rest hooks) handle-error)
+  "Ensure errors during mode hooks are more apparent."
+  (condition-case err
+      (apply orig-fun hooks)
+    (error
+     (setq mode-name
+           `(:propertize ,mode-name face error
+                         help-echo ,(format "%s during run-mode-hooks"
+                                            (error-message-string err))))
+     (display-buffer (get-buffer "*Messages*"))
+     (funcall #'signal (car err) (cdr err)))))
+
 (provide 'ext-emacs)
