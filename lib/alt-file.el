@@ -45,29 +45,34 @@
 
 (defvar alt-file-second-level-test-aliases '(("integration" . "controllers")))
 
-(defun alt-file--path-selector (root paths 2nd-level-folder fallback)
-  (let ((paths (mapcar (lambda (path) (concat root path 2nd-level-folder))
-                       paths)))
+(defun alt-file--path-selector (root paths 2nd-level-folders fallback)
+  (let ((paths (apply #'append
+                      (mapcar (lambda (path)
+                                (mapcar (lambda (2nd-level-folder)
+                                          (concat root path 2nd-level-folder))
+                                        2nd-level-folders))
+                              paths))))
+
     (or (car (cl-remove-if-not (lambda (path) (file-exists-p path))
                                paths))
-        (funcall fallback 2nd-level-folder))))
+        (funcall fallback (car 2nd-level-folders)))))
 
 (defun alt-file--find-ruby-test-file (root path path-selector test-path-fallback)
   (let* ((path-parts (split-string path "/"))
          (final-path-parts (butlast (cdr path-parts)))
          (1st-level-folder (car path-parts))
-         (minitest-p (equal "test" 1st-level-folder))
-         (rspec-p (equal "spec" 1st-level-folder))
-         (test-p (or minitest-p rspec-p))
+         (rspec-p (file-exists-p (concat (projectile-project-root) "spec")))
+         (from-test-p (or (equal "test" 1st-level-folder)
+                          (equal "spec" 1st-level-folder)))
          (source-file-name (car (last path-parts)))
-         (dest-file-name (if test-p
+         (dest-file-name (if from-test-p
                              (replace-regexp-in-string "_spec.rb\\|_test.rb"
                                                        ".rb"
                                                        source-file-name)
                            (replace-regexp-in-string ".rb"
                                                      (if rspec-p "_spec.rb" "_test.rb")
                                                      source-file-name)))
-         (2nd-level-folder (if test-p
+         (2nd-level-folder (if from-test-p
                                (or (cdr (assoc (car final-path-parts)
                                                alt-file-second-level-test-aliases))
                                    (car final-path-parts))
@@ -78,23 +83,23 @@
                         ("app" (funcall path-selector
                                         root
                                         '("test/" "spec/")
-                                        2nd-level-folder
+                                        (list 2nd-level-folder)
                                         (lambda (_) (error "No test folder found!"))))
                         ("lib" (funcall path-selector
                                         root
                                         '("spec/")
-                                        "lib"
+                                        '("lib" nil)
                                         (lambda (_) (concat root
                                                             (if rspec-p "spec/" "test/")))))
                         ("spec" (funcall path-selector
                                          root
-                                         '("app/" "lib/")
-                                         2nd-level-folder
+                                         '("lib/" "app/" nil)
+                                         (list 2nd-level-folder)
                                          test-path-fallback))
                         ("test" (funcall path-selector
                                          root
-                                         '("lib/" "app/")
-                                         2nd-level-folder
+                                         '("lib/" "app/" nil)
+                                         (list 2nd-level-folder)
                                          test-path-fallback)))))
     (string-join (append (list dest-folder)
                          (cdr final-path-parts)
