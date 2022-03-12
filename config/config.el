@@ -136,6 +136,9 @@
 ;; GUI Emacs config ;;
 ;;;;;;;;;;;;;;;;;;;;;;
 
+(when (boundp 'pixel-scroll-precision-mode)
+  (pixel-scroll-precision-mode))
+
 (ignore-errors (menu-bar-mode -1))
 (ignore-errors (scroll-bar-mode -1))
 (ignore-errors (tooltip-mode -1))
