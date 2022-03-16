@@ -92,14 +92,14 @@ negative means move back to previous error messages."
 (defun switch-to-compilation (compilation-buffer &optional func)
   "Make sure compilation mode is on on COMPILATION-BUFFER (rspec buffer)."
   (let* ((buffer-name (buffer-name compilation-buffer))
+         (buffer-major-mode (with-current-buffer buffer-name major-mode))
          (inf-ruby-mode-p (and (string-prefix-p "*rspec-" buffer-name)
-                               (eq 'inf-ruby-mode
-                                   (with-current-buffer buffer-name major-mode)))))
+                               (eq 'inf-ruby-mode buffer-major-mode))))
     (if inf-ruby-mode-p
         (with-current-buffer buffer-name
           (progn
-            (inf-ruby-maybe-switch-to-compilation)
-            (if func (funcall func buffer-name)))))))
+            (inf-ruby-maybe-switch-to-compilation))))
+    (if func (funcall func buffer-name))))
 
 ;; TODO: Refactor
 (defun with-compilation-mode-off (func)

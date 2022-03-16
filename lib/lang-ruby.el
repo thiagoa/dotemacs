@@ -219,8 +219,7 @@ negative means move back to previous error messages."
   (go-to-file (simple-ilambda
                (while (progn
                         (call-interactively func)
-                        (or (not (looking-at ".*_test\.rb*"))
-                            (not (looking-at ".*_spec\.rb*")))))) arg))
+                        (not (looking-at ".*_\\(test\\|spec\\)\.rb*"))))) arg))
 
 (defun next-spec (&optional arg)
   "Go to next spec in compilation buffer.
