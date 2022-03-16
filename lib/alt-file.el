@@ -43,7 +43,7 @@
 (defun alt-file--current-relative-path ()
   (replace-regexp-in-string (projectile-project-root) "" (or buffer-file-name "")))
 
-(defvar alt-file-second-level-test-aliases '(("integration" . "controllers")))
+(defvar alt-file-second-level-test-aliases '(("requests" . "controllers")))
 
 (defun alt-file--path-selector (root paths 2nd-level-folders fallback)
   (let ((paths (apply #'append
@@ -52,7 +52,6 @@
                                           (concat root path 2nd-level-folder))
                                         2nd-level-folders))
                               paths))))
-
     (or (car (cl-remove-if-not (lambda (path) (file-exists-p path))
                                paths))
         (funcall fallback (car 2nd-level-folders)))))
