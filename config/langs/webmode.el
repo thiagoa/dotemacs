@@ -10,4 +10,7 @@
 (add-hook 'web-mode-hook  'my-web-mode-hook)
 (add-hook 'web-mode-hook 'safe-linum-mode)
 
+(setq web-mode-enable-auto-expanding t)
+(setq web-mode-enable-auto-quoting t)
+
 ;;; webmode.el ends here

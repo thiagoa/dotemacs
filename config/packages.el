@@ -103,13 +103,14 @@
         redshank ;; CL
         slime ;; CL
 
-        ;; JavaScript / JS
+        ;; JavaScript / JS / HTML
         jest
         rjsx-mode
         typescript-mode
         tide
         prettier-js
         add-node-modules-path
+        impatient-mode
 
         ;; PHP
         php-mode
