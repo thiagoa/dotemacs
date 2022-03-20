@@ -42,5 +42,10 @@ but not from the selected branch TARGET are being rebased."
   (magit-git-rebase target args)
   (message "Rebasing...done"))
 
+(defun thiago/stage-file-and-extend-commit ()
+  (interactive)
+  (call-interactively 'magit-stage-file)
+  (magit-commit-extend))
+
 (provide 'ext-magit)
 ;;; ext-magit.el ends here
