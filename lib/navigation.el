@@ -38,7 +38,7 @@
   "Buffers matching any of the regexes from this list are not visitable.")
 
 (defvar thiago/non-visitable-buffer-exceptions '("^*scratch\\*$"
-                                                 "^*shell "
+                                                 "^*shell"
                                                  "^*rails"
                                                  "^*rspec"
                                                  "^*jest"
