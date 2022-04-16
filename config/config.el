@@ -30,6 +30,14 @@
 
 (run-server)
 
+;;;;;;;;;;;;;;;
+;; undo-tree ;;
+;;;;;;;;;;;;;;;
+
+(setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/tmp/undo"))
+      undo-tree-visualizer-diff t
+      undo-tree-visualizer-timestamps t)
+
 ;;;;;;;;;;;;;;
 ;; windmove ;;
 ;;;;;;;;;;;;;;
