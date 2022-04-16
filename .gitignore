@@ -36,3 +36,7 @@ eln-cache
 ./backup
 projects
 forge-database.sqlite
+.cache
+eclipse.jdt.ls
+.dap-breakpoints
+workspace
