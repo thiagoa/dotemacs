@@ -41,7 +41,8 @@
                          (smartscan-mode)
                          (rubocop-mode)
                          (rbtagger-mode)
-                         (simple-autopair-mode))))
+                         (simple-autopair-mode)
+                         (company-mode))))
       '(ruby-mode enh-ruby-mode-hook))
 
 (add-hook 'after-save-hook
