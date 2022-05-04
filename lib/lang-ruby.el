@@ -185,7 +185,7 @@ compilation mode in it immediately."
                                         (buffer-list)))
          (buffer (cl-remove-if-not (lambda (b) (comint-check-proc b))
                                    buffer-list)))
-    (or buffer (first buffer-list))))
+    (or buffer (car buffer-list))))
 
 (defun rspec-quit-pry ()
   "Quits Pry in the RSpec buffer if it's running."
