@@ -216,6 +216,8 @@
 ;; Perspective ;;
 ;;;;;;;;;;;;;;;;;
 
+(setq persp-mode-prefix-key (kbd "C-c M-p"))
+
 (persp-mode)
 
 (add-to-list 'persp-switch-hook
