@@ -81,7 +81,11 @@
 ;; Frame config ;;
 ;;;;;;;;;;;;;;;;;;
 
-(when (boundp 'my-default-font)
+(defun font-available-p (font-name)
+  "Check if FONT-NAME is available."
+  (find-font (font-spec :name font-name)))
+
+(when (and (boundp 'my-default-font) (font-available-p my-default-font))
   (add-to-list 'default-frame-alist `(font . ,my-default-font)))
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
