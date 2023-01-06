@@ -191,6 +191,7 @@
 ;;;;;;;;;;
 
 (setq helm--url-regexp "WILL-NEVER-EVER-MATCH-I-DONT-WANT-THIS-FUNCTIONALITY"
+      ffap-machine-p-known 'reject
       helm-buffers-fuzzy-matching t
       helm-recentf-fuzzy-match t
       helm-split-window-default-side 'below
