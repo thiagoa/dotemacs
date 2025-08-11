@@ -202,6 +202,7 @@
 
 (add-helm-projectile-projects-action
  '(("Rails console"        "M-r"   execute-projectile-rails-console-under-dir)
+   ("Magit"                "M-g"   magit-status)
    ("Find file in project" "C-f"   helm-fzf)
    ("Open project shell"   "M-s"   execute-helm-project-shell-under-dir)
    ("Find with ag"         "C-M-a" execute-helm-ag-under-dir)))
