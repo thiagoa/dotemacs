@@ -48,7 +48,7 @@
     (elixir . ((rerun . alchemist-mix-rerun-last-test)
                (verify-all . alchemist-mix-test)
                (verify-single . alchemist-mix-test-at-point)
-               (verify-file . alchemist-mix-test-file)))
+               (verify-file . alchemist-mix-test-this-buffer)))
     (lein-test . ((rerun . cider-test-run-loaded-tests)
                   (verify-all . cider-test-run-project-tests)
                   (verify-single . cider-test-run-test)
