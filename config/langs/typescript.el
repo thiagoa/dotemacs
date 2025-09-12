@@ -30,6 +30,7 @@
 
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
 
+(add-to-list 'auto-mode-alist '("\\.mts$" . typescript-mode))
 (add-to-list 'auto-mode-alist '("\\.tsx$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.js.*$" . rjsx-mode))
 (add-to-list 'auto-mode-alist '("\\.json$" . json-mode))

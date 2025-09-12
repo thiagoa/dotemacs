@@ -14,6 +14,7 @@
 (add-hook 'elixir-mode-hook 'company-mode)
 (add-hook 'elixir-mode-hook 'smartscan-mode)
 (add-hook 'elixir-mode-hook (lambda () (add-hook 'before-save-hook 'elixir-format nil t)))
+
 (add-to-list 'elixir-mode-hook 'auto-activate-ruby-end-mode-for-elixir-mode)
 ;; Place Elixir projects first to avoid them being confused with Yarn
 ;; projects. Elixir projects often have Yarn artifacts.

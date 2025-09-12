@@ -175,5 +175,10 @@ for file types to search in."
                                           default-directory)))
   (mu-helm-rg directory nil nil))
 
+(defun helm-ff--in-backup-directory ()
+  (when backup-directory-alist
+    (cl-loop for (_p . f) in backup-directory-alist
+             thereis (file-equal-p f (or helm-ff-default-directory "")))))
+
 (provide 'ext-helm)
 ;;; ext-helm.el ends here
