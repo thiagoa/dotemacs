@@ -12,7 +12,8 @@
   (eldoc-mode)
   (lsp-ui-mode)
   (tide-hl-identifier-mode)
-  (company-mode))
+  (company-mode)
+  (safe-linum-mode))
 
 ;; Consider making these vars buffer local in the future
 (setq company-tooltip-align-annotations t)
